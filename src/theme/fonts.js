@@ -1,0 +1,16 @@
+export default {
+  primaryBlack: 'Poppins-Black',
+  primaryBold: 'Poppins-Bold',
+  primaryExtraBold: 'Poppins-ExtraBold',
+  primaryMedium: 'Poppins-Medium',
+  primary: 'Poppins-Regular',
+  primarySemiBold: 'Poppins-SemiBold',
+  // primaryItalic: 'Poppins-Italic',
+  // NafeesNaskh: 'NafeesNaskh',
+  // PlayfairSemiBold: 'PlayfairDisplay-SemiBold',  
+  // SourceSerifProBold: 'SourceSerifPro-Bold',
+  // SourceSerifProSemiBold: 'SourceSerifPro-SemiBold',
+  // SourceSerifProRegular: 'SourceSerifPro-Regular',
+  // SourceSerifProLight: 'SourceSerifPro-Light',
+  // SourceSerifProExtraLight: 'SourceSerifPro-ExtraLight',
+};
