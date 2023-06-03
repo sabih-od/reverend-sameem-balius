@@ -8,6 +8,7 @@ const colorScheme = {
   deepblue: 'rgba(7, 16, 32, 1.0)',
   darkblue: 'rgba(12, 32, 66, 1.0)',
   lightblue: 'rgba(55, 126, 190, 1.0)',
+  placeholdercolor: 'rgba(28,53,63, 0.7)',
 };
 
 
