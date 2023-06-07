@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 // import { fonts } from "../../theme";
 import { useForm } from 'react-hook-form';
-import { colors, fonts } from "../../theme";
+import { colorScheme, colors, fonts, invertcolor } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
+import globalstyle from "../../theme/style";
 
 
 const SignUp = (props) => {
@@ -28,20 +29,27 @@ const SignUp = (props) => {
     console.log('data => ', errors)
     const onSubmit = (data) => {
         console.log('data => ', data)
+        props.navigation.navigate('Login');
     }
 
+    const input01 = useRef();
+    const input02 = useRef();
+    const input03 = useRef();
+    const input04 = useRef();
+    const input05 = useRef();
+
     return <SafeAreaView style={{ flex: 1 }}>
-        <ImageBackground style={{ paddingVertical: 60, paddingHorizontal: 15, flex: 1, justifyContent: 'space-between', }} resizeMode="cover" source={require('./../../../assets/images/auth-bg.jpg')}>
+        <ImageBackground style={globalstyle.authbgimage} resizeMode="cover" source={colorScheme == 'dark' ? require('./../../../assets/images/home-bg.jpg') : require('./../../../assets/images/auth-bg.jpg')}>
             <ScrollView style={{ flex: 1, }}>
                 <View>
-                    <Text style={styles.authheading}>SignUp</Text>
-                    <Text style={styles.authdescription}>Add Your Details to Signup</Text>
+                    <Text style={globalstyle.authheading}>SignUp</Text>
+                    <Text style={globalstyle.authdescription}>Add Your Details to Signup</Text>
                 </View>
                 <View>
-                    <View style={styles.inputbox}>
-                        <Icon name={'user'} size={18} />
+                    <View style={globalstyle.inputbox}>
+                        <Icon style={globalstyle.authlefticon} name={'user'} size={18} />
                         <TextInput
-                            style={styles.inputfield}
+                            style={globalstyle.inputfield}
                             placeholder="Full Name"
                             placeholderTextColor={colors.placeholdercolor}
                             {...register('fullname', {
@@ -52,14 +60,18 @@ const SignUp = (props) => {
                                     message: "Please provide a valid name"
                                 },
                             })}
+                            onChangeText={(value) => setValue('fullname', value)}
+                            ref={input01}
+                            returnKeyType="next"
+                            onSubmitEditing={() => input02.current.focus()}
                         />
                     </View>
-                    {errors.fullname && <Text style={styles.errorField}>{errors.fullname.message}</Text>}
+                    {errors.fullname && <Text style={globalstyle.errorField}>{errors.fullname.message}</Text>}
 
-                    <View style={styles.inputbox}>
-                        <Icon name={'mail'} size={18} />
+                    <View style={globalstyle.inputbox}>
+                        <Icon style={globalstyle.authlefticon} name={'mail'} size={18} />
                         <TextInput
-                            style={styles.inputfield}
+                            style={globalstyle.inputfield}
                             placeholder="Email Address"
                             placeholderTextColor={colors.placeholdercolor}
                             {...register('email', {
@@ -73,15 +85,17 @@ const SignUp = (props) => {
                             // defaultValue={''}
                             onChangeText={(value) => setValue('email', value)}
                             autoCapitalize='none'
-
+                            ref={input02}
+                            returnKeyType="next"
+                            onSubmitEditing={() => input03.current.focus()}
                         />
                     </View>
-                    {errors.email && <Text style={styles.errorField}>{errors.email.message}</Text>}
+                    {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
 
-                    <View style={styles.inputbox}>
-                        <Icon name={'phone'} size={18} />
+                    <View style={globalstyle.inputbox}>
+                        <Icon style={globalstyle.authlefticon} name={'phone'} size={18} />
                         <TextInput
-                            style={styles.inputfield}
+                            style={globalstyle.inputfield}
                             placeholder="Phone Number"
                             placeholderTextColor={colors.placeholdercolor}
                             // keyboardType='phone-pad'
@@ -94,15 +108,19 @@ const SignUp = (props) => {
                                     message: "Please provide valid phone number"
                                 },
                             })}
+                            onChangeText={(value) => setValue('phone', value)}
+                            ref={input03}
+                            returnKeyType="next"
+                            onSubmitEditing={() => input04.current.focus()}
                         />
                     </View>
-                    {errors.phone && <Text style={styles.errorField}>{errors.phone.message}</Text>}
+                    {errors.phone && <Text style={globalstyle.errorField}>{errors.phone.message}</Text>}
 
-                    <View style={[styles.inputbox, { justifyContent: 'space-between' }]}>
+                    <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Icon name={'lock'} size={18} />
+                            <Icon style={globalstyle.authlefticon} name={'lock'} size={18} />
                             <TextInput
-                                style={styles.inputfield}
+                                style={[globalstyle.inputfield, { flex: 0.8 }]}
                                 placeholder="Password"
                                 placeholderTextColor={colors.placeholdercolor}
                                 {...register('password', {
@@ -113,19 +131,32 @@ const SignUp = (props) => {
                                 // defaultValue={'tabish@123'}
                                 // inputRef={password.ref}
                                 onChangeText={(value) => setValue('password', value)}
-                                secureTextEntry={true}
+                                secureTextEntry={!showPassword ? true : false}
                                 autoCapitalize='none'
+                                ref={input04}
+                                // returnKeyType="next"
+                                // onSubmitEditing={() => input05.current.focus()}
                             />
                         </View>
-                        <TouchableOpacity activeOpacity={0.8} style={{ padding: 10 }} onPress={() => { setShowPassword(!showPassword) }}><Icon name={!showPassword ? 'eye' : 'eye-off'} size={18} /></TouchableOpacity>
+                        <TouchableOpacity activeOpacity={0.8} style={globalstyle.showhideicontouch} onPress={() => { setShowPassword(!showPassword) }}>
+                            <Icon name={!showPassword ? 'eye' : 'eye-off'} size={18} style={globalstyle.showhideicon} />
+                        </TouchableOpacity>
                     </View>
-                    {errors.password && <Text style={styles.errorField}>{errors.password.message}</Text>}
-                    <TouchableOpacity activeOpacity={0.8} onPress={handleSubmit(onSubmit)} style={styles.button}>
-                        <Text style={styles.buttontext}>Sign Up</Text>
+                    {errors.password && <Text style={globalstyle.errorField}>{errors.password.message}</Text>}
+                    <TouchableOpacity activeOpacity={0.8} onPress={handleSubmit(onSubmit)}
+                        style={globalstyle.authbutton}>
+                        <Text style={globalstyle.authbuttontext}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.alreadysignin}><Text style={{ fontFamily: fonts.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>Already have an account? <TouchableOpacity activeOpacity={0.8} style={{ marginBottom: -3 }} onPress={() => { props.navigation.navigate('Login') }}><Text style={{ color: '#f00', fontFamily: fonts.primary }}>Login</Text></TouchableOpacity></Text></View>
+                <View style={globalstyle.alreadysignin}>
+                    <Text style={globalstyle.alreadyaccount}>Already have an account? </Text>
+                    <TouchableOpacity activeOpacity={0.8}
+                        onPress={() => { props.navigation.navigate('Login') }}>
+                        <Text style={globalstyle.actionauthtext}>Login</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{paddingBottom: 30}} />
             </ScrollView>
         </ImageBackground>
     </SafeAreaView>
@@ -134,12 +165,5 @@ const SignUp = (props) => {
 export default SignUp;
 
 const styles = StyleSheet.create({
-    button: { backgroundColor: colors.orange, borderRadius: 30, paddingVertical: 11, marginTop: 20 },
-    buttontext: { textTransform: 'uppercase', fontSize: 18, fontFamily: fonts.primarySemiBold, textAlign: 'center', color: '#fff' },
-    authheading: { textTransform: 'uppercase', fontFamily: fonts.primaryBold, fontSize: 32, marginBottom: 5, textAlign: 'center' },
-    authdescription: { fontFamily: fonts.primary, marginBottom: 60, textAlign: 'center', color: '#333' },
-    inputbox: { backgroundColor: '#fff', marginBottom: 5, borderRadius: 50, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginTop: 15 },
-    inputfield: { paddingHorizontal: 15, paddingVertical: 15, fontFamily: fonts.primary, width: '100%' },
-    alreadysignin: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, },
-    errorField: { color: '#f00', fontFamily: fonts.primary, fontSize: 12, marginTop: 4, marginLeft: 15 },
+
 })

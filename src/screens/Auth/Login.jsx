@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 // import { fonts } from "../../theme";
 import { useForm } from 'react-hook-form';
-import { colors, fonts } from "../../theme";
+import { colorScheme, colors, fontcolor, fonts, invertcolor } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
+import globalstyle from "../../theme/style";
 // import Icon from 'react-native-vector-icons/Ionicons';
 
 
@@ -30,22 +31,24 @@ const SignUp = (props) => {
 
     const onSubmit = (data) => {
         console.log('data => ', data);
-        props.navigation.navigate('Home')
+        props.navigation.navigate('Screens')
     }
 
+    const input01 = useRef();
+    const input02 = useRef();
+
     return <SafeAreaView style={{ flex: 1 }}>
-        <ImageBackground style={{ paddingVertical: 60, paddingHorizontal: 15, flex: 1, justifyContent: 'space-between', }} resizeMode="cover" source={require('./../../../assets/images/auth-bg.jpg')}>
+        <ImageBackground style={globalstyle.authbgimage} resizeMode="cover" source={colorScheme == 'dark' ? require('./../../../assets/images/home-bg.jpg') : require('./../../../assets/images/auth-bg.jpg')}>
             <ScrollView style={{ flex: 1, }}>
                 <View>
-                    <Text style={styles.authheading}>Login</Text>
-                    <Text style={styles.authdescription}>Add Your Details to Login</Text>
+                    <Text style={globalstyle.authheading}>Login</Text>
+                    <Text style={globalstyle.authdescription}>Add Your Details to Login</Text>
                 </View>
-
                 <View>
-                    <View style={styles.inputbox}>
-                        <Icon name={'mail'} size={18} />
+                    <View style={globalstyle.inputbox}>
+                        <Icon color={colors.black} name={'mail'} size={18} />
                         <TextInput
-                            style={styles.inputfield}
+                            style={globalstyle.inputfield}
                             placeholder="Email Address"
                             {...register('email', {
                                 // value: 'asdas',
@@ -55,22 +58,26 @@ const SignUp = (props) => {
                                     message: "Please provide valid email"
                                 },
                             })}
-                            // defaultValue={''}
+                            // defaultValue={'john.cena@mailinator.com'}
                             placeholderTextColor={colors.placeholdercolor}
                             autoCapitalize='none'
                             onChangeText={(value) => setValue('email', value)}
+                            ref={input01}
+                            returnKeyType="next"
+                            onSubmitEditing={() => input02.current.focus()}
                         />
                     </View>
-                    {errors.email && <Text style={styles.errorField}>{errors.email.message}</Text>}
+                    {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
                     <TouchableOpacity activeOpacity={0.8} style={styles.forgetpasslink}>
                         <Text style={styles.forgetpasstext}>Forget Password?</Text>
                     </TouchableOpacity>
-                    <View style={[styles.inputbox, { justifyContent: 'space-between' }]}>
+                    <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Icon name={'lock'} size={18} />
+                            <Icon color={colors.black} name={'lock'} size={18} />
                             <TextInput
-                                style={styles.inputfield}
+                                style={[globalstyle.inputfield, { flex: 0.8 }]}
                                 placeholder="Password"
+                                placeholderTextColor={colors.placeholdercolor}
                                 {...register('password', {
                                     value: '',
                                     required: 'Password is required',
@@ -78,21 +85,23 @@ const SignUp = (props) => {
                                 })}
                                 // defaultValue={'tabish@123'}
                                 // inputRef={password.ref}
-                                placeholderTextColor={colors.placeholdercolor}
-                                autoCapitalize='none'
                                 onChangeText={(value) => setValue('password', value)}
-                                secureTextEntry={true}
+                                secureTextEntry={!showPassword ? true : false}
+                                autoCapitalize='none'
+                                ref={input02}
+                                // returnKeyType="next"
+                                // onSubmitEditing={() => input05.current.focus()}
                             />
                         </View>
-                        <TouchableOpacity activeOpacity={0.8} style={{ padding: 10, zIndex: 1, position: 'absolute', right: 10, }} onPress={() => { setShowPassword(!showPassword) }}>
-                            <Icon name={!showPassword ? 'eye' : 'eye-off'} size={18} color={'#333'} />
+                        <TouchableOpacity activeOpacity={0.8} style={globalstyle.showhideicontouch} onPress={() => { setShowPassword(!showPassword) }}>
+                            <Icon name={!showPassword ? 'eye' : 'eye-off'} size={18} style={globalstyle.showhideicon} />
                         </TouchableOpacity>
                     </View>
-                    {errors.password && <Text style={styles.errorField}>{errors.password.message}</Text>}
+                    {errors.password && <Text style={globalstyle.errorField}>{errors.password.message}</Text>}
                     <TouchableOpacity activeOpacity={0.8}
                         onPress={handleSubmit(onSubmit)}
-                        style={styles.button}>
-                        <Text style={styles.buttontext}>Login</Text>
+                        style={globalstyle.authbutton}>
+                        <Text style={globalstyle.authbuttontext}>Login</Text>
                     </TouchableOpacity>
                 </View>
                 {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, marginBottom: 10 }}>
@@ -100,7 +109,13 @@ const SignUp = (props) => {
                     <Text style={{ fontFamily: fonts.primary }}>Or Sign In With</Text>
                     <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
                 </View> */}
-                <View style={styles.alreadysignin}><Text style={{ fontFamily: fonts.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>Don't have an account? <TouchableOpacity activeOpacity={0.8} style={{ marginBottom: -3 }} onPress={() => { props.navigation.navigate('SignUp') }}><Text style={{ color: '#f00', fontFamily: fonts.primary }}>Sign Up</Text></TouchableOpacity></Text></View>
+                <View style={globalstyle.alreadysignin}>
+                    <Text style={globalstyle.alreadyaccount}>Don't have an account? </Text>
+                    <TouchableOpacity activeOpacity={0.8} 
+                        onPress={() => { props.navigation.navigate('SignUp') }}>
+                            <Text style={globalstyle.actionauthtext}>Sign Up</Text>
+                        </TouchableOpacity>
+                    </View>
             </ScrollView>
         </ImageBackground>
     </SafeAreaView>
@@ -109,14 +124,14 @@ const SignUp = (props) => {
 export default SignUp;
 
 const styles = StyleSheet.create({
-    button: { backgroundColor: colors.orange, borderRadius: 30, paddingVertical: 11, marginTop: 20 },
-    buttontext: { textTransform: 'uppercase', fontSize: 18, fontFamily: fonts.primarySemiBold, textAlign: 'center', color: '#fff' },
-    authheading: { textTransform: 'uppercase', fontFamily: fonts.primaryBold, fontSize: 32, marginBottom: 5, textAlign: 'center' },
-    authdescription: { fontFamily: fonts.primary, marginBottom: 60, textAlign: 'center', color: '#333' },
-    inputbox: { backgroundColor: '#fff', marginBottom: 5, borderRadius: 50, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20 },
-    inputfield: { paddingHorizontal: 15, paddingVertical: 15, fontFamily: fonts.primary, width: '100%' },
-    alreadysignin: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, },
-    forgetpasslink: { marginLeft: 'auto', marginTop: 20, marginBottom: 5, marginRight: 15 },
+    // button: { backgroundColor: colors.orange, borderRadius: 30, paddingVertical: 11, marginTop: 20 },
+    // buttontext: { textTransform: 'uppercase', fontSize: 18, fontFamily: fonts.primarySemiBold, textAlign: 'center', color: '#fff' },
+    // authheading: { textTransform: 'uppercase', fontFamily: fonts.primaryBold, fontSize: 32, marginBottom: 5, textAlign: 'center', color: fontcolor },
+    // authdescription: { fontFamily: fonts.primary, marginBottom: 60, textAlign: 'center', color: fontcolor },
+    // inputbox: { backgroundColor: '#fff', marginBottom: 5, borderRadius: 50, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20 },
+    // inputfield: { paddingHorizontal: 15, paddingVertical: 15, fontFamily: fonts.primary, width: '100%', color: colors.black },
+    // alreadysignin: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, },
+    forgetpasslink: { marginLeft: 'auto', marginTop: 10, marginBottom: 0, marginRight: 15 },
     forgetpasstext: { color: '#f00', fontFamily: fonts.primary, fontSize: 13 },
-    errorField: { color: '#f00', fontFamily: fonts.primary, fontSize: 12, marginTop: 4, marginLeft: 15 },
+    // errorField: { color: '#f00', fontFamily: fonts.primary, fontSize: 12, marginTop: 4, marginLeft: 15 },
 })
