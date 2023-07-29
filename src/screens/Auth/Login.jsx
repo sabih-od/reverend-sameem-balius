@@ -1,137 +1,202 @@
-import React, { useRef, useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
-// import { fonts } from "../../theme";
+import React, { useEffect, useRef, useState } from "react";
+import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView } from "react-native";
+
 import { useForm } from 'react-hook-form';
-import { colorScheme, colors, fontcolor, fonts, invertcolor } from "../../theme";
+import { IOS, backgroungImage, colorScheme, colors, fonts, isIPad, width } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
-// import Icon from 'react-native-vector-icons/Ionicons';
+
+import { connect } from "react-redux";
+import { SetIsLogin, SetUserInfo } from "../../redux/reducers/AppStateReducer";
+import { bindActionCreators } from "redux";
+import { LoginApiCall } from "../../redux/reducers/AuthReducer";
+import Loader from "../../components/Loader";
+import { showToast } from "../../helpers/toastConfig";
+import axios from "axios";
 
 
-const SignUp = (props) => {
+const Login = (props) => {
 
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, isLoading] = useState(false);
     const { handleSubmit, formState: { errors }, register, setValue } = useForm();
+    const prevLoginResponseRef = useRef(props.loginResponse);
+    const prevLoginErrorRef = useRef(props.loginError);
 
-    // const password = register('password', {
-    //     value: 'tabish@123',
-    //     required: 'Password is required',
-    //     minLength: { value: 8, message: 'Min lenght 8' }
-    // })
+    useEffect(() => {
 
-    // const confirmpass = register('confirmpass', {
-    //     value: 'tabish@123',
-    //     required: 'Confirm Password is required',
-    //     minLength: { value: 8, message: 'Min lenght 8' },
-    //     // validate: value => value === password.current || "Password does not match"
-    // });
+        if (!IOS) {
+            axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+            axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
+                .then(function (response) { console.log('response hunter => ', response); })
+                .catch(function (error) { console.log(error); });
+        }
 
-    console.log(errors);
+    }, [])
+
+    useEffect(() => {
+        // console.log('props.loginResponse => ', props.loginResponse);
+        if (props.loginResponse !== prevLoginResponseRef.current && props.loginResponse?.success && props.loginResponse?.data) {
+            prevLoginResponseRef.current = props.loginResponse;
+            props.SetUserInfo(props.loginResponse?.data);
+            console.log('props.loginResponse => ', props.loginResponse);
+            // showToast();
+            props.SetIsLogin(true);
+            // props.navigation.navigate('Screens', { screen: 'Home' })
+            // props.navigation.reset({ index: 0, routes: [{ name: 'Screens' }] })
+        }
+
+        if (props.loginResponse !== prevLoginResponseRef.current && !props.loginResponse?.success) {
+            showToast('error', props.loginResponse?.message.replaceAll(' ', '-').toLowerCase() == 'user-not-found' ? 'Email or Password incorrect' : props.loginResponse?.message)
+        }
+        isLoading(false);
+    }, [props.loginResponse])
+
+    useEffect(() => {
+        console.log('props.loginError => ', props.loginError);
+        if (props.loginError && props.loginError !== prevLoginErrorRef.current && props.loginError?.message) {
+            console.log('props.loginError => ', props.loginError);
+            showToast('error', props.loginError?.message)
+        }
+        isLoading(false);
+    }, [props.loginError])
+
+    // const showToast = () => {
+    //     Toast.show({
+    //         type: 'success', // Can be 'success', 'error', 'info', or 'none'
+    //         // text1: 'Success',
+    //         text2: 'User logedin successfully..',
+    //         position: 'top', // Can be 'top', 'bottom', or 'center'
+    //         visibilityTime: 3000, // Duration to show the toast message (in milliseconds)
+    //         autoHide: true, // Automatically hide the toast after the duration
+    //         topOffset: 30, // Additional offset from the top/bottom (in pixels)
+    //         // bottomOffset: 40,
+    //     });
+    // }
 
     const onSubmit = (data) => {
-        console.log('data => ', data);
-        props.navigation.navigate('Screens')
+        console.log('onSubmit data => ', data)
+        props.LoginApiCall(data);
+        isLoading(true);
     }
 
     const input01 = useRef();
     const input02 = useRef();
 
-    return <SafeAreaView style={{ flex: 1 }}>
-        <ImageBackground style={globalstyle.authbgimage} resizeMode="cover" source={colorScheme == 'dark' ? require('./../../../assets/images/home-bg.jpg') : require('./../../../assets/images/auth-bg.jpg')}>
-            <ScrollView style={{ flex: 1, }}>
-                <View>
-                    <Text style={globalstyle.authheading}>Login</Text>
-                    <Text style={globalstyle.authdescription}>Add Your Details to Login</Text>
-                </View>
-                <View>
-                    <View style={globalstyle.inputbox}>
-                        <Icon color={colors.black} name={'mail'} size={18} />
-                        <TextInput
-                            style={globalstyle.inputfield}
-                            placeholder="Email Address"
-                            {...register('email', {
-                                // value: 'asdas',
-                                required: 'Email Address is required',
-                                pattern: {
-                                    value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
-                                    message: "Please provide valid email"
-                                },
-                            })}
-                            // defaultValue={'john.cena@mailinator.com'}
-                            placeholderTextColor={colors.placeholdercolor}
-                            autoCapitalize='none'
-                            onChangeText={(value) => setValue('email', value)}
-                            ref={input01}
-                            returnKeyType="next"
-                            onSubmitEditing={() => input02.current.focus()}
-                        />
-                    </View>
-                    {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
-                    <TouchableOpacity activeOpacity={0.8} style={styles.forgetpasslink}>
-                        <Text style={styles.forgetpasstext}>Forget Password?</Text>
-                    </TouchableOpacity>
-                    <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Icon color={colors.black} name={'lock'} size={18} />
-                            <TextInput
-                                style={[globalstyle.inputfield, { flex: 0.8 }]}
-                                placeholder="Password"
-                                placeholderTextColor={colors.placeholdercolor}
-                                {...register('password', {
-                                    value: '',
-                                    required: 'Password is required',
-                                    minLength: { value: 8, message: 'Password length must be greater then 8' }
-                                })}
-                                // defaultValue={'tabish@123'}
-                                // inputRef={password.ref}
-                                onChangeText={(value) => setValue('password', value)}
-                                secureTextEntry={!showPassword ? true : false}
-                                autoCapitalize='none'
-                                ref={input02}
-                                // returnKeyType="next"
-                                // onSubmitEditing={() => input05.current.focus()}
-                            />
+
+    return <SafeAreaView style={globalstyle.fullview}>
+        <Loader isLoading={loading} />
+        <ImageBackground
+            style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]} 
+            source={backgroungImage}>
+            <KeyboardAvoidingView behavior={IOS ? 'padding' : 'padding'} >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={isIPad && globalstyle.authscreencontainer}>
+                        <View>
+                            <Text style={globalstyle.authheading}>Login</Text>
+                            <Text style={globalstyle.authdescription}>Add Your Details to Login</Text>
                         </View>
-                        <TouchableOpacity activeOpacity={0.8} style={globalstyle.showhideicontouch} onPress={() => { setShowPassword(!showPassword) }}>
-                            <Icon name={!showPassword ? 'eye' : 'eye-off'} size={18} style={globalstyle.showhideicon} />
-                        </TouchableOpacity>
-                    </View>
-                    {errors.password && <Text style={globalstyle.errorField}>{errors.password.message}</Text>}
-                    <TouchableOpacity activeOpacity={0.8}
-                        onPress={handleSubmit(onSubmit)}
-                        style={globalstyle.authbutton}>
-                        <Text style={globalstyle.authbuttontext}>Login</Text>
-                    </TouchableOpacity>
-                </View>
-                {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, marginBottom: 10 }}>
+                        <View>
+                            <View style={globalstyle.inputbox}>
+                                <Icon color={colors.black} name={'mail'} size={18} />
+                                <TextInput
+                                    style={globalstyle.inputfield}
+                                    placeholder="Email Address"
+                                    {...register('email', {
+                                        value: 'johnmartin@mailinator.com',
+                                        required: 'Email Address is required',
+                                        pattern: {
+                                            value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
+                                            message: "Please provide valid email"
+                                        },
+                                    })}
+                                    defaultValue={'johnmartin@mailinator.com'}
+                                    placeholderTextColor={colors.placeholdercolor}
+                                    autoCapitalize='none'
+                                    onChangeText={(value) => setValue('email', value)}
+                                    ref={input01}
+                                    returnKeyType="next"
+                                    onSubmitEditing={() => input02.current.focus()}
+                                />
+                            </View>
+                            {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                onPress={() => props.navigation.navigate('ForgetPassword')}
+                                style={styles.forgetpasslink}>
+                                <Text style={styles.forgetpasstext}>Forget Password?</Text>
+                            </TouchableOpacity>
+                            <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Icon color={colors.black} name={'lock'} size={18} />
+                                    <TextInput
+                                        style={[globalstyle.inputfield, { flex: 0.8 }]}
+                                        placeholder="Password"
+                                        placeholderTextColor={colors.placeholdercolor}
+                                        {...register('password', {
+                                            value: '12345678',
+                                            required: 'Password is required',
+                                            minLength: { value: 8, message: 'Password length must be greater then 8' }
+                                        })}
+                                        defaultValue={'12345678'}
+                                        // inputRef={password.ref}
+                                        onChangeText={(value) => setValue('password', value)}
+                                        secureTextEntry={!showPassword ? true : false}
+                                        autoCapitalize='none'
+                                        ref={input02}
+                                    // returnKeyType="next"
+                                    // onSubmitEditing={() => input05.current.focus()}
+                                    />
+                                </View>
+                                <TouchableOpacity activeOpacity={0.8} style={globalstyle.showhideicontouch} onPress={() => { setShowPassword(!showPassword) }}>
+                                    <Icon name={!showPassword ? 'eye' : 'eye-off'} size={18} style={globalstyle.showhideicon} />
+                                </TouchableOpacity>
+                            </View>
+                            {errors.password && <Text style={globalstyle.errorField}>{errors.password.message}</Text>}
+                            <TouchableOpacity activeOpacity={0.8}
+                                onPress={handleSubmit(onSubmit)}
+                                style={globalstyle.authSubmitButton}>
+                                <Text style={globalstyle.authSubmitButtonText}>Login</Text>
+                            </TouchableOpacity>
+                        </View>
+                        {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, marginBottom: 10 }}>
                     <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
                     <Text style={{ fontFamily: fonts.primary }}>Or Sign In With</Text>
                     <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
                 </View> */}
-                <View style={globalstyle.alreadysignin}>
-                    <Text style={globalstyle.alreadyaccount}>Don't have an account? </Text>
-                    <TouchableOpacity activeOpacity={0.8} 
-                        onPress={() => { props.navigation.navigate('SignUp') }}>
-                            <Text style={globalstyle.actionauthtext}>Sign Up</Text>
-                        </TouchableOpacity>
+                        <View style={globalstyle.alreadysignin}>
+                            <Text style={globalstyle.alreadyaccount}>Don't have an account? </Text>
+                            <TouchableOpacity activeOpacity={0.8}
+                                onPress={() => { props.navigation.navigate('Register') }}>
+                                <Text style={globalstyle.actionauthtext}>Sign Up</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-            </ScrollView>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         </ImageBackground>
     </SafeAreaView>
 }
 
-export default SignUp;
+const setStateToProps = (state) => ({
+    loginResponse: state.authstate.loginResponse,
+    loginError: state.authstate.loginError,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        SetIsLogin: bindActionCreators(SetIsLogin, dispatch),
+        SetUserInfo: bindActionCreators(SetUserInfo, dispatch),
+        LoginApiCall: bindActionCreators(LoginApiCall, dispatch),
+    }
+};
+
+export default connect(setStateToProps, mapDispatchToProps)(Login);
+// export default Login;
+
 
 const styles = StyleSheet.create({
-    // button: { backgroundColor: colors.orange, borderRadius: 30, paddingVertical: 11, marginTop: 20 },
-    // buttontext: { textTransform: 'uppercase', fontSize: 18, fontFamily: fonts.primarySemiBold, textAlign: 'center', color: '#fff' },
-    // authheading: { textTransform: 'uppercase', fontFamily: fonts.primaryBold, fontSize: 32, marginBottom: 5, textAlign: 'center', color: fontcolor },
-    // authdescription: { fontFamily: fonts.primary, marginBottom: 60, textAlign: 'center', color: fontcolor },
-    // inputbox: { backgroundColor: '#fff', marginBottom: 5, borderRadius: 50, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20 },
-    // inputfield: { paddingHorizontal: 15, paddingVertical: 15, fontFamily: fonts.primary, width: '100%', color: colors.black },
-    // alreadysignin: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, },
     forgetpasslink: { marginLeft: 'auto', marginTop: 10, marginBottom: 0, marginRight: 15 },
-    forgetpasstext: { color: '#f00', fontFamily: fonts.primary, fontSize: 13 },
-    // errorField: { color: '#f00', fontFamily: fonts.primary, fontSize: 12, marginTop: 4, marginLeft: 15 },
+    forgetpasstext: { color: colors.black, fontFamily: fonts.primaryMedium, fontSize: 13 },
 })

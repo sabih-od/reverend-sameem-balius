@@ -11,7 +11,8 @@ const colorvariable = {
   placeholdercolor: 'rgba(28,53,63, 0.7)',
   red: 'rgba(228, 58, 46, 1.0)',
   purpleblue: 'rgba(48, 90, 215, 1.0)',
-  yellow: 'rgba(255,255,0, 1.0)'
+  yellow: 'rgba(255,255,0, 1.0)',
+  drawerbg: '#0f294a',
 };
 
 export default colorvariable;

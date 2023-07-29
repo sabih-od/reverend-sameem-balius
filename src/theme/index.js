@@ -12,8 +12,11 @@ const colorScheme = Appearance.getColorScheme();
 
 const fontcolor = colorScheme == 'dark' ? colors.white : colors.black;
 const invertcolor = colorScheme != 'dark' ? colors.white : colors.black;
+const isIPad = width > 700 ? true : false;
+const IOS = Platform.OS == 'ios' ? true : false;
+const backgroungImage = colorScheme == 'dark' ? require('./../../assets/images/home-bg.jpg') : require('./../../assets/images/auth-bg.jpg')
 
 export {
-    colors, fonts, width, height, colorScheme, fontcolor, invertcolor
+    colors, fonts, width, height, colorScheme, fontcolor, invertcolor, isIPad, IOS, backgroungImage
     // urdufont, flip 
 };

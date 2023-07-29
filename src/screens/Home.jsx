@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Platform } from "react-native";
-import { colorScheme, colors, fonts, height, width } from "../theme";
+import { IOS, backgroungImage, colorScheme, colors, fonts, height, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -11,15 +11,16 @@ import Seperator from "../components/Seperator";
 import SectionHeading from "../components/SectionHeading";
 import MainTopBox from "../components/MainTopBox";
 import RoutineBoxHorizontal from "../components/RoutineBoxHorizontal";
+import globalstyle from "../theme/style";
 
 
 
-const HomeScreen = (props) => {
+const Home = (props) => {
 
     console.log('props => ', props.navigation);
 
-    return <SafeAreaView style={{ flex: 1 }}>
-        <ImageBackground style={styles.homebgimage} resizeMode="cover" source={colorScheme == 'dark' ? require('./../../assets/images/home-bg.jpg') : require('./../../assets/images/auth-bg.jpg')}>
+    return <SafeAreaView style={globalstyle.fullview}>
+        <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
             <ScrollView style={styles.homescollview} showsVerticalScrollIndicator={false}>
                 <MainBox />
 
@@ -112,7 +113,7 @@ const HomeScreen = (props) => {
                         return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
                     }}
                 />
-                <View style={{paddingBottom: 30}} />
+                <View style={{ paddingBottom: 30 }} />
 
             </ScrollView>
             {/* <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: colors.deepblue, padding: 20}}>
@@ -137,9 +138,16 @@ const HomeScreen = (props) => {
     </SafeAreaView>
 }
 
-export default HomeScreen;
+export default Home;
 
 const styles = StyleSheet.create({
-    homebgimage: { paddingTop: Platform.OS == 'android' ? 70 : 60, paddingHorizontal: 15, flex: 1, justifyContent: 'space-between', },
-    homescollview: { flex: 1, }
+    homebgimage: {
+        // paddingTop: IOS ? 45 : 70,
+        // paddingTop: IOS ? 100 : 70,
+        paddingHorizontal: 15,
+        flex: 1, // justifyContent: 'space-between',
+        // ...StyleSheet.absoluteFillObject,
+        // height: height, resizeMode: 'cover'
+    },
+    homescollview: { flex: 1, paddingVertical: 15 }
 })

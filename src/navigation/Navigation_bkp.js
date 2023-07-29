@@ -13,17 +13,17 @@ import { colors, fontcolor, fonts, width } from "../theme";
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-import DrawerContent from '../navigation/Drawer';
+import DrawerContent from './Drawer';
 
 // Screens
 import Login from "../screens/Auth/Login";
-import SignUp from "../screens/Auth/SignUp";
-import HomScreen from "../screens/HomeScreen";
-import NotificationScreen from "../screens/NotificationScreen";
-import PrayListScreen from "../screens/PrayListScreen";
-import GoalListScreen from "../screens/GoalsListScreen";
+import SignUp from "../screens/Auth/Register";
+import HomScreen from "../screens/Home";
+import NotificationScreen from "../screens/Notifications";
+import PrayListScreen from "../screens/PrayList";
+import GoalListScreen from "../screens/GoalsList";
 import SearchHeader from "../components/SearchHeader";
-import StartFreeWeekScreen from "../screens/FreeWeekScreen";
+import StartFreeWeekScreen from "../screens/FreeWeek";
 
 
 
@@ -35,11 +35,11 @@ const NotificationIcon = (props) => {
     )
 }
 
-const OpenDrawerIcon = (props) => {
+const DrawerIcon = (props) => {
     return (<TouchableOpacity activeOpacity={0.8}
         onPress={() => {
-            console.log('props OpenDrawerIcon => ', props.navigation);
-            // props.navigation.openDrawer() 
+            // console.log('props DrawerIcon => ', props.navigation);
+            props.navigation.openDrawer() 
         }}
         style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
         <Icon name={'align-right'} size={22} color={fontcolor} />
@@ -72,7 +72,6 @@ const StackScreen = ({ navigation, style }) => {
     // });
 
     return <Stack.Navigator>
-
         <Stack.Screen
             name="Home"
             component={HomScreen}
@@ -81,7 +80,7 @@ const StackScreen = ({ navigation, style }) => {
                 headerStyle: { height: 70 },
                 headerTitleAlign: 'center',
                 headerTitle: () => <SearchHeader />,
-                headerLeft: () => <OpenDrawerIcon navigation={navigation} />,
+                headerLeft: () => <DrawerIcon navigation={navigation} />,
                 headerRight: () => <NotificationIcon />
             }}
         />
@@ -93,7 +92,7 @@ const StackScreen = ({ navigation, style }) => {
                 headerStyle: { height: 120 },
                 headerTitleAlign: 'center',
                 headerTitle: '',
-                headerLeft: () => <OpenDrawerIcon navigation={navigation} />,
+                headerLeft: () => <DrawerIcon navigation={navigation} />,
                 headerRight: () => <NotificationIcon />
             }}
         />
@@ -191,10 +190,10 @@ function DrawerScreen() {
     );
 }
 
-const Navigation = () => {
+const OldStackNavigation = () => {
     return <NavigationContainer>
         <DrawerScreen />
     </NavigationContainer>
 }
 
-export default Navigation;
+export default OldStackNavigation;

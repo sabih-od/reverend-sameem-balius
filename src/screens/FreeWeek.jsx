@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import globalstyle from "../theme/style";
 import ReviewBox from "../components/ReviewBox";
 
-const StartFreeWeekScreen = () => {
+const StartFreeWeek = () => {
 
 
     const [isEnabled, setIsEnabled] = useState(false);
@@ -97,7 +97,7 @@ const StartFreeWeekScreen = () => {
     </SafeAreaView>
 }
 
-export default StartFreeWeekScreen;
+export default StartFreeWeek;
 const styles = StyleSheet.create({
     bulletlist: { flexDirection: 'row', alignItems: 'center', marginBottom: 13 },
     bulleticonbg: { backgroundColor: colors.black, width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginRight: 10 },
