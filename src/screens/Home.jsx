@@ -12,6 +12,7 @@ import SectionHeading from "../components/SectionHeading";
 import MainTopBox from "../components/MainTopBox";
 import RoutineBoxHorizontal from "../components/RoutineBoxHorizontal";
 import globalstyle from "../theme/style";
+import draweritems from "../navigation/draweritems";
 
 
 
@@ -22,6 +23,16 @@ const Home = (props) => {
     return <SafeAreaView style={globalstyle.fullview}>
         <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
             <ScrollView style={styles.homescollview} showsVerticalScrollIndicator={false}>
+
+                {draweritems.map((item, index) => <>
+                    <TouchableOpacity key={index} onPress={() => props.navigation.navigate(item.nav)}>
+                        <Text>{item.title}</Text>
+                    </TouchableOpacity>
+                    {item.submenu && item.submenu.map((subitem, index) => <TouchableOpacity onPress={() => props.navigation.navigate(subitem.nav)}>
+                        <Text>{'   '}{subitem.title}</Text>
+                    </TouchableOpacity>)}
+                </>)}
+
                 <MainBox />
 
                 <Seperator />

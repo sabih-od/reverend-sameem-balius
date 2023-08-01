@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Loader from "../../components/Loader";
 import { showToast } from "../../helpers/toastConfig";
+import strings from "../../localization/translation";
 
 
 const ForgetPassword = (props) => {
@@ -58,8 +59,8 @@ const ForgetPassword = (props) => {
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         <View style={globalstyle.authLogoContainer}>
                             <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} />
-                            <Text style={globalstyle.authheading}>Forget Password</Text>
-                            <Text style={globalstyle.authdescription}>Please recover your account</Text>
+                            <Text style={globalstyle.authheading}>{strings.ForgetPasswordTitle}</Text>
+                            <Text style={globalstyle.authdescription}>{strings.ForgetPasswordDesc}</Text>
                         </View>
                         <View>
 

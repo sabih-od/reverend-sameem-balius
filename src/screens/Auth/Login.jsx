@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, I18nManager } from "react-native";
 
 import { useForm } from 'react-hook-form';
 import { IOS, backgroungImage, colorScheme, colors, fonts, isIPad, width } from "../../theme";
@@ -8,13 +8,16 @@ import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
 
 import { connect } from "react-redux";
-import { SetIsLogin, SetUserInfo } from "../../redux/reducers/AppStateReducer";
+import { SetIsLogin, SetLanguage, SetUserInfo } from "../../redux/reducers/AppStateReducer";
 import { bindActionCreators } from "redux";
 import { LoginApiCall } from "../../redux/reducers/AuthReducer";
 import Loader from "../../components/Loader";
 import { showToast } from "../../helpers/toastConfig";
 import axios from "axios";
 
+import strings, { changeLang } from "./../../localization/translation";
+import SplashScreen from "react-native-splash-screen";
+import RNRestart from 'react-native-restart';
 
 const Login = (props) => {
 
@@ -25,14 +28,12 @@ const Login = (props) => {
     const prevLoginErrorRef = useRef(props.loginError);
 
     useEffect(() => {
-
-        if (!IOS) {
-            axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
-            axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
-                .then(function (response) { console.log('response hunter => ', response); })
-                .catch(function (error) { console.log(error); });
-        }
-
+        // if (!IOS) {
+        //     axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+        //     axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
+        //         .then(function (response) { console.log('response hunter => ', response); })
+        //         .catch(function (error) { console.log(error); });
+        // }
     }, [])
 
     useEffect(() => {
@@ -88,91 +89,122 @@ const Login = (props) => {
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
         <ImageBackground
-            style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]} 
+            style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}
             source={backgroungImage}>
             <KeyboardAvoidingView behavior={IOS ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={isIPad && globalstyle.authscreencontainer}>
-                        <View>
-                            <Text style={globalstyle.authheading}>Login</Text>
-                            <Text style={globalstyle.authdescription}>Add Your Details to Login</Text>
-                        </View>
-                        <View>
-                            <View style={globalstyle.inputbox}>
-                                <Icon color={colors.black} name={'mail'} size={18} />
-                                <TextInput
-                                    style={globalstyle.inputfield}
-                                    placeholder="Email Address"
-                                    {...register('email', {
-                                        value: 'johnmartin@mailinator.com',
-                                        required: 'Email Address is required',
-                                        pattern: {
-                                            value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
-                                            message: "Please provide valid email"
-                                        },
-                                    })}
-                                    defaultValue={'johnmartin@mailinator.com'}
-                                    placeholderTextColor={colors.placeholdercolor}
-                                    autoCapitalize='none'
-                                    onChangeText={(value) => setValue('email', value)}
-                                    ref={input01}
-                                    returnKeyType="next"
-                                    onSubmitEditing={() => input02.current.focus()}
-                                />
-                            </View>
-                            {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
-                            <TouchableOpacity
-                                activeOpacity={0.8}
-                                onPress={() => props.navigation.navigate('ForgetPassword')}
-                                style={styles.forgetpasslink}>
-                                <Text style={styles.forgetpasstext}>Forget Password?</Text>
+                    <>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+                            <TouchableOpacity onPress={() => {
+                                props.SetLanguage('en')
+                                changeLang(props.language)
+                                // I18nManager.allowRTL(false);
+                                I18nManager.forceRTL(false);
+                                console.log('I18nManager.isRTL => ', I18nManager.isRTL);
+                                setTimeout(() => {
+                                    RNRestart.restart();
+                                }, 300)
+                                SplashScreen.show();
+                            }}>
+                                <Text style={{ fontFamily: props.language == 'en' ? fonts.primarySemiBold : fonts.primary, fontSize: 13 }}>English</Text>
                             </TouchableOpacity>
-                            <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
-                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <Icon color={colors.black} name={'lock'} size={18} />
+                            <View style={{ width: 1, height: 10, backgroundColor: colors.black, marginHorizontal: 10 }} />
+                            <TouchableOpacity onPress={() => {
+                                props.SetLanguage('ar')
+                                changeLang(props.language)
+                                // I18nManager.allowRTL(true);
+                                I18nManager.forceRTL(true);
+                                console.log('I18nManager.isRTL => ', I18nManager.isRTL);
+                                setTimeout(() => {
+                                    RNRestart.restart();
+                                }, 300)
+                                SplashScreen.show();
+                            }}>
+                                <Text style={{ fontFamily: props.language == 'ur' ? fonts.arabicBold : fonts.arabicMedium }}>عربي</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={isIPad && globalstyle.authscreencontainer}>
+                            <View>
+                                <Text style={globalstyle.authheading}>{strings.Login}</Text>
+                                <Text style={globalstyle.authdescription}>{strings.LoginDesc}</Text>
+                            </View>
+                            <View>
+                                <View style={globalstyle.inputbox}>
+                                    <Icon color={colors.black} name={'mail'} size={18} />
                                     <TextInput
-                                        style={[globalstyle.inputfield, { flex: 0.8 }]}
-                                        placeholder="Password"
-                                        placeholderTextColor={colors.placeholdercolor}
-                                        {...register('password', {
-                                            value: '12345678',
-                                            required: 'Password is required',
-                                            minLength: { value: 8, message: 'Password length must be greater then 8' }
+                                        style={globalstyle.inputfield}
+                                        placeholder="Email Address"
+                                        {...register('email', {
+                                            value: 'johnmartin@mailinator.com',
+                                            required: 'Email Address is required',
+                                            pattern: {
+                                                value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
+                                                message: "Please provide valid email"
+                                            },
                                         })}
-                                        defaultValue={'12345678'}
-                                        // inputRef={password.ref}
-                                        onChangeText={(value) => setValue('password', value)}
-                                        secureTextEntry={!showPassword ? true : false}
+                                        defaultValue={'johnmartin@mailinator.com'}
+                                        placeholderTextColor={colors.placeholdercolor}
                                         autoCapitalize='none'
-                                        ref={input02}
-                                    // returnKeyType="next"
-                                    // onSubmitEditing={() => input05.current.focus()}
+                                        onChangeText={(value) => setValue('email', value)}
+                                        ref={input01}
+                                        returnKeyType="next"
+                                        onSubmitEditing={() => input02.current.focus()}
                                     />
                                 </View>
-                                <TouchableOpacity activeOpacity={0.8} style={globalstyle.showhideicontouch} onPress={() => { setShowPassword(!showPassword) }}>
-                                    <Icon name={!showPassword ? 'eye' : 'eye-off'} size={18} style={globalstyle.showhideicon} />
+                                {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
+                                <TouchableOpacity
+                                    activeOpacity={0.8}
+                                    onPress={() => props.navigation.navigate('ForgetPassword')}
+                                    style={styles.forgetpasslink}>
+                                    <Text style={styles.forgetpasstext}>{strings.ForgetPassword}</Text>
+                                </TouchableOpacity>
+                                <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <Icon color={colors.black} name={'lock'} size={18} />
+                                        <TextInput
+                                            style={[globalstyle.inputfield, { flex: 0.8 }]}
+                                            placeholder="Password"
+                                            placeholderTextColor={colors.placeholdercolor}
+                                            {...register('password', {
+                                                value: '12345678',
+                                                required: 'Password is required',
+                                                minLength: { value: 8, message: 'Password length must be greater then 8' }
+                                            })}
+                                            defaultValue={'12345678'}
+                                            // inputRef={password.ref}
+                                            onChangeText={(value) => setValue('password', value)}
+                                            secureTextEntry={!showPassword ? true : false}
+                                            autoCapitalize='none'
+                                            ref={input02}
+                                        // returnKeyType="next"
+                                        // onSubmitEditing={() => input05.current.focus()}
+                                        />
+                                    </View>
+                                    <TouchableOpacity activeOpacity={0.8} style={globalstyle.showhideicontouch} onPress={() => { setShowPassword(!showPassword) }}>
+                                        <Icon name={!showPassword ? 'eye' : 'eye-off'} size={18} style={globalstyle.showhideicon} />
+                                    </TouchableOpacity>
+                                </View>
+                                {errors.password && <Text style={globalstyle.errorField}>{errors.password.message}</Text>}
+                                <TouchableOpacity activeOpacity={0.8}
+                                    onPress={handleSubmit(onSubmit)}
+                                    style={globalstyle.authSubmitButton}>
+                                    <Text style={globalstyle.authSubmitButtonText}>{strings.Login}</Text>
                                 </TouchableOpacity>
                             </View>
-                            {errors.password && <Text style={globalstyle.errorField}>{errors.password.message}</Text>}
-                            <TouchableOpacity activeOpacity={0.8}
-                                onPress={handleSubmit(onSubmit)}
-                                style={globalstyle.authSubmitButton}>
-                                <Text style={globalstyle.authSubmitButtonText}>Login</Text>
-                            </TouchableOpacity>
-                        </View>
-                        {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, marginBottom: 10 }}>
+                            {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, marginBottom: 10 }}>
                     <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
                     <Text style={{ fontFamily: fonts.primary }}>Or Sign In With</Text>
                     <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
                 </View> */}
-                        <View style={globalstyle.alreadysignin}>
-                            <Text style={globalstyle.alreadyaccount}>Don't have an account? </Text>
-                            <TouchableOpacity activeOpacity={0.8}
-                                onPress={() => { props.navigation.navigate('Register') }}>
-                                <Text style={globalstyle.actionauthtext}>Sign Up</Text>
-                            </TouchableOpacity>
+                            <View style={globalstyle.alreadysignin}>
+                                <Text style={globalstyle.alreadyaccount}>{strings.DontHaveAccount} </Text>
+                                <TouchableOpacity activeOpacity={0.8}
+                                    onPress={() => { props.navigation.navigate('Register') }}>
+                                    <Text style={globalstyle.actionauthtext}>{strings.SignUp}</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
+                    </>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
         </ImageBackground>
@@ -182,6 +214,7 @@ const Login = (props) => {
 const setStateToProps = (state) => ({
     loginResponse: state.authstate.loginResponse,
     loginError: state.authstate.loginError,
+    language: state.appstate.language,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -189,6 +222,7 @@ const mapDispatchToProps = (dispatch) => {
         SetIsLogin: bindActionCreators(SetIsLogin, dispatch),
         SetUserInfo: bindActionCreators(SetUserInfo, dispatch),
         LoginApiCall: bindActionCreators(LoginApiCall, dispatch),
+        SetLanguage: bindActionCreators(SetLanguage, dispatch),
     }
 };
 
@@ -198,5 +232,5 @@ export default connect(setStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
     forgetpasslink: { marginLeft: 'auto', marginTop: 10, marginBottom: 0, marginRight: 15 },
-    forgetpasstext: { color: colors.black, fontFamily: fonts.primaryMedium, fontSize: 13 },
+    forgetpasstext: { color: colors.black, fontFamily: I18nManager.isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 13 },
 })

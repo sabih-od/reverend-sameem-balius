@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import <React/RCTI18nUtil.h>
 
 @implementation AppDelegate
 
@@ -9,6 +10,10 @@
   self.moduleName = @"ReverendSameemBalius";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
+
+  [[RCTI18nUtil sharedInstance] allowRTL:YES];
+  [[RCTI18nUtil sharedInstance] forceRTL:NO];
+
   self.initialProps = @{};
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];

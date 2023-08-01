@@ -1,4 +1,4 @@
-import { LOGOUT_USER, SET_IS_LOGIN, SET_USER_INFO, UPDATE_CURRENT_SCREEN, UPDATE_FCM_TOKEN, UPDATE_NOTIFICATION_BADGE, UPDATE_MESSAGE_BADGE } from "../actiontypes";
+import { LOGOUT_USER, SET_IS_LOGIN, SET_USER_INFO, UPDATE_CURRENT_SCREEN, UPDATE_FCM_TOKEN, UPDATE_NOTIFICATION_BADGE, UPDATE_MESSAGE_BADGE, CHANGE_LANGUAGE } from "../actiontypes";
 
 export const initialState = {
     isLogin: false,
@@ -9,6 +9,7 @@ export const initialState = {
     messageBadge: 0,
     accessToken: '',
     isLoading: false,
+    language: 'en',
 }
 
 export function SetIsLogin(data) {
@@ -53,6 +54,12 @@ export function LogOut(data) {
         payload: data
     }
 }
+export function SetLanguage(data) {
+    return {
+        type: CHANGE_LANGUAGE,
+        payload: data
+    }
+}
 
 const AppStateReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -85,6 +92,11 @@ const AppStateReducer = (state = initialState, action) => {
             return {
                 ...state,
                 messageBadge: action.payload
+            }
+        case CHANGE_LANGUAGE:
+            return {
+                ...state,
+                language: action.payload
             }
         case LOGOUT_USER:
             return initialState

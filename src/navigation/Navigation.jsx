@@ -1,5 +1,5 @@
-import React from "react";
-import { useColorScheme } from "react-native";
+import React, { useEffect } from "react";
+import { I18nManager, useColorScheme } from "react-native";
 
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -9,11 +9,21 @@ import { bindActionCreators } from "redux";
 import { UpdateCurrentScreen } from "../redux/reducers/AppStateReducer";
 import { connect } from "react-redux";
 import AuthStackNavigation from "./AuthStackNavigation";
-
+import { changeLang } from "../localization/translation";
+// import RNRestart from 'react-native-restart'; 
 
 const Navigation = (props) => {
 
     console.log('Navigation props => ', props);
+    changeLang(props.language)
+    useEffect(() => {
+        console.log('props.language => ', props.language)
+        // changeLang(props.language)
+        // I18nManager.allowRTL(true);
+        // I18nManager.forceRTL(props.language == 'en' ? false : true);
+        // console.log('I18nManager.isRTL => ', I18nManager.isRTL);
+        // RNRestart.restart();
+    }, [props.language])
 
     // const routeNameRef = useRef();
     // const navigationRef = useRef();
@@ -107,7 +117,8 @@ const Navigation = (props) => {
 
 const setStateToProps = (state) => ({
     currentScreen: state.appstate.currentScreen,
-    isLogin: state.appstate.isLogin
+    isLogin: state.appstate.isLogin,
+    language: state.appstate.language,
 })
 const mapDispatchToProps = (dispatch) => {
     return {

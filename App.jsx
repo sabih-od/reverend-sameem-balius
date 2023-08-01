@@ -12,7 +12,7 @@ import Loader from './src/components/Loader';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from './src/helpers/toastConfig';
 import Navigation from "./src/navigation/Navigation";
-
+import strings from "./src/localization/translation";
 
 const App = () => {
     useEffect(() => {

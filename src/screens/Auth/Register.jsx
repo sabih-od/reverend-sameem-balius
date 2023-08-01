@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, I18nManager } from "react-native";
 // import { fonts } from "../../theme";
 import { useForm } from 'react-hook-form';
 import { IOS, backgroungImage, colorScheme, colors, fonts, invertcolor, isIPad } from "../../theme";
@@ -13,6 +13,7 @@ import { SetIsLogin, SetUserInfo } from "../../redux/reducers/AppStateReducer";
 import { RegisterApiCall } from "../../redux/reducers/AuthReducer";
 import { bindActionCreators } from "redux";
 import { showToast } from "../../helpers/toastConfig";
+import strings from "../../localization/translation";
 
 
 const Register = (props) => {
@@ -63,8 +64,8 @@ const Register = (props) => {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <ScrollView style={isIPad && globalstyle.authscreencontainer}>
                         <View>
-                            <Text style={globalstyle.authheading}>SignUp</Text>
-                            <Text style={globalstyle.authdescription}>Add Your Details to Signup</Text>
+                            <Text style={globalstyle.authheading}>{strings.SignUp}</Text>
+                            <Text style={globalstyle.authdescription}>{strings.SignUpDesc}</Text>
                         </View>
                         <View>
                             <View style={globalstyle.inputbox}>
@@ -201,25 +202,25 @@ const Register = (props) => {
                                         name={isChecked ? "check-circle" : "circle"}
                                         style={{ fontSize: isIPad ? 20 : 16, marginRight: 10 }}
                                     />
-                                    <Text style={styles.termstext}>Yes, I agree to the </Text>
+                                    <Text style={styles.termstext}>{strings.YesIAgree} </Text>
                                     <TouchableOpacity
                                         activeOpacity={0.9}
                                         onPress={() => setShowTermsModal(true)}>
-                                        <Text style={styles.termstextbold}>Term & Condition</Text>
+                                        <Text style={styles.termstextbold}>{' '}{strings.TermsCondition}</Text>
                                     </TouchableOpacity>
                                 </TouchableOpacity>
                             </View>
 
                             <TouchableOpacity activeOpacity={0.8} onPress={handleSubmit(onSubmit)}
                                 style={globalstyle.authSubmitButton}>
-                                <Text style={globalstyle.authSubmitButtonText}>Sign Up</Text>
+                                <Text style={globalstyle.authSubmitButtonText}>{strings.SignUp}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={globalstyle.alreadysignin}>
-                            <Text style={globalstyle.alreadyaccount}>Already have an account? </Text>
+                            <Text style={globalstyle.alreadyaccount}>{strings.AlreadyHaveAccount} </Text>
                             <TouchableOpacity activeOpacity={0.8}
                                 onPress={() => { props.navigation.navigate('Login') }}>
-                                <Text style={globalstyle.actionauthtext}> Login</Text>
+                                <Text style={globalstyle.actionauthtext}> {strings.Login}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ paddingBottom: 30 }} />
@@ -246,6 +247,6 @@ export default connect(setStateToProps, mapDispatchToProps)(Register);
 
 
 const styles = StyleSheet.create({
-    termstext: { fontFamily: fonts.primary, fontSize: isIPad ? 18 : 14 },
-    termstextbold: { fontFamily: fonts.primarySemiBold, fontSize: isIPad ? 18 : 14 }
+    termstext: { fontFamily: I18nManager.isRTL ? fonts.arabicMedium : fonts.primary, fontSize: isIPad ? 18 : 14 },
+    termstextbold: { fontFamily: I18nManager.isRTL ? fonts.arabicBold :fonts.primarySemiBold, fontSize: isIPad ? 18 : 14 }
 })

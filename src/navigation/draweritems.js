@@ -1,7 +1,7 @@
 const draweritems = [
     { title: 'Home', nav: 'Home', submenu: null },
     { title: 'Mass', nav: 'Mass', submenu: null },
-    { title: 'Homily', nav: 'BookDetail', submenu: null },
+    { title: 'Homily', nav: 'Homily', submenu: null },
     {
         title: 'Lectures', nav: null, submenu: [
             { title: 'Bible Study', nav: 'BibleStudy' },

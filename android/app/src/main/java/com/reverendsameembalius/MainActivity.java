@@ -5,6 +5,7 @@ import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
 import org.devio.rn.splashscreen.SplashScreen;
+import com.facebook.react.modules.i18nmanager.I18nUtil;
 import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
@@ -18,6 +19,10 @@ public class MainActivity extends ReactActivity {
     protected void onCreate(Bundle savedInstanceState) {
       SplashScreen.show(this);  // here
       super.onCreate(savedInstanceState);
+
+      I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
+      sharedI18nUtilInstance.forceRTL(this,true);
+      sharedI18nUtilInstance.allowRTL(this, true);
   }
 
   @Override

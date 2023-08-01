@@ -155,6 +155,8 @@ dependencies {
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-splash-screen')
     implementation project(':react-native-push-notification')
+    implementation project(':react-native-localization')
+    implementation project(':react-native-restart')
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
 

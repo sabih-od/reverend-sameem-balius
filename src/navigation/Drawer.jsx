@@ -21,9 +21,11 @@ import { GetProfileApiCall } from '../redux/reducers/AuthReducer';
 // import { useAppState } from '../hooks/useAppState';
 import { EditProfileApiCall } from '../redux/reducers/UserStateReducer';
 import draweritems from './draweritems';
+import { changeLang } from '../localization/translation';
 
 const DrawerContent = (props) => {
 
+  
   // const appState = useAppState();
   // console.log('appState status => ', appState);
 
@@ -145,6 +147,24 @@ const DrawerContent = (props) => {
           {/* <Text style={{ fontFamily: fonts.latoRegular, color: colors.white, textAlign: 'center', fontSize: 12 }}>{user?.phone}</Text> */}
         </View>
       }
+      <View style={{ backgroundColor: colors.deepblue, paddingVertical: 10, paddingHorizontal: 15, justifyContent: 'space-between', flexDirection: 'row' }}>
+        <Text style={globalstyle.draweritemtext}>Language</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => changeLang('en')}
+          >
+            <Text style={[globalstyle.draweritemtext, { color: colors.orange }]}>English</Text>
+          </TouchableOpacity>
+          <View style={{ height: 15, width: 1, backgroundColor: colors.deepblue, marginHorizontal: 10 }} />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => changeLang('ar')}
+          >
+            <Text style={globalstyle.draweritemtext}>Arabic</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
       <DrawerContentScrollView {...props} style={[styles.sidebar,]} contentContainerStyle={{ paddingTop: 0 }}>
         {draweritems.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)}
         <View style={{ height: 10 }} />
@@ -182,6 +202,7 @@ const setStateToProps = (state) => ({
   userInfo: state.appstate.userInfo,
   isLogin: state.appstate.isLogin,
   getUserProfileResponse: state.authstate.getUserProfileResponse,
+  language: state.appstate.language,
 })
 
 const mapDispatchToProps = (dispatch) => {

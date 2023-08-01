@@ -62,9 +62,9 @@ const Loader = (props) => {
             statusBarTranslucent={true}
             onRequestClose={() => { }}>
             <View style={styles.modalContainer}>
-                <View style={{backgroundColor: colors.orange, alignItems: 'center', flexDirection: 'row', padding: 15, borderRadius: 10}}>
+                <View style={{backgroundColor: colors.black, alignItems: 'center', flexDirection: 'row', padding: 15, borderRadius: 10}}>
                     {/* <AnimatedImage /> */}
-                    <ActivityIndicator color={colors.black} size={'small'} />
+                    <ActivityIndicator color={colors.white} size={'small'} />
                     {!isConnected ? <Text style={styles.nonetwork}>No Network Connection</Text> : <Text style={styles.nonetwork}>Loading. Please wait...</Text>}
                 </View>
             </View>
@@ -75,5 +75,5 @@ const Loader = (props) => {
 export default Loader;
 const styles = StyleSheet.create({
     modalContainer: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0, 0, 0, 0.6)' },
-    nonetwork: { fontFamily: fonts.latoRegular, marginTop: 0, textAlign: 'center', padding: 8, paddingLeft: 15, paddingRight: 15, color: colors.black, borderRadius: 4 }
+    nonetwork: { fontFamily: fonts.primaryMedium, marginTop: 0, textAlign: 'center', padding: 8, paddingLeft: 15, paddingRight: 15, color: colors.white, borderRadius: 4 }
 });

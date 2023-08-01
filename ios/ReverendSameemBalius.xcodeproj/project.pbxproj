@@ -15,6 +15,13 @@
 		5E3F19392A72E9F600727143 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E3F19382A72E9F600727143 /* GoogleService-Info.plist */; };
 		5E3F193B2A73170100727143 /* libreact-native-splash-screen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E3F193A2A73170100727143 /* libreact-native-splash-screen.a */; };
 		5E48B4512A2AB76300C25FB5 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E48B4502A2AB76300C25FB5 /* Ionicons.ttf */; };
+		5E77FE442A7858C5005A2470 /* Tajawal-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E77FE3D2A7858C4005A2470 /* Tajawal-Black.ttf */; };
+		5E77FE452A7858C5005A2470 /* Tajawal-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E77FE3E2A7858C5005A2470 /* Tajawal-ExtraBold.ttf */; };
+		5E77FE462A7858C5005A2470 /* Tajawal-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E77FE3F2A7858C5005A2470 /* Tajawal-ExtraLight.ttf */; };
+		5E77FE472A7858C5005A2470 /* Tajawal-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E77FE402A7858C5005A2470 /* Tajawal-Medium.ttf */; };
+		5E77FE482A7858C5005A2470 /* Tajawal-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E77FE412A7858C5005A2470 /* Tajawal-Regular.ttf */; };
+		5E77FE492A7858C5005A2470 /* Tajawal-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E77FE422A7858C5005A2470 /* Tajawal-Light.ttf */; };
+		5E77FE4A2A7858C5005A2470 /* Tajawal-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E77FE432A7858C5005A2470 /* Tajawal-Bold.ttf */; };
 		5E7BFAA12A280A86000C049D /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7BFA982A280A86000C049D /* Poppins-Bold.ttf */; };
 		5E7BFAA22A280A86000C049D /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7BFA992A280A86000C049D /* Poppins-SemiBold.ttf */; };
 		5E7BFAA32A280A86000C049D /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7BFA9A2A280A86000C049D /* Poppins-Light.ttf */; };
@@ -25,6 +32,7 @@
 		5E7BFAA82A280A86000C049D /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7BFA9F2A280A86000C049D /* Poppins-ExtraLight.ttf */; };
 		5E7BFAA92A280A86000C049D /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7BFAA02A280A86000C049D /* Poppins-Regular.ttf */; };
 		5E7BFAAB2A28167D000C049D /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7BFAAA2A28167D000C049D /* Feather.ttf */; };
+		5E93F0982A79B47300395154 /* libreact-native-restart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E93F0972A79B47300395154 /* libreact-native-restart.a */; };
 		7699B88040F8A987B510C191 /* libPods-ReverendSameemBalius-ReverendSameemBaliusTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-ReverendSameemBalius-ReverendSameemBaliusTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -57,6 +65,13 @@
 		5E3F19382A72E9F600727143 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ReverendSameemBalius/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5E3F193A2A73170100727143 /* libreact-native-splash-screen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-splash-screen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E48B4502A2AB76300C25FB5 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		5E77FE3D2A7858C4005A2470 /* Tajawal-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Tajawal-Black.ttf"; path = "../assets/fonts/Tajawal-Black.ttf"; sourceTree = "<group>"; };
+		5E77FE3E2A7858C5005A2470 /* Tajawal-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Tajawal-ExtraBold.ttf"; path = "../assets/fonts/Tajawal-ExtraBold.ttf"; sourceTree = "<group>"; };
+		5E77FE3F2A7858C5005A2470 /* Tajawal-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Tajawal-ExtraLight.ttf"; path = "../assets/fonts/Tajawal-ExtraLight.ttf"; sourceTree = "<group>"; };
+		5E77FE402A7858C5005A2470 /* Tajawal-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Tajawal-Medium.ttf"; path = "../assets/fonts/Tajawal-Medium.ttf"; sourceTree = "<group>"; };
+		5E77FE412A7858C5005A2470 /* Tajawal-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Tajawal-Regular.ttf"; path = "../assets/fonts/Tajawal-Regular.ttf"; sourceTree = "<group>"; };
+		5E77FE422A7858C5005A2470 /* Tajawal-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Tajawal-Light.ttf"; path = "../assets/fonts/Tajawal-Light.ttf"; sourceTree = "<group>"; };
+		5E77FE432A7858C5005A2470 /* Tajawal-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Tajawal-Bold.ttf"; path = "../assets/fonts/Tajawal-Bold.ttf"; sourceTree = "<group>"; };
 		5E7BFA982A280A86000C049D /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		5E7BFA992A280A86000C049D /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBold.ttf"; path = "../assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		5E7BFA9A2A280A86000C049D /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Light.ttf"; path = "../assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
@@ -67,6 +82,7 @@
 		5E7BFA9F2A280A86000C049D /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraLight.ttf"; path = "../assets/fonts/Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		5E7BFAA02A280A86000C049D /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		5E7BFAAA2A28167D000C049D /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		5E93F0972A79B47300395154 /* libreact-native-restart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-restart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ReverendSameemBalius/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-ReverendSameemBalius-ReverendSameemBaliusTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReverendSameemBalius-ReverendSameemBaliusTests.release.xcconfig"; path = "Target Support Files/Pods-ReverendSameemBalius-ReverendSameemBaliusTests/Pods-ReverendSameemBalius-ReverendSameemBaliusTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -85,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E93F0982A79B47300395154 /* libreact-native-restart.a in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-ReverendSameemBalius.a in Frameworks */,
 				5E3F193B2A73170100727143 /* libreact-native-splash-screen.a in Frameworks */,
 			);
@@ -127,6 +144,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5E93F0972A79B47300395154 /* libreact-native-restart.a */,
 				5E3F193A2A73170100727143 /* libreact-native-splash-screen.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-ReverendSameemBalius.a */,
@@ -145,6 +163,13 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5E77FE3D2A7858C4005A2470 /* Tajawal-Black.ttf */,
+				5E77FE432A7858C5005A2470 /* Tajawal-Bold.ttf */,
+				5E77FE3E2A7858C5005A2470 /* Tajawal-ExtraBold.ttf */,
+				5E77FE3F2A7858C5005A2470 /* Tajawal-ExtraLight.ttf */,
+				5E77FE422A7858C5005A2470 /* Tajawal-Light.ttf */,
+				5E77FE402A7858C5005A2470 /* Tajawal-Medium.ttf */,
+				5E77FE412A7858C5005A2470 /* Tajawal-Regular.ttf */,
 				5E48B4502A2AB76300C25FB5 /* Ionicons.ttf */,
 				5E7BFAAA2A28167D000C049D /* Feather.ttf */,
 				5E7BFA9E2A280A86000C049D /* Poppins-Black.ttf */,
@@ -296,6 +321,13 @@
 				5E7BFAA92A280A86000C049D /* Poppins-Regular.ttf in Resources */,
 				5E7BFAAB2A28167D000C049D /* Feather.ttf in Resources */,
 				5E48B4512A2AB76300C25FB5 /* Ionicons.ttf in Resources */,
+				5E77FE442A7858C5005A2470 /* Tajawal-Black.ttf in Resources */,
+				5E77FE452A7858C5005A2470 /* Tajawal-ExtraBold.ttf in Resources */,
+				5E77FE462A7858C5005A2470 /* Tajawal-ExtraLight.ttf in Resources */,
+				5E77FE472A7858C5005A2470 /* Tajawal-Medium.ttf in Resources */,
+				5E77FE482A7858C5005A2470 /* Tajawal-Regular.ttf in Resources */,
+				5E77FE492A7858C5005A2470 /* Tajawal-Light.ttf in Resources */,
+				5E77FE4A2A7858C5005A2470 /* Tajawal-Bold.ttf in Resources */,
 				5E3F19392A72E9F600727143 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

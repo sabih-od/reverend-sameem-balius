@@ -5,6 +5,15 @@ export default {
   primaryMedium: 'Poppins-Medium',
   primary: 'Poppins-Regular',
   primarySemiBold: 'Poppins-SemiBold',
+
+  arabicBlack: 'Tajawal-Black',
+  arabicBold: 'Tajawal-Bold',
+  arabicExtraBold: 'Tajawal-ExtraBold',
+  arabicExtraLight: 'Tajawal-ExtraLight',
+  arabicLight: 'Tajawal-Light',
+  arabicMedium: 'Tajawal-Medium',
+  arabicRegular: 'Tajawal-Regular',
+
   // primaryItalic: 'Poppins-Italic',
   // NafeesNaskh: 'NafeesNaskh',
   // PlayfairSemiBold: 'PlayfairDisplay-SemiBold',  

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, useColorScheme, StyleSheet, Keyboard } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, useColorScheme, StyleSheet, Keyboard, StatusBar } from "react-native";
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, useNavigationContainerRef, DefaultTheme, DarkTheme, DrawerActions } from '@react-navigation/native';
@@ -28,6 +28,12 @@ import globalstyle from "../theme/style";
 import QuestionAnswer from "../screens/QuestionAnswer";
 import Audio from "../screens/Audio";
 import Test from "../screens/Test";
+import Social from "../screens/Lectures/Social";
+import BibleStudy from "../screens/Lectures/BibleStudy";
+import WellBeing from "../screens/Lectures/WellBeing";
+import News from "../screens/News";
+import Homily from "../screens/Homily";
+
 
 const Stack = createStackNavigator();
 const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
@@ -47,6 +53,13 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
         };
     });
 
+    const isDrawerOpen = useDrawerStatus() === 'open';
+
+    useEffect(() => {
+        // Change the StatusBar style to light when the drawer is open
+        StatusBar.setBarStyle(isDrawerOpen ? 'light-content' : 'dark-content');
+    }, [isDrawerOpen]);
+
     return <Animated.View style={[styles.stack, animatedStyle]}>
         <Stack.Navigator initialRouteName="Test">
             <Stack.Screen
@@ -56,7 +69,6 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                     // headerTransparent: true,
@@ -90,9 +102,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -104,7 +114,6 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,                    
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -117,7 +126,6 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Pray',
                     headerTitleAlign: 'center',
                     headerTitleStyle: { fontFamily: fonts.headingFont, textTransform: 'capitalize' },
-                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Books'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -130,9 +138,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'About',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -143,13 +149,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Audio',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
-            
+
             <Stack.Screen
                 name="GoalList"
                 component={GoalList}
@@ -157,7 +161,6 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Goals',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -170,7 +173,6 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Start Free Week',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -183,13 +185,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Ask A Question',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
-            
             <Stack.Screen
                 name="Contact"
                 component={Contact}
@@ -202,13 +202,83 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTransparent: true,
                     // headerLeft: () => <GoBackIcon navigation={navigation} />,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerTitle: '',
+                    headerTitle: 'Contact',
+                    // // headerShown: false,
+                    // headerTitle: 'Contact Us',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+
+            <Stack.Screen
+                name="Homily"
+                component={Homily}
+                options={{
+                    // headerTransparent: true,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerTitle: 'Homily',
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
                     // headerTitleStyle: globalstyle.headerTitleStyle,
-                    // // headerLeft: () => <><GoBackIcon navigation={navigation} /><DrawerIcon navigation={navigation} /></>,
+                    headerLeft: () => <GoBackIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="News"
+                component={News}
+                options={{
+                    // headerTransparent: true,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    // headerRight: () => <NotificationIcon navigation={navigation} />
+                    headerTitle: 'News',
+                    // // headerShown: false,
+                    // headerTitle: 'Contact Us',
+                    // headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerLeft: () => <GoBackIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="Social"
+                component={Social}
+                options={{
+                    // headerTransparent: true,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerTitle: 'Social',
+                    // // headerShown: false,
+                    // headerTitle: 'Contact Us',
+                    // headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerLeft: () => <GoBackIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="BibleStudy"
+                component={BibleStudy}
+                options={{
+                    // headerTransparent: true,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerTitle: 'Bible Study',
+                    // // headerShown: false,
+                    // headerTitle: 'Contact Us',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerLeft: () => <GoBackIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="WellBeing"
+                component={WellBeing}
+                options={{
+                    // headerTransparent: true,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerTitle: 'Well-Being',
+                    // // headerShown: false,
+                    // headerTitle: 'Contact Us',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerLeft: () => <GoBackIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
         </Stack.Navigator>

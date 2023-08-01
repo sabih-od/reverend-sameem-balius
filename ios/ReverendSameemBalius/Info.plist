@@ -47,6 +47,13 @@
 		<string>Ionicons.ttf</string>
 		<string>Feather.ttf</string>
 		<string>Entypo.ttf</string>
+		<string>Tajawal-Black.ttf</string>
+		<string>Tajawal-Bold.ttf</string>
+		<string>Tajawal-ExtraBold.ttf</string>
+		<string>Tajawal-ExtraLight.ttf</string>
+		<string>Tajawal-Light.ttf</string>
+		<string>Tajawal-Medium.ttf</string>
+		<string>Tajawal-Regular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
