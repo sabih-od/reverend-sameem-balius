@@ -11,5 +11,11 @@ export default {
 
 
   ForgetPasswordTitle: 'نسيت كلمة المرور',
-  ForgetPasswordDesc: 'قدم التفاصيل الخاصة بك لاستعادة حسابك'
+  ForgetPasswordDesc: 'قدم التفاصيل الخاصة بك لاستعادة حسابك',
+
+
+  Videos: 'أشرطة فيديو',
+  Audios: 'صوتيات',
+  Documents: 'وثائق',
+  Images: 'الصور',
 };

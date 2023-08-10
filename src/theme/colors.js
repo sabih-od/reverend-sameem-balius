@@ -13,6 +13,8 @@ const colorvariable = {
   purpleblue: 'rgba(48, 90, 215, 1.0)',
   yellow: 'rgba(255,255,0, 1.0)',
   drawerbg: '#0f294a',
+  green: 'green',
+  headerbgcolor: '#e4cee3'
 };
 
 export default colorvariable;

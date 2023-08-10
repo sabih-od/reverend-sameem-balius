@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import { colors, fonts, isIPad, width } from "../theme";
+import { colorScheme, colors, fonts, isIPad, width } from "../theme";
 import { createDrawerNavigator, useDrawerProgress, useDrawerStatus } from "@react-navigation/drawer";
 
 const Drawer = createDrawerNavigator();
@@ -31,7 +31,7 @@ function DrawerStackNavigation() {
                 overlayColor: "transparent",
                 keyboardDismissMode: "on-drag",
                 // sceneContainerStyle: { backgroundColor: 'transparent' },
-                sceneContainerStyle: { backgroundColor: colors.drawerbg },
+                sceneContainerStyle: { backgroundColor: colorScheme == 'dark' ? colors.drawerbg : colors.headerbgcolor },
             }}>
             {/* <Drawer.Screen name="AuthScreens" options={{
                 headerShown: false,

@@ -11,5 +11,10 @@ export default {
 
 
   ForgetPasswordTitle: 'Forget Password',
-  ForgetPasswordDesc: 'Provide your details to recover your account'
+  ForgetPasswordDesc: 'Provide your details to recover your account',
+
+  Videos: 'Videos',
+  Audios: 'Audios',
+  Documents: 'Documents',
+  Images: 'Images',
 };

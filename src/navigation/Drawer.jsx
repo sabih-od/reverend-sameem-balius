@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
 
-import { IOS, colors, fonts, isIPad } from '../theme';
-import { Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { IOS, colorScheme, colors, fonts, isIPad } from '../theme';
+import { I18nManager, Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { DrawerContentScrollView, useDrawerProgress } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
@@ -22,10 +22,13 @@ import { GetProfileApiCall } from '../redux/reducers/AuthReducer';
 import { EditProfileApiCall } from '../redux/reducers/UserStateReducer';
 import draweritems from './draweritems';
 import { changeLang } from '../localization/translation';
+import SplashScreen from 'react-native-splash-screen';
+import RNRestart from 'react-native-restart';
+import { GetDrawerMenu } from '../redux/reducers/ListingApiStateReducer';
 
 const DrawerContent = (props) => {
 
-  
+
   // const appState = useAppState();
   // console.log('appState status => ', appState);
 
@@ -88,9 +91,11 @@ const DrawerContent = (props) => {
 
   useEffect(() => {
     // connectSocket();
+    props.GetDrawerMenu();
   }, []);
 
-  const [user, setUser] = useState(props.userInfo)
+  const [user, setUser] = useState(props.userInfo);
+  const [drawerMenu, setDrawerMenu] = useState([]);
 
   useEffect(() => {
     // console.log('Drawer props.userInfo => ', props.userInfo);
@@ -102,6 +107,14 @@ const DrawerContent = (props) => {
       props.GetProfileApiCall();
     }
   }, [])
+
+  const menuRef = useRef(props.drawerMenu)
+  useEffect(() => {
+    if (props.drawerMenu != menuRef.current && props.drawerMenu?.success && props.drawerMenu?.data && props.drawerMenu?.data.length > 0) {
+      console.log('props.drawerMenu?.data => ', props.drawerMenu?.data)
+      setDrawerMenu(props.drawerMenu?.data.reverse())
+    }
+  }, [props.drawerMenu])
 
   const prevUserProfileResRef = useRef(props.getUserProfileResponse?.data);
 
@@ -130,7 +143,7 @@ const DrawerContent = (props) => {
   return (
     <>
       {user &&
-        <View style={{ backgroundColor: colors.drawerbg, paddingBottom: isIPad ? 60 : 30, paddingTop: IOS ? 60 : 30, }}>
+        <View style={{ backgroundColor: colorScheme == 'dark' ? colors.drawerbg : colors.headerbgcolor, paddingBottom: isIPad ? 60 : 30, paddingTop: IOS ? 60 : 30, }}>
           {/* <TouchableOpacity onPress={() => { props.navigation.closeDrawer() }} activeOpacity={0.8}>
           <Icon name={'x'} color={colors.white} size={16} />
         </TouchableOpacity> */}
@@ -142,9 +155,12 @@ const DrawerContent = (props) => {
           }}>
             <Image source={user?.profile_picture ? { uri: user?.profile_picture } : require('./../../assets/images/dummy-profile-image.png')} style={{ width: isIPad ? 120 : 90, height: isIPad ? 120 : 90, resizeMode: 'cover', }} />
           </TouchableOpacity>
-          <Text style={{ fontFamily: fonts.latoBold, color: colors.white, textAlign: 'center', fontSize: isIPad ? 26 : 20, marginBottom: 8 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}><Icon name={'mail'} style={{ color: colors.orange, fontSize: 16, marginRight: 10, marginBottom: -4 }} /><Text style={{ fontFamily: fonts.latoRegular, color: colors.white, textAlign: 'center', fontSize: isIPad ? 18 : 13 }}>{user?.email}</Text></View>
-          {/* <Text style={{ fontFamily: fonts.latoRegular, color: colors.white, textAlign: 'center', fontSize: 12 }}>{user?.phone}</Text> */}
+          <Text style={{ fontFamily: fonts.primarySemiBold, color: colorScheme == 'dark' ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 26 : 20, marginBottom: 3 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <Icon name={'mail'} style={{ color: colors.orange, fontSize: 16, marginRight: 10, marginBottom: -4 }} />
+            <Text style={{ fontFamily: fonts.primary, color: colorScheme == 'dark' ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 18 : 13 }}>{user?.email}</Text>
+          </View>
+          {/* <Text style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center', fontSize: 12 }}>{user?.phone}</Text> */}
         </View>
       }
       <View style={{ backgroundColor: colors.deepblue, paddingVertical: 10, paddingHorizontal: 15, justifyContent: 'space-between', flexDirection: 'row' }}>
@@ -152,24 +168,45 @@ const DrawerContent = (props) => {
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => changeLang('en')}
+            onPress={() => {
+              changeLang('en')
+              I18nManager.forceRTL(false);
+              console.log('I18nManager.isRTL => ', I18nManager.isRTL);
+              setTimeout(() => {
+                RNRestart.restart();
+              }, 500)
+              SplashScreen.show();
+            }}
           >
-            <Text style={[globalstyle.draweritemtext, { color: colors.orange }]}>English</Text>
+            <Text style={[globalstyle.draweritemtext, props.language == 'en' && { color: colors.orange }]}>English</Text>
           </TouchableOpacity>
           <View style={{ height: 15, width: 1, backgroundColor: colors.deepblue, marginHorizontal: 10 }} />
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => changeLang('ar')}
+            onPress={() => {
+              changeLang('ar')
+              I18nManager.forceRTL(true);
+              console.log('I18nManager.isRTL => ', I18nManager.isRTL);
+              setTimeout(() => {
+                RNRestart.restart();
+              }, 500)
+              SplashScreen.show();
+            }}
           >
-            <Text style={globalstyle.draweritemtext}>Arabic</Text>
+            <Text style={[globalstyle.draweritemtext, { fontFamily: fonts.arabicMedium }, props.language == 'ur' && { color: colors.orange }]}>عربي</Text>
+            {/* <Text style={globalstyle.draweritemtext}>Arabic</Text> */}
           </TouchableOpacity>
         </View>
       </View>
       <DrawerContentScrollView {...props} style={[styles.sidebar,]} contentContainerStyle={{ paddingTop: 0 }}>
-        {draweritems.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)}
+        {/* {draweritems.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)} */}
+        <DrawerItem key={0} item={{ title: 'Home', nav: 'Home' }} navigation={props.navigation} activescreen={props.currentScreen} />
+        {drawerMenu.length > 0 && drawerMenu.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)}
+        <DrawerItem key={100} item={{ title: 'Question & Answer', nav: 'QuestionAnswer' }} navigation={props.navigation} activescreen={props.currentScreen} />
+        <DrawerItem key={101} item={{ title: 'Contact Us', nav: 'Contact' }} navigation={props.navigation} activescreen={props.currentScreen} />
         <View style={{ height: 10 }} />
       </DrawerContentScrollView>
-      {user && <View style={{ backgroundColor: colors.drawerbg }}>
+      {user && <View style={{ backgroundColor: colorScheme == 'dark' ? colors.drawerbg : colors.headerbgcolor }}>
         <TouchableOpacity activeOpacity={0.8} onPress={() => {
           // logout(props.navigation) 
           props.navigation.closeDrawer();
@@ -189,7 +226,7 @@ const DrawerContent = (props) => {
 
 const styles = StyleSheet.create({
   sidebar: {
-    backgroundColor: colors.drawerbg,
+    backgroundColor: colorScheme == 'dark' ? colors.drawerbg : colors.headerbgcolor,
     //flex: 1 
   },
   logoutitem: { flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 13, borderBottomWidth: 1, borderBottomColor: '#ffffff09', backgroundColor: colors.orange, borderTopRightRadius: 30 }
@@ -203,6 +240,7 @@ const setStateToProps = (state) => ({
   isLogin: state.appstate.isLogin,
   getUserProfileResponse: state.authstate.getUserProfileResponse,
   language: state.appstate.language,
+  drawerMenu: state.listingstate.drawerMenu,
 })
 
 const mapDispatchToProps = (dispatch) => {
@@ -213,6 +251,7 @@ const mapDispatchToProps = (dispatch) => {
     GetProfileApiCall: bindActionCreators(GetProfileApiCall, dispatch),
     SetUserInfo: bindActionCreators(SetUserInfo, dispatch),
     EditProfileApiCall: bindActionCreators(EditProfileApiCall, dispatch),
+    GetDrawerMenu: bindActionCreators(GetDrawerMenu, dispatch),
   }
 }
 

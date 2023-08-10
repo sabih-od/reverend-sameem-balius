@@ -24,14 +24,14 @@ const Home = (props) => {
         <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
             <ScrollView style={styles.homescollview} showsVerticalScrollIndicator={false}>
 
-                {draweritems.map((item, index) => <>
+                {/* {draweritems.map((item, index) => <>
                     <TouchableOpacity key={index} onPress={() => props.navigation.navigate(item.nav)}>
                         <Text>{item.title}</Text>
                     </TouchableOpacity>
-                    {item.submenu && item.submenu.map((subitem, index) => <TouchableOpacity onPress={() => props.navigation.navigate(subitem.nav)}>
+                    {item.children && item.children.map((subitem, index) => <TouchableOpacity onPress={() => props.navigation.navigate(subitem.nav)}>
                         <Text>{'   '}{subitem.title}</Text>
                     </TouchableOpacity>)}
-                </>)}
+                </>)} */}
 
                 <MainBox />
 

@@ -2,7 +2,12 @@ import { ScrollView, Text, View, TextInput, SafeAreaView, TouchableOpacity, Flat
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../theme/style";
 import { backgroungImage, colors, fonts, width } from "../theme";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { GetQuestions, SendAskAQuestion } from "../redux/reducers/ListingApiStateReducer";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { showToast } from "../helpers/toastConfig";
+import Loader from "../components/Loader";
 
 const data = [{
     id: 1,
@@ -38,7 +43,6 @@ const Faqs = ({ item, showborder, handleAccordionToggle, activeAccordion }) => {
     //     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     //     setIsCollapsed(!isCollapsed);
     // };
-
     const isCollapsed = activeAccordion == item.id;
 
     return (
@@ -52,10 +56,10 @@ const Faqs = ({ item, showborder, handleAccordionToggle, activeAccordion }) => {
                     handleAccordionToggle(item.id)
                 }}
             >
-                <Text style={{ fontFamily: fonts.primarySemiBold, }}>{item.title}</Text>
+                <Text style={{ fontFamily: fonts.primarySemiBold, }}>{item.question}</Text>
                 <Icon name={isCollapsed ? "chevron-up" : "chevron-down"} size={15} />
             </TouchableOpacity>
-            {isCollapsed && <Text style={{ fontFamily: fonts.primary, marginBottom: 15, fontSize: 14 }}>{item.content}</Text>}
+            {item.answer && isCollapsed && <Text style={{ fontFamily: fonts.primary, marginBottom: 15, fontSize: 13 }}>{item.answer}</Text>}
         </View>
     )
 }
@@ -68,27 +72,79 @@ const QuestionAnswer = (props) => {
         setActiveAccordion((prevId) => (prevId === id ? null : id));
     };
 
+    useEffect(() => {
+        props.GetQuestions();
+    }, [])
+
+    const [loading, isLoading] = useState(false);
+    const [question, setQuestion] = useState('');
+    const [faqs, setSetFaqs] = useState('');
+    const inputRef = useRef(null)
+    const prevSendAskAQuestionsRef = useRef(props.sendAskAQuestionsResponse)
+    const prevGetQuestionsRef = useRef(props.prevGetQuestionsRef)
+
+    useEffect(() => {
+        // console.log('props.sendAskAQuestionsResponse => ', props.sendAskAQuestionsResponse);
+        if (props.sendAskAQuestionsResponse !== prevSendAskAQuestionsRef.current && props.sendAskAQuestionsResponse?.success && props.sendAskAQuestionsResponse?.data) {
+            prevSendAskAQuestionsRef.current = props.sendAskAQuestionsResponse;
+            console.log('props.sendAskAQuestionsResponse => ', props.sendAskAQuestionsResponse);
+            showToast('success', 'Your question sent successfully')
+        } else {
+
+        }
+        isLoading(false);
+    }, [props.sendAskAQuestionsResponse])
+
+    useEffect(() => {
+        // console.log('props.sendAskAQuestionsResponse => ', props.sendAskAQuestionsResponse);
+        if (props.getQuestionsResponse !== prevGetQuestionsRef.current && props.getQuestionsResponse?.success && props.getQuestionsResponse?.data) {
+            prevGetQuestionsRef.current = props.getQuestionsResponse;
+            console.log('props.getQuestionsResponse => ', props.getQuestionsResponse);
+            setSetFaqs(props.getQuestionsResponse?.data)
+        } else {
+
+        }
+        isLoading(false);
+    }, [props.sendAskAQuestionsResponse])
+
+    
+
+    function onSubmit() {
+        if (question == '') {
+            showToast('error', 'Please ask a question')
+        } else {
+            isLoading(true);
+            props.SendAskAQuestion({ question: question });
+            setQuestion('');
+            // showToast('success', 'Your question sent successfully')
+        }
+    }
+
     return (
         <SafeAreaView style={globalstyle.fullview}>
+            <Loader isLoading={loading} />
             <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
                 <FlatList
-                    data={data}
+                    data={faqs}
                     keyExtractor={(item) => String(item.id)}
                     renderItem={({ item, index }) => <Faqs
                         item={item}
-                        showborder={index == data.length - 1}
+                        showborder={index == faqs.length - 1}
                         isExpanded={activeAccordion === item.id}
                         activeAccordion={activeAccordion}
                         handleAccordionToggle={_handleAccordionToggle} />}
                 />
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: width - 30, backgroundColor: '#fff', borderRadius: 15, padding: 7, marginBottom: 10 }}>
                     <TextInput
-                        onChangeText={value => console.log('value => ', value)}
+                        ref={inputRef}
+                        defaultValue={question}
+                        onChangeText={value => setQuestion(value)}
                         placeholder="Ask a Question..."
                         placeholderTextColor={'#999'}
                         style={{ padding: 10, width: width - 100, fontFamily: fonts.primary }}
                     />
                     <TouchableOpacity
+                        onPress={onSubmit}
                         style={{ alignItems: 'center', justifyContent: 'center', width: 45, backgroundColor: colors.orange, borderRadius: 10 }}>
                         <Icon name="send" style={{ fontSize: 20, color: colors.white }} />
                     </TouchableOpacity>
@@ -98,7 +154,19 @@ const QuestionAnswer = (props) => {
     )
 }
 
-export default QuestionAnswer;
+const setStateToProps = (state) => ({
+    getQuestionsResponse: state.listingstate.getQuestionsResponse,
+    sendAskAQuestionsResponse: state.listingstate.sendAskAQuestionsResponse,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        SendAskAQuestion: bindActionCreators(SendAskAQuestion, dispatch),
+        GetQuestions: bindActionCreators(GetQuestions, dispatch),
+    }
+};
+
+export default connect(setStateToProps, mapDispatchToProps)(QuestionAnswer);
 
 const styles = StyleSheet.create({
     homebgimage: {

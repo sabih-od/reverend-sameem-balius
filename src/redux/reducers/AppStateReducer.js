@@ -1,4 +1,4 @@
-import { LOGOUT_USER, SET_IS_LOGIN, SET_USER_INFO, UPDATE_CURRENT_SCREEN, UPDATE_FCM_TOKEN, UPDATE_NOTIFICATION_BADGE, UPDATE_MESSAGE_BADGE, CHANGE_LANGUAGE } from "../actiontypes";
+import { LOGOUT_USER, SET_IS_LOGIN, SET_USER_INFO, UPDATE_CURRENT_SCREEN, UPDATE_FCM_TOKEN, UPDATE_NOTIFICATION_BADGE, UPDATE_MESSAGE_BADGE, CHANGE_LANGUAGE, SET_DRAWER_MENU } from "../actiontypes";
 
 export const initialState = {
     isLogin: false,
@@ -60,6 +60,7 @@ export function SetLanguage(data) {
         payload: data
     }
 }
+
 
 const AppStateReducer = (state = initialState, action) => {
     switch (action.type) {

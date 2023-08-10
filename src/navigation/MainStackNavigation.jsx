@@ -33,6 +33,7 @@ import BibleStudy from "../screens/Lectures/BibleStudy";
 import WellBeing from "../screens/Lectures/WellBeing";
 import News from "../screens/News";
 import Homily from "../screens/Homily";
+import PostsList from "../screens/PostsList";
 
 
 const Stack = createStackNavigator();
@@ -69,6 +70,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                     // headerTransparent: true,
@@ -89,6 +91,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Notifications',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -102,6 +105,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -114,6 +118,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,                    
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -126,8 +131,21 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Pray',
                     headerTitleAlign: 'center',
                     headerTitleStyle: { fontFamily: fonts.headingFont, textTransform: 'capitalize' },
-                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Books'} />,
+                    headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Books'} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="PostsList"
+                component={PostsList}
+                options={{
+                    headerTitle: 'PostsList',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -138,6 +156,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'About',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -149,6 +168,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Audio',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -161,6 +181,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Goals',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -173,6 +194,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Start Free Week',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -185,8 +207,9 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Ask A Question',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -206,6 +229,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -221,6 +245,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
                     // headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     headerLeft: () => <GoBackIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -235,6 +260,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
                     // headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     headerLeft: () => <GoBackIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -249,6 +275,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
                     // headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     headerLeft: () => <GoBackIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -263,6 +290,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     headerLeft: () => <GoBackIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -277,6 +305,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
                     headerLeft: () => <GoBackIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}

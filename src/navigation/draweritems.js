@@ -1,33 +1,33 @@
 const draweritems = [
-    { title: 'Home', nav: 'Home', submenu: null },
-    { title: 'Mass', nav: 'Mass', submenu: null },
-    { title: 'Homily', nav: 'Homily', submenu: null },
+    { title: 'Home', nav: 'Home', children: null },
+    { title: 'Mass', nav: 'Mass', children: null },
+    { title: 'Homily', nav: 'Homily', children: null },
     {
-        title: 'Lectures', nav: null, submenu: [
+        title: 'Lectures', nav: null, children: [
             { title: 'Bible Study', nav: 'BibleStudy' },
             { title: 'Social', nav: 'Social' },
             { title: 'Well-Being', nav: 'WellBeing' }
         ],
     },
     {
-        title: 'Meditation', nav: null, submenu: [
+        title: 'Meditation', nav: null, children: [
             { title: 'Spiritual', nav: 'Spiritual' },
             { title: 'Bibical', nav: 'Bibical' },
             { title: 'Hymns', nav: 'Hymns' }
         ]
     },
     {
-        title: 'News', nav: 'News', submenu: null
+        title: 'News', nav: 'News', children: null
     },
     {
-        title: 'Library', nav: null, submenu: [
+        title: 'Library', nav: null, children: [
             { title: 'Books', nav: 'Books' },
             { title: 'CDs', nav: 'CDs' },
             { title: 'Audio', nav: 'Audio' }
         ]
     },
     {
-        title: 'Programs', nav: null, submenu: [
+        title: 'Programs', nav: null, children: [
             { title: 'Jesus the Human', nav: 'JesustheHuman' },
             { title: 'Verse & Truth', nav: 'VerseTruth' },
             { title: 'Spiritual Eco', nav: 'SpiritualEco' },
@@ -35,10 +35,10 @@ const draweritems = [
         ]
     },
     {
-        title: 'Cources', nav: 'Cources', submenu: null
+        title: 'Cources', nav: 'Cources', children: null
     },
-    { title: 'QuestionAnswer', nav: 'QuestionAnswer', submenu: null },
-    { title: 'Contact Us', nav: 'Contact', submenu: null },
+    { title: 'QuestionAnswer', nav: 'QuestionAnswer', children: null },
+    { title: 'Contact Us', nav: 'Contact', children: null },
 ]
 
 export default draweritems;
