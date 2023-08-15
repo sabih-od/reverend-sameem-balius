@@ -51,14 +51,14 @@ const ForgetPassword = (props) => {
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
         {/* <ScrollView style={globalstyle.authContainer}> */}
-        <ImageBackground source={backgroungImage} 
-        style={[globalstyle?.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
+        <ImageBackground source={backgroungImage}
+            style={[globalstyle?.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
             {/* <ScrollView> */}
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         <View style={globalstyle.authLogoContainer}>
-                            <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} />
+                            {/* <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} /> */}
                             <Text style={globalstyle.authheading}>{strings.ForgetPasswordTitle}</Text>
                             <Text style={globalstyle.authdescription}>{strings.ForgetPasswordDesc}</Text>
                         </View>
@@ -89,7 +89,7 @@ const ForgetPassword = (props) => {
                                 handleSubmit(onSubmit)
                                 // () => { props.navigation.navigate('SubmitOTP', { email: emailaddress }) }
                             } style={globalstyle.authSubmitButton} >
-                                <Text style={globalstyle.authSubmitButtonText}>Submit</Text>
+                                <Text style={globalstyle.authSubmitButtonText}>{strings.Submit}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ paddingBottom: 30 }} />

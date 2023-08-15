@@ -11,8 +11,11 @@ import { useEffect, useState, useRef } from "react";
 import { useCallback } from "react";
 // import YouTube from "react-native-youtube";
 import YoutubePlayer from "react-native-youtube-iframe";
+import SectionTitle from "../../components/SectionTitle";
+import strings from "../../localization/translation";
+import SectionItem from "../../components/SectionItem";
 
-const SermonsDetail = (props) => {
+const VideoDetail = (props) => {
     console.log('props.route.params.item => ', props.route.params.item);
 
     const [refreshing, setRefreshing] = useState(false);
@@ -62,12 +65,12 @@ const SermonsDetail = (props) => {
     return (
         <SafeAreaView style={globalstyle.fullview}>
             {isStarted && <View style={{ height: width / 1.8, justifyContent: 'center', backgroundColor: colors.black, position: 'absolute', zIndex: 1, width: width, left: 0, top: 0 }}>
-                <ActivityIndicator color={colors.green} />
+                <ActivityIndicator color={colors.headerbgcolor} />
             </View>}
             {item?.url && <YoutubePlayer
                 height={width / 1.8}
                 play={playing}
-                videoId={findvideoid(item?.url)} // youtube_video_id
+                videoId={findvideoid(item?.youtube_video)} // youtube_video_id
                 onChangeState={_handleStateChanged}
                 onReady={() => console.log('onReady')}
                 onError={() => console.log('onError')}
@@ -92,6 +95,15 @@ const SermonsDetail = (props) => {
                 <Text style={globalstyle.detailtitle}>{item?.title}</Text>
                 {/* <Text style={globalstyle.detaildescription}>{item?.description}</Text> */}
                 <Text style={globalstyle.detaildescription}>{item?.description}</Text>
+
+                <View style={{marginTop: 20,}} />
+                <SectionTitle title={'More Videos'} />
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                    {[...Array(4).keys()].map((item, index) => {
+                        return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} video={true} />)
+                    })}
+                </View>
+
                 {/* <YouTube
                     videoId="VI9yRXbNyn8"
                     // apiKey="YOUR_YOUTUBE_API_KEY"
@@ -111,8 +123,7 @@ const mapDispatchToProps = (dispatch) => {
         GetSermonsDetailApiCall: bindActionCreators(GetSermonsDetailApiCall, dispatch),
     }
 }
-export default connect(setStateToProps, mapDispatchToProps)(SermonsDetail);
-// export default SermonsDetail;
+export default connect(setStateToProps, mapDispatchToProps)(VideoDetail);
 
 const styles = StyleSheet.create({
 })

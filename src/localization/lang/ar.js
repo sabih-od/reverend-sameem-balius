@@ -8,14 +8,26 @@ export default {
   ForgetPassword: 'نسيت كلمة المرور؟',
   YesIAgree: 'نعم اوافق',
   TermsCondition: 'الشروط و الأحكام',
-
-
+  Submit: 'يُقدِّم',
+  SubmitOTP: 'إرسال كلمة المرور لمرة واحدة',
+  OtpDesc: 'أدخل OTP المرسل على بريدك الإلكتروني',
+  ResetPass: 'إعادة تعيين كلمة المرور',
+  ResetAccPass: 'أعد تعيين كلمة مرور حسابك',
   ForgetPasswordTitle: 'نسيت كلمة المرور',
   ForgetPasswordDesc: 'قدم التفاصيل الخاصة بك لاستعادة حسابك',
-
+  ChangeEmail: 'تغيير البريد الالكتروني',
+  ClickHere: 'انقر هنا',
 
   Videos: 'أشرطة فيديو',
   Audios: 'صوتيات',
-  Documents: 'وثائق',
+  Documents: 'ڪتاب',
   Images: 'الصور',
+
+  posttitle: 'صلاة ليلة الخميس',
+  postdesc: 'انضم إلى الكنيسة حول العالم بإغلاق يومك بالمجموعة التقليدية من المزامير والقراءة والصلاة.',
+
+  logout: 'تسجيل خروج',
+  questionanswer: 'جواب السؤال',
+  contactus: 'اتصل بنا',
+  home: 'بيت',
 };

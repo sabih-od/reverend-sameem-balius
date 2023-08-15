@@ -10,6 +10,7 @@ import { UpdateCurrentScreen } from "../redux/reducers/AppStateReducer";
 import { connect } from "react-redux";
 import AuthStackNavigation from "./AuthStackNavigation";
 import { changeLang } from "../localization/translation";
+import { isRTL } from "../theme";
 // import RNRestart from 'react-native-restart'; 
 
 const Navigation = (props) => {
@@ -18,12 +19,14 @@ const Navigation = (props) => {
     changeLang(props.language)
     useEffect(() => {
         console.log('props.language => ', props.language)
-        // changeLang(props.language)
-        // I18nManager.allowRTL(true);
-        // I18nManager.forceRTL(props.language == 'en' ? false : true);
-        // console.log('I18nManager.isRTL => ', I18nManager.isRTL);
-        // RNRestart.restart();
+        changeLang(props.language)
+        I18nManager.allowRTL(true);
+        I18nManager.forceRTL(props.language == 'ar' ? true : false);
+        console.log('isRTL => ', I18nManager.isRTL)
     }, [props.language])
+
+    // useEffect(() => {
+    // }, [])
 
     // const routeNameRef = useRef();
     // const navigationRef = useRef();

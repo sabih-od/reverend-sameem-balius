@@ -34,6 +34,9 @@ import WellBeing from "../screens/Lectures/WellBeing";
 import News from "../screens/News";
 import Homily from "../screens/Homily";
 import PostsList from "../screens/PostsList";
+import VideoDetail from "../screens/Detail/VideoDetail";
+import ImageDetail from "../screens/Detail/ImageDetail";
+import PdfView from "../screens/PdfView";
 
 
 const Stack = createStackNavigator();
@@ -89,6 +92,45 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 component={Notifications}
                 options={{
                     headerTitle: 'Notifications',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="VideoDetail"
+                component={VideoDetail}
+                options={{
+                    headerTitle: '',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="ImageDetail"
+                component={ImageDetail}
+                options={{
+                    headerTitle: '',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="PDFView"
+                component={PdfView}
+                options={{
+                    headerTitle: 'Book Detail',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: { backgroundColor: colors.headerbgcolor },

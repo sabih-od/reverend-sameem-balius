@@ -68,12 +68,12 @@ const Contact = (props) => {
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}> */}
                         {/* <ScrollView> */}
                         <View style={[globalstyle.authLogoContainer, { alignItems: 'flex-start', }]}>
-                            <Text style={[globalstyle.authheading, { fontSize: isIPad ? 35 : 30, marginTop: 10 }]}>Contact Us</Text>
+                            <Text style={[globalstyle.authheading, { fontSize: isIPad ? 35 : 28, marginTop: 10 }]}>Contact Us</Text>
                             <Text style={[globalstyle.authdescription, { fontSize: isIPad ? 20 : 15, marginBottom: 10, marginTop: isIPad ? 8 : 0 }]}>Contact us for any question and query</Text>
                         </View>
                         <View>
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.green} name={'user'} size={18} />
+                                <Icon color={colors.darkblue} name={'user'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder="Full Name"
@@ -96,7 +96,7 @@ const Contact = (props) => {
                             {errors.name && <Text style={globalstyle.errorField}>{errors.name.message}</Text>}
 
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.green} name={'mail'} size={18} />
+                                <Icon color={colors.darkblue} name={'mail'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder="Email Address"
@@ -122,7 +122,7 @@ const Contact = (props) => {
                             {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
 
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.green} name={'phone'} size={18} />
+                                <Icon color={colors.darkblue} name={'phone'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder="Phone Number (Optional)"
@@ -147,7 +147,7 @@ const Contact = (props) => {
                             {errors.phone && <Text style={globalstyle.errorField}>{errors.phone.message}</Text>}
 
                             {/* <View style={globalstyle.inputbox}>
-                                <Icon color={colors.green} name={'globe'} size={18} />
+                                <Icon color={colors.darkblue} name={'globe'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder="Your Company (Optional)"
@@ -168,7 +168,7 @@ const Contact = (props) => {
 
                             <View style={[globalstyle.inputbox, { justifyContent: 'space-between', borderRadius: 25 }]}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                    <Icon color={colors.green} name={'message-square'} size={18} style={{ marginTop: 15 }} />
+                                    <Icon color={colors.darkblue} name={'message-square'} size={18} style={{ marginTop: 15 }} />
                                     <TextInput
                                         style={[globalstyle.inputfield, { flex: 0.8, textAlignVertical: 'top', paddingTop: 17 }]}
                                         placeholder="Enter Your Message"
@@ -196,7 +196,7 @@ const Contact = (props) => {
                                 onPress={handleSubmit(onSubmit)}
                                 style={globalstyle.authSubmitButton}
                             >
-                                <Text style={globalstyle.authSubmitButtonText}>Ask A Question</Text>
+                                <Text style={globalstyle.authSubmitButtonText}>Submit</Text>
                             </TouchableOpacity>
                         </View>
 

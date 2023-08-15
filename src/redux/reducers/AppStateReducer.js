@@ -100,7 +100,7 @@ const AppStateReducer = (state = initialState, action) => {
                 language: action.payload
             }
         case LOGOUT_USER:
-            return initialState
+            return { ...initialState, language: state.language } // initialState
         default:
             return state;
     }

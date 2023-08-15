@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
 
-import { IOS, colorScheme, colors, fonts, isIPad } from '../theme';
+import { IOS, colorScheme, colors, fonts, isIPad, isRTL } from '../theme';
 import { I18nManager, Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { DrawerContentScrollView, useDrawerProgress } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { LogOut, SetUserInfo, UpdateFcmToken, UpdateNotificationBadge } from '../redux/reducers/AppStateReducer';
+import { LogOut, SetLanguage, SetUserInfo, UpdateFcmToken, UpdateNotificationBadge } from '../redux/reducers/AppStateReducer';
 import DrawerItem from '../components/drawer/DrawerItem';
 import globalstyle from '../theme/style';
 
@@ -21,7 +21,7 @@ import { GetProfileApiCall } from '../redux/reducers/AuthReducer';
 // import { useAppState } from '../hooks/useAppState';
 import { EditProfileApiCall } from '../redux/reducers/UserStateReducer';
 import draweritems from './draweritems';
-import { changeLang } from '../localization/translation';
+import strings, { changeLang } from '../localization/translation';
 import SplashScreen from 'react-native-splash-screen';
 import RNRestart from 'react-native-restart';
 import { GetDrawerMenu } from '../redux/reducers/ListingApiStateReducer';
@@ -169,41 +169,43 @@ const DrawerContent = (props) => {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
+              props.SetLanguage('en')
               changeLang('en')
+              I18nManager.allowRTL(true);
               I18nManager.forceRTL(false);
-              console.log('I18nManager.isRTL => ', I18nManager.isRTL);
               setTimeout(() => {
                 RNRestart.restart();
               }, 500)
               SplashScreen.show();
             }}
           >
-            <Text style={[globalstyle.draweritemtext, props.language == 'en' && { color: colors.orange }]}>English</Text>
+            <Text style={[globalstyle.draweritemtext, !isRTL && { color: colors.orange }]}>English</Text>
           </TouchableOpacity>
           <View style={{ height: 15, width: 1, backgroundColor: colors.deepblue, marginHorizontal: 10 }} />
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
+              props.SetLanguage('ar')
               changeLang('ar')
+              I18nManager.allowRTL(true);
               I18nManager.forceRTL(true);
-              console.log('I18nManager.isRTL => ', I18nManager.isRTL);
               setTimeout(() => {
                 RNRestart.restart();
               }, 500)
               SplashScreen.show();
             }}
           >
-            <Text style={[globalstyle.draweritemtext, { fontFamily: fonts.arabicMedium }, props.language == 'ur' && { color: colors.orange }]}>عربي</Text>
+            <Text style={[globalstyle.draweritemtext, { fontFamily: fonts.arabicMedium }, isRTL && { color: colors.orange }]}>عربي</Text>
             {/* <Text style={globalstyle.draweritemtext}>Arabic</Text> */}
           </TouchableOpacity>
         </View>
       </View>
       <DrawerContentScrollView {...props} style={[styles.sidebar,]} contentContainerStyle={{ paddingTop: 0 }}>
         {/* {draweritems.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)} */}
-        <DrawerItem key={0} item={{ title: 'Home', nav: 'Home' }} navigation={props.navigation} activescreen={props.currentScreen} />
+        <DrawerItem key={0} item={{ title: strings.home, nav: 'Home' }} navigation={props.navigation} activescreen={props.currentScreen} />
         {drawerMenu.length > 0 && drawerMenu.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)}
-        <DrawerItem key={100} item={{ title: 'Question & Answer', nav: 'QuestionAnswer' }} navigation={props.navigation} activescreen={props.currentScreen} />
-        <DrawerItem key={101} item={{ title: 'Contact Us', nav: 'Contact' }} navigation={props.navigation} activescreen={props.currentScreen} />
+        <DrawerItem key={100} item={{ title: strings.questionanswer, nav: 'QuestionAnswer' }} navigation={props.navigation} activescreen={props.currentScreen} />
+        <DrawerItem key={101} item={{ title: strings.contactus, nav: 'Contact' }} navigation={props.navigation} activescreen={props.currentScreen} />
         <View style={{ height: 10 }} />
       </DrawerContentScrollView>
       {user && <View style={{ backgroundColor: colorScheme == 'dark' ? colors.drawerbg : colors.headerbgcolor }}>
@@ -217,7 +219,7 @@ const DrawerContent = (props) => {
         }}
           style={styles.logoutitem}>
           <Icon name="log-out" style={{ color: colors.black, marginRight: 15 }} size={16} />
-          <Text style={[globalstyle.draweritemtext, { color: colors.black }]}>Logout</Text>
+          <Text style={[globalstyle.draweritemtext, { color: colors.black }]}>{strings.logout}</Text>
         </TouchableOpacity>
       </View>}
     </>
@@ -252,6 +254,7 @@ const mapDispatchToProps = (dispatch) => {
     SetUserInfo: bindActionCreators(SetUserInfo, dispatch),
     EditProfileApiCall: bindActionCreators(EditProfileApiCall, dispatch),
     GetDrawerMenu: bindActionCreators(GetDrawerMenu, dispatch),
+    SetLanguage: bindActionCreators(SetLanguage, dispatch)
   }
 }
 

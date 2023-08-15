@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { SetIsLogin, SetUserInfo } from "../../redux/reducers/AppStateReducer";
 import { showToast } from "../../helpers/toastConfig";
 import Loader from "../../components/Loader";
+import strings from "../../localization/translation";
 
 
 const SubmitOTP = (props) => {
@@ -99,12 +100,9 @@ const SubmitOTP = (props) => {
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         {/* <ScrollView> */}
                         <View style={globalstyle.authLogoContainer}>
-                            <Image
-                                source={require('./../../../assets/images/logo-with-text.png')}
-                                style={globalstyle.authLogo}
-                            />
-                            <Text style={globalstyle.authheading}>Submit OTP</Text>
-                            <Text style={[globalstyle.authdescription, { textAlign: 'center', lineHeight: 22 }]}>Provide the OTP sent on your email <Text style={{ fontSize: 14, color: colors.black }}>{props?.route?.params?.email}</Text></Text>
+                            {/* <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} /> */}
+                            <Text style={globalstyle.authheading}>{strings.SubmitOTP}</Text>
+                            <Text style={[globalstyle.authdescription, { textAlign: 'center', lineHeight: 22 }]}>{strings.OtpDesc} <Text style={{ fontSize: 14, color: colors.black }}>{props?.route?.params?.email}</Text></Text>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={[globalstyle.inputbox, styles.inputboxotp]}>
@@ -272,14 +270,14 @@ const SubmitOTP = (props) => {
                             // onPress={() => props.navigation.navigate('ResetPassword')}
                             style={globalstyle.authSubmitButton}
                         >
-                            <Text style={globalstyle.authSubmitButtonText}>Submit</Text>
+                            <Text style={globalstyle.authSubmitButtonText}>{strings.Submit}</Text>
                         </TouchableOpacity>
 
                         <View style={globalstyle.alreadysignin}>
-                            <Text style={globalstyle.alreadyaccount}>Change email address? </Text>
+                            <Text style={globalstyle.alreadyaccount}>{strings.ChangeEmail} </Text>
                             <TouchableOpacity activeOpacity={0.8}
                                 onPress={() => { props.navigation.navigate('ForgetPassword') }}>
-                                <Text style={globalstyle.actionauthtext}> Forget Password</Text>
+                                <Text style={globalstyle.actionauthtext}> {strings.ClickHere}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ paddingBottom: 30 }} />

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, I18nManager } from "react-native";
 
 import { useForm } from 'react-hook-form';
-import { IOS, backgroungImage, colorScheme, colors, fonts, isIPad, width } from "../../theme";
+import { IOS, backgroungImage, colorScheme, colors, fonts, isIPad, isRTL, width } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
@@ -85,7 +85,10 @@ const Login = (props) => {
     const input01 = useRef();
     const input02 = useRef();
 
-
+    // useEffect(() => {
+    //     changeLang(isRTL ? 'ar' : 'en')
+    // }, [])
+    
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
         <ImageBackground
@@ -97,10 +100,9 @@ const Login = (props) => {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                             <TouchableOpacity onPress={() => {
                                 props.SetLanguage('en')
-                                changeLang(props.language)
-                                // I18nManager.allowRTL(false);
+                                changeLang('en')
+                                I18nManager.allowRTL(true);
                                 I18nManager.forceRTL(false);
-                                console.log('I18nManager.isRTL => ', I18nManager.isRTL);
                                 setTimeout(() => {
                                     RNRestart.restart();
                                 }, 300)
@@ -111,10 +113,9 @@ const Login = (props) => {
                             <View style={{ width: 1, height: 10, backgroundColor: colors.black, marginHorizontal: 10 }} />
                             <TouchableOpacity onPress={() => {
                                 props.SetLanguage('ar')
-                                changeLang(props.language)
-                                // I18nManager.allowRTL(true);
+                                changeLang('ar')
+                                I18nManager.allowRTL(true);
                                 I18nManager.forceRTL(true);
-                                console.log('I18nManager.isRTL => ', I18nManager.isRTL);
                                 setTimeout(() => {
                                     RNRestart.restart();
                                 }, 300)
@@ -232,5 +233,5 @@ export default connect(setStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
     forgetpasslink: { marginLeft: 'auto', marginTop: 10, marginBottom: 0, marginRight: 15 },
-    forgetpasstext: { color: colors.black, fontFamily: I18nManager.isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 13 },
+    forgetpasstext: { color: colors.black, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 13 },
 })

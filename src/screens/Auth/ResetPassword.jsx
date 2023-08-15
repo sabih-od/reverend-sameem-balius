@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { SetIsLogin, SetUserInfo } from "../../redux/reducers/AppStateReducer";
 import { showToast } from "../../helpers/toastConfig";
 import Loader from "../../components/Loader";
+import strings from "../../localization/translation";
 
 
 const ResetPassword = (props) => {
@@ -72,12 +73,9 @@ const ResetPassword = (props) => {
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         {/* <ScrollView> */}
                         <View style={globalstyle.authLogoContainer}>
-                            <Image
-                                source={require('./../../../assets/images/logo-with-text.png')}
-                                style={globalstyle.authLogo}
-                            />
-                            <Text style={globalstyle.authheading}>Reset Password</Text>
-                            <Text style={globalstyle.authdescription}>Reset your account password</Text>
+                            <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} />
+                            <Text style={globalstyle.authheading}>{strings.ResetPass}</Text>
+                            <Text style={globalstyle.authdescription}>{strings.ResetAccPass}</Text>
                         </View>
                         <View>
                             <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
@@ -145,7 +143,7 @@ const ResetPassword = (props) => {
                                 onPress={handleSubmit(onSubmit)}
                                 style={globalstyle.authSubmitButton}
                             >
-                                <Text style={globalstyle.authSubmitButtonText}>Submit</Text>
+                                <Text style={globalstyle.authSubmitButtonText}>{strings.Submit}</Text>
                             </TouchableOpacity>
                         </View>
 

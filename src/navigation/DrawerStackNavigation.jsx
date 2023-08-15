@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { I18nManager, StyleSheet } from "react-native";
 
 import { colorScheme, colors, fonts, isIPad, width } from "../theme";
 import { createDrawerNavigator, useDrawerProgress, useDrawerStatus } from "@react-navigation/drawer";
@@ -27,7 +27,7 @@ function DrawerStackNavigation() {
                 // drawerStatusBarAnimation: 'fade',
                 // drawerLockMode: 'locked-closed',
                 // drawerType: dimensions.width >= 768 ? 'permanent' : 'front',
-                drawerPosition: "left",
+                // drawerPosition: I18nManager.isRTL ? "right" : "left",
                 overlayColor: "transparent",
                 keyboardDismissMode: "on-drag",
                 // sceneContainerStyle: { backgroundColor: 'transparent' },

@@ -1,13 +1,14 @@
 import LocalizedStrings from 'react-native-localization';
 import english from './lang/en'
 import arabic from './lang/ar'
+import { isRTL } from '../theme';
 
 const strings = new LocalizedStrings({
     en: english,
     ar: arabic
 });
 
-strings.setLanguage('en')
+// strings.setLanguage(isRTL ? 'ar' : 'en')
 
 export const changeLang = (languageKey) => {
     console.log('languageKey => ', languageKey)

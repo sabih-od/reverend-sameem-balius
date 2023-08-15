@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import { View, Text, ImageBackground, StyleSheet, Share } from "react-native";
 import { colors, fonts, height, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -12,6 +12,32 @@ const ActionIcons = ({ name }) => {
     </TouchableOpacity>
 }
 
+
+onShare = async () => {
+
+    let shareOptions = {
+        title: 'asdfasdf',
+        //url: base64image,
+        message: 'asdfasdfasdfasdfasdfasdf',
+        //subject: 'Subject'
+    };
+
+    try {
+        const result = await Share.share(shareOptions);
+        if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+                // shared with activity type of result.activityType
+            } else {
+                // shared
+            }
+        } else if (result.action === Share.dismissedAction) {
+            // dismissed
+        }
+    } catch (error) {
+        alert(error.message);
+    }
+};
+
 const MainBox = () => {
     return (
         <View>
@@ -23,7 +49,7 @@ const MainBox = () => {
                             <Icon name="play" size={18} color={colors.white} style={{ marginRight: -4 }} />
                         </View>
                     </View>
-                    <Text style={styles.playetext}>Play Video</Text>
+                    <Text style={styles.playetext}>Play</Text>
                 </TouchableOpacity>
                 <View style={styles.heartaction}>
                     <ActionIcons name="heart" />
@@ -35,7 +61,11 @@ const MainBox = () => {
             <View style={styles.bottombarinfo}>
                 <Text style={styles.bottombarlink}>St. elizebeth Ann Secton</Text>
                 <Text style={styles.bottomtitle}>"Be attentive to the voice of grace"</Text>
-                <TouchableOpacity activeOpacity={0.8} style={styles.shareiconbg}>
+                <TouchableOpacity
+                    onPress={onShare}
+                    activeOpacity={0.8}
+                    style={styles.shareiconbg}
+                >
                     <Icon name="share-2" size={15} color={colors.white} />
                 </TouchableOpacity>
                 <Text style={styles.sharequote}>Share Quote</Text>

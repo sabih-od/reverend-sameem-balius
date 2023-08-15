@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, I18nManager } from "react-native";
 // import { fonts } from "../../theme";
 import { useForm } from 'react-hook-form';
-import { IOS, backgroungImage, colorScheme, colors, fonts, invertcolor, isIPad } from "../../theme";
+import { IOS, backgroungImage, colorScheme, colors, fonts, invertcolor, isIPad, isRTL } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
@@ -247,6 +247,6 @@ export default connect(setStateToProps, mapDispatchToProps)(Register);
 
 
 const styles = StyleSheet.create({
-    termstext: { fontFamily: I18nManager.isRTL ? fonts.arabicMedium : fonts.primary, fontSize: isIPad ? 18 : 14 },
-    termstextbold: { fontFamily: I18nManager.isRTL ? fonts.arabicBold :fonts.primarySemiBold, fontSize: isIPad ? 18 : 14 }
+    termstext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, fontSize: isIPad ? 18 : 14 },
+    termstextbold: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 18 : 14 }
 })

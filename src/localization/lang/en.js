@@ -8,13 +8,26 @@ export default {
   ForgetPassword: 'Forget Password?',
   YesIAgree: 'Yes, I agree to the',
   TermsCondition: 'Terms & Conditions',
-
-
+  Submit: 'Submit',
+  SubmitOTP: 'Submit OTP',
+  OtpDesc: 'Provide the OTP sent on your email',
+  ResetPass: 'Reset Password',
+  ResetAccPass: 'Reset your account password',
   ForgetPasswordTitle: 'Forget Password',
   ForgetPasswordDesc: 'Provide your details to recover your account',
+  ChangeEmail: 'Change email address',
+  ClickHere: 'Click Here',
 
   Videos: 'Videos',
   Audios: 'Audios',
-  Documents: 'Documents',
+  Documents: 'Books',
   Images: 'Images',
+
+  posttitle: 'Thursday Night Prayer',
+  postdesc: 'Join the church around the world by closing your day with the traditional set of psalms, reading and prayer.',
+
+  logout: 'Logout',
+  questionanswer: 'Question & Answer',
+  contactus: 'Contact Us',
+  home: 'Home',
 };

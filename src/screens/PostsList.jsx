@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Image } from "react-native";
-import { backgroungImage, colors, fonts, height, isIPad, width } from "../theme";
+import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Image, I18nManager } from "react-native";
+import { backgroungImage, colors, fonts, height, isIPad, isRTL, textAlign, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -12,43 +12,13 @@ import { bindActionCreators } from "redux";
 import globalstyle from "../theme/style";
 import moment from "moment";
 import strings, { changeLang } from "./../localization/translation";
+import { useNavigation } from "@react-navigation/native";
+import SectionItem from "../components/SectionItem";
+import SectionTitle from "../components/SectionTitle";
+import itemobject from "../data/itemobject";
 
-const SectionTitle = (props) => {
-    return (
-        <Text style={{ fontFamily: fonts.primarySemiBold, fontSize: 19, marginBottom: 10 }}>{props?.title}</Text>
-    )
-}
 
-const SectionItems = (props) => {
-    const { item, width } = props;
-    return (
-        <TouchableOpacity
-            onPress={() => { }}
-            activeOpacity={0.9}
-            style={{ width: width, marginBottom: 15 }}
-        >
-            <ImageBackground source={require('./../../assets/images/sermons-01.jpeg')} style={{ width: '100%', height: width / 1.5, marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' }}>
-                {(props?.video || props?.document || props?.audio || props?.image) && <>
-                    <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.3)' }} />
-                    <View style={itemstyle.iconbg}>
-                        {props?.video && <Icon name="play" style={[itemstyle.icon, { marginRight: -4 }]} />}
-                        {props?.document && <Icon name="file-text" style={itemstyle.icon} />}
-                        {props?.audio && <Icon name="mic" style={itemstyle.icon} />}
-                        {props?.image && <Icon name="image" style={itemstyle.icon} />}
-                    </View>
-                </>}
-            </ImageBackground>
-            <Text style={{ fontFamily: fonts.primary, fontSize: 11, color: '#444' }}>{moment(parseInt(1691195928528)).format("DD MMM, YYYY")}</Text>
-            <Text style={{ fontFamily: fonts.primarySemiBold, fontSize: 14 }}>Name Here 01</Text>
-            <Text style={{ fontFamily: fonts.primary, fontSize: 11 }} numberOfLines={2}>Loreum ipsum is simply dummy text</Text>
-        </TouchableOpacity>
-    )
-}
 
-const itemstyle = StyleSheet.create({
-    iconbg: { width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 30, justifyContent: 'center', alignItems: 'center', },
-    icon: { fontSize: 18, color: colors.white }
-})
 
 const itemslimit = 50;
 const PostsList = (props) => {
@@ -112,20 +82,21 @@ const PostsList = (props) => {
         // }
     }
 
+    const [showPlayer, setShowPlayer] = useState(false);
     return <SafeAreaView style={globalstyle.fullview}>
         <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 15, }}>
                 <SectionTitle title={strings.Videos} />
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                     {[...Array(4).keys()].map((item, index) => {
-                        return (<SectionItems width={isIPad ? (width / 3) - 22 : (width / 2) - 22} video={true} />)
+                        return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} video={true} />)
                     })}
                 </View>
-                <View style={{ width: '100%', height: 1, backgroundColor: '#bbb', marginBottom: 15, marginTop: 5 }} />
+                <View style={styles.seperator} />
                 <SectionTitle title={strings.Audios} />
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                     {[...Array(4).keys()].map((item, index) => {
-                        return (<SectionItems width={isIPad ? (width / 3) - 22 : (width / 2) - 22} audio={true} />)
+                        return (<SectionItem key={index} handlePlayer={setShowPlayer} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 22} audio={true} />)
                     })}
                 </View>
                 {/* <FlatList
@@ -148,26 +119,60 @@ const PostsList = (props) => {
                     data={[...Array(4).keys()]}
                     keyExtractor={(item, index) => String(index)}
                     renderItem={({ item, index }) => {
-                        return (<SectionItems width={isIPad ? (width / 3) - 20 : (width / 2) - 20} />)
+                        return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 20 : (width / 2) - 20} />)
                     }}
                 /> */}
-                <View style={{ width: '100%', height: 1, backgroundColor: '#bbb', marginBottom: 15, marginTop: 5 }} />
+                <View style={styles.seperator} />
                 <SectionTitle title={strings.Images} />
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                     {[...Array(4).keys()].map((item, index) => {
-                        return (<SectionItems width={isIPad ? (width / 3) - 22 : (width / 2) - 22} image={true} />)
+                        return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} image={true} />)
                     })}
                 </View>
-
-                <View style={{ width: '100%', height: 1, backgroundColor: '#bbb', marginBottom: 15, marginTop: 5 }} />
-
+                <View style={styles.seperator} />
                 <SectionTitle title={strings.Documents} />
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 15 }}>
                     {[...Array(4).keys()].map((item, index) => {
-                        return (<SectionItems width={isIPad ? (width / 3) - 22 : (width / 2) - 22} document={true} />)
+                        return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} document={true} />)
                     })}
                 </View>
             </ScrollView>
+
+            {showPlayer && <View style={{ position: 'absolute', bottom: 0, left: 0, width: width }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                    <View style={{ flex: 0.3, backgroundColor: colors.orange, height: 4 }} />
+                    <View style={{ flex: 0.7, backgroundColor: '#999', height: 4 }} />
+                </View>
+                <View style={{
+                    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10,
+                    // backgroundColor: colors.headerbgcolor,
+                    backgroundColor: colors.black,
+                }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                        <TouchableOpacity
+                            style={{ width: 25, height: 70, alignItems: 'center', justifyContent: 'center' }}
+                            activeOpacity={0.8}
+                            onPress={() => setShowPlayer(false)}
+                        >
+                            <Icon name="x" style={{ color: colors.white, fontSize: 16 }} />
+                        </TouchableOpacity>
+                        <Image source={require('./../../assets/images/sermons-01.jpeg')} style={{ width: 70, height: 70, borderRadius: 15, marginRight: 10 }} />
+                        <View style={{ width: width - 180 }}>
+                            <Text numberOfLines={1} style={{ fontFamily: fonts.primarySemiBold, textAlign: 'left', fontSize: isRTL ? 17 : 15, marginBottom: 2, color: colors.white, fontFamily: isRTL ? fonts.arabicBold : fonts.primary }}>{strings.posttitle}</Text>
+                            <Text numberOfLines={1} style={{ fontFamily: fonts.primary, textAlign: 'left', color: '#333', fontSize: 13, marginBottom: 2, color: colors.white, fontFamily: isRTL ? fonts.arabicRegular : fonts.primary }}>{strings.postdesc}</Text>
+                            <Text style={{ fontFamily: fonts.primary, color: colors.white, fontSize: 12, textAlign: 'left', }}>01:13 - 03:43</Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity
+                        onPress={() => { }}
+                        activeOpacity={0.9}
+                        style={{ width: 40, height: 40, backgroundColor: colors.orange, marginRight: 10, borderRadius: 30, justifyContent: 'center', alignItems: 'center', }}
+                    >
+                        <Icon name="play" style={[{ fontSize: 18, color: colors.white }, isRTL ? { marginLeft: -4 } : { marginRight: -4 }]} />
+                    </TouchableOpacity>
+                </View>
+            </View>}
+
         </ImageBackground>
     </SafeAreaView>
 }
@@ -194,4 +199,5 @@ const styles = StyleSheet.create({
         // ...StyleSheet.absoluteFillObject,
         // height: height, resizeMode: 'cover'
     },
+    seperator: { width: '100%', height: 1, backgroundColor: '#bbb', marginBottom: 15, marginTop: 5 },
 })
