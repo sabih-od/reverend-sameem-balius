@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
 
-import { IOS, colorScheme, colors, fonts, isIPad, isRTL } from '../theme';
+import { IOS, colors, fonts, isDarkMode, isIPad, isRTL } from '../theme';
 import { I18nManager, Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { DrawerContentScrollView, useDrawerProgress } from '@react-navigation/drawer';
@@ -111,8 +111,8 @@ const DrawerContent = (props) => {
   const menuRef = useRef(props.drawerMenu)
   useEffect(() => {
     if (props.drawerMenu != menuRef.current && props.drawerMenu?.success && props.drawerMenu?.data && props.drawerMenu?.data.length > 0) {
-      console.log('props.drawerMenu?.data => ', props.drawerMenu?.data)
-      setDrawerMenu(props.drawerMenu?.data.reverse())
+      // console.log('props.drawerMenu?.data => ', props.drawerMenu?.data)
+      setDrawerMenu(props.drawerMenu?.data) //.reverse()
     }
   }, [props.drawerMenu])
 
@@ -143,7 +143,7 @@ const DrawerContent = (props) => {
   return (
     <>
       {user &&
-        <View style={{ backgroundColor: colorScheme == 'dark' ? colors.drawerbg : colors.headerbgcolor, paddingBottom: isIPad ? 60 : 30, paddingTop: IOS ? 60 : 30, }}>
+        <View style={{ backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor, paddingBottom: isIPad ? 60 : 30, paddingTop: IOS ? 60 : 30, }}>
           {/* <TouchableOpacity onPress={() => { props.navigation.closeDrawer() }} activeOpacity={0.8}>
           <Icon name={'x'} color={colors.white} size={16} />
         </TouchableOpacity> */}
@@ -155,10 +155,10 @@ const DrawerContent = (props) => {
           }}>
             <Image source={user?.profile_picture ? { uri: user?.profile_picture } : require('./../../assets/images/dummy-profile-image.png')} style={{ width: isIPad ? 120 : 90, height: isIPad ? 120 : 90, resizeMode: 'cover', }} />
           </TouchableOpacity>
-          <Text style={{ fontFamily: fonts.primarySemiBold, color: colorScheme == 'dark' ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 26 : 20, marginBottom: 3 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
+          <Text style={{ fontFamily: fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 26 : 20, marginBottom: 3 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
             <Icon name={'mail'} style={{ color: colors.orange, fontSize: 16, marginRight: 10, marginBottom: -4 }} />
-            <Text style={{ fontFamily: fonts.primary, color: colorScheme == 'dark' ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 18 : 13 }}>{user?.email}</Text>
+            <Text style={{ fontFamily: fonts.primary, color: isDarkMode ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 18 : 13 }}>{user?.email}</Text>
           </View>
           {/* <Text style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center', fontSize: 12 }}>{user?.phone}</Text> */}
         </View>
@@ -208,7 +208,7 @@ const DrawerContent = (props) => {
         <DrawerItem key={101} item={{ title: strings.contactus, nav: 'Contact' }} navigation={props.navigation} activescreen={props.currentScreen} />
         <View style={{ height: 10 }} />
       </DrawerContentScrollView>
-      {user && <View style={{ backgroundColor: colorScheme == 'dark' ? colors.drawerbg : colors.headerbgcolor }}>
+      {user && <View style={{ backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor }}>
         <TouchableOpacity activeOpacity={0.8} onPress={() => {
           // logout(props.navigation) 
           props.navigation.closeDrawer();
@@ -228,7 +228,7 @@ const DrawerContent = (props) => {
 
 const styles = StyleSheet.create({
   sidebar: {
-    backgroundColor: colorScheme == 'dark' ? colors.drawerbg : colors.headerbgcolor,
+    backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
     //flex: 1 
   },
   logoutitem: { flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 13, borderBottomWidth: 1, borderBottomColor: '#ffffff09', backgroundColor: colors.orange, borderTopRightRadius: 30 }

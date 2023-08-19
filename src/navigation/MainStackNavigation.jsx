@@ -6,7 +6,7 @@ import { NavigationContainer, useNavigationContainerRef, DefaultTheme, DarkTheme
 import Animated, { Extrapolate, interpolate, interpolateNode, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import Icon from 'react-native-vector-icons/Feather';
-import { colors, fontcolor, fonts, height, width } from "../theme";
+import { isDarkMode, colors, fontcolor, fonts, height, width } from "../theme";
 import { createDrawerNavigator, useDrawerProgress, useDrawerStatus } from "@react-navigation/drawer";
 
 /* Screens */
@@ -32,11 +32,12 @@ import Social from "../screens/Lectures/Social";
 import BibleStudy from "../screens/Lectures/BibleStudy";
 import WellBeing from "../screens/Lectures/WellBeing";
 import News from "../screens/News";
-import Homily from "../screens/Homily";
+import Homily from "../screens/FavouriteList";
 import PostsList from "../screens/PostsList";
 import VideoDetail from "../screens/Detail/VideoDetail";
 import ImageDetail from "../screens/Detail/ImageDetail";
 import PdfView from "../screens/PdfView";
+import FavouriteList from "../screens/FavouriteList";
 
 
 const Stack = createStackNavigator();
@@ -61,7 +62,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
 
     useEffect(() => {
         // Change the StatusBar style to light when the drawer is open
-        StatusBar.setBarStyle(isDrawerOpen ? 'light-content' : 'dark-content');
+        // StatusBar.setBarStyle(isDrawerOpen ? 'light-content' : 'dark-content');
     }, [isDrawerOpen]);
 
     return <Animated.View style={[styles.stack, animatedStyle]}>
@@ -73,7 +74,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                     // headerTransparent: true,
@@ -94,7 +99,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Notifications',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -107,7 +116,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: '',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -120,7 +133,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: '',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -133,7 +150,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Book Detail',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -147,7 +168,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -160,7 +185,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,                    
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -185,7 +214,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'PostsList',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -198,7 +231,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'About',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -210,7 +247,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Audio',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -223,7 +264,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Goals',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -236,7 +281,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Start Free Week',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -249,7 +298,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Ask A Question',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
                     // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
@@ -271,87 +324,35 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
 
+            
             <Stack.Screen
-                name="Homily"
-                component={Homily}
+                name="FavouriteList"
+                component={FavouriteList}
                 options={{
-                    // headerTransparent: true,
-                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerTitle: 'Homily',
-                    // // headerShown: false,
-                    // headerTitle: 'Contact Us',
-                    // headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
-                    headerLeft: () => <GoBackIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} />
-                }}
-            />
-            <Stack.Screen
-                name="News"
-                component={News}
-                options={{
-                    // headerTransparent: true,
-                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerTitle: 'News',
-                    // // headerShown: false,
-                    // headerTitle: 'Contact Us',
-                    // headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
-                    headerLeft: () => <GoBackIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} />
-                }}
-            />
-            <Stack.Screen
-                name="Social"
-                component={Social}
-                options={{
-                    // headerTransparent: true,
-                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerTitle: 'Social',
-                    // // headerShown: false,
-                    // headerTitle: 'Contact Us',
-                    // headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
-                    headerLeft: () => <GoBackIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} />
-                }}
-            />
-            <Stack.Screen
-                name="BibleStudy"
-                component={BibleStudy}
-                options={{
-                    // headerTransparent: true,
-                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerTitle: 'Bible Study',
-                    // // headerShown: false,
-                    // headerTitle: 'Contact Us',
+                    headerTitle: 'Favourites',
+                    headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
-                    headerLeft: () => <GoBackIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} />
-                }}
-            />
-            <Stack.Screen
-                name="WellBeing"
-                component={WellBeing}
-                options={{
-                    // headerTransparent: true,
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerTitle: 'Well-Being',
-                    // // headerShown: false,
-                    // headerTitle: 'Contact Us',
-                    headerTitleStyle: globalstyle.headerTitleStyle,
-                    headerStyle: { backgroundColor: colors.headerbgcolor },
-                    headerLeft: () => <GoBackIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
+
         </Stack.Navigator>
     </Animated.View>
 }

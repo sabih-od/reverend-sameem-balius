@@ -15,6 +15,7 @@ const colorvariable = {
   drawerbg: '#0f294a',
   green: 'green',
   headerbgcolor: '#e4cee3',
+  headerbgcolor2: '#e6c5e4',
   grey: '#666'
 };
 

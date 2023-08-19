@@ -5,11 +5,11 @@ import { height, width } from '../theme';
 
 const PdfView = (props) => {
     useEffect(() => {
-        props.navigation.setOptions({ headerTitle: props.route.params.title });
-        console.log('file => ', props.route.params?.item?.pdf_file)
+        props.navigation.setOptions({ headerTitle: props.route.params?.item?.title });
+        console.log('props.route.params?.item?.title => ', props.route.params?.item?.title)
     }, [])
 
-    const source = { uri: props.route.params?.item?.pdf_file, cache: true };
+    const source = { uri: props.route.params?.item?.pdf, cache: true };
     //const source = require('./test.pdf');  // ios only
     //const source = {uri:'bundle-assets://test.pdf' };
     //const source = {uri:'file:///sdcard/test.pdf'};

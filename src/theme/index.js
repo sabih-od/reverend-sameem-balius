@@ -10,11 +10,12 @@ const { width, height } = Dimensions.get('window')
 const flip = I18nManager.isRTL ? { transform: [{ scaleX: -1 }] } : null;
 const colorScheme = Appearance.getColorScheme();
 
-const fontcolor = colorScheme == 'dark' ? colors.white : colors.black;
+const isDarkMode = colorScheme != 'dark';
+const fontcolor = isDarkMode ? colors.white : colors.black;
 const invertcolor = colorScheme != 'dark' ? colors.white : colors.black;
 const isIPad = width > 700 ? true : false;
 const IOS = Platform.OS == 'ios' ? true : false;
-const backgroungImage = colorScheme == 'dark' ? require('./../../assets/images/home-bg.jpg') : require('./../../assets/images/auth-bg.jpg')
+const backgroungImage = isDarkMode ? require('./../../assets/images/home-bg.jpg') : require('./../../assets/images/auth-bg.jpg')
 const isRTL = I18nManager.isRTL;
 const textAlign = I18nManager.isRTL ? 'right' : 'left';
 
@@ -23,5 +24,6 @@ export {
     // urdufont, 
     textAlign,
     isRTL,
-    flip
+    flip,
+    isDarkMode
 };

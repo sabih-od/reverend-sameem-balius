@@ -22,6 +22,10 @@ export default {
   Audios: 'صوتيات',
   Documents: 'ڪتاب',
   Images: 'الصور',
+  MoreVideos: 'فيديوهات اكثر',
+  MoreAudios: 'المزيد من الصوتيات',
+  MoreDocuments: 'المزيد من الكتب',
+  MoreImages: 'المزيد من الصور',
 
   posttitle: 'صلاة ليلة الخميس',
   postdesc: 'انضم إلى الكنيسة حول العالم بإغلاق يومك بالمجموعة التقليدية من المزامير والقراءة والصلاة.',
@@ -30,4 +34,20 @@ export default {
   questionanswer: 'جواب السؤال',
   contactus: 'اتصل بنا',
   home: 'بيت',
+
+
+  contactTitle: 'اتصل بنا',
+  contactDesc: 'اتصل بنا لأي سؤال واستفسار',
+  contactFullName: 'الاسم الكامل',
+  contactEmailAddress: 'عنوان البريد الإلكتروني',
+  contactPhoneNumber: 'رقم الهاتف (اختيارى)',
+  contactEnterMessage: 'أدخل رسالتك',
+
+  play: 'يلعب',
+  shareQuote: 'حصة الاقتباس',
+
+  homeTopDailies: 'الصحف اليومية',
+  homeTopTitle: 'التنوب 18 أغسطس ، الإنجيل اليومي',
+  homeTopDesc: 'ليكتيو ديفينا: حديث مع الله',
+
 };

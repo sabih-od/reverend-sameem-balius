@@ -1,6 +1,6 @@
 import { I18nManager, StyleSheet } from 'react-native';
 
-import { IOS, colorScheme, colors, fontcolor, fonts, height, isIPad, isRTL, width } from './index';
+import { IOS, colorScheme, colors, fontcolor, fonts, height, isDarkMode, isIPad, isRTL, width } from './index';
 
 const globalstyle = StyleSheet.create({
   // fullview: { ...StyleSheet.absoluteFillObject, height: '100%', backgroundColor: '#f4f4f4' },
@@ -49,7 +49,7 @@ const globalstyle = StyleSheet.create({
   notibadge: { position: 'relative', width: 36, height: 36, marginRight: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, overflow: 'hidden', },
   badge: { backgroundColor: colors.orange, color: colors.white, position: 'absolute', width: 11, height: 11, top: 5, right: 7, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', borderRadius: 10, zIndex: 1, fontSize: 12, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, },
 
-  headerTitleStyle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 22 : 18, textTransform: 'capitalize' },
+  headerTitleStyle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 22 : 18, textTransform: 'capitalize', color: isDarkMode ? colors.white : colors.black },
 
   speakerboximage: { height: isIPad ? 100 : 75, borderRadius: 7, overflow: 'hidden', width: isIPad ? 100 : 75, marginRight: isIPad ? 15 : 10 },
   speakerboxtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.green, fontSize: isIPad ? 18 : 14 },
@@ -62,9 +62,9 @@ const globalstyle = StyleSheet.create({
   speakerdetailimage: { width: 100, height: 100, resizeMode: 'cover', borderRadius: 10, marginBottom: 15, marginRight: 15 },
   speakerdetaildesignation: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.green, fontSize: isIPad ? 18 : 15 },
 
-  detaildate: { fontFamily: fonts.primaryMedium, color: colors.grey, marginBottom: 5, fontSize: isIPad ? 15 : 13 },
-  detailtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.black, fontSize: isIPad ? 30 : 24, marginBottom: 5 },
-  detaildescription: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.black, fontSize: isIPad ? 18 : 15 },
+  detaildate: { fontFamily: fonts.primaryMedium, color: isDarkMode ? colors.white : colors.grey, marginBottom: 5, fontSize: isIPad ? 15 : 13, textAlign: 'left' },
+  detailtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 30 : 24, marginBottom: 5, textAlign: 'left' },
+  detaildescription: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 18 : 15, textAlign: 'left' },
 
 
 
@@ -84,15 +84,15 @@ const globalstyle = StyleSheet.create({
   // alreadysignin: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, },
   // errorField: { color: '#f00', fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, fontSize: 12, marginTop: 2, marginLeft: 15 },
   // alreadyaccount: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', color: fontcolor },
-  actionauthtext: { color: colors.black, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 18 : 14 },
-  authlefticon: { color: colors.deepblue },
+  actionauthtext: { color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 18 : 14 },
+  authlefticon: { color: isDarkMode ? colors.white : colors.deepblue },
   // showhideicontouch: { padding: 10, zIndex: 1, position: 'absolute', right: 10, },
   // showhideicon: { color: '#999' },
 
   topicbgimage: { paddingHorizontal: 15, flex: 1 },
   topicheadingrow: { marginVertical: 15 },
-  topicheading: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryBold, fontSize: 22, textAlign: 'center', color: colorScheme == 'dark' ? colors.white : colors.black, textTransform: 'capitalize', marginBottom: -5 },
-  topicdesc: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 15, textAlign: 'center', color: colorScheme == 'dark' ? colors.white : colors.black },
+  topicheading: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryBold, fontSize: 22, textAlign: 'center', color: isDarkMode == 'dark' ? colors.white : colors.black, textTransform: 'capitalize', marginBottom: -5 },
+  topicdesc: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 15, textAlign: 'center', color: isDarkMode == 'dark' ? colors.white : colors.black },
   topicdetailbox: { height: width / 2, width: width / 2.25, borderRadius: 10, overflow: 'hidden', alignItems: 'center', justifyContent: 'center', position: 'relative', marginBottom: 15, },
   topiccheckicon: { alignItems: 'center', justifyContent: 'center', width: 25, height: 25, backgroundColor: colors.lightblue, borderRadius: 20, position: 'absolute', top: 10, right: 10 },
   topiccontinuebtn: { backgroundColor: colors.orange, padding: 13, borderRadius: 40, marginVertical: 10 },

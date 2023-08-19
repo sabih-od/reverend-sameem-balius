@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { colors, fontcolor, fonts } from '../theme';
+import { colors, fontcolor, fonts, isRTL } from '../theme';
 import Icon from 'react-native-vector-icons/Feather';
 
 const SectionHeading = (props) => {
@@ -19,7 +19,7 @@ const SectionHeading = (props) => {
 export default SectionHeading;
 
 const styles = StyleSheet.create({
-    sectionheading: { color: fontcolor, fontFamily: fonts.primaryBold, fontSize: 22, textTransform: 'capitalize' },
+    sectionheading: { color: fontcolor, fontFamily: isRTL ? fonts.arabicBold : fonts.primaryBold, fontSize: 22, textTransform: 'capitalize', textAlign: 'left' },
     sectionheadrow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
     joinicon: { marginRight: 5, backgroundColor: colors.darkblue, alignItems: 'center', justifyContent: 'center', borderRadius: 20, width: 23, height: 23, marginRight: 7 },
     joinedtext: { color: fontcolor, fontFamily: fonts.primaryBold },

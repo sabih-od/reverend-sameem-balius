@@ -1,13 +1,21 @@
 import React from "react";
 import { View, Text, ImageBackground, StyleSheet, Share } from "react-native";
-import { colors, fonts, height, width } from "../theme";
+import { colors, fonts, height, isDarkMode, isRTL, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
 import MainTopBox from "./MainTopBox";
+import strings from "../localization/translation";
+import { useNavigation } from "@react-navigation/native";
 
 const ActionIcons = ({ name }) => {
-    return <TouchableOpacity activeOpacity={0.8} style={{ width: 35, height: 35, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.lightblue, marginLeft: 5, borderRadius: 30 }}>
+    const navigation = useNavigation();
+
+    return <TouchableOpacity
+        onPress={() => navigation.navigate('FavouriteList')}
+        activeOpacity={0.8}
+        style={{ width: 35, height: 35, alignItems: 'center', justifyContent: 'center', backgroundColor: isDarkMode ? colors.lightblue : colors.orange, marginLeft: 5, borderRadius: 30 }}
+    >
         <Icon name={name} size={18} color={colors.white} />
     </TouchableOpacity>
 }
@@ -46,10 +54,10 @@ const MainBox = () => {
                 <TouchableOpacity activeOpacity={0.8} style={styles.playicon}>
                     <View style={styles.playborder}>
                         <View style={styles.playiconbg}>
-                            <Icon name="play" size={18} color={colors.white} style={{ marginRight: -4 }} />
+                            <Icon name="play" size={18} color={colors.white} style={isRTL ? { marginLeft: -4 } : { marginRight: -4 }} />
                         </View>
                     </View>
-                    <Text style={styles.playetext}>Play</Text>
+                    <Text style={styles.playetext}>{strings.Play}</Text>
                 </TouchableOpacity>
                 <View style={styles.heartaction}>
                     <ActionIcons name="heart" />
@@ -60,7 +68,7 @@ const MainBox = () => {
             </View>
             <View style={styles.bottombarinfo}>
                 <Text style={styles.bottombarlink}>St. elizebeth Ann Secton</Text>
-                <Text style={styles.bottomtitle}>"Be attentive to the voice of grace"</Text>
+                <Text style={styles.bottomtitle}>"Do you not know that you are the template of God, and that the spirit of God dwells in you?"</Text>
                 <TouchableOpacity
                     onPress={onShare}
                     activeOpacity={0.8}
@@ -68,7 +76,7 @@ const MainBox = () => {
                 >
                     <Icon name="share-2" size={15} color={colors.white} />
                 </TouchableOpacity>
-                <Text style={styles.sharequote}>Share Quote</Text>
+                <Text style={styles.sharequote}>{strings.shareQuote}</Text>
             </View>
         </View>
     )
@@ -77,15 +85,18 @@ const MainBox = () => {
 export default MainBox;
 
 const styles = StyleSheet.create({
-    topboxactionbar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: colors.deepblue, paddingHorizontal: 10, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, overflow: 'hidden', marginTop: -20, zIndex: 1, paddingTop: 35, paddingBottom: 15 },
+    topboxactionbar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: isDarkMode ? colors.deepblue : colors.headerbgcolor2, paddingHorizontal: 10, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, overflow: 'hidden', marginTop: -20, zIndex: 1, paddingTop: 35, paddingBottom: 15 },
     playicon: { flexDirection: 'row', alignItems: 'center' },
     playborder: { borderWidth: 1, borderRadius: 40, borderColor: colors.orange, width: 40, height: 40, alignItems: 'center', justifyContent: 'center', marginRight: 10 },
     playiconbg: { backgroundColor: colors.orange, width: 32, height: 32, alignItems: 'center', justifyContent: 'center', borderRadius: 30, },
-    playetext: { color: colors.white, fontFamily: fonts.primary },
+    playetext: { color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicM : fonts.primary },
     heartaction: { flexDirection: 'row', alignItems: 'center' },
-    bottombarinfo: { alignItems: 'center', justifyContent: 'space-between', backgroundColor: colors.darkblue, paddingBottom: 20, paddingTop: 30, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, overflow: 'hidden', marginTop: -20, zIndex: 0, paddingTop: 30 },
-    bottombarlink: { fontFamily: fonts.primaryMedium, fontSize: 13, color: colors.lightblue, textTransform: 'uppercase', textDecorationLine: 'underline' },
+    bottombarinfo: { alignItems: 'center', justifyContent: 'space-between', backgroundColor: isDarkMode ? colors.darkblue : colors.headerbgcolor, paddingBottom: 20, paddingTop: 30, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, overflow: 'hidden', marginTop: -30, zIndex: 0, paddingTop: 50 },
+    bottombarlink: {
+        fontFamily: fonts.primaryMedium, fontSize: 13, color: isDarkMode ? colors.lightblue : colors.black, textTransform: 'uppercase',
+        // textDecorationLine: 'underline' 
+    },
     shareiconbg: { backgroundColor: colors.orange, width: 35, height: 35, alignItems: 'center', justifyContent: 'center', borderRadius: 30, marginBottom: 10 },
-    sharequote: { fontFamily: fonts.primaryMedium, color: colors.white, fontSize: 12 },
-    bottomtitle: { fontFamily: fonts.primarySemiBold, color: colors.white, fontSize: 18, marginVertical: 15 }
+    sharequote: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: isDarkMode ? colors.white : colors.black, fontSize: 12 },
+    bottomtitle: { fontFamily: fonts.primaryMedium, color: isDarkMode ? colors.white : colors.black, fontSize: 18, marginVertical: 15, textAlign: 'center', marginHorizontal: 20 }
 })

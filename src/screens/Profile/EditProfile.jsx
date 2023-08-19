@@ -207,7 +207,7 @@ const EditProfile = props => {
         <ImageBackground style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}
           source={backgroungImage}>
           <ScrollView style={styles.container}>
-            {/* <View style={{ backgroundColor: colors.green, height: 400, width: '100%', top: 0, position: 'absolute', }}></View> */}
+            {/* <View style={{ backgroundColor: colors.black, height: 400, width: '100%', top: 0, position: 'absolute', }}></View> */}
             <View style={[{ paddingVertical: 20, paddingHorizontal: 15 }, isIPad && globalstyle.authscreencontainer]}>
               <View style={{ width: 140, height: 140, borderRadius: 140, marginLeft: 'auto', marginRight: 'auto', marginVertical: 20, position: 'relative', backgroundColor: '#ddd', borderColor: colors.white, borderWidth: 2, marginTop: 100 }}>
                 <Image
@@ -230,7 +230,7 @@ const EditProfile = props => {
                     onPress={() => {
                       setShowModal(true);
                     }}>
-                    <Icon name="camera" size={isIPad ? 20 : 18} color={colors.green} />
+                    <Icon name="camera" size={isIPad ? 20 : 18} color={colors.black} />
                   </TouchableOpacity>
                 )}
               </View>
@@ -239,12 +239,12 @@ const EditProfile = props => {
               onPress={() => {
                 setIsEditable(!isEditable);
               }}
-              style={{ marginLeft: 'auto', marginTop: -60, marginBottom: 15, width: 40, height: 40, borderRadius: 40, backgroundColor: colors.green, alignItems: 'center', justifyContent: 'center', }}>
+              style={{ marginLeft: 'auto', marginTop: -60, marginBottom: 15, width: 40, height: 40, borderRadius: 40, backgroundColor: colors.black, alignItems: 'center', justifyContent: 'center', }}>
               <Icon name={!isEditable ? 'edit-3' : 'x'} size={20} color={colors.white} />
             </TouchableOpacity> */}
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.green} name={'user'} size={18} />
+                <Icon color={colors.black} name={'user'} size={18} />
                 <TextInput
                   style={globalstyle.inputfield}
                   placeholder="First Name"
@@ -268,7 +268,7 @@ const EditProfile = props => {
               {errors.first_name && (<Text style={globalstyle.errorField}> {errors.first_name.message} </Text>)}
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.green} name={'user'} size={18} />
+                <Icon color={colors.black} name={'user'} size={18} />
                 <TextInput
                   style={globalstyle.inputfield}
                   placeholder="Last Name"
@@ -292,7 +292,7 @@ const EditProfile = props => {
               {errors.last_name && (<Text style={globalstyle.errorField}> {errors.last_name.message} </Text>)}
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.green} name={'mail'} size={18} />
+                <Icon color={colors.black} name={'mail'} size={18} />
                 <TextInput
                   style={[globalstyle.inputfield, { opacity: 0.6 }]}
                   defaultValue={user?.email}
@@ -319,7 +319,7 @@ const EditProfile = props => {
                 <Text style={globalstyle.errorField}>{errors.email.message}</Text>
               )}
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.green} name={'phone'} size={18} />
+                <Icon color={colors.black} name={'phone'} size={18} />
                 <TextInput
                   style={globalstyle.inputfield}
                   placeholder="Phone Number (Optional)"
@@ -351,7 +351,7 @@ const EditProfile = props => {
                     { justifyContent: 'space-between' },
                   ]}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon color={colors.green} name={'lock'} size={18} />
+                    <Icon color={colors.black} name={'lock'} size={18} />
                     <TextInput
                       style={[globalstyle.inputfield, { flex: 0.8 }]}
                       placeholder="Password"
@@ -393,12 +393,12 @@ const EditProfile = props => {
                             <Text style={[styles.labelinput, { marginRight: 55 }]}>Gender</Text>
                             <View style={{ flexDirection: 'row' }}><TouchableOpacity activeOpacity={0.6} style={[styles.checkboxtick]}
                                 onPress={() => { setGender(1) }}>
-                                <Icon name={gender == 1 ? 'check-circle' : 'circle'} size={18} color={colors.green} />
+                                <Icon name={gender == 1 ? 'check-circle' : 'circle'} size={18} color={colors.black} />
                                 <Text style={[styles.labelinput, { marginLeft: 6, }]}>Male</Text>
                             </TouchableOpacity>
                                 <TouchableOpacity activeOpacity={0.6} style={[styles.checkboxtick, { marginRight: 0 }]}
                                     onPress={() => { setGender(2) }}>
-                                    <Icon name={gender == 2 ? 'check-circle' : 'circle'} size={18} color={colors.green} />
+                                    <Icon name={gender == 2 ? 'check-circle' : 'circle'} size={18} color={colors.black} />
                                     <Text style={[styles.labelinput, { marginLeft: 6, }]}>Female</Text>
                                 </TouchableOpacity>
                             </View>

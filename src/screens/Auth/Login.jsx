@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, I18nManager } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, I18nManager, StatusBar } from "react-native";
 
 import { useForm } from 'react-hook-form';
-import { IOS, backgroungImage, colorScheme, colors, fonts, isIPad, isRTL, width } from "../../theme";
+import { IOS, backgroungImage, colorScheme, colors, fonts, isDarkMode, isIPad, isRTL, width } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
@@ -28,6 +28,7 @@ const Login = (props) => {
     const prevLoginErrorRef = useRef(props.loginError);
 
     useEffect(() => {
+
         // if (!IOS) {
         //     axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
         //     axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
@@ -49,7 +50,7 @@ const Login = (props) => {
         }
 
         if (props.loginResponse !== prevLoginResponseRef.current && !props.loginResponse?.success) {
-            showToast('error', props.loginResponse?.message.replaceAll(' ', '-').toLowerCase() == 'user-not-found' ? 'Email or Password incorrect' : props.loginResponse?.message)
+            props.loginResponse?.message && showToast('error', props.loginResponse?.message?.replaceAll(' ', '-').toLowerCase() == 'user-not-found' ? 'Email or Password incorrect' : props.loginResponse?.message)
         }
         isLoading(false);
     }, [props.loginResponse])
@@ -88,7 +89,7 @@ const Login = (props) => {
     // useEffect(() => {
     //     changeLang(isRTL ? 'ar' : 'en')
     // }, [])
-    
+
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
         <ImageBackground
@@ -108,7 +109,7 @@ const Login = (props) => {
                                 }, 300)
                                 SplashScreen.show();
                             }}>
-                                <Text style={{ fontFamily: props.language == 'en' ? fonts.primarySemiBold : fonts.primary, fontSize: 13 }}>English</Text>
+                                <Text style={{ fontFamily: props.language == 'en' ? fonts.primarySemiBold : fonts.primary, fontSize: 13, color: isDarkMode ? colors.white : colors.black }}>English</Text>
                             </TouchableOpacity>
                             <View style={{ width: 1, height: 10, backgroundColor: colors.black, marginHorizontal: 10 }} />
                             <TouchableOpacity onPress={() => {
@@ -121,7 +122,7 @@ const Login = (props) => {
                                 }, 300)
                                 SplashScreen.show();
                             }}>
-                                <Text style={{ fontFamily: props.language == 'ur' ? fonts.arabicBold : fonts.arabicMedium }}>عربي</Text>
+                                <Text style={{ fontFamily: props.language == 'ur' ? fonts.arabicBold : fonts.arabicMedium, color: isDarkMode ? colors.white : colors.black }}>عربي</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={isIPad && globalstyle.authscreencontainer}>
@@ -136,14 +137,14 @@ const Login = (props) => {
                                         style={globalstyle.inputfield}
                                         placeholder="Email Address"
                                         {...register('email', {
-                                            value: 'johnmartin@mailinator.com',
+                                            value: 'johnmartin@mailinator.com', // johnmartin@mailinator.com
                                             required: 'Email Address is required',
                                             pattern: {
                                                 value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
                                                 message: "Please provide valid email"
                                             },
                                         })}
-                                        defaultValue={'johnmartin@mailinator.com'}
+                                        defaultValue={'johnmartin@mailinator.com'} // johnmartin@mailinator.com
                                         placeholderTextColor={colors.placeholdercolor}
                                         autoCapitalize='none'
                                         onChangeText={(value) => setValue('email', value)}
@@ -167,11 +168,11 @@ const Login = (props) => {
                                             placeholder="Password"
                                             placeholderTextColor={colors.placeholdercolor}
                                             {...register('password', {
-                                                value: '12345678',
+                                                value: '12345678', // 12345678
                                                 required: 'Password is required',
                                                 minLength: { value: 8, message: 'Password length must be greater then 8' }
                                             })}
-                                            defaultValue={'12345678'}
+                                            defaultValue={'12345678'} // 12345678
                                             // inputRef={password.ref}
                                             onChangeText={(value) => setValue('password', value)}
                                             secureTextEntry={!showPassword ? true : false}
@@ -233,5 +234,5 @@ export default connect(setStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
     forgetpasslink: { marginLeft: 'auto', marginTop: 10, marginBottom: 0, marginRight: 15 },
-    forgetpasstext: { color: colors.black, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 13 },
+    forgetpasstext: { color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 13 },
 })

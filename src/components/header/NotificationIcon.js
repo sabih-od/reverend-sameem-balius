@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native"
 import Icon from "react-native-vector-icons/Feather"
-import { colors } from "../../theme"
+import { colors, isDarkMode } from "../../theme"
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import globalstyle from "../../theme/style";
@@ -15,7 +15,7 @@ const NotificationIcon = (props) => {
                 props.navigation.navigate('Notifications');
             }}
             style={globalstyle.notibadge}>
-            <Icon name={'bell'} size={20} color={colors.black} />
+            <Icon name={'bell'} size={20} color={isDarkMode ? colors.white : colors.black} />
             {props.notificationBadge > 0 && <View style={globalstyle.badge}></View>}
         </TouchableOpacity>
     )

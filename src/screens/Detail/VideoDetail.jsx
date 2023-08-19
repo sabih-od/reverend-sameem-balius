@@ -1,6 +1,6 @@
 import { ActivityIndicator, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import globalstyle from "../../theme/style";
-import { colors, fonts, isIPad, width } from "../../theme";
+import { backgroungImage, colors, fonts, height, isIPad, width } from "../../theme";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Feather";
 import Video from "react-native-video";
@@ -14,6 +14,9 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import SectionTitle from "../../components/SectionTitle";
 import strings from "../../localization/translation";
 import SectionItem from "../../components/SectionItem";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { AddToFavouriteList } from "../../redux/reducers/ListingApiStateReducer";
+import { showToast } from "../../helpers/toastConfig";
 
 const VideoDetail = (props) => {
     console.log('props.route.params.item => ', props.route.params.item);
@@ -62,19 +65,58 @@ const VideoDetail = (props) => {
         return videoId;  // Output: dQw4w9WgXcQ
     }
 
+    const [postList, setPostList] = useState(null);
+    const prevPostsListResRef = useRef(props.getPostsListResponse);
+    useEffect(() => {
+        if (props.getPostByCategoryIdResponse !== prevPostsListResRef.current && props.getPostByCategoryIdResponse?.success && props.getPostByCategoryIdResponse?.data) {
+            prevPostsListResRef.current = props.getPostByCategoryIdResponse;
+            // setPostList(prevState => [...prevState, ...props.getPostByCategoryIdResponse?.data])
+            console.log('props.getPostByCategoryIdResponse => ', props.getPostByCategoryIdResponse)
+            const filteredlist = props.getPostByCategoryIdResponse?.data?.videos.filter(x => x.id != props.route.params.item?.id)
+            console.log('filteredlist => ', filteredlist)
+            setPostList(filteredlist)
+            // if (refreshing) setPostList(props.getPostByCategoryIdResponse?.data)
+            // else setPostList(prevState => [...prevState, ...props.getPostByCategoryIdResponse?.data])
+        }
+        setRefreshing(false)
+        // console.log('Object.entries() => ', Object.entries(props.getPostByCategoryIdResponse?.data).map((section, kindex) =>
+        //     section[1].map((item, iindex) => console.log('item => ', item))
+        // ))
+        // setLoadmore(false)
+    }, [props.getPostByCategoryIdResponse])
+
+
+    const prevAddToFavouriteListResRef = useRef(props.addToFavouriteListResponse);
+    useEffect(() => {
+        if (props.addToFavouriteListResponse !== prevAddToFavouriteListResRef.current && props.addToFavouriteListResponse?.success) {
+            prevAddToFavouriteListResRef.current = props.addToFavouriteListResponse;
+            showToast('success', props.addToFavouriteListResponse.message)
+        }
+        // setRefreshing(false)
+    }, [props.addToFavouriteListResponse])
+
+
+    useEffect(() => {
+        console.log('item => ', item?.video)
+    }, [item])
+
     return (
         <SafeAreaView style={globalstyle.fullview}>
-            {isStarted && <View style={{ height: width / 1.8, justifyContent: 'center', backgroundColor: colors.black, position: 'absolute', zIndex: 1, width: width, left: 0, top: 0 }}>
+            <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
+            {/* {isStarted && <View style={{ height: width / 1.8, justifyContent: 'center', backgroundColor: colors.black, position: 'absolute', zIndex: 1, width: width, left: 0, top: 0 }}>
                 <ActivityIndicator color={colors.headerbgcolor} />
             </View>}
-            {item?.url && <YoutubePlayer
+            {item?.youtube_video && <YoutubePlayer
                 height={width / 1.8}
                 play={playing}
                 videoId={findvideoid(item?.youtube_video)} // youtube_video_id
                 onChangeState={_handleStateChanged}
                 onReady={() => console.log('onReady')}
                 onError={() => console.log('onError')}
-            />}
+            />} */}
+
+            {!item?.video && <View style={{ width: width, height: width / 1.8, backgroundColor: colors.deepblue }} />}
+            {item?.video && <Video source={{ uri: item?.video }} style={{ height: width / 1.8 }} controls={true} />}
 
             {/* <YouTube
                 videoId="Gxb8BKoMASc"
@@ -91,18 +133,28 @@ const VideoDetail = (props) => {
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 }
             >
-                <Text style={globalstyle.detaildate}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Text style={globalstyle.detaildate}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
+                    <TouchableOpacity
+                        style={{ width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center' }}
+                        onPress={() => props.AddToFavouriteList({ id: item.id })}
+                    >
+                        <Icon name={'heart'} style={{ color: colors.white, fontSize: 17, marginBottom: -2 }} />
+                    </TouchableOpacity>
+                </View>
                 <Text style={globalstyle.detailtitle}>{item?.title}</Text>
                 {/* <Text style={globalstyle.detaildescription}>{item?.description}</Text> */}
                 <Text style={globalstyle.detaildescription}>{item?.description}</Text>
 
-                <View style={{marginTop: 20,}} />
-                <SectionTitle title={'More Videos'} />
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                    {[...Array(4).keys()].map((item, index) => {
-                        return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} video={true} />)
-                    })}
-                </View>
+                {postList != null && Array.isArray(postList) && postList.length > 0 && <>
+                    <View style={{ marginTop: 20, }} />
+                    <SectionTitle title={strings.MoreVideos} />
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                        {postList.map((item, index) => <SectionItem key={index} item={item} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} video={true} />)}
+
+                    </View>
+                </>}
 
                 {/* <YouTube
                     videoId="VI9yRXbNyn8"
@@ -111,16 +163,18 @@ const VideoDetail = (props) => {
                 /> */}
                 {/* <Video source={{ uri: item?.media }} style={{ width: width - 30, height: 200 }} controls={true} /> */}
             </ScrollView>
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 
 const setStateToProps = (state) => ({
-    getSermonDetailResponse: state.detailpagestate.getSermonDetailResponse,
+    // getSermonDetailResponse: state.detailpagestate.getSermonDetailResponse,
+    getPostByCategoryIdResponse: state.listingstate.getPostByCategoryIdResponse,
+    addToFavouriteListResponse: state.listingstate.addToFavouriteListResponse,
 })
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetSermonsDetailApiCall: bindActionCreators(GetSermonsDetailApiCall, dispatch),
+        AddToFavouriteList: bindActionCreators(AddToFavouriteList, dispatch),
     }
 }
 export default connect(setStateToProps, mapDispatchToProps)(VideoDetail);

@@ -73,14 +73,14 @@ const ResetPassword = (props) => {
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         {/* <ScrollView> */}
                         <View style={globalstyle.authLogoContainer}>
-                            <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} />
+                            {/* <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} /> */}
                             <Text style={globalstyle.authheading}>{strings.ResetPass}</Text>
                             <Text style={globalstyle.authdescription}>{strings.ResetAccPass}</Text>
                         </View>
                         <View>
                             <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <Icon color={colors.green} name={'lock'} size={18} />
+                                    <Icon color={colors.black} name={'lock'} size={18} />
                                     <TextInput
                                         style={[globalstyle.inputfield, { flex: 0.8 }]}
                                         placeholder="Password"
@@ -110,7 +110,7 @@ const ResetPassword = (props) => {
                             {errors.password && <Text style={globalstyle.errorField}>{errors.password.message}</Text>}
                             <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <Icon color={colors.green} name={'lock'} size={18} />
+                                    <Icon color={colors.black} name={'lock'} size={18} />
                                     <TextInput
                                         style={[globalstyle.inputfield, { flex: 0.8 }]}
                                         placeholder="Confirm Password"

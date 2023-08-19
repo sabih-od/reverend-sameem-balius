@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, useColorScheme, StyleSheet } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, useNavigationContainerRef, DefaultTheme, DarkTheme, DrawerActions } from '@react-navigation/native';
@@ -93,7 +93,7 @@ const AuthStackNavigation = (props) => {
             options={({ navigation }) => {
                 return {
                     headerTransparent: true, headerTitle: '',
-                    headerLeft: (props) => <GoBackIcon navigation={navigation} />,
+                    // headerLeft: (props) => <GoBackIcon navigation={navigation} />,
                 }
             }}
         />

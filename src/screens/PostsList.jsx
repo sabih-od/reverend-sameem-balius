@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Image, I18nManager } from "react-native";
-import { backgroungImage, colors, fonts, height, isIPad, isRTL, textAlign, width } from "../theme";
+import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, isRTL, textAlign, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -22,7 +22,7 @@ import itemobject from "../data/itemobject";
 
 const itemslimit = 50;
 const PostsList = (props) => {
-    const [postList, setPostList] = useState([]);
+    const [postList, setPostList] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
     const [pageno, setPageno] = useState(1);
     const [limit, setLimit] = useState(itemslimit);
@@ -36,9 +36,8 @@ const PostsList = (props) => {
             console.log('Unmount');
             setPostList([])
         }
-    }, [])
+    }, [item])
 
-    const prevPostsListResRef = useRef(props.getPostsListResponse);
 
     useEffect(() => {
         // props.GetPostsList({ pageno, limit })
@@ -48,6 +47,7 @@ const PostsList = (props) => {
         // }
     }, [])
 
+    const prevPostsListResRef = useRef(props.getPostsListResponse);
     useEffect(() => {
         if (props.getPostByCategoryIdResponse !== prevPostsListResRef.current && props.getPostByCategoryIdResponse?.success && props.getPostByCategoryIdResponse?.data) {
             prevPostsListResRef.current = props.getPostByCategoryIdResponse;
@@ -58,6 +58,9 @@ const PostsList = (props) => {
             // else setPostList(prevState => [...prevState, ...props.getPostByCategoryIdResponse?.data])
         }
         setRefreshing(false)
+        // console.log('Object.entries() => ', Object.entries(props.getPostByCategoryIdResponse?.data).map((section, kindex) =>
+        //     section[1].map((item, iindex) => console.log('item => ', item))
+        // ))
         // setLoadmore(false)
     }, [props.getPostByCategoryIdResponse])
 
@@ -68,6 +71,10 @@ const PostsList = (props) => {
         // props.GetPostsList({ pageno, limit });
         // console.log('_handleLoadMore ');
     }
+
+    useEffect(() => {
+        console.log('postList => ', postList)
+    }, [postList])
 
     const _handleLoadMore = () => {
         // setLoadmore(true)
@@ -86,19 +93,25 @@ const PostsList = (props) => {
     return <SafeAreaView style={globalstyle.fullview}>
         <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 15, }}>
-                <SectionTitle title={strings.Videos} />
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                    {[...Array(4).keys()].map((item, index) => {
+                {postList != null && Array.isArray(postList?.videos) && postList?.videos.length > 0 && <>
+                    <SectionTitle title={strings.Videos} />
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                        {postList?.videos.map((item, index) => <SectionItem key={index} item={item} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} video={true} />)}
+                        {/* {[...Array(4).keys()].map((item, index) => {
                         return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} video={true} />)
-                    })}
-                </View>
-                <View style={styles.seperator} />
-                <SectionTitle title={strings.Audios} />
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                    {[...Array(4).keys()].map((item, index) => {
+                    })} */}
+                    </View>
+                </>}
+                {postList != null && Array.isArray(postList?.audios) && postList?.audios.length > 0 && <>
+                    <View style={styles.seperator} />
+                    <SectionTitle title={strings.Audios} />
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                        {postList?.audios.map((item, index) => <SectionItem key={index} handlePlayer={setShowPlayer} item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 22} audio={true} />)}
+                        {/* {[...Array(4).keys()].map((item, index) => {
                         return (<SectionItem key={index} handlePlayer={setShowPlayer} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 22} audio={true} />)
-                    })}
-                </View>
+                    })} */}
+                    </View>
+                </>}
                 {/* <FlatList
                     // style={{ padding: 15 }}
                     // horizontal
@@ -122,20 +135,27 @@ const PostsList = (props) => {
                         return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 20 : (width / 2) - 20} />)
                     }}
                 /> */}
-                <View style={styles.seperator} />
-                <SectionTitle title={strings.Images} />
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                    {[...Array(4).keys()].map((item, index) => {
+                {postList != null && Array.isArray(postList?.images) && postList?.images.length > 0 && <>
+                    <View style={styles.seperator} />
+                    <SectionTitle title={strings.Images} />
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                        {postList?.images.map((item, index) => <SectionItem key={index} item={item} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} image={true} />)}
+                        {/* {[...Array(4).keys()].map((item, index) => {
                         return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} image={true} />)
-                    })}
-                </View>
-                <View style={styles.seperator} />
-                <SectionTitle title={strings.Documents} />
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 15 }}>
-                    {[...Array(4).keys()].map((item, index) => {
+                    })} */}
+                    </View>
+                </>
+                }
+                {postList != null && Array.isArray(postList?.pdfs) && postList?.pdfs.length > 0 && <>
+                    <View style={styles.seperator} />
+                    <SectionTitle title={strings.Documents} />
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 15 }}>
+                        {postList != null && Array.isArray(postList?.pdfs) && postList?.pdfs.length > 0 && postList?.pdfs.map((item, index) => <SectionItem key={index} item={item} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} document={true} />)}
+                        {/* {[...Array(4).keys()].map((item, index) => {
                         return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} document={true} />)
-                    })}
-                </View>
+                    })} */}
+                    </View>
+                </>}
             </ScrollView>
 
             {showPlayer && <View style={{ position: 'absolute', bottom: 0, left: 0, width: width }}>
@@ -174,7 +194,7 @@ const PostsList = (props) => {
             </View>}
 
         </ImageBackground>
-    </SafeAreaView>
+    </SafeAreaView >
 }
 
 const setStateToProps = (state) => ({
@@ -191,13 +211,6 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(setStateToProps, mapDispatchToProps)(PostsList);
 
 const styles = StyleSheet.create({
-    homebgimage: {
-        // paddingTop: IOS ? 45 : 70,
-        // paddingTop: IOS ? 100 : 70,
-        paddingHorizontal: 15,
-        flex: 1, // justifyContent: 'space-between',
-        // ...StyleSheet.absoluteFillObject,
-        // height: height, resizeMode: 'cover'
-    },
-    seperator: { width: '100%', height: 1, backgroundColor: '#bbb', marginBottom: 15, marginTop: 5 },
+    homebgimage: { paddingHorizontal: 15, flex: 1 },
+    seperator: { width: '100%', height: 1, backgroundColor: isDarkMode ? 'rgba(0,0,0,0.2)' : '#bbb', marginBottom: 15, marginTop: 5 },
 })

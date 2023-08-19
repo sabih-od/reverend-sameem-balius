@@ -22,6 +22,10 @@ export default {
   Audios: 'Audios',
   Documents: 'Books',
   Images: 'Images',
+  MoreVideos: 'More Videos',
+  MoreAudios: 'More Audios',
+  MoreDocuments: 'More Books',
+  MoreImages: 'More Images',
 
   posttitle: 'Thursday Night Prayer',
   postdesc: 'Join the church around the world by closing your day with the traditional set of psalms, reading and prayer.',
@@ -30,4 +34,19 @@ export default {
   questionanswer: 'Question & Answer',
   contactus: 'Contact Us',
   home: 'Home',
+
+
+  contactTitle: 'Contact Us',
+  contactDesc: 'Contact us for any question and query',
+  contactFullName: 'Full Name',
+  contactEmailAddress: 'Email Address',
+  contactPhoneNumber: 'Phone Number (Optional)',
+  contactEnterMessage: 'Enter your message',
+
+  play: 'Play',
+  shareQuote: 'Share Quote',
+
+  homeTopDailies: 'Dailies',
+  homeTopTitle: 'Fir Aug 18, Daily Gospel',
+  homeTopDesc: 'Lectio Divina: A conversation with God',
 };

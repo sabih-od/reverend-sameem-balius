@@ -103,7 +103,7 @@ const Profile = props => {
 
             {/* <BlockedUsers passReferenceToParent={handleChildReference} /> */}
             {/* <BlockedUsersListModal visible={showBlockedUsers} setVisible={setShowBlockedUsers} /> */}
-            {/* <View style={{ backgroundColor: colors.green, height: 400, width: '100%', top: 0, position: 'absolute', }}></View> */}
+            {/* <View style={{ backgroundColor: colors.black, height: 400, width: '100%', top: 0, position: 'absolute', }}></View> */}
             <View style={[{ paddingVertical: 20, paddingHorizontal: 15 }, isIPad && globalstyle.authscreencontainer, { marginTop: 'auto', marginBottom: 'auto' }]}>
               <View style={{ width: PROFILE_SQUARE, height: PROFILE_SQUARE, borderRadius: PROFILE_SQUARE, marginLeft: 'auto', marginRight: 'auto', marginVertical: 20, position: 'relative', backgroundColor: '#ddd', borderColor: colors.white, borderWidth: 2 }}>
                 <Image
@@ -123,17 +123,17 @@ const Profile = props => {
 
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.green} name={'user'} size={18} />
+                <Icon color={colors.black} name={'user'} size={18} />
                 <Text style={globalstyle.inputfield}>{`${user?.first_name} ${user?.last_name}`}</Text>
               </View>
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.green} name={'mail'} size={18} />
+                <Icon color={colors.black} name={'mail'} size={18} />
                 <Text style={globalstyle.inputfield}>{`${user?.email}`}</Text>
               </View>
 
               {user?.phone && <View style={globalstyle.inputbox}>
-                <Icon color={colors.green} name={'phone'} size={18} />
+                <Icon color={colors.black} name={'phone'} size={18} />
                 <Text style={globalstyle.inputfield}>{`${user?.phone}`}</Text>
               </View>}
 

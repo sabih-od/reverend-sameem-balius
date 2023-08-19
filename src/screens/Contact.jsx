@@ -11,6 +11,7 @@ import { ContactApiCall } from "../redux/reducers/ListingApiStateReducer";
 
 import { showToast } from "../helpers/toastConfig";
 import Loader from "../components/Loader";
+import strings from "../localization/translation";
 
 const Contact = (props) => {
 
@@ -68,15 +69,15 @@ const Contact = (props) => {
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}> */}
                         {/* <ScrollView> */}
                         <View style={[globalstyle.authLogoContainer, { alignItems: 'flex-start', }]}>
-                            <Text style={[globalstyle.authheading, { fontSize: isIPad ? 35 : 28, marginTop: 10 }]}>Contact Us</Text>
-                            <Text style={[globalstyle.authdescription, { fontSize: isIPad ? 20 : 15, marginBottom: 10, marginTop: isIPad ? 8 : 0 }]}>Contact us for any question and query</Text>
+                            <Text style={[globalstyle.authheading, { fontSize: isIPad ? 35 : 28, marginTop: 10 }]}>{strings.contactTitle}</Text>
+                            <Text style={[globalstyle.authdescription, { fontSize: isIPad ? 20 : 15, marginBottom: 10, marginTop: isIPad ? 8 : 0 }]}>{strings.contactDesc}</Text>
                         </View>
                         <View>
                             <View style={globalstyle.inputbox}>
                                 <Icon color={colors.darkblue} name={'user'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
-                                    placeholder="Full Name"
+                                    placeholder={strings.contactFullName}
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('name', {
                                         value: user.first_name + ' ' + user.last_name,
@@ -99,7 +100,7 @@ const Contact = (props) => {
                                 <Icon color={colors.darkblue} name={'mail'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
-                                    placeholder="Email Address"
+                                    placeholder={strings.contactEmailAddress}
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('email', {
                                         value: user.email,
@@ -125,7 +126,7 @@ const Contact = (props) => {
                                 <Icon color={colors.darkblue} name={'phone'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
-                                    placeholder="Phone Number (Optional)"
+                                    placeholder={strings.contactPhoneNumber}
                                     placeholderTextColor={colors.placeholdercolor}
                                     // keyboardType='phone-pad'
                                     keyboardType='numeric'
@@ -170,8 +171,8 @@ const Contact = (props) => {
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon color={colors.darkblue} name={'message-square'} size={18} style={{ marginTop: 15 }} />
                                     <TextInput
-                                        style={[globalstyle.inputfield, { flex: 0.8, textAlignVertical: 'top', paddingTop: 17 }]}
-                                        placeholder="Enter Your Message"
+                                        style={[globalstyle.inputfield, { flex: 1, textAlignVertical: 'top', paddingTop: 17 }]}
+                                        placeholder={strings.contactEnterMessage}
                                         placeholderTextColor={colors.placeholdercolor}
                                         {...register('message', {
                                             value: '',
@@ -196,7 +197,7 @@ const Contact = (props) => {
                                 onPress={handleSubmit(onSubmit)}
                                 style={globalstyle.authSubmitButton}
                             >
-                                <Text style={globalstyle.authSubmitButtonText}>Submit</Text>
+                                <Text style={globalstyle.authSubmitButtonText}>{strings.Submit}</Text>
                             </TouchableOpacity>
                         </View>
 

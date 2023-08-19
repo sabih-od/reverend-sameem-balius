@@ -20,6 +20,11 @@ export const GetQuestionsAPI = '/faq';
 export const SendAskAQuestionAPI = '/faq/ask-a-question';
 export const GetCategoriesAPI = '/categories?page=1&limit=100';
 export const GetPostByCategoryIdAPI = '/posts/screen-wise';
+export const GetPostWithOutTypeByCategoryIdAPI = '/posts/category-post'
+export const GetFavouriteListAPI = '/posts/favourites/list'
+export const AddToFavouriteListAPI = '/posts/add-to-favourites'
+export const GetMenuAPI = '/categories/get-menu';
+
 
 
 export const GetPostsAPI = '/posts';

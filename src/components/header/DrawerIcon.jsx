@@ -1,7 +1,7 @@
 import React from "react";
 import { Keyboard, TouchableOpacity } from "react-native"
 import Icon from "react-native-vector-icons/Feather"
-import { colors, fontcolor } from "../../theme"
+import { colors, fontcolor, isDarkMode } from "../../theme"
 
 const DrawerIcon = ({ navigation }) => {
     return (<TouchableOpacity
@@ -11,7 +11,7 @@ const DrawerIcon = ({ navigation }) => {
             navigation.openDrawer();
         }}
         style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
-        <Icon name={'align-right'} size={22} color={fontcolor} />
+        <Icon name={'align-right'} size={22} color={isDarkMode ? colors.white : colors.black} />
     </TouchableOpacity >)
 }
 

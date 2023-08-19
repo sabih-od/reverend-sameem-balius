@@ -65,7 +65,7 @@ const ForgetPassword = (props) => {
                         <View>
 
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.green} name={'mail'} size={18} />
+                                <Icon color={colors.black} name={'mail'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder="Email Address"
