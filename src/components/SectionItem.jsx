@@ -10,7 +10,7 @@ const SectionItem = (props) => {
     if (props?.audio) {
         return (
             <TouchableOpacity
-                onPress={() => handlePlayer(true)}
+                onPress={() => handlePlayer(true, item)}
                 activeOpacity={0.9}
                 style={{ width: width - 20, marginBottom: 15, flexDirection: 'row', alignItems: 'center' }}
             >
@@ -20,7 +20,9 @@ const SectionItem = (props) => {
                     defaultSource={require('./../../assets/images/speaker-placeholder.png')}
                     style={{ width: 80, height: 80, marginRight: 13, marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' }}
                 >
-                    {item?.image && <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.3)' }} />}
+                    {/* {item?.image && */}
+                        <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }} />
+                    {/* } */}
                     <View style={[itemstyle?.iconbg, { width: 30, height: 30 }]}>
                         {props?.audio && <Icon name="mic" style={[itemstyle?.icon, { fontSize: 15 }]} />}
                     </View>
@@ -49,7 +51,9 @@ const SectionItem = (props) => {
                     style={{ width: '100%', height: width / 1.5, marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' }}
                 >
                     {(props?.video || props?.document || props?.audio || props?.image) && <>
-                        {item?.image && <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.3)' }} />}
+                        {/* {item?.image && */}
+                        <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }} />
+                        {/* } */}
                         <View style={itemstyle?.iconbg}>
                             {props?.video && <Icon name="play" style={[itemstyle?.icon, isRTL ? { marginLeft: -4 } : { marginRight: -4 }]} />}
                             {props?.document && <Icon name="file-text" style={itemstyle?.icon} />}

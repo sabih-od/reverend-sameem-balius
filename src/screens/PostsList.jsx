@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Image, I18nManager } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Image, I18nManager, Platform } from "react-native";
 import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, isRTL, textAlign, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -16,6 +16,10 @@ import { useNavigation } from "@react-navigation/native";
 import SectionItem from "../components/SectionItem";
 import SectionTitle from "../components/SectionTitle";
 import itemobject from "../data/itemobject";
+import { TrackAddItem, TrackPlay } from "../helpers/track-player";
+import AudioPlayer from "../components/AudioPlayer";
+import TrackPlayer from "react-native-track-player";
+// import Sound from "react-native-sound";
 
 
 
@@ -32,10 +36,7 @@ const PostsList = (props) => {
     useEffect(() => {
         props.navigation.setOptions({ headerTitle: item?.name });
         props.GetPostByCategoryId({ id: item.id })
-        return () => {
-            console.log('Unmount');
-            setPostList([])
-        }
+
     }, [item])
 
 
@@ -45,7 +46,61 @@ const PostsList = (props) => {
         //     console.log('Announcement Unmount');
         //     setPostList([])
         // }
+        return () => {
+            console.log('Unmount');
+            setPostList([])
+        }
     }, [])
+
+    async function _setShowPlayer(value, item) {
+        console.log('value => ', item)
+        // {
+        //     id: '1',
+        //     url: 'https://www.divinerevelations.info/documents/bible/english_mp3_bible/dbs_kjv_bible/12_2_kings.mp3',
+        //     title: 'Do not Fear Bad News',
+        //     artist: 'Reverend Sameem Balius',
+        //     artwork: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/4UToGtgL8e4R5ZMeoHLJ.jpg'
+        // }
+        setShowPlayer(value)
+        if (value) {
+            const reset = await TrackPlayer.reset();
+            let queue = await TrackPlayer.getQueue();
+            // console.log('queue => ', queue)
+            if (queue.length == 0) {
+                let added = await TrackAddItem(
+                    {
+                        id: item?.id,
+                        url: item?.audio,
+                        title: item?.title,
+                        artist: 'Reverend Sameem Balius',
+                        artwork: item?.image
+                    }
+                );
+                await TrackPlay();
+            }
+        } else {
+            await TrackPlayer.reset()
+        }
+
+        // //require('./../../assets/sound/advertising.mp3')
+        // var whoosh = new Sound('https://raw.githubusercontent.com/zmxv/react-native-sound-demo/master/advertising.mp3', null, (error) => {
+        //     if (error) {
+        //         console.log('failed to load the sound', error);
+        //         return;
+        //     }
+        //     // loaded successfully
+        //     console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
+
+        //     // Play the sound with an onEnd callback
+        //     whoosh.play((success) => {
+        //         if (success) {
+        //             console.log('successfully finished playing');
+        //         } else {
+        //             console.log('playback failed due to audio decoding errors');
+        //         }
+        //     });
+        // });
+    }
 
     const prevPostsListResRef = useRef(props.getPostsListResponse);
     useEffect(() => {
@@ -90,6 +145,7 @@ const PostsList = (props) => {
     }
 
     const [showPlayer, setShowPlayer] = useState(false);
+
     return <SafeAreaView style={globalstyle.fullview}>
         <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 15, }}>
@@ -106,7 +162,7 @@ const PostsList = (props) => {
                     <View style={styles.seperator} />
                     <SectionTitle title={strings.Audios} />
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                        {postList?.audios.map((item, index) => <SectionItem key={index} handlePlayer={setShowPlayer} item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 22} audio={true} />)}
+                        {postList?.audios.map((item, index) => <SectionItem key={index} handlePlayer={_setShowPlayer} item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 22} audio={true} />)}
                         {/* {[...Array(4).keys()].map((item, index) => {
                         return (<SectionItem key={index} handlePlayer={setShowPlayer} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 22} audio={true} />)
                     })} */}
@@ -157,42 +213,7 @@ const PostsList = (props) => {
                     </View>
                 </>}
             </ScrollView>
-
-            {showPlayer && <View style={{ position: 'absolute', bottom: 0, left: 0, width: width }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                    <View style={{ flex: 0.3, backgroundColor: colors.orange, height: 4 }} />
-                    <View style={{ flex: 0.7, backgroundColor: '#999', height: 4 }} />
-                </View>
-                <View style={{
-                    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10,
-                    // backgroundColor: colors.headerbgcolor,
-                    backgroundColor: colors.black,
-                }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                        <TouchableOpacity
-                            style={{ width: 25, height: 70, alignItems: 'center', justifyContent: 'center' }}
-                            activeOpacity={0.8}
-                            onPress={() => setShowPlayer(false)}
-                        >
-                            <Icon name="x" style={{ color: colors.white, fontSize: 16 }} />
-                        </TouchableOpacity>
-                        <Image source={require('./../../assets/images/sermons-01.jpeg')} style={{ width: 70, height: 70, borderRadius: 15, marginRight: 10 }} />
-                        <View style={{ width: width - 180 }}>
-                            <Text numberOfLines={1} style={{ fontFamily: fonts.primarySemiBold, textAlign: 'left', fontSize: isRTL ? 17 : 15, marginBottom: 2, color: colors.white, fontFamily: isRTL ? fonts.arabicBold : fonts.primary }}>{strings.posttitle}</Text>
-                            <Text numberOfLines={1} style={{ fontFamily: fonts.primary, textAlign: 'left', color: '#333', fontSize: 13, marginBottom: 2, color: colors.white, fontFamily: isRTL ? fonts.arabicRegular : fonts.primary }}>{strings.postdesc}</Text>
-                            <Text style={{ fontFamily: fonts.primary, color: colors.white, fontSize: 12, textAlign: 'left', }}>01:13 - 03:43</Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity
-                        onPress={() => { }}
-                        activeOpacity={0.9}
-                        style={{ width: 40, height: 40, backgroundColor: colors.orange, marginRight: 10, borderRadius: 30, justifyContent: 'center', alignItems: 'center', }}
-                    >
-                        <Icon name="play" style={[{ fontSize: 18, color: colors.white }, isRTL ? { marginLeft: -4 } : { marginRight: -4 }]} />
-                    </TouchableOpacity>
-                </View>
-            </View>}
-
+            {showPlayer && <AudioPlayer handleClose={_setShowPlayer} />}
         </ImageBackground>
     </SafeAreaView >
 }

@@ -103,7 +103,7 @@ const Home = (props) => {
                         data={bibleStudy}
                         keyExtractor={item => String(item.id)}
                         renderItem={({ item, index }) => {
-                            console.log('item => ', item)
+                            // console.log('item => ', item)
                             return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
                         }}
                     />

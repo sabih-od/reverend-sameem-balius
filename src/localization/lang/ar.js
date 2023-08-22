@@ -17,6 +17,7 @@ export default {
   ForgetPasswordDesc: 'قدم التفاصيل الخاصة بك لاستعادة حسابك',
   ChangeEmail: 'تغيير البريد الالكتروني',
   ClickHere: 'انقر هنا',
+  Language: 'لغة',
 
   Videos: 'أشرطة فيديو',
   Audios: 'صوتيات',
@@ -32,6 +33,7 @@ export default {
 
   logout: 'تسجيل خروج',
   questionanswer: 'جواب السؤال',
+  AskAQuestion: 'طرح سؤال',
   contactus: 'اتصل بنا',
   home: 'بيت',
 

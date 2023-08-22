@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import globalstyle from "../../theme/style";
 import { backgroungImage, colors, fonts, height, isIPad, width } from "../../theme";
 import moment from "moment";
@@ -114,14 +114,57 @@ const ImageDetail = (props) => {
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 }
             >
-                <Image source={{ uri: item?.image }} style={{ width: width, height: width / 1.6, }} />
+
+                <FlatList
+                    style={{ marginTop: 0, backgroundColor: colors.black }}
+                    horizontal
+                    snapToInterval={width}
+                    // scrollEnabled
+                    // scrollEventThrottle={16}
+                    showsHorizontalScrollIndicator={false}
+                    // showsVerticleScrollIndicator={false}
+                    // refreshing={refreshing}
+                    // onRefresh={_handleRefresh}
+                    // ListFooterComponent={() => loadmore ? <View style={globalstyle.footerloadmore}>
+                    //     <ActivityIndicator size={Platform.OS == 'android' ? 25 : 'large'} color={colors.primary} />
+                    //     <Text style={globalstyle.footerloadingtext}>Loading</Text>
+                    // </View> : <View style={{ height: 20 }} />}
+                    // onEndReachedThreshold={0.8}
+                    // onEndReached={_handleLoadMore}
+                    // ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
+                    data={item?.images}
+                    keyExtractor={(imageitem, index) => String(index)}
+                    renderItem={(imageitem, index) => {
+                        console.log('imageitem => ', imageitem)
+                        return (<View style={{ width: width, height: width / 1.5, }}>
+                            <Image
+                                source={{ uri: imageitem?.item?.url }}
+                                style={{ width: '100%', height: '100%', }}
+                                defaultSource={require('./../../../assets/images/home-slider-placeholder.png')}
+                            />
+                        </View>)
+                    }}
+                />
+                {/* <Image
+                    source={{ uri: item?.image }}
+                    style={{ width: width, height: width / 1.6, }}
+                    defaultSource={require('./../../../assets/images/home-slider-placeholder.png')}
+                /> */}
                 <View style={{ padding: 15, borderTopLeftRadius: 10, }}>
-                    <Text style={globalstyle.detaildate}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Text style={globalstyle.detaildate}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
+                        <TouchableOpacity
+                            style={{ width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center' }}
+                            onPress={() => props.AddToFavouriteList({ id: item.id })}
+                        >
+                            <Icon name={'heart'} style={{ color: colors.white, fontSize: 17, marginBottom: -2 }} />
+                        </TouchableOpacity>
+                    </View>
                     <Text style={globalstyle.detailtitle}>{item?.title}</Text>
                     {/* <Text style={globalstyle.detaildescription}>{item?.description}</Text> */}
                     <Text style={globalstyle.detaildescription}>{item?.description}</Text>
 
-                    <FlatList
+                    {/* <FlatList
                         style={{ marginTop: 15 }}
                         horizontal
                         snapToInterval={(width / 2) + 15}
@@ -143,10 +186,14 @@ const ImageDetail = (props) => {
                         renderItem={(imageitem, index) => {
                             console.log('imageitem => ', imageitem)
                             return (<View style={{ width: width / 2.3, height: width / 3, borderRadius: 10, overflow: 'hidden', }}>
-                                <Image source={{ uri: imageitem?.item?.url }} style={{ width: '100%', height: '100%', }} />
+                                <Image
+                                    source={{ uri: imageitem?.item?.url }}
+                                    style={{ width: '100%', height: '100%', }}
+                                    defaultSource={require('./../../../assets/images/home-slider-placeholder.png')}
+                                />
                             </View>)
                         }}
-                    />
+                    /> */}
 
                     {/* <View style={{ flexDirection: 'row' }}>
                         {item?.images && item.images.map((itemimages) => <View style={{ width: width / 2, height: width / 1.6, borderRadius: 10, overflow: 'hidden', }}>

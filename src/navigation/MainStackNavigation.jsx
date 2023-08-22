@@ -38,6 +38,7 @@ import VideoDetail from "../screens/Detail/VideoDetail";
 import ImageDetail from "../screens/Detail/ImageDetail";
 import PdfView from "../screens/PdfView";
 import FavouriteList from "../screens/FavouriteList";
+import strings from "../localization/translation";
 
 
 const Stack = createStackNavigator();
@@ -295,7 +296,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 name="QuestionAnswer"
                 component={QuestionAnswer}
                 options={{
-                    headerTitle: 'Ask A Question',
+                    headerTitle: strings.AskAQuestion,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
@@ -320,7 +321,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTransparent: true,
                     // headerLeft: () => <GoBackIcon navigation={navigation} />,
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerTitle: 'Contact',
+                    headerTitle: strings.contactus,
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
                     headerTitleStyle: globalstyle.headerTitleStyle,

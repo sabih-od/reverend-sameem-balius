@@ -17,6 +17,7 @@ export default {
   ForgetPasswordDesc: 'Provide your details to recover your account',
   ChangeEmail: 'Change email address',
   ClickHere: 'Click Here',
+  Language: 'Language',
 
   Videos: 'Videos',
   Audios: 'Audios',
@@ -32,6 +33,7 @@ export default {
 
   logout: 'Logout',
   questionanswer: 'Question & Answer',
+  AskAQuestion: 'Ask A Question',
   contactus: 'Contact Us',
   home: 'Home',
 
@@ -49,4 +51,5 @@ export default {
   homeTopDailies: 'Dailies',
   homeTopTitle: 'Fir Aug 18, Daily Gospel',
   homeTopDesc: 'Lectio Divina: A conversation with God',
+
 };

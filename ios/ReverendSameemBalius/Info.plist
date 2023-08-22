@@ -28,6 +28,12 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		<!--Include to allow subdomains-->
+		<key>NSIncludesSubdomains</key>
+		<true/>
+		<!--Include to allow HTTP requests-->
+		<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Please grant permission for Reverend Sameem to access your camera in order to capture a profile picture.</string>

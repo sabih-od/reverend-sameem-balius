@@ -1,13 +1,14 @@
 import { ScrollView, Text, View, TextInput, SafeAreaView, TouchableOpacity, FlatList, StyleSheet, ImageBackground, LayoutAnimation } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../theme/style";
-import { backgroungImage, colors, fonts, width } from "../theme";
+import { backgroungImage, colors, fonts, isRTL, width } from "../theme";
 import { useEffect, useRef, useState } from "react";
 import { GetQuestions, SendAskAQuestion } from "../redux/reducers/ListingApiStateReducer";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { showToast } from "../helpers/toastConfig";
 import Loader from "../components/Loader";
+import strings from "../localization/translation";
 
 const data = [{
     id: 1,
@@ -107,7 +108,7 @@ const QuestionAnswer = (props) => {
         isLoading(false);
     }, [props.sendAskAQuestionsResponse])
 
-    
+
 
     function onSubmit() {
         if (question == '') {
@@ -139,13 +140,13 @@ const QuestionAnswer = (props) => {
                         ref={inputRef}
                         defaultValue={question}
                         onChangeText={value => setQuestion(value)}
-                        placeholder="Ask a Question..."
+                        placeholder={strings.AskAQuestion}
                         placeholderTextColor={'#999'}
-                        style={{ padding: 10, width: width - 100, fontFamily: fonts.primary }}
+                        style={{ padding: 10, width: width - 100, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, textAlign: isRTL ? 'right' : 'left', }}
                     />
                     <TouchableOpacity
                         onPress={onSubmit}
-                        style={{ alignItems: 'center', justifyContent: 'center', width: 45, backgroundColor: colors.orange, borderRadius: 10 }}>
+                        style={{ alignItems: 'center', justifyContent: 'center', width: 45, height: 45, backgroundColor: colors.orange, borderRadius: 10 }}>
                         <Icon name="send" style={{ fontSize: 20, color: colors.white }} />
                     </TouchableOpacity>
                 </View>

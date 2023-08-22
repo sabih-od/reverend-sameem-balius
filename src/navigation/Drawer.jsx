@@ -164,7 +164,7 @@ const DrawerContent = (props) => {
         </View>
       }
       <View style={{ backgroundColor: colors.deepblue, paddingVertical: 10, paddingHorizontal: 15, justifyContent: 'space-between', flexDirection: 'row' }}>
-        <Text style={globalstyle.draweritemtext}>Language</Text>
+        <Text style={globalstyle.draweritemtext}>{strings.Language}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <TouchableOpacity
             activeOpacity={0.8}
