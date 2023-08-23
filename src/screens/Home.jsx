@@ -17,7 +17,7 @@ import draweritems from "../navigation/draweritems";
 import RNFS from 'react-native-fs';
 import ReactNativeBlobUtil from "react-native-blob-util";
 import { connect } from "react-redux";
-import { GetPostWithOutTypeByCategoryId } from "../redux/reducers/ListingApiStateReducer";
+import { GetFeaturedList, GetPostWithOutTypeByCategoryId } from "../redux/reducers/ListingApiStateReducer";
 import { bindActionCreators } from "redux";
 
 
@@ -35,13 +35,16 @@ const Home = (props) => {
     }, [])
 
     useEffect(() => {
-        props.GetPostWithOutTypeByCategoryId({ id: 17 })
+        props.GetPostWithOutTypeByCategoryId({ id: 17 });
+        props.GetFeaturedList();
     }, [])
     useEffect(() => {
         console.log('bibleStudy => ', bibleStudy)
     }, [bibleStudy])
 
-    const [bibleStudy, setBibleStudy] = useState([])
+    const [bibleStudy, setBibleStudy] = useState([]);
+    const [featuredList, setFeaturedList] = useState([]);
+    
 
     const prevBibleStudyResRef = useRef(props.getPostWoTypeByCategoryIdResponse);
     useEffect(() => {
@@ -51,6 +54,15 @@ const Home = (props) => {
             setBibleStudy(props.getPostWoTypeByCategoryIdResponse?.data?.data)
         }
     }, [props.getPostWoTypeByCategoryIdResponse])
+
+    const prevFeaturedListResRef = useRef(props.getToFeaturedListResponse);
+    useEffect(() => {
+        if (props.getToFeaturedListResponse !== prevFeaturedListResRef.current && props.getToFeaturedListResponse?.success && props.getToFeaturedListResponse?.data) {
+            prevFeaturedListResRef.current = props.getToFeaturedListResponse;
+            console.log('props.getToFeaturedListResponse => ', props.getToFeaturedListResponse)
+            setFeaturedList(props.getToFeaturedListResponse?.data)
+        }
+    }, [props.getToFeaturedListResponse])
 
     const downloadimage = () => {
         ReactNativeBlobUtil.config({
@@ -88,14 +100,37 @@ const Home = (props) => {
 
                 <MainBox />
 
-                {bibleStudy.length > 0 && <>
+                {featuredList.length > 0 && <>
                     <Seperator />
-                    <SectionHeading title={isRTL ? 'دراسة الكتاب المقدس' : 'Bible Study'} joined={false} />
+                    <SectionHeading title={isRTL ? 'متميز' : 'Featured'} joined={false} />
                     <FlatList
                         horizontal
                         snapToInterval={width / 2}
                         scrollEnabled
                         scrollEventThrottle={16}
+                        ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
+                        showsHorizontalScrollIndicator={false}
+                        // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                        //     { useNativeDriver: false }
+                        // )}
+                        data={featuredList}
+                        keyExtractor={item => String(item.id)}
+                        renderItem={({ item, index }) => {
+                            // console.log('item => ', item)
+                            return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
+                        }}
+                    />
+                </>}
+
+                {bibleStudy.length > 0 && <>
+                    <Seperator />
+                    <SectionHeading title={isRTL ? 'روحية' : 'Spiritual'} joined={false} />
+                    <FlatList
+                        horizontal
+                        snapToInterval={width / 2}
+                        scrollEnabled
+                        scrollEventThrottle={16}
+                        ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
                         showsHorizontalScrollIndicator={false}
                         // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
                         //     { useNativeDriver: false }
@@ -108,20 +143,40 @@ const Home = (props) => {
                         }}
                     />
                 </>}
-
+                {bibleStudy.length > 0 && <>
+                    <Seperator />
+                    <SectionHeading title={isRTL ? 'الأخبار' : 'News'} joined={false} />
+                    <FlatList
+                        horizontal
+                        snapToInterval={width / 2}
+                        scrollEnabled
+                        scrollEventThrottle={16}
+                        ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
+                        showsHorizontalScrollIndicator={false}
+                        // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                        //     { useNativeDriver: false }
+                        // )}
+                        data={bibleStudy}
+                        keyExtractor={item => String(item.id)}
+                        renderItem={({ item, index }) => {
+                            // console.log('item => ', item)
+                            return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
+                        }}
+                    />
+                </>}
                 <Seperator />
-
                 <SectionHeading title={'Join the conscration'} joined={true} />
                 <MainTopBox dayspending={12} />
 
                 <Seperator />
 
-                <SectionHeading title={isRTL ? 'دراسة الكتاب المقدس' : 'Bible Study'} joined={false} />
+                {/* <SectionHeading title={isRTL ? 'دراسة الكتاب المقدس' : 'Bible Study'} joined={false} />
                 <FlatList
                     horizontal
                     snapToInterval={width / 2}
                     scrollEnabled
                     scrollEventThrottle={16}
+                    ItemSeparatorComponent={() => <View style={14} />}
                     showsHorizontalScrollIndicator={false}
                     // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
                     //     { useNativeDriver: false }
@@ -132,8 +187,7 @@ const Home = (props) => {
                         return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
                     }}
                 />
-
-                <Seperator />
+                <Seperator /> */}
 
                 <View style={{ alignItems: 'center', backgroundColor: colors.darkblue, paddingHorizontal: 20, paddingVertical: 20, borderRadius: 20 }}>
                     <Text style={{ color: colors.white, fontFamily: fonts.primaryBold, fontSize: 17, marginBottom: 20, textAlign: 'center' }}>Unlock 5000+ prayers, meditations, community challenges and more</Text>
@@ -141,15 +195,16 @@ const Home = (props) => {
                         <Text style={{ textAlign: 'center', color: colors.white, fontFamily: fonts.primaryBold, textTransform: 'uppercase' }}>Try Plus for $0.00</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={{height: 50}} />
+                {/* <Seperator /> */}
 
-                <Seperator />
-
-                <SectionHeading title={'Evening Horizontal'} joined={false} />
+                {/* <SectionHeading title={'Evening Horizontal'} joined={false} />
                 <FlatList
                     horizontal
                     snapToInterval={width - 50}
                     scrollEnabled
                     scrollEventThrottle={16}
+                    ItemSeparatorComponent={() => <View style={14} />}
                     showsHorizontalScrollIndicator={false}
                     // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
                     //     { useNativeDriver: false }
@@ -160,15 +215,15 @@ const Home = (props) => {
                         return (<RoutineBoxHorizontal key={index} item={item} navigation={props.navigation} />)
                     }}
                 />
+                <Seperator /> */}
 
-                <Seperator />
-
-                <SectionHeading title={'Evening Routines'} joined={true} />
+                {/* <SectionHeading title={'Evening Routines'} joined={true} />
                 <FlatList
                     horizontal
                     snapToInterval={width / 2}
                     scrollEnabled
                     scrollEventThrottle={16}
+                    ItemSeparatorComponent={() => <View style={14} />}
                     showsHorizontalScrollIndicator={false}
                     // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
                     //     { useNativeDriver: false }
@@ -179,7 +234,7 @@ const Home = (props) => {
                         return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
                     }}
                 />
-                <View style={{ paddingBottom: 30 }} />
+                <View style={{ paddingBottom: 30 }} /> */}
 
             </ScrollView>
             {/* <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: colors.deepblue, padding: 20}}>
@@ -207,11 +262,13 @@ const Home = (props) => {
 
 const setStateToProps = state => ({
     getPostWoTypeByCategoryIdResponse: state.listingstate.getPostWoTypeByCategoryIdResponse,
+    getToFeaturedListResponse: state.listingstate.getToFeaturedListResponse,
 })
 
 const mapDispatchToProps = dispatch => {
     return {
-        GetPostWithOutTypeByCategoryId: bindActionCreators(GetPostWithOutTypeByCategoryId, dispatch)
+        GetPostWithOutTypeByCategoryId: bindActionCreators(GetPostWithOutTypeByCategoryId, dispatch),
+        GetFeaturedList: bindActionCreators(GetFeaturedList, dispatch),
     }
 }
 

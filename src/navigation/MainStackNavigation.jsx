@@ -32,13 +32,16 @@ import Social from "../screens/Lectures/Social";
 import BibleStudy from "../screens/Lectures/BibleStudy";
 import WellBeing from "../screens/Lectures/WellBeing";
 import News from "../screens/News";
-import Homily from "../screens/FavouriteList";
+// import Homily from "../screens/FavouriteList";
 import PostsList from "../screens/PostsList";
 import VideoDetail from "../screens/Detail/VideoDetail";
 import ImageDetail from "../screens/Detail/ImageDetail";
 import PdfView from "../screens/PdfView";
 import FavouriteList from "../screens/FavouriteList";
 import strings from "../localization/translation";
+import HistoryList from "../screens/HistoryList";
+import Downloads from "../screens/Downloads";
+import CDsList from "../screens/CDsList";
 
 
 const Stack = createStackNavigator();
@@ -131,9 +134,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 name="ImageDetail"
                 component={ImageDetail}
                 options={{
+                    // headerShown: false,
                     headerTitle: '',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    // headerTransparent: true,
                     headerStyle: {
                         backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
                         elevation: 0,
@@ -335,7 +340,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 }}
             />
 
-            
+
             <Stack.Screen
                 name="FavouriteList"
                 component={FavouriteList}
@@ -343,6 +348,57 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: 'Favourites',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="Downloads"
+                component={Downloads}
+                options={{
+                    headerTitle: 'Downloads',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="HistoryList"
+                component={HistoryList}
+                options={{
+                    headerTitle: 'History',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="CDsList"
+                component={CDsList}
+                options={{
+                    headerTitle: 'CDs',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: [globalstyle.headerTitleStyle,{textTransform: 'none'}],
                     headerStyle: {
                         backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
                         elevation: 0,

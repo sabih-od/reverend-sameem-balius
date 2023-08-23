@@ -21,7 +21,7 @@ export default {
 
   Videos: 'أشرطة فيديو',
   Audios: 'صوتيات',
-  Documents: 'ڪتاب',
+  Documents: 'كتب',
   Images: 'الصور',
   MoreVideos: 'فيديوهات اكثر',
   MoreAudios: 'المزيد من الصوتيات',
@@ -52,4 +52,5 @@ export default {
   homeTopTitle: 'التنوب 18 أغسطس ، الإنجيل اليومي',
   homeTopDesc: 'ليكتيو ديفينا: حديث مع الله',
 
+  videoNotFound: 'لم يتم العثور على الفيديو'
 };

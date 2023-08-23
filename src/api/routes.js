@@ -24,7 +24,9 @@ export const GetPostWithOutTypeByCategoryIdAPI = '/posts/category-post'
 export const GetFavouriteListAPI = '/posts/favourites/list'
 export const AddToFavouriteListAPI = '/posts/add-to-favourites'
 export const GetMenuAPI = '/categories/get-menu';
-
+export const GetFeaturedListAPI = '/posts/get/featured-posts';
+export const GetHistoryListAPI = 'posts/get/post-history';
+export const AddPostToHistoryAPI = '/user-post-histories';
 
 
 export const GetPostsAPI = '/posts';

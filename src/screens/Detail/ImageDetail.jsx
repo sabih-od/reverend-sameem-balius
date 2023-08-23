@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, ImageBackground, RefreshControl, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import globalstyle from "../../theme/style";
 import { backgroungImage, colors, fonts, height, isIPad, width } from "../../theme";
 import moment from "moment";
@@ -40,6 +40,18 @@ const ImageDetail = (props) => {
     //     }
     //     setRefreshing(false);
     // }, [props.getSermonDetailResponse])
+
+    useEffect(() => {
+        // props.navigation.setOptions({
+        //     headerTransparent: true,
+        // });
+        // StatusBar.setTranslucent(true);
+        // StatusBar.setBackgroundColor('transparent')
+    }, [])
+
+    useEffect(() => {
+        setItem(props.route.params.item);
+    }, [props.route.params.item])
 
     const onRefresh = useCallback(() => {
         // setRefreshing(true);
@@ -106,7 +118,6 @@ const ImageDetail = (props) => {
                 onError={e => console.log({ error: e.error })}
                 style={{ alignSelf: 'stretch', height: width / 1.6 }}
             /> */}
-            {/* <Image source={{ uri: item?.image }} style={{ height: 250, overflow: 'hidden', width: '100%', }} /> */}
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ overflow: 'hidden' }}
@@ -114,8 +125,16 @@ const ImageDetail = (props) => {
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 }
             >
+                <ImageBackground source={{ uri: item?.image }} style={{ height: 250, overflow: 'hidden', width: '100%', }}>
+                    <TouchableOpacity
+                        style={{ width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 20, right:20 }}
+                        onPress={() => props.AddToFavouriteList({ id: item.id })}
+                    >
+                        <Icon name={'heart'} style={{ color: colors.white, fontSize: 17, marginBottom: -2 }} />
+                    </TouchableOpacity>
+                </ImageBackground>
 
-                <FlatList
+                {/* <FlatList
                     style={{ marginTop: 0, backgroundColor: colors.black }}
                     horizontal
                     snapToInterval={width}
@@ -144,7 +163,7 @@ const ImageDetail = (props) => {
                             />
                         </View>)
                     }}
-                />
+                /> */}
                 {/* <Image
                     source={{ uri: item?.image }}
                     style={{ width: width, height: width / 1.6, }}
@@ -153,18 +172,13 @@ const ImageDetail = (props) => {
                 <View style={{ padding: 15, borderTopLeftRadius: 10, }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Text style={globalstyle.detaildate}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
-                        <TouchableOpacity
-                            style={{ width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center' }}
-                            onPress={() => props.AddToFavouriteList({ id: item.id })}
-                        >
-                            <Icon name={'heart'} style={{ color: colors.white, fontSize: 17, marginBottom: -2 }} />
-                        </TouchableOpacity>
+
                     </View>
                     <Text style={globalstyle.detailtitle}>{item?.title}</Text>
                     {/* <Text style={globalstyle.detaildescription}>{item?.description}</Text> */}
                     <Text style={globalstyle.detaildescription}>{item?.description}</Text>
 
-                    {/* <FlatList
+                    <FlatList
                         style={{ marginTop: 15 }}
                         horizontal
                         snapToInterval={(width / 2) + 15}
@@ -193,7 +207,7 @@ const ImageDetail = (props) => {
                                 />
                             </View>)
                         }}
-                    /> */}
+                    />
 
                     {/* <View style={{ flexDirection: 'row' }}>
                         {item?.images && item.images.map((itemimages) => <View style={{ width: width / 2, height: width / 1.6, borderRadius: 10, overflow: 'hidden', }}>
@@ -201,16 +215,15 @@ const ImageDetail = (props) => {
                         </View>)}
                     </View> */}
 
-                    {postList != null && Array.isArray(postList) && postList.length > 0 && <>
+                    {/* {postList != null && Array.isArray(postList) && postList.length > 0 && <>
                         <View style={{ marginTop: 20, }} />
                         <SectionTitle title={strings.MoreImages} />
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                             {postList.map((item, index) => <SectionItem key={index} item={item} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} image={true} />)}
-                            {/* {[...Array(4).keys()].map((item, index) => {
-                        return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} image={true} />)
-                    })} */}
                         </View>
-                    </>}
+                    </>} */}
+
+
                     {/* <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                         {[...Array(4).keys()].map((item, index) => {
                             return (<SectionItem key={index} navigation={props.navigation} width={isIPad ? (width / 3) - 22 : (width / 2) - 22} image={true} />)

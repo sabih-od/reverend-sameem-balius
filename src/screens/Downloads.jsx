@@ -12,7 +12,7 @@ import SectionItem from "../components/SectionItem";
 
 const IMAGE_WIDTH = width / 2;
 
-const FavouriteList = (props) => {
+const Downloads = (props) => {
 
     const [favouriteList, setFavouriteList] = useState([]);
     const prevPostsListResRef = useRef(props.getToFavouriteListResponse);
@@ -35,7 +35,7 @@ const FavouriteList = (props) => {
             <ScrollView style={{ paddingHorizontal: 15, paddingVertical: 15, width: width - 20 }}>
                 <View>
                     {favouriteList.map((item, index) => {
-                        return <SectionItem key={index} handlePlayer={() => console.log('asdasd')} item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 100} audio={true} hideicon={true} />
+                        return <SectionItem key={index} handlePlayer={() => console.log('asdasd')} item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 100} audio={true}  hideicon={true} />
                     })}
                 </View>
             </ScrollView>
@@ -53,7 +53,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(setStateToProps, mapDispatchToProps)(FavouriteList);
+export default connect(setStateToProps, mapDispatchToProps)(Downloads);
 
 const styles = StyleSheet.create({
     homebgimage: { flex: 1, },

@@ -6,7 +6,10 @@ import strings from "../localization/translation";
 import LinearGradient from "react-native-linear-gradient";
 
 const MainTopBox = (props) => {
-    return (<ImageBackground source={require('./../../assets/images/home/home-main.jpg')} resizeMode="cover" style={styles.maintopbox}>
+    return (<ImageBackground source={
+        // require('./../../assets/images/home/home-main.jpg')
+        {uri: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/fyucZ7SkvlvpDDxFgoIY.jpg'}
+        } resizeMode="cover" style={styles.maintopbox}>
         {props.dayspending &&
             <View style={styles.dayspending}>
                 <Text style={styles.dayspendingtext}>{props.dayspending} days left</Text>

@@ -21,15 +21,15 @@ const SectionItem = (props) => {
                     style={{ width: 80, height: 80, marginRight: 13, marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' }}
                 >
                     {/* {item?.image && */}
-                        <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }} />
+                    {!props.hideicon && <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }} />}
                     {/* } */}
-                    <View style={[itemstyle?.iconbg, { width: 30, height: 30 }]}>
+                    {!props.hideicon && <View style={[itemstyle?.iconbg, { width: 30, height: 30 }]}>
                         {props?.audio && <Icon name="mic" style={[itemstyle?.icon, { fontSize: 15 }]} />}
-                    </View>
+                    </View>}
                 </ImageBackground>
                 <View>
                     <Text style={{ fontFamily: fonts.primary, fontSize: 11, textAlign: 'left', color: isDarkMode ? colors.white : '#444', marginBottom: isRTL ? 5 : 0 }}>{moment(parseInt(1691195928528)).format("DD MMM, YYYY")}</Text>
-                    <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isRTL ? 15 : 14, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', marginBottom: isRTL ? 5 : 0 }}>{item?.title}</Text>
+                    <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isRTL ? 15 : 16, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', marginBottom: isRTL ? 5 : 0 }}>{item?.title}</Text>
                     <Text style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: isRTL ? 12 : 11, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', lineHeight: isRTL ? 17 : 16 }} numberOfLines={1}>{item?.description}</Text>
                 </View>
             </TouchableOpacity>
@@ -43,7 +43,7 @@ const SectionItem = (props) => {
                     props?.image && navigation.navigate('ImageDetail', { item: item })
                 }}
                 activeOpacity={0.9}
-                style={{ width: width, marginBottom: 15, }}
+                style={{ width: width, marginBottom: 25, }}
             >
                 <ImageBackground
                     source={{ uri: item?.image }}
@@ -63,7 +63,7 @@ const SectionItem = (props) => {
                     </>}
                 </ImageBackground>
                 <Text style={{ fontFamily: fonts.primary, fontSize: 11, textAlign: 'left', color: isDarkMode ? colors.white : '#444', marginBottom: isRTL ? 5 : 0 }}>{moment(parseInt(1691195928528)).format("DD MMM, YYYY")}</Text>
-                <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isRTL ? 15 : 14, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', marginBottom: isRTL ? 5 : 0 }}>{item?.title}</Text>
+                <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isRTL ? 15 : 16, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', marginBottom: isRTL ? 5 : 0 }}>{item?.title}</Text>
                 <Text style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: isRTL ? 12 : 11, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', lineHeight: isRTL ? 17 : 16 }} numberOfLines={1}>{item?.description}</Text>
             </TouchableOpacity>
         )

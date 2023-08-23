@@ -38,7 +38,8 @@ const DrawerItem = ({ item, navigation, activescreen }) => {
                             activeOpacity={0.8}
                             key={index}
                             onPress={() => {
-                                navigation.navigate('Screens', { screen: 'PostsList', params: { item: child } })
+                                if (child?.id == 14) navigation.navigate('Screens', { screen: 'CDsList', params: { item: item } });
+                                else navigation.navigate('Screens', { screen: 'PostsList', params: { item: child } })
                             }}
                             style={[globalstyle.draweritemrow, { backgroundColor: isDarkMode ? colors.darkblue : colors.headerbgcolor, alignItems: 'center', borderLeftColor: activescreen == item.nav ? colors.orange : 'transparent' }]}
                         >

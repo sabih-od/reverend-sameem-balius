@@ -1,6 +1,6 @@
 import { ActivityIndicator, Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import globalstyle from "../../theme/style";
-import { backgroungImage, colors, fonts, height, isIPad, width } from "../../theme";
+import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, isRTL, width } from "../../theme";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Feather";
 import Video from "react-native-video";
@@ -115,7 +115,12 @@ const VideoDetail = (props) => {
                 onError={() => console.log('onError')}
             />} */}
 
-            {!item?.video && <View style={{ width: width, height: width / 1.8, backgroundColor: colors.deepblue }} />}
+            {!item?.video && <View style={{
+                width: width, height: width / 1.8, backgroundColor: isDarkMode ? colors.deepblue : colors.white,
+                alignItems: 'center', justifyContent: 'center'
+            }}>
+                <Text style={{ color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicRegular : fonts.primary }}>{strings.videoNotFound}</Text>
+            </View>}
             {item?.video && <Video source={{ uri: item?.video }} style={{ height: width / 1.8 }} controls={true} />}
 
             {/* <YouTube

@@ -7,11 +7,12 @@ const RoutineBox = ({ item, navigation }) => {
     // console.log('props 1 => ', navigation);
 
     return (
-        <View style={{ width: 150, marginRight: 10 }}>
+        <View style={{ width: 150, }}>
             <TouchableOpacity activeOpacity={0.8}
                 onPress={() => {
                     // console.log('move to detail');
-                    navigation.navigate('PrayList')
+                    // navigation.navigate('PrayList')
+                    navigation.navigate('ImageDetail', { item: item })
                 }}>
                 <ImageBackground
                     source={Number.isInteger(item?.image) ? item.image : { uri: item.image }}

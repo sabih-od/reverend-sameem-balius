@@ -8,11 +8,11 @@ import MainTopBox from "./MainTopBox";
 import strings from "../localization/translation";
 import { useNavigation } from "@react-navigation/native";
 
-const ActionIcons = ({ name }) => {
+const ActionIcons = ({ name, route }) => {
     const navigation = useNavigation();
 
     return <TouchableOpacity
-        onPress={() => navigation.navigate('FavouriteList')}
+        onPress={() => navigation.navigate(route)}
         activeOpacity={0.8}
         style={{ width: 35, height: 35, alignItems: 'center', justifyContent: 'center', backgroundColor: isDarkMode ? colors.lightblue : colors.orange, marginLeft: 5, borderRadius: 30 }}
     >
@@ -57,26 +57,26 @@ const MainBox = () => {
                             <Icon name="play" size={18} color={colors.white} style={isRTL ? { marginLeft: -4 } : { marginRight: -4 }} />
                         </View>
                     </View>
-                    <Text style={styles.playetext}>{strings.Play}</Text>
+                    <Text style={styles.playetext}>{strings.play}</Text>
                 </TouchableOpacity>
                 <View style={styles.heartaction}>
-                    <ActionIcons name="heart" />
-                    <ActionIcons name="download" />
-                    <ActionIcons name="calendar" />
-                    <ActionIcons name="clock" />
+                    <ActionIcons name="heart" route="FavouriteList" />
+                    <ActionIcons name="download" route="Downloads" />
+                    {/* <ActionIcons name="calendar" route="calendarList" /> */}
+                    <ActionIcons name="clock" route="HistoryList" />
                 </View>
             </View>
             <View style={styles.bottombarinfo}>
                 <Text style={styles.bottombarlink}>St. elizebeth Ann Secton</Text>
                 <Text style={styles.bottomtitle}>"Do you not know that you are the template of God, and that the spirit of God dwells in you?"</Text>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     onPress={onShare}
                     activeOpacity={0.8}
                     style={styles.shareiconbg}
                 >
                     <Icon name="share-2" size={15} color={colors.white} />
                 </TouchableOpacity>
-                <Text style={styles.sharequote}>{strings.shareQuote}</Text>
+                <Text style={styles.sharequote}>{strings.shareQuote}</Text> */}
             </View>
         </View>
     )

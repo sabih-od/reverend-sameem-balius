@@ -52,4 +52,5 @@ export default {
   homeTopTitle: 'Fir Aug 18, Daily Gospel',
   homeTopDesc: 'Lectio Divina: A conversation with God',
 
+  videoNotFound: 'Video Not Found'
 };

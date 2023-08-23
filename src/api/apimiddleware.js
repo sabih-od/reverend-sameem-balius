@@ -70,7 +70,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
   if (headersOverride) axios.defaults.headers.common["Content-Type"] = 'multipart/form-data';
   else axios.defaults.headers.common["Content-Type"] = 'application/json';
 
-  console.log('axios.defaults.baseURL => ', axios.defaults.baseURL)
+  // console.log('axios.defaults.baseURL => ', axios.defaults.baseURL)
   // console.log('axios.defaults.headers.common => ', axios.defaults.headers.common)
 
   // console.log('data => ', data);

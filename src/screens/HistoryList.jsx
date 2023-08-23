@@ -6,29 +6,29 @@ import nightroutine from "../data/nightly-routines";
 import RoutineBoxHorizontal from "../components/RoutineBoxHorizontal";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { GetFavouriteList } from "../redux/reducers/ListingApiStateReducer";
+import { GetHistoryList } from "../redux/reducers/ListingApiStateReducer";
 import { useEffect, useRef, useState } from "react";
 import SectionItem from "../components/SectionItem";
 
 const IMAGE_WIDTH = width / 2;
 
-const FavouriteList = (props) => {
+const HistoryList = (props) => {
 
     const [favouriteList, setFavouriteList] = useState([]);
-    const prevPostsListResRef = useRef(props.getToFavouriteListResponse);
+    const prevHistoryListResRef = useRef(props.getHistoryListResponse);
 
     useEffect(() => {
-        props.GetFavouriteList();
+        props.GetHistoryList();
     }, [])
 
     useEffect(() => {
-        if (props.getToFavouriteListResponse !== prevPostsListResRef.current && props.getToFavouriteListResponse?.success && props.getToFavouriteListResponse?.data) {
-            prevPostsListResRef.current = props.getToFavouriteListResponse;
-            // setPostList(prevState => [...prevState, ...props.getToFavouriteListResponse?.data])
-            console.log('props.getToFavouriteListResponse => ', props.getToFavouriteListResponse)
-            setFavouriteList(props.getToFavouriteListResponse?.data)
+        if (props.getHistoryListResponse !== prevHistoryListResRef.current && props.getHistoryListResponse?.success && props.getHistoryListResponse?.data) {
+            prevHistoryListResRef.current = props.getHistoryListResponse;
+            // setPostList(prevState => [...prevState, ...props.getHistoryListResponse?.data])
+            console.log('props.getHistoryListResponse => ', props.getHistoryListResponse)
+            setFavouriteList(props.getHistoryListResponse?.data)
         }
-    }, [props.getToFavouriteListResponse])
+    }, [props.getHistoryListResponse])
 
     return <SafeAreaView style={globalstyle.fullview}>
         <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
@@ -44,16 +44,16 @@ const FavouriteList = (props) => {
 }
 
 const setStateToProps = state => ({
-    getToFavouriteListResponse: state.listingstate.getToFavouriteListResponse
+    getHistoryListResponse: state.listingstate.getHistoryListResponse
 })
 
 const mapDispatchToProps = dispatch => {
     return {
-        GetFavouriteList: bindActionCreators(GetFavouriteList, dispatch)
+        GetHistoryList: bindActionCreators(GetHistoryList, dispatch)
     }
 }
 
-export default connect(setStateToProps, mapDispatchToProps)(FavouriteList);
+export default connect(setStateToProps, mapDispatchToProps)(HistoryList);
 
 const styles = StyleSheet.create({
     homebgimage: { flex: 1, },
