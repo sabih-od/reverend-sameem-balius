@@ -17,8 +17,10 @@ import draweritems from "../navigation/draweritems";
 import RNFS from 'react-native-fs';
 import ReactNativeBlobUtil from "react-native-blob-util";
 import { connect } from "react-redux";
-import { GetFeaturedList, GetPostWithOutTypeByCategoryId } from "../redux/reducers/ListingApiStateReducer";
+import { GetDailiesList, GetFeaturedList, GetPostWithOutTypeByCategoryId } from "../redux/reducers/ListingApiStateReducer";
 import { bindActionCreators } from "redux";
+import strings from "../localization/translation";
+import LinearGradient from "react-native-linear-gradient";
 
 
 const Home = (props) => {
@@ -37,6 +39,7 @@ const Home = (props) => {
     useEffect(() => {
         props.GetPostWithOutTypeByCategoryId({ id: 17 });
         props.GetFeaturedList();
+        props.GetDailiesList();
     }, [])
     useEffect(() => {
         console.log('bibleStudy => ', bibleStudy)
@@ -44,7 +47,8 @@ const Home = (props) => {
 
     const [bibleStudy, setBibleStudy] = useState([]);
     const [featuredList, setFeaturedList] = useState([]);
-    
+    const [dailies, setDailies] = useState([]);
+
 
     const prevBibleStudyResRef = useRef(props.getPostWoTypeByCategoryIdResponse);
     useEffect(() => {
@@ -64,6 +68,17 @@ const Home = (props) => {
         }
     }, [props.getToFeaturedListResponse])
 
+    const prevDailiesResRef = useRef(props.getToFeaturedListResponse);
+    useEffect(() => {
+        if (props.getDailiesListResponse !== prevDailiesResRef.current && props.getDailiesListResponse?.success && props.getDailiesListResponse?.data) {
+            prevDailiesResRef.current = props.getDailiesListResponse;
+            console.log('props.getDailiesListResponse => ', props.getDailiesListResponse)
+            if (props.getDailiesListResponse?.data.length > 0) {
+                setDailies(props.getDailiesListResponse?.data[0])
+            }
+        }
+    }, [props.getDailiesListResponse])
+
     const downloadimage = () => {
         ReactNativeBlobUtil.config({
             fileCache: true,
@@ -80,6 +95,15 @@ const Home = (props) => {
                 console.log('statusCode => ', statusCode)
             })
     }
+
+    const [categories, setCategories] = useState([])
+    const menuRef = useRef(props.drawerMenu)
+    useEffect(() => {
+        if (props.drawerMenu != menuRef.current && props.drawerMenu?.success && props.drawerMenu?.data && props.drawerMenu?.data.length > 0) {
+            // console.log('props.drawerMenu?.data => ', props.drawerMenu?.data)
+            setCategories(props.drawerMenu?.data) //.reverse()
+        }
+    }, [props.drawerMenu])
 
     return <SafeAreaView style={globalstyle.fullview}>
         {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
@@ -98,16 +122,24 @@ const Home = (props) => {
                     </TouchableOpacity>)}
                 </>)} */}
 
-                <MainBox />
+                {/* <TouchableOpacity onPress={() => props.navigation.navigate('AudioPlayer')}>
+                    <Text>Audio Player</Text>
+                </TouchableOpacity> */}
+                <View style={{ paddingHorizontal: 15 }}>
+                    <MainBox item={dailies} />
+                </View>
 
                 {featuredList.length > 0 && <>
-                    <Seperator />
-                    <SectionHeading title={isRTL ? 'متميز' : 'Featured'} joined={false} />
+                    <View style={{ paddingHorizontal: 15 }}>
+                        <Seperator />
+                        <SectionHeading title={isRTL ? 'متميز' : 'Featured'} joined={false} />
+                    </View>
                     <FlatList
                         horizontal
                         snapToInterval={width / 2}
                         scrollEnabled
                         scrollEventThrottle={16}
+                        contentContainerStyle={{ paddingHorizontal: 15 }}
                         ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
                         showsHorizontalScrollIndicator={false}
                         // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
@@ -123,13 +155,16 @@ const Home = (props) => {
                 </>}
 
                 {bibleStudy.length > 0 && <>
-                    <Seperator />
-                    <SectionHeading title={isRTL ? 'روحية' : 'Spiritual'} joined={false} />
+                    <View style={{ paddingHorizontal: 15 }}>
+                        <Seperator />
+                        <SectionHeading title={isRTL ? 'روحية' : 'Spiritual'} joined={false} />
+                    </View>
                     <FlatList
                         horizontal
                         snapToInterval={width / 2}
                         scrollEnabled
                         scrollEventThrottle={16}
+                        contentContainerStyle={{ paddingHorizontal: 15 }}
                         ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
                         showsHorizontalScrollIndicator={false}
                         // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
@@ -143,32 +178,64 @@ const Home = (props) => {
                         }}
                     />
                 </>}
-                {bibleStudy.length > 0 && <>
-                    <Seperator />
-                    <SectionHeading title={isRTL ? 'الأخبار' : 'News'} joined={false} />
-                    <FlatList
-                        horizontal
-                        snapToInterval={width / 2}
-                        scrollEnabled
-                        scrollEventThrottle={16}
-                        ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
-                        showsHorizontalScrollIndicator={false}
-                        // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                        //     { useNativeDriver: false }
-                        // )}
-                        data={bibleStudy}
-                        keyExtractor={item => String(item.id)}
-                        renderItem={({ item, index }) => {
-                            // console.log('item => ', item)
-                            return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
-                        }}
-                    />
-                </>}
-                <Seperator />
-                <SectionHeading title={'Join the conscration'} joined={true} />
-                <MainTopBox dayspending={12} />
 
-                <Seperator />
+                <View style={{ paddingHorizontal: 15 }}>
+                    <Seperator />
+                    <SectionHeading title={strings.exploreByCategory} />
+                </View>
+                <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={categories}
+                    contentContainerStyle={{ paddingHorizontal: 15 }}
+                    ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
+                    keyExtractor={item => String(item?.id)}
+                    renderItem={({ item, index }) => <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => props.navigation.navigate('PostsList', { item: item })}
+                    >
+                        <ImageBackground source={require('./../../assets/images/meditation.jpg')} style={{ height: width / 1.5, width: width / 2.4, borderRadius: 15, overflow: 'hidden', alignItems: 'center', justifyContent: 'flex-end' }}>
+                            <View style={{ position: 'relative', zIndex: 1, paddingVertical: 15, paddingHorizontal: 15 }}>
+                                <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: colors.white, fontSize: 18 }}>{item?.name}</Text>
+                                <Text style={{ fontFamily: isRTL ? fonts.arabic : fonts.primary, textAlign: 'center', color: '#ddd', fontSize: 12 }} numberOfLines={2}>{'Meditation on the Mysteries of Jesus life, death and Resurrection'}</Text>
+                            </View>
+                            <LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)', colors.black]} style={{ height: 150, width: '100%', position: 'absolute', left: 0, bottom: 0, zIndex: 0 }} />
+                        </ImageBackground>
+                    </TouchableOpacity>}
+                />
+
+                {bibleStudy.length > 0 && <>
+                    <View style={{ paddingHorizontal: 15 }}>
+                        <Seperator />
+                        <SectionHeading title={isRTL ? 'الأخبار' : 'News'} joined={false} />
+                    </View>
+                    <FlatList
+                        horizontal
+                        snapToInterval={width / 2}
+                        scrollEnabled
+                        scrollEventThrottle={16}
+                        contentContainerStyle={{ paddingHorizontal: 15 }}
+                        ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
+                        showsHorizontalScrollIndicator={false}
+                        // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                        //     { useNativeDriver: false }
+                        // )}
+                        data={bibleStudy}
+                        keyExtractor={item => String(item.id)}
+                        renderItem={({ item, index }) => {
+                            // console.log('item => ', item)
+                            return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
+                        }}
+                    />
+                </>}
+
+
+                {/* <View style={{ paddingHorizontal: 15 }}>
+                    <Seperator />
+                    <SectionHeading title={'Join the conscration'} joined={true} />
+                    <MainTopBox dayspending={12} />
+                    <Seperator />
+                </View> */}
 
                 {/* <SectionHeading title={isRTL ? 'دراسة الكتاب المقدس' : 'Bible Study'} joined={false} />
                 <FlatList
@@ -189,13 +256,23 @@ const Home = (props) => {
                 />
                 <Seperator /> */}
 
-                <View style={{ alignItems: 'center', backgroundColor: colors.darkblue, paddingHorizontal: 20, paddingVertical: 20, borderRadius: 20 }}>
-                    <Text style={{ color: colors.white, fontFamily: fonts.primaryBold, fontSize: 17, marginBottom: 20, textAlign: 'center' }}>Unlock 5000+ prayers, meditations, community challenges and more</Text>
-                    <TouchableOpacity activeOpacity={0.8} onPress={() => { console.log('$0.00'); }} style={{ backgroundColor: colors.orange, paddingVertical: 10, borderRadius: 40, width: 180 }}>
-                        <Text style={{ textAlign: 'center', color: colors.white, fontFamily: fonts.primaryBold, textTransform: 'uppercase' }}>Try Plus for $0.00</Text>
+
+                <View style={{ paddingHorizontal: 15 }}>
+                    <Seperator />
+                </View>
+                <View style={{ alignItems: 'center', backgroundColor: colors.darkblue, paddingHorizontal: 20, paddingVertical: 20, borderRadius: 20, marginHorizontal: 15 }}>
+                    <Text style={{ color: colors.white, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryBold, fontSize: 17, marginBottom: 20, textAlign: 'center' }}>{strings.unlockContent}</Text>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => { console.log('$0.00'); }}
+                        style={{ backgroundColor: colors.orange, paddingVertical: 10, borderRadius: 40, width: 180 }}
+                    >
+                        <Text
+                            style={{ textAlign: 'center', color: colors.white, fontFamily: isRTL ? fonts.arabicBold : fonts.primaryBold, textTransform: 'uppercase' }}
+                        >{strings.tryPlus}</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{height: 50}} />
+                <View style={{ height: 50 }} />
                 {/* <Seperator /> */}
 
                 {/* <SectionHeading title={'Evening Horizontal'} joined={false} />
@@ -256,19 +333,22 @@ const Home = (props) => {
                 </TouchableOpacity>
             </View> */}
         </ImageBackground>
-    </SafeAreaView>
+    </SafeAreaView >
 }
 
 
 const setStateToProps = state => ({
     getPostWoTypeByCategoryIdResponse: state.listingstate.getPostWoTypeByCategoryIdResponse,
     getToFeaturedListResponse: state.listingstate.getToFeaturedListResponse,
+    getDailiesListResponse: state.listingstate.getDailiesListResponse,
+    drawerMenu: state.listingstate.drawerMenu,
 })
 
 const mapDispatchToProps = dispatch => {
     return {
         GetPostWithOutTypeByCategoryId: bindActionCreators(GetPostWithOutTypeByCategoryId, dispatch),
         GetFeaturedList: bindActionCreators(GetFeaturedList, dispatch),
+        GetDailiesList: bindActionCreators(GetDailiesList, dispatch),
     }
 }
 
@@ -279,7 +359,7 @@ const styles = StyleSheet.create({
     homebgimage: {
         // paddingTop: IOS ? 45 : 70,
         // paddingTop: IOS ? 100 : 70,
-        paddingHorizontal: 15,
+        // paddingHorizontal: 15,
         flex: 1, // justifyContent: 'space-between',
         // ...StyleSheet.absoluteFillObject,
         // height: height, resizeMode: 'cover'

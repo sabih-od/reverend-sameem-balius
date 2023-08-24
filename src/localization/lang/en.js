@@ -49,8 +49,20 @@ export default {
   shareQuote: 'Share Quote',
 
   homeTopDailies: 'Dailies',
-  homeTopTitle: 'Fir Aug 18, Daily Gospel',
+  homeTopTitle: 'Daily Gospel',
   homeTopDesc: 'Lectio Divina: A conversation with God',
 
-  videoNotFound: 'Video Not Found'
+  videoNotFound: 'Video Not Found',
+  exploreByCategory: 'Explore By Category',
+
+  unlockContent: 'Unlock 5000+ prayers, meditations, community challenges and more',
+  tryPlus: 'Try Plus For $0.00',
+
+  Notifications: 'Notifications',
+  Favourites: 'Favourites',
+  Downloads: 'Downloads',
+  History: 'History',
+  Search: 'Search',
+  SearchHere: 'Search Here...',
+  
 };

@@ -25,6 +25,7 @@ import strings, { changeLang } from '../localization/translation';
 import SplashScreen from 'react-native-splash-screen';
 import RNRestart from 'react-native-restart';
 import { GetDrawerMenu } from '../redux/reducers/ListingApiStateReducer';
+import { TextInput } from 'react-native-gesture-handler';
 
 const DrawerContent = (props) => {
 
@@ -143,7 +144,7 @@ const DrawerContent = (props) => {
   return (
     <>
       {user &&
-        <View style={{ backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor, paddingBottom: isIPad ? 60 : 30, paddingTop: IOS ? 60 : 30, }}>
+        <View style={{ backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor, paddingBottom: isIPad ? 60 : 30, paddingTop: IOS ? 80 : 30, }}>
           {/* <TouchableOpacity onPress={() => { props.navigation.closeDrawer() }} activeOpacity={0.8}>
           <Icon name={'x'} color={colors.white} size={16} />
         </TouchableOpacity> */}
@@ -163,7 +164,21 @@ const DrawerContent = (props) => {
           {/* <Text style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center', fontSize: 12 }}>{user?.phone}</Text> */}
         </View>
       }
-      <View style={{ backgroundColor: colors.deepblue, paddingVertical: 10, paddingHorizontal: 15, justifyContent: 'space-between', flexDirection: 'row' }}>
+      <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <TextInput
+          placeholder={strings.SearchHere}
+          placeholderTextColor={'#777'}
+          style={{ height: 40, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, backgroundColor: '#f7f7f7', width: 235, color: colors.black, fontSize: 14, paddingHorizontal: 13, paddingVertical: 10, textAlign: isRTL ? 'right' : 'left' }}
+        />
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => props.navigation.navigate('SearchPost', { title: 'Jesus' })}
+          style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.orange }}
+        >
+          <Icon name="search" style={{ fontSize: 16, color: colors.white }} />
+        </TouchableOpacity>
+      </View>
+      <View style={{ backgroundColor: colors.deepblue, paddingVertical: 13, paddingHorizontal: 15, justifyContent: 'space-between', flexDirection: 'row' }}>
         <Text style={globalstyle.draweritemtext}>{strings.Language}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <TouchableOpacity

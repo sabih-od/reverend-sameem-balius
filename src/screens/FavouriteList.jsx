@@ -56,6 +56,6 @@ const mapDispatchToProps = dispatch => {
 export default connect(setStateToProps, mapDispatchToProps)(FavouriteList);
 
 const styles = StyleSheet.create({
-    homebgimage: { flex: 1, },
+    homebgimage: { flex: 1, paddingHorizontal: 15 },
     homescollview: { flex: 1, paddingVertical: 15 }
 })

@@ -12,7 +12,7 @@ const RoutineBox = ({ item, navigation }) => {
                 onPress={() => {
                     // console.log('move to detail');
                     // navigation.navigate('PrayList')
-                    navigation.navigate('ImageDetail', { item: item })
+                    navigation.navigate('PostDetail', { item: item })
                 }}>
                 <ImageBackground
                     source={Number.isInteger(item?.image) ? item.image : { uri: item.image }}

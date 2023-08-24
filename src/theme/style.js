@@ -35,7 +35,7 @@ const globalstyle = StyleSheet.create({
   showhideicon: { color: '#999' },
 
   draweritemtext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.white, fontSize: isIPad ? 19 : 14 },
-  draweritemrow: { flexDirection: 'row', paddingHorizontal: 15, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ffffff09', borderLeftWidth: 4 },
+  draweritemrow: { flexDirection: 'row', paddingHorizontal: 15, paddingVertical: isRTL ? 13 : 12, borderBottomWidth: 1, borderBottomColor: '#ffffff09', borderLeftWidth: 4 },
 
   footerloadmore: { display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 7 },
   footerloadingtext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, marginLeft: 8, },
@@ -62,9 +62,9 @@ const globalstyle = StyleSheet.create({
   speakerdetailimage: { width: 100, height: 100, resizeMode: 'cover', borderRadius: 10, marginBottom: 15, marginRight: 15 },
   speakerdetaildesignation: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.green, fontSize: isIPad ? 18 : 15 },
 
-  detaildate: { fontFamily: fonts.primaryMedium, color: isDarkMode ? colors.white : colors.grey, marginBottom: 5, fontSize: isIPad ? 15 : 13, textAlign: 'left' },
-  detailtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 30 : 24, marginBottom: 5, textAlign: 'left' },
-  detaildescription: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 18 : 15, textAlign: 'left' },
+  detaildate: { fontFamily: fonts.primaryMedium, color: isDarkMode ? colors.white : colors.grey, marginBottom: 5, fontSize: isIPad ? 15 : 13, textAlign: 'left', marginBottom: isRTL ? 12 : 0 },
+  detailtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 30 : 24, marginBottom: 5, textAlign: 'left', marginBottom: isRTL ? 10 : 0 },
+  detaildescription: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 18 : 15, textAlign: 'left', lineHeight: isRTL ? 28 : 18 },
 
 
 

@@ -49,8 +49,19 @@ export default {
   shareQuote: 'حصة الاقتباس',
 
   homeTopDailies: 'الصحف اليومية',
-  homeTopTitle: 'التنوب 18 أغسطس ، الإنجيل اليومي',
+  homeTopTitle: 'الإنجيل اليومي',
   homeTopDesc: 'ليكتيو ديفينا: حديث مع الله',
 
-  videoNotFound: 'لم يتم العثور على الفيديو'
+  videoNotFound: 'لم يتم العثور على الفيديو',
+  exploreByCategory: 'استكشاف حسب الفئة',
+
+  unlockContent: 'افتح أكثر من 5000 صلاة وتأملات وتحديات مجتمعية والمزيد',
+  tryPlus: 'جرب Plus مقابل 0.00$',
+
+  Notifications: 'إشعارات',
+  Favourites: 'المفضلة',
+  Downloads: 'التحميلات',
+  History: 'تاريخ',
+  Search: 'يبحث',
+  SearchHere: 'ابحث هنا...',
 };

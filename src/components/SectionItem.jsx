@@ -10,15 +10,15 @@ const SectionItem = (props) => {
     if (props?.audio) {
         return (
             <TouchableOpacity
-                onPress={() => handlePlayer(true, item)}
+                onPress={() => props.postdetail ? navigation.navigate('PostDetail', { item: item }) : handlePlayer(true, item)}
                 activeOpacity={0.9}
-                style={{ width: width - 20, marginBottom: 15, flexDirection: 'row', alignItems: 'center' }}
+                style={[itemstyle.audioview, { width: width - 20 }]}
             >
                 {/* require('./../../assets/images/sermons-01.jpeg') */}
                 <ImageBackground
                     source={{ uri: item?.image }}
                     defaultSource={require('./../../assets/images/speaker-placeholder.png')}
-                    style={{ width: 80, height: 80, marginRight: 13, marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' }}
+                    style={itemstyle.audoimage}
                 >
                     {/* {item?.image && */}
                     {!props.hideicon && <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }} />}
@@ -28,9 +28,9 @@ const SectionItem = (props) => {
                     </View>}
                 </ImageBackground>
                 <View>
-                    <Text style={{ fontFamily: fonts.primary, fontSize: 11, textAlign: 'left', color: isDarkMode ? colors.white : '#444', marginBottom: isRTL ? 5 : 0 }}>{moment(parseInt(1691195928528)).format("DD MMM, YYYY")}</Text>
-                    <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isRTL ? 15 : 16, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', marginBottom: isRTL ? 5 : 0 }}>{item?.title}</Text>
-                    <Text style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: isRTL ? 12 : 11, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', lineHeight: isRTL ? 17 : 16 }} numberOfLines={1}>{item?.description}</Text>
+                    <Text style={itemstyle.date}>{moment(parseInt(1691195928528)).format("DD MMM, YYYY")}</Text>
+                    <Text style={itemstyle.title}>{item?.title}</Text>
+                    <Text style={itemstyle.desc} numberOfLines={1}>{item?.description}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -48,7 +48,7 @@ const SectionItem = (props) => {
                 <ImageBackground
                     source={{ uri: item?.image }}
                     defaultSource={require('./../../assets/images/home-slider-placeholder.png')}
-                    style={{ width: '100%', height: width / 1.5, marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' }}
+                    style={[itemstyle.otherimage, { height: width / 1.5 }]}
                 >
                     {(props?.video || props?.document || props?.audio || props?.image) && <>
                         {/* {item?.image && */}
@@ -62,9 +62,9 @@ const SectionItem = (props) => {
                         </View>
                     </>}
                 </ImageBackground>
-                <Text style={{ fontFamily: fonts.primary, fontSize: 11, textAlign: 'left', color: isDarkMode ? colors.white : '#444', marginBottom: isRTL ? 5 : 0 }}>{moment(parseInt(1691195928528)).format("DD MMM, YYYY")}</Text>
-                <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isRTL ? 15 : 16, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', marginBottom: isRTL ? 5 : 0 }}>{item?.title}</Text>
-                <Text style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: isRTL ? 12 : 11, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', lineHeight: isRTL ? 17 : 16 }} numberOfLines={1}>{item?.description}</Text>
+                <Text style={itemstyle.date}>{moment(parseInt(1691195928528)).format("DD MMM, YYYY")}</Text>
+                <Text style={itemstyle.title}>{item?.title}</Text>
+                <Text style={itemstyle.desc} numberOfLines={1}>{item?.description}</Text>
             </TouchableOpacity>
         )
     }
@@ -74,5 +74,11 @@ export default SectionItem;
 
 const itemstyle = StyleSheet.create({
     iconbg: { width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 30, justifyContent: 'center', alignItems: 'center', },
-    icon: { fontSize: 18, color: colors.white }
+    icon: { fontSize: 18, color: colors.white },
+    date: { fontFamily: fonts.primary, fontSize: 11, textAlign: 'left', color: isDarkMode ? colors.white : '#444', marginBottom: isRTL ? 7 : 0 },
+    title: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: 16, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', marginBottom: isRTL ? 7 : 0 },
+    desc: { fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: isRTL ? 13 : 11, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', lineHeight: isRTL ? 17 : 16 },
+    audoimage: { width: 80, height: 80, marginRight: 15, marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' },
+    otherimage: { width: '100%', marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' },
+    audioview: { marginBottom: 15, flexDirection: 'row', alignItems: 'center' },
 })

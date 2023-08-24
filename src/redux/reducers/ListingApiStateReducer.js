@@ -1,6 +1,6 @@
 import apiAction from '../../api/apiAction';
-import { AboutAPI, AddPostToHistoryAPI, AddToFavouriteListAPI, ContactAPI, GetAnnouncementAPI, GetBooksAPI, GetCategoriesAPI, GetEventsAPI, GetFavouriteListAPI, GetFeaturedListAPI, GetHistoryListAPI, GetHomeBannerAPI, GetMenuAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostByCategoryIdAPI, GetPostWithOutTypeByCategoryIdAPI, GetPostsAPI, GetQuestionsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, SendAskAQuestionAPI, } from '../../api/routes';
-import { ABOUT_API_SUCCESS, ADD_POST_TO_HISTORY_SUCCESS, ADD_TO_FAVOURITE_LIST_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_ASK_A_QUESTION, GET_BOOKS_API_SUCCESS, GET_EVENTS_API_SUCCESS, GET_FAVOURITE_LIST_SUCCESS, GET_FEATURED_LIST_SUCCESS, GET_HISTORY_LIST_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_POST_BY_CATEGORY_ID_SUCCESS, GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SEND_ASK_A_QUESTION, SET_DRAWER_MENU, SET_ERROR, } from '../actiontypes';
+import { AboutAPI, AddPostToHistoryAPI, AddToFavouriteListAPI, ContactAPI, GetAnnouncementAPI, GetBooksAPI, GetCategoriesAPI, GetDailiesListAPI, GetEventsAPI, GetFavouriteListAPI, GetFeaturedListAPI, GetHistoryListAPI, GetHomeBannerAPI, GetMenuAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostByCategoryIdAPI, GetPostWithOutTypeByCategoryIdAPI, GetPostsAPI, GetQuestionsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, SendAskAQuestionAPI, } from '../../api/routes';
+import { ABOUT_API_SUCCESS, ADD_POST_TO_HISTORY_SUCCESS, ADD_TO_FAVOURITE_LIST_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_ASK_A_QUESTION, GET_BOOKS_API_SUCCESS, GET_DAILIES_LIST_SUCCESS, GET_EVENTS_API_SUCCESS, GET_FAVOURITE_LIST_SUCCESS, GET_FEATURED_LIST_SUCCESS, GET_HISTORY_LIST_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_POST_BY_CATEGORY_ID_SUCCESS, GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SEARCH_POST_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SEND_ASK_A_QUESTION, SET_DRAWER_MENU, SET_ERROR, } from '../actiontypes';
 
 const initialState = {
   getQuestionsResponse: {},
@@ -26,6 +26,8 @@ const initialState = {
   getToFeaturedListResponse: {},
   addPostToHistoryResponse: {},
   getHistoryListResponse: {},
+  getDailiesListResponse: {},
+  getSearchPostResponse: {},
   errorResponse: {},
   drawerMenu: []
 };
@@ -384,6 +386,35 @@ export function GetHistoryList(params) {
   });
 }
 
+export function GetDailiesList(params) {
+  return apiAction({
+    url: GetDailiesListAPI,
+    method: 'GET',
+    // data: params,
+    onSuccess: response => {
+      return { type: GET_DAILIES_LIST_SUCCESS, payload: response };
+    },
+    onFailure: response => {
+      return { type: SET_ERROR, payload: response };
+    },
+  });
+}
+
+export function GetSearchPost(params) {
+  // console.log('params => ', params);
+  return apiAction({
+    url: GetPostsAPI + '?page=' + params.pageno + '&limit=' + params.limit + '&title=' + params.title,
+    method: 'GET',
+    // data: params,
+    onSuccess: response => {
+      return { type: GET_SEARCH_POST_API_SUCCESS, payload: response };
+    },
+    onFailure: response => {
+      return { type: SET_ERROR, payload: response };
+    },
+  });
+}
+
 const ListingApiStateReducer = (state = initialState, action) => {
   switch (action.type) {
 
@@ -423,7 +454,6 @@ const ListingApiStateReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         getPostWoTypeByCategoryIdResponse: action.payload,
       });
-
     case ADD_TO_FAVOURITE_LIST_SUCCESS:
       return Object.assign({}, state, {
         addToFavouriteListResponse: action.payload,
@@ -436,8 +466,6 @@ const ListingApiStateReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         getToFeaturedListResponse: action.payload,
       });
-
-
     case ADD_POST_TO_HISTORY_SUCCESS:
       return Object.assign({}, state, {
         addPostToHistoryResponse: action.payload,
@@ -446,8 +474,14 @@ const ListingApiStateReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         getHistoryListResponse: action.payload,
       });
-
-
+    case GET_DAILIES_LIST_SUCCESS:
+      return Object.assign({}, state, {
+        getDailiesListResponse: action.payload,
+      });
+    case GET_SEARCH_POST_API_SUCCESS:
+      return Object.assign({}, state, {
+        getSearchPostResponse: action.payload,
+      });
     case SET_DRAWER_MENU:
       return Object.assign({}, state, {
         drawerMenu: action.payload,

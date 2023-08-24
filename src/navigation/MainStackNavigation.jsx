@@ -34,6 +34,7 @@ import WellBeing from "../screens/Lectures/WellBeing";
 import News from "../screens/News";
 // import Homily from "../screens/FavouriteList";
 import PostsList from "../screens/PostsList";
+import PostDetail from "../screens/Detail/PostDetail";
 import VideoDetail from "../screens/Detail/VideoDetail";
 import ImageDetail from "../screens/Detail/ImageDetail";
 import PdfView from "../screens/PdfView";
@@ -42,6 +43,8 @@ import strings from "../localization/translation";
 import HistoryList from "../screens/HistoryList";
 import Downloads from "../screens/Downloads";
 import CDsList from "../screens/CDsList";
+import AudioPlayer from "../screens/AudioPlayer";
+import SearchPost from "../screens/SearchPost";
 
 
 const Stack = createStackNavigator();
@@ -70,12 +73,13 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
     }, [isDrawerOpen]);
 
     return <Animated.View style={[styles.stack, animatedStyle]}>
-        <Stack.Navigator initialRouteName="Test">
+        <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
                 name="Home"
                 component={Home}
                 options={{
                     // headerTransparent: true,
+                    headerTitle: '',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
@@ -100,7 +104,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 name="Notifications"
                 component={Notifications}
                 options={{
-                    headerTitle: 'Notifications',
+                    headerTitle: strings.Notifications,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
@@ -345,7 +349,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 name="FavouriteList"
                 component={FavouriteList}
                 options={{
-                    headerTitle: 'Favourites',
+                    headerTitle: strings.Favourites,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
@@ -362,7 +366,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 name="Downloads"
                 component={Downloads}
                 options={{
-                    headerTitle: 'Downloads',
+                    headerTitle: strings.Downloads,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
@@ -379,7 +383,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 name="HistoryList"
                 component={HistoryList}
                 options={{
-                    headerTitle: 'History',
+                    headerTitle: strings.History,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
@@ -398,7 +402,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 options={{
                     headerTitle: 'CDs',
                     headerTitleAlign: 'center',
-                    headerTitleStyle: [globalstyle.headerTitleStyle,{textTransform: 'none'}],
+                    headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none' }],
                     headerStyle: {
                         backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
                         elevation: 0,
@@ -407,6 +411,60 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="PostDetail"
+                component={PostDetail}
+                options={{
+                    headerTitle: '',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none' }],
+                    headerTransparent: true,
+                    headerStyle: {
+                        // backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="SearchPost"
+                component={SearchPost}
+                options={{
+                    headerTitle: strings.Search,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none' }],
+                    // headerTransparent: true,
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="AudioPlayer"
+                component={AudioPlayer}
+                options={{
+                    // headerShown: false,
+                    headerTitle: '',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none' }],
+                    headerTransparent: true,
+                    headerStyle: {
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    // headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
 

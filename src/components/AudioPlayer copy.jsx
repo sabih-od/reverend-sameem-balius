@@ -5,7 +5,6 @@ import strings, { changeLang } from "./../localization/translation";
 import { useEffect, useState } from 'react';
 import { CurrentTrackInfo, DurationFormat, GetPlayerState, TrackPause, TrackPlay } from '../helpers/track-player';
 import TrackPlayer, { Event, State, useProgress, useTrackPlayerEvents } from 'react-native-track-player';
-import Slider from "@react-native-community/slider";
 
 const AudioPlayer = (props) => {
 
@@ -70,44 +69,27 @@ const AudioPlayer = (props) => {
 
     return (
         <View style={{ position: 'absolute', bottom: 0, left: 0, width: width }}>
-            <Slider
-                style={{ width: width, marginBottom: -18, zIndex: 1 }}
-                minimumValue={0}
-                value={progress?.position}
-                maximumValue={progress?.duration}
-                minimumTrackTintColor={colors.orange}
-                maximumTrackTintColor="#fff"
-                tapToSeek={true}
-                onValueChange={(value) => {
-                    console.log(Math.round(value))
-                    TrackPlayer.seekTo(Math.round(value))
-                    // progress.position = Math.round(value)
-                }}
-                thumbTintColor={'transparent'}
-                
-
-            />
-            {/* <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                 <View style={{ flex: progress.position, backgroundColor: colors.orange, height: 4 }} />
                 <View style={{ flex: progress.duration - progress.position, backgroundColor: '#999', height: 4 }} />
-            </View> */}
+            </View>
             <View style={{
-                flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 15,
+                flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10,
                 // backgroundColor: colors.headerbgcolor,
                 backgroundColor: colors.black,
             }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                     <TouchableOpacity
-                        style={{ width: 30, height: 70, alignItems: 'center', justifyContent: 'center' }}
+                        style={{ width: 25, height: 70, alignItems: 'center', justifyContent: 'center' }}
                         activeOpacity={0.8}
                         onPress={() => props.handleClose(false, null)}
                     >
                         <Icon name="x" style={{ color: colors.white, fontSize: 16 }} />
                     </TouchableOpacity>
-                    <Image
-                        source={{ uri: trackInfo?.artwork }}
-                        defaultSource={require('./../../assets/images/speaker-placeholder.png')}
-                        style={{ width: 70, height: 70, borderRadius: 15, marginRight: 10 }} />
+                    <Image 
+                    source={{ uri: trackInfo?.artwork }} 
+                    defaultSource={require('./../../assets/images/speaker-placeholder.png')}
+                    style={{ width: 70, height: 70, borderRadius: 15, marginRight: 10 }} />
                     <View style={{ width: width - 180 }}>
                         <Text numberOfLines={1} style={{ fontFamily: fonts.primarySemiBold, textAlign: 'left', fontSize: isRTL ? 17 : 15, marginBottom: 2, color: colors.white, fontFamily: isRTL ? fonts.arabicBold : fonts.primary }}>{trackInfo?.title}</Text>
                         <Text numberOfLines={1} style={{ fontFamily: fonts.primary, textAlign: 'left', color: '#333', fontSize: 13, marginBottom: 2, color: colors.white, fontFamily: isRTL ? fonts.arabicRegular : fonts.primary }}>{trackInfo?.artist}</Text>
@@ -119,8 +101,7 @@ const AudioPlayer = (props) => {
                     activeOpacity={0.9}
                     style={{ width: 40, height: 40, backgroundColor: colors.orange, marginRight: 10, borderRadius: 30, justifyContent: 'center', alignItems: 'center', }}
                 >
-                    <Image source={isPlaying ? require('./../../assets/images/pause.png') : require('./../../assets/images/play.png')} style={{ width: 40, height: 40 }} />
-                    {/* <Icon name={isPlaying ? "pause" : "play"} style={[{ fontSize: 18, color: colors.white }, isRTL ? { marginLeft: isPlaying ? 0 : -4 } : { marginRight: isPlaying ? 0 : -4 }]} /> */}
+                    <Icon name={isPlaying ? "pause" : "play"} style={[{ fontSize: 18, color: colors.white }, isRTL ? { marginLeft: isPlaying ? 0 : -4 } : { marginRight: isPlaying ? 0 : -4 }]} />
                 </TouchableOpacity>
             </View>
         </View>
