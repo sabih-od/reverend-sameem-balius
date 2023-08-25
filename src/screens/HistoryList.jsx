@@ -35,7 +35,7 @@ const HistoryList = (props) => {
             <ScrollView style={{ paddingHorizontal: 15, paddingVertical: 15, width: width - 20 }}>
                 <View>
                     {favouriteList.map((item, index) => {
-                        return <SectionItem key={index} handlePlayer={() => console.log('asdasd')} item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 100} audio={true} hideicon={true} />
+                        return <SectionItem key={index} handlePlayer={() => console.log('asdasd')} item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 100} audio={true} hideicon={true} postdetail={true} />
                     })}
                 </View>
             </ScrollView>
@@ -56,6 +56,6 @@ const mapDispatchToProps = dispatch => {
 export default connect(setStateToProps, mapDispatchToProps)(HistoryList);
 
 const styles = StyleSheet.create({
-    homebgimage: { flex: 1, paddingHorizontal: 15 },
+    homebgimage: { flex: 1,  },
     homescollview: { flex: 1, paddingVertical: 15 }
 })

@@ -86,7 +86,7 @@ const MainBox = ({ item }) => {
                 </TouchableOpacity>
                 <View style={styles.heartaction}>
                     <ActionIcons name="heart" route="FavouriteList" />
-                    <ActionIcons name="download" route="Downloads" />
+                    {/* <ActionIcons name="download" route="Downloads" /> */}
                     {/* <ActionIcons name="calendar" route="calendarList" /> */}
                     <ActionIcons name="clock" route="HistoryList" />
                 </View>
@@ -118,10 +118,10 @@ const styles = StyleSheet.create({
     heartaction: { flexDirection: 'row', alignItems: 'center', },
     bottombarinfo: { alignItems: 'center', justifyContent: 'space-between', backgroundColor: isDarkMode ? colors.darkblue : colors.headerbgcolor, paddingBottom: 20, paddingTop: 30, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, overflow: 'hidden', marginTop: -30, zIndex: 0, paddingTop: 50 },
     bottombarlink: {
-        fontFamily: fonts.primaryMedium, fontSize: 13, color: isDarkMode ? colors.lightblue : colors.black, textTransform: 'uppercase',
+        fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 13, color: isDarkMode ? colors.lightblue : colors.black, textTransform: 'uppercase',
         // textDecorationLine: 'underline' 
     },
     shareiconbg: { backgroundColor: colors.orange, width: 35, height: 35, alignItems: 'center', justifyContent: 'center', borderRadius: 30, marginBottom: 10 },
     sharequote: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: isDarkMode ? colors.white : colors.black, fontSize: 12 },
-    bottomtitle: { fontFamily: fonts.primary, color: isDarkMode ? colors.white : colors.black, fontSize: 18, marginVertical: 15, textAlign: 'center', marginHorizontal: 20 }
+    bottomtitle: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, fontSize: 18, marginVertical: 15, textAlign: 'center', marginHorizontal: 20, lineHeight: isRTL ? 30 : 24 }
 })

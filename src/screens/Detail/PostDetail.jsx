@@ -1,6 +1,6 @@
 import { ActivityIndicator, FlatList, Image, ImageBackground, RefreshControl, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import globalstyle from "../../theme/style";
-import { backgroungImage, colors, fonts, height, isIPad, width } from "../../theme";
+import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, isRTL, width } from "../../theme";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Feather";
 import Video from "react-native-video";
@@ -14,8 +14,11 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import SectionTitle from "../../components/SectionTitle";
 import strings from "../../localization/translation";
 import SectionItem from "../../components/SectionItem";
-import { AddToFavouriteList } from "../../redux/reducers/ListingApiStateReducer";
+import { AddPostToHistory, AddToFavouriteList } from "../../redux/reducers/ListingApiStateReducer";
 import { showToast } from "../../helpers/toastConfig";
+import AudioPlayerInner from "../../components/AudioPlayerInner";
+import TrackPlayer from "react-native-track-player";
+import { TrackAddItem } from "../../helpers/track-player";
 
 const PostDetail = (props) => {
     console.log('props.route.params.item => ', props.route.params.item);
@@ -24,6 +27,7 @@ const PostDetail = (props) => {
     const [item, setItem] = useState(props.route.params.item);
     const [playing, setPlaying] = useState(true);
     const [isStarted, setStarted] = useState(true);
+    const [isFavourite, setIsFavourite] = useState(false);
 
     // useEffect(() => {
     //     if (props.route.params.refresh) {
@@ -51,6 +55,32 @@ const PostDetail = (props) => {
 
     useEffect(() => {
         setItem(props.route.params.item);
+        if (item?.id) {
+            props.AddPostToHistory({
+                user_id: props?.userInfo?.id,
+                post_id: item?.id
+            })
+        }
+        const LoadAudio = async () => {
+            const reset = await TrackPlayer.reset();
+            let queue = await TrackPlayer.getQueue();
+            console.log('queue => ', queue)
+            if (queue.length == 0) {
+                let added = await TrackAddItem(
+                    {
+                        id: item?.id,
+                        url: item?.audio,
+                        title: item?.title,
+                        artist: 'Reverend Sameem Balius',
+                        artwork: item?.image
+                    }
+                );
+                // await TrackPlay();
+            }
+        }
+        if (item?.audio) {
+            LoadAudio()
+        }
     }, [props.route.params.item])
 
     const onRefresh = useCallback(() => {
@@ -88,6 +118,7 @@ const PostDetail = (props) => {
         if (props.addToFavouriteListResponse !== prevAddToFavouriteListResRef.current && props.addToFavouriteListResponse?.success) {
             prevAddToFavouriteListResRef.current = props.addToFavouriteListResponse;
             showToast('success', props.addToFavouriteListResponse.message)
+            setIsFavourite(!isFavourite)
         }
         // setRefreshing(false)
     }, [props.addToFavouriteListResponse])
@@ -102,15 +133,62 @@ const PostDetail = (props) => {
     // }
 
     console.log('item?.images => ', item?.images)
+    async function _setShowPlayer(value, item) {
+        console.log('value => ', item)
+        // {
+        //     id: '1',
+        //     url: 'https://www.divinerevelations.info/documents/bible/english_mp3_bible/dbs_kjv_bible/12_2_kings.mp3',
+        //     title: 'Do not Fear Bad News',
+        //     artist: 'Reverend Sameem Balius',
+        //     artwork: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/4UToGtgL8e4R5ZMeoHLJ.jpg'
+        // }
+        setShowPlayer(value)
+        if (value) {
+            const reset = await TrackPlayer.reset();
+            let queue = await TrackPlayer.getQueue();
+            // console.log('queue => ', queue)
+            if (queue.length == 0) {
+                let added = await TrackAddItem(
+                    {
+                        id: item?.id,
+                        url: item?.audio,
+                        title: item?.title,
+                        artist: 'Reverend Sameem Balius',
+                        artwork: item?.image
+                    }
+                );
+                await TrackPlay();
+            }
+        } else {
+            await TrackPlayer.reset()
+        }
 
+        // //require('./../../assets/sound/advertising.mp3')
+        // var whoosh = new Sound('https://raw.githubusercontent.com/zmxv/react-native-sound-demo/master/advertising.mp3', null, (error) => {
+        //     if (error) {
+        //         console.log('failed to load the sound', error);
+        //         return;
+        //     }
+        //     // loaded successfully
+        //     console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
+
+        //     // Play the sound with an onEnd callback
+        //     whoosh.play((success) => {
+        //         if (success) {
+        //             console.log('successfully finished playing');
+        //         } else {
+        //             console.log('playback failed due to audio decoding errors');
+        //         }
+        //     });
+        // });
+    }
+    const [showPlayer, setShowPlayer] = useState(false);
     return (
         <SafeAreaView style={globalstyle.fullview}>
             <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
-
             {/* {isStarted && <View style={{ height: width / 1.8, justifyContent: 'center', backgroundColor: colors.black, position: 'absolute', zIndex: 1, width: width, left: 0, top: 0 }}>
                 <ActivityIndicator color={colors.green} />
             </View>} */}
-
             {/* <YouTube
                 videoId="Gxb8BKoMASc"
                 apiKey="AIzaSyDPSZ0cWHpLdZll6bugk-1XANGuQPaQHNs" // Sam Garcia
@@ -118,14 +196,6 @@ const PostDetail = (props) => {
                 onError={e => console.log({ error: e.error })}
                 style={{ alignSelf: 'stretch', height: width / 1.6 }}
             /> */}
-            <ImageBackground source={{ uri: item?.image }} style={{ height: 250, overflow: 'hidden', width: '100%', }}>
-                <TouchableOpacity
-                    style={{ width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 20, right: 20 }}
-                    onPress={() => props.AddToFavouriteList({ id: item.id })}
-                >
-                    <Icon name={'heart'} style={{ color: colors.white, fontSize: 17, marginBottom: -2 }} />
-                </TouchableOpacity>
-            </ImageBackground>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ overflow: 'hidden' }}
@@ -134,7 +204,18 @@ const PostDetail = (props) => {
                 }
             >
 
-
+                {item?.video && <Video source={{ uri: item?.video }}
+                    autoplay={false}
+                    style={{ height: width / 1.6, marginLeft: -15, marginRight: -15 }} controls={true} />}
+                {!item?.video && <ImageBackground source={{ uri: item?.image }} style={{ height: 250, overflow: 'hidden', width: '100%', }}>
+                    <TouchableOpacity
+                        style={{ width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 20, right: 20 }}
+                        onPress={() => props.AddToFavouriteList({ id: item.id })}
+                    >
+                        <Icon name={'heart'} style={{ color: colors.white, fontSize: 17, marginBottom: -4 }} />
+                        {!isFavourite && <View style={{ width: 20, height: 1, backgroundColor: colors.white, transform: [{ rotate: '130deg' }, { translateX: -5 }, { translateY: 4 }] }} />}
+                    </TouchableOpacity>
+                </ImageBackground>}
                 {/* <FlatList
                     style={{ marginTop: 0, backgroundColor: colors.black }}
                     horizontal
@@ -173,6 +254,14 @@ const PostDetail = (props) => {
                 <View style={{ padding: 15, borderTopLeftRadius: 10, }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Text style={globalstyle.detaildate}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY, hh:mm A")}</Text>
+                        {item?.video && <TouchableOpacity
+                            style={{ width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center', }}
+                            onPress={() => props.AddToFavouriteList({ id: item.id })}
+                        >
+                            <Icon name={'heart'} style={{ color: colors.white, fontSize: 17, marginBottom: -4 }} />
+                            {!isFavourite && <View style={{ width: 20, height: 1, backgroundColor: colors.white, transform: [{ rotate: '130deg' }, { translateX: -5 }, { translateY: 4 }] }} />}
+                        </TouchableOpacity>}
+
                     </View>
                     <Text style={globalstyle.detailtitle}>{item?.title}</Text>
                     {/* <Text style={globalstyle.detaildescription}>{item?.description}</Text> */}
@@ -181,7 +270,7 @@ const PostDetail = (props) => {
                     <FlatList
                         style={{ marginTop: 15 }}
                         horizontal
-                        snapToInterval={(width / 2) + 15}
+                        snapToInterval={(width)}
                         // scrollEnabled
                         // scrollEventThrottle={16}
                         showsHorizontalScrollIndicator={false}
@@ -199,7 +288,7 @@ const PostDetail = (props) => {
                         keyExtractor={(imageitem, index) => String(index)}
                         renderItem={(imageitem, index) => {
                             console.log('imageitem => ', imageitem)
-                            return (<View style={{ width: width / 2.3, height: width / 3, borderRadius: 10, overflow: 'hidden', }}>
+                            return (<View style={{ width: width / 2.3, height: width / 2, borderRadius: 10, overflow: 'hidden', }}>
                                 <Image
                                     source={{ uri: imageitem?.item?.url }}
                                     style={{ width: '100%', height: '100%', }}
@@ -209,21 +298,30 @@ const PostDetail = (props) => {
                         }}
                     />
 
-                    <View style={{height: 30}} />
+                    <View style={{ height: 30 }} />
                     {item?.audio && <>
                         <View style={styles.seperator} />
                         <SectionTitle title={strings.Audios} />
-                        <SectionItem
-                            // handlePlayer={_setShowPlayer} 
-                            item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 22} audio={true} />
+                        <AudioPlayerInner />
+                        <View style={{ height: 20 }} />
+                        {/* <SectionItem
+                            handlePlayer={_setShowPlayer}
+                            item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 22} audio={true} /> */}
                     </>}
-                    {item?.video && <>
+                    {/* {item?.video && <>
                         <View style={styles.seperator} />
                         <SectionTitle title={strings.Videos} />
-                        <SectionItem
-                            // handlePlayer={_setShowPlayer} 
-                            item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 22} audio={true} />
-                    </>}
+
+                        {!item?.video && <View style={{
+                            width: width, height: width / 1.8, backgroundColor: isDarkMode ? colors.deepblue : colors.white,
+                            alignItems: 'center', justifyContent: 'center'
+                        }}>
+                            <Text style={{ color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicRegular : fonts.primary }}>{strings.videoNotFound}</Text>
+                        </View>}
+                        {item?.video && <Video source={{ uri: item?.video }}
+                            autoplay={false}
+                            style={{ height: width / 1.6, marginLeft: -15, marginRight: -15 }} controls={true} />}
+                    </>} */}
 
                     {/* <View style={{ flexDirection: 'row' }}>
                         {item?.images && item.images.map((itemimages) => <View style={{ width: width / 2, height: width / 1.6, borderRadius: 10, overflow: 'hidden', }}>
@@ -253,6 +351,7 @@ const PostDetail = (props) => {
                 /> */}
                 {/* <Video source={{ uri: item?.media }} style={{ width: width - 30, height: 200 }} controls={true} /> */}
             </ScrollView>
+            {/* {showPlayer && <AudioPlayer handleClose={_setShowPlayer} />} */}
         </SafeAreaView>
     )
 }
@@ -261,10 +360,12 @@ const setStateToProps = (state) => ({
     // getSermonDetailResponse: state.detailpagestate.getSermonDetailResponse,
     getPostByCategoryIdResponse: state.listingstate.getPostByCategoryIdResponse,
     addToFavouriteListResponse: state.listingstate.addToFavouriteListResponse,
+    userInfo: state.appstate.userInfo,
 })
 const mapDispatchToProps = (dispatch) => {
     return {
         AddToFavouriteList: bindActionCreators(AddToFavouriteList, dispatch),
+        AddPostToHistory: bindActionCreators(AddPostToHistory, dispatch),
     }
 }
 export default connect(setStateToProps, mapDispatchToProps)(PostDetail);

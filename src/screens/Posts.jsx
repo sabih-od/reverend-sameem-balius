@@ -1,41 +1,57 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator } from "react-native";
-import { colors, fonts, height, isIPad, width } from "../theme";
+import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Image } from "react-native";
+import { backgroungImage, colors, fonts, height, isIPad, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
-import PostBox from "../components/PostBox";
-import postslist from "../data/postslist";
-import { GetPostsList } from "../redux/reducers/ListingApiStateReducer";
+// import PostBox from "../components/PostBox";
+// import postslist from "../data/postslist";
+import { ClearPostList, GetPostsList } from "../redux/reducers/ListingApiStateReducer";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import globalstyle from "../theme/style";
+// import RoutineBox from "../components/RoutineBox";
+import SectionItem from "../components/SectionItem";
 
 const itemslimit = 50;
 const Posts = (props) => {
+    const { item } = props.route.params;
+    console.log('props.route.params => ', props.route.params)
     const [postList, setPostList] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
-    const [pageno, setPageno] = useState(1);
+    const [page, setPageno] = useState(1);
+    const [category_id, setCategoryId] = useState(item?.id)
     const [limit, setLimit] = useState(itemslimit);
     const [loadmore, setLoadmore] = useState(false);
 
     const prevPostsListResRef = useRef(props.getPostsListResponse);
+    const prevItemIdResRef = useRef(item);
 
     useEffect(() => {
-        props.GetPostsList({ pageno, limit })
+        console.log('asd 1')
+        props.navigation.setOptions({ headerTitle: item?.name });
+        props.GetPostsList({ page, limit, category_id })
         return () => {
-            console.log('Announcement Unmount');
+            console.log('Posts Unmount');
+            props.ClearPostList()
             setPostList([])
         }
-    }, [])
+    }, [item])
 
     useEffect(() => {
+        console.log('asd 2')
         if (props.getPostsListResponse !== prevPostsListResRef.current && props.getPostsListResponse?.success && props.getPostsListResponse?.data.length) {
             prevPostsListResRef.current = props.getPostsListResponse;
             setPostList(prevState => [...prevState, ...props.getPostsListResponse?.data])
             console.log('props.getPostsListResponse => ', props.getPostsListResponse)
-            if (refreshing) setPostList(props.getPostsListResponse?.data)
-            else setPostList(prevState => [...prevState, ...props.getPostsListResponse?.data])
+            if (refreshing || prevItemIdResRef.current.value?.id != item?.id) {
+                console.log('refreshing')
+                setPostList(props.getPostsListResponse?.data)
+            }
+            else {
+                console.log('not refreshing')
+                setPostList(prevState => [...prevState, ...props.getPostsListResponse?.data])
+            }
         }
         setRefreshing(false)
         // setLoadmore(false)
@@ -45,24 +61,25 @@ const Posts = (props) => {
         setRefreshing(true)
         setPageno(1);
         // setLimit(itemslimit);
-        props.GetPostsList({ pageno, limit });
+        props.GetPostsList({ page, limit, category_id });
         console.log('_handleLoadMore ');
     }
 
     const _handleLoadMore = () => {
         setLoadmore(true)
         setPageno(prevState => prevState + 1);
-        // props.GetPostsList({ pageno: pageno + 1, limit });
+        // props.GetPostsList({ page: page + 1, limit });
         if (!loadmore) {
             if (postList.length < props.getPostsListResponse?.total) {
                 console.log('_handleLoadMore ');
-                props.GetPostsList({ pageno: pageno + 1, limit });
+                props.GetPostsList({ page: page + 1, limit, category_id });
                 setLoadmore(false)
             }
         }
     }
 
     return <SafeAreaView style={{ flex: 1 }}>
+        <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
         <FlatList
             style={{ padding: 15 }}
             // horizontal
@@ -83,7 +100,7 @@ const Posts = (props) => {
             data={postList}
             keyExtractor={(item, index) => String(index)}
             renderItem={({ item, index }) => {
-                return (<PostBox key={index} item={item} width={isIPad ? (width / 3) - 20 : (width / 2) - 20} navigation={props.navigation} />)
+                return (<SectionItem key={index} item={item} width={isIPad ? (width / 3) - 20 : (width / 2) - 22} navigation={props.navigation} />)
             }}
         />
     </SafeAreaView>
@@ -95,7 +112,8 @@ const setStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetPostsList: bindActionCreators(GetPostsList, dispatch)
+        GetPostsList: bindActionCreators(GetPostsList, dispatch),
+        ClearPostList: bindActionCreators(ClearPostList, dispatch),
     }
 }
 

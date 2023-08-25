@@ -64,4 +64,17 @@ export default {
   History: 'تاريخ',
   Search: 'يبحث',
   SearchHere: 'ابحث هنا...',
+
+  deleteAccountTitle: 'حذف الحساب',
+  deleteAccountDesc: 'هل انت متأكد انك تريد حذف حسابك؟',
+  cancel: 'يلغي',
+  confirm: 'يتأكد',
+  editProfile: 'تعديل الملف الشخصي',
+  updateProfile: 'تحديث الملف',
+
+  cameraTitle: 'إختر خيارا',
+  cameraDesc: 'حدد خيارًا لالتقاط صورة جديدة باستخدام كاميرا جهازك أو حدد صورة من معرض الصور بجهازك',
+  gallery: 'معرض الصور',
+  camera: 'آلة تصوير',
+  
 };

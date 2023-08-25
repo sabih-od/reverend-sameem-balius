@@ -40,7 +40,7 @@ const globalstyle = StyleSheet.create({
   footerloadmore: { display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 7 },
   footerloadingtext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, marginLeft: 8, },
 
-  modaltitle: { fontFamily: fonts.latoBlack, color: colors.black, textAlign: 'center', paddingTop: 15, paddingBottom: 5, fontSize: isIPad ? 24 : 18, color: colors.green },
+  modaltitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primaryMedium, color: colors.black, textAlign: 'center', paddingTop: 15, paddingBottom: 5, fontSize: isIPad ? 24 : 18 },
   modaldesc: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.black, textAlign: 'center', fontSize: isIPad ? 16 : 13, paddingHorizontal: 15, paddingBottom: 15, color: '#444' },
   modalbtnsrow: { flexDirection: 'row', alignItems: 'center', borderTopColor: '#ddd', borderTopWidth: 1, },
   modalbtntext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.black, textAlign: 'center', paddingVertical: 14, textAlign: 'center', fontSize: isIPad ? 18 : 14 },
@@ -52,7 +52,7 @@ const globalstyle = StyleSheet.create({
   headerTitleStyle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 22 : 18, textTransform: 'capitalize', color: isDarkMode ? colors.white : colors.black },
 
   speakerboximage: { height: isIPad ? 100 : 75, borderRadius: 7, overflow: 'hidden', width: isIPad ? 100 : 75, marginRight: isIPad ? 15 : 10 },
-  speakerboxtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.green, fontSize: isIPad ? 18 : 14 },
+  speakerboxtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.orange, fontSize: isIPad ? 18 : 14 },
   speakerboxrow: { flexDirection: 'row', marginBottom: 4, alignItems: 'center' },
   speakerboxname: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.black, fontSize: isIPad ? 22 : 16, },
   speakerboxdesc: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.grey, fontSize: isIPad ? 18 : 13, },
@@ -60,11 +60,11 @@ const globalstyle = StyleSheet.create({
   speakerdetailparagraph: { fontSize: isIPad ? 18 : 14, marginBottom: 0, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.grey, lineHeight: isIPad ? 24 : 20 },
   speakerdetailparabold: { fontSize: 14, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.black },
   speakerdetailimage: { width: 100, height: 100, resizeMode: 'cover', borderRadius: 10, marginBottom: 15, marginRight: 15 },
-  speakerdetaildesignation: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.green, fontSize: isIPad ? 18 : 15 },
+  speakerdetaildesignation: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.orange, fontSize: isIPad ? 18 : 15 },
 
-  detaildate: { fontFamily: fonts.primaryMedium, color: isDarkMode ? colors.white : colors.grey, marginBottom: 5, fontSize: isIPad ? 15 : 13, textAlign: 'left', marginBottom: isRTL ? 12 : 0 },
-  detailtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 30 : 24, marginBottom: 5, textAlign: 'left', marginBottom: isRTL ? 10 : 0 },
-  detaildescription: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 18 : 15, textAlign: 'left', lineHeight: isRTL ? 28 : 18 },
+  detaildate: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: isDarkMode ? colors.white : colors.grey, marginBottom: 5, fontSize: isIPad ? 15 : 13, textAlign: 'left', marginBottom: isRTL ? 12 : 0 },
+  detailtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 30 : 24, marginBottom: 5, textAlign: 'left', marginBottom: isRTL ? 10 : 10 },
+  detaildescription: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 18 : 15, textAlign: 'left', lineHeight: isRTL ? 28 : 22 },
 
 
 

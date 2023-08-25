@@ -30,6 +30,7 @@ import { EditProfileApiCall, UpdateProfilePicApiCall } from '../../redux/reducer
 import { SetUserInfo } from '../../redux/reducers/AppStateReducer';
 import { showToast } from '../../helpers/toastConfig';
 import Loader from "../../components/Loader";
+import strings from '../../localization/translation';
 
 const EditProfile = props => {
   const [showModal, setShowModal] = useState(false);
@@ -453,9 +454,7 @@ const EditProfile = props => {
                   activeOpacity={0.8}
                   onPress={handleSubmit(onSubmit)}
                   style={globalstyle.authSubmitButton}>
-                  <Text style={globalstyle.authSubmitButtonText}>
-                    Update Profile
-                  </Text>
+                  <Text style={globalstyle.authSubmitButtonText}>{strings.updateProfile}</Text>
                 </TouchableOpacity>
               )}
             </View>

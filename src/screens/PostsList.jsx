@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from 'react-native-vector-icons/Feather';
 // import PostBox from "../components/PostBox";
 // import postslist from "../data/postslist";
-import { GetPostByCategoryId, GetPostsList } from "../redux/reducers/ListingApiStateReducer";
+import { GetPostByCategoryScreenWiseId, GetPostsList } from "../redux/reducers/ListingApiStateReducer";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import globalstyle from "../theme/style";
@@ -35,7 +35,7 @@ const PostsList = (props) => {
     const { item } = props.route.params
     useEffect(() => {
         props.navigation.setOptions({ headerTitle: item?.name });
-        props.GetPostByCategoryId({ id: item.id })
+        props.GetPostByCategoryScreenWiseId({ id: item.id })
 
     }, [item])
 
@@ -225,7 +225,7 @@ const setStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetPostsList: bindActionCreators(GetPostsList, dispatch),
-        GetPostByCategoryId: bindActionCreators(GetPostByCategoryId, dispatch),
+        GetPostByCategoryScreenWiseId: bindActionCreators(GetPostByCategoryScreenWiseId, dispatch),
     }
 }
 

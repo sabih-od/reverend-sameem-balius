@@ -45,6 +45,7 @@ import Downloads from "../screens/Downloads";
 import CDsList from "../screens/CDsList";
 import AudioPlayer from "../screens/AudioPlayer";
 import SearchPost from "../screens/SearchPost";
+import Posts from "../screens/Posts";
 
 
 const Stack = createStackNavigator();
@@ -222,6 +223,23 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 component={PostsList}
                 options={{
                     headerTitle: 'PostsList',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
+                    headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
+                name="Posts"
+                component={Posts}
+                options={{
+                    headerTitle: 'Posts',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
@@ -420,9 +438,9 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: '',
                     headerTitleAlign: 'center',
                     headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none' }],
-                    headerTransparent: true,
+                    // headerTransparent: true,
                     headerStyle: {
-                        // backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
                         elevation: 0,
                         shadowOpacity: 0,
                     },

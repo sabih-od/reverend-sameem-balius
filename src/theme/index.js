@@ -10,7 +10,7 @@ const { width, height } = Dimensions.get('window')
 const flip = I18nManager.isRTL ? { transform: [{ scaleX: -1 }] } : null;
 const colorScheme = Appearance.getColorScheme();
 
-const isDarkMode = colorScheme != 'dark';
+const isDarkMode = colorScheme == 'dark';
 const fontcolor = isDarkMode ? colors.white : colors.black;
 const invertcolor = colorScheme != 'dark' ? colors.white : colors.black;
 const isIPad = width > 700 ? true : false;

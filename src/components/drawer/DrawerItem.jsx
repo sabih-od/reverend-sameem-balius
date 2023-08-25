@@ -15,7 +15,7 @@ const DrawerItem = ({ item, navigation, activescreen }) => {
             {item?.parent_id == null && <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => {
-                    if (item?.children?.length == 0) navigation.navigate('Screens', { screen: 'PostsList', params: { item: item } });
+                    if (item?.children?.length == 0) navigation.navigate('Screens', { screen: 'Posts', params: { item: item } }); // PostsList
                     else if (item?.nav) {
                         navigation.navigate(item?.nav);
                     } else {
@@ -30,7 +30,7 @@ const DrawerItem = ({ item, navigation, activescreen }) => {
                 {/* <View style={{ width: 20, height: 20, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{ color: colors.white, fontFamily: fonts.latoRegular, fontSize: 10 }}>12</Text>
                     </View> */}
-            </TouchableOpacity >}
+            </TouchableOpacity>}
             {
                 item?.children?.length > 0 && isActive && item?.children.map((child, index) => {
                     return (
@@ -39,7 +39,7 @@ const DrawerItem = ({ item, navigation, activescreen }) => {
                             key={index}
                             onPress={() => {
                                 if (child?.id == 14) navigation.navigate('Screens', { screen: 'CDsList', params: { item: item } });
-                                else navigation.navigate('Screens', { screen: 'PostsList', params: { item: child } })
+                                else navigation.navigate('Screens', { screen: 'Posts', params: { item: child } })
                             }}
                             style={[globalstyle.draweritemrow, { backgroundColor: isDarkMode ? colors.darkblue : colors.headerbgcolor, alignItems: 'center', borderLeftColor: activescreen == item.nav ? colors.orange : 'transparent' }]}
                         >

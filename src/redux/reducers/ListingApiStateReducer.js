@@ -1,21 +1,21 @@
 import apiAction from '../../api/apiAction';
-import { AboutAPI, AddPostToHistoryAPI, AddToFavouriteListAPI, ContactAPI, GetAnnouncementAPI, GetBooksAPI, GetCategoriesAPI, GetDailiesListAPI, GetEventsAPI, GetFavouriteListAPI, GetFeaturedListAPI, GetHistoryListAPI, GetHomeBannerAPI, GetMenuAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostByCategoryIdAPI, GetPostWithOutTypeByCategoryIdAPI, GetPostsAPI, GetQuestionsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, SendAskAQuestionAPI, } from '../../api/routes';
-import { ABOUT_API_SUCCESS, ADD_POST_TO_HISTORY_SUCCESS, ADD_TO_FAVOURITE_LIST_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_ASK_A_QUESTION, GET_BOOKS_API_SUCCESS, GET_DAILIES_LIST_SUCCESS, GET_EVENTS_API_SUCCESS, GET_FAVOURITE_LIST_SUCCESS, GET_FEATURED_LIST_SUCCESS, GET_HISTORY_LIST_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_POST_BY_CATEGORY_ID_SUCCESS, GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SEARCH_POST_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SEND_ASK_A_QUESTION, SET_DRAWER_MENU, SET_ERROR, } from '../actiontypes';
+import { AboutAPI, AddPostToHistoryAPI, AddToFavouriteListAPI, ContactAPI, GetAnnouncementAPI, GetBooksAPI, GetCategoriesAPI, GetDailiesListAPI, GetEventsAPI, GetFavouriteListAPI, GetFeaturedListAPI, GetHistoryListAPI, GetHomeBannerAPI, GetMenuAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostByCategoryIdAPI, GetPostByCategoryIdScreenWiseAPI, GetPostWithOutTypeByCategoryIdAPI, GetPostsAPI, GetQuestionsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, SendAskAQuestionAPI, } from '../../api/routes';
+import { ABOUT_API_SUCCESS, ADD_POST_TO_HISTORY_SUCCESS, ADD_TO_FAVOURITE_LIST_SUCCESS, CLEAR_POST_LIST_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_ASK_A_QUESTION, GET_BOOKS_API_SUCCESS, GET_DAILIES_LIST_SUCCESS, GET_EVENTS_API_SUCCESS, GET_FAVOURITE_LIST_SUCCESS, GET_FEATURED_LIST_SUCCESS, GET_HISTORY_LIST_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_POST_BY_CATEGORY_ID_SUCCESS, GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SEARCH_POST_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SEND_ASK_A_QUESTION, SET_DRAWER_MENU, SET_ERROR, } from '../actiontypes';
 
 const initialState = {
   getQuestionsResponse: {},
   sendAskAQuestionsResponse: {},
   getPostsListResponse: {},
-  getEventsListResponse: {},
-  getUpcomingEventsListResponse: {},
-  getOurStaffListResponse: {},
-  getOurSpeakersListResponse: {},
-  getRequestedPrayersListResponse: {},
+  // getEventsListResponse: {},
+  // getUpcomingEventsListResponse: {},
+  // getOurStaffListResponse: {},
+  // getOurSpeakersListResponse: {},
+  // getRequestedPrayersListResponse: {},
   getNotificationsListResponse: {},
-  getAnnouncementResponse: {},
-  getBooksListResponse: {},
+  // getAnnouncementResponse: {},
+  // getBooksListResponse: {},
   getHomeBannerResponse: {},
-  requestPrayerResponse: {},
+  // requestPrayerResponse: {},
   contactResponse: {},
   contactErrorResponse: {},
   aboutResponse: {},
@@ -35,7 +35,7 @@ const initialState = {
 export function GetSermonsList(params) {
   // console.log('params => ', params);
   return apiAction({
-    url: GetSermonsAPI + '?page=' + params.pageno + '&limit=' + params.limit,
+    url: GetSermonsAPI + '?page=' + params.page + '&limit=' + params.limit,
     method: 'GET',
     // data: params,
     onSuccess: response => {
@@ -48,9 +48,10 @@ export function GetSermonsList(params) {
 }
 
 export function GetPostsList(params) {
-  // console.log('params => ', params);
+  console.log('params => ', params);
+  console.log('GetPostsList => ', GetPostsAPI + '?page=' + params.page + '&limit=' + params.limit + '&category_id=' + params.category_id)
   return apiAction({
-    url: GetPostsAPI + '?page=' + params.pageno + '&limit=' + params.limit,
+    url: GetPostsAPI + '?page=' + params.page + '&limit=' + params.limit + '&category_id=' + params.category_id,
     method: 'GET',
     // data: params,
     onSuccess: response => {
@@ -61,117 +62,120 @@ export function GetPostsList(params) {
     },
   });
 }
-
-export function GetAnnouncementList(params) {
-  // console.log('params => ', params);
-  return apiAction({
-    url: GetAnnouncementAPI + '?page=' + params.pageno + '&limit=' + params.limit,
-    method: 'GET',
-    // data: params,
-    onSuccess: response => {
-      return { type: GET_ANNOUNCEMENT_API_SUCCESS, payload: response };
-    },
-    onFailure: response => {
-      return { type: SET_ERROR, payload: response };
-    },
-  });
+export function ClearPostList() {
+  return { type: CLEAR_POST_LIST_SUCCESS, payload: {} };
 }
 
-export function GetEventsList(params) {
-  // console.log('params => ', params);
-  return apiAction({
-    url: GetEventsAPI + '?page=' + params.pageno + '&limit=' + params.limit + '&is_upcoming_event=false',
-    method: 'GET',
-    // data: params,
-    onSuccess: response => {
-      return { type: GET_EVENTS_API_SUCCESS, payload: response };
-    },
-    onFailure: response => {
-      return { type: SET_ERROR, payload: response };
-    },
-  });
-}
+// export function GetAnnouncementList(params) {
+//   // console.log('params => ', params);
+//   return apiAction({
+//     url: GetAnnouncementAPI + '?page=' + params.page + '&limit=' + params.limit,
+//     method: 'GET',
+//     // data: params,
+//     onSuccess: response => {
+//       return { type: GET_ANNOUNCEMENT_API_SUCCESS, payload: response };
+//     },
+//     onFailure: response => {
+//       return { type: SET_ERROR, payload: response };
+//     },
+//   });
+// }
 
-export function GetUpcomingEventsList(params) {
-  // console.log('params => ', params);
-  return apiAction({
-    url: GetUpcomingEventsAPI + '?page=' + params.pageno + '&limit=' + params.limit + '&is_upcoming_event=true',
-    method: 'GET',
-    // data: params,
-    onSuccess: response => {
-      return { type: GET_UPCOMING_EVENTS_API_SUCCESS, payload: response };
-    },
-    onFailure: response => {
-      return { type: SET_ERROR, payload: response };
-    },
-  });
-}
+// export function GetEventsList(params) {
+//   // console.log('params => ', params);
+//   return apiAction({
+//     url: GetEventsAPI + '?page=' + params.page + '&limit=' + params.limit + '&is_upcoming_event=false',
+//     method: 'GET',
+//     // data: params,
+//     onSuccess: response => {
+//       return { type: GET_EVENTS_API_SUCCESS, payload: response };
+//     },
+//     onFailure: response => {
+//       return { type: SET_ERROR, payload: response };
+//     },
+//   });
+// }
 
-export function GetOurStaffList(params) {
-  // console.log('params => ', params);
-  return apiAction({
-    url: GetOurStaffAPI + '?page=' + params.pageno + '&limit=' + params.limit,
-    method: 'GET',
-    // data: params,
-    onSuccess: response => {
-      return { type: GET_OUR_STAFF_API_SUCCESS, payload: response };
-    },
-    onFailure: response => {
-      return { type: SET_ERROR, payload: response };
-    },
-  });
-}
+// export function GetUpcomingEventsList(params) {
+//   // console.log('params => ', params);
+//   return apiAction({
+//     url: GetUpcomingEventsAPI + '?page=' + params.page + '&limit=' + params.limit + '&is_upcoming_event=true',
+//     method: 'GET',
+//     // data: params,
+//     onSuccess: response => {
+//       return { type: GET_UPCOMING_EVENTS_API_SUCCESS, payload: response };
+//     },
+//     onFailure: response => {
+//       return { type: SET_ERROR, payload: response };
+//     },
+//   });
+// }
 
-export function GetOurSpeakerList(params) {
-  // console.log('params => ', params);
-  return apiAction({
-    url: GetOurSpeakerAPI + '?page=' + params.pageno + '&limit=' + params.limit,
-    method: 'GET',
-    // data: params,
-    onSuccess: response => {
-      return { type: GET_OUR_SPEAKER_API_SUCCESS, payload: response };
-    },
-    onFailure: response => {
-      return { type: SET_ERROR, payload: response };
-    },
-  });
-}
+// export function GetOurStaffList(params) {
+//   // console.log('params => ', params);
+//   return apiAction({
+//     url: GetOurStaffAPI + '?page=' + params.page + '&limit=' + params.limit,
+//     method: 'GET',
+//     // data: params,
+//     onSuccess: response => {
+//       return { type: GET_OUR_STAFF_API_SUCCESS, payload: response };
+//     },
+//     onFailure: response => {
+//       return { type: SET_ERROR, payload: response };
+//     },
+//   });
+// }
 
-export function GetBooksList(params) {
-  // console.log('params => ', params);
-  return apiAction({
-    url: GetBooksAPI + '?page=' + params.pageno + '&limit=' + params.limit,
-    method: 'GET',
-    // data: params,
-    onSuccess: response => {
-      return { type: GET_BOOKS_API_SUCCESS, payload: response };
-    },
-    onFailure: response => {
-      return { type: SET_ERROR, payload: response };
-    },
-  });
-}
+// export function GetOurSpeakerList(params) {
+//   // console.log('params => ', params);
+//   return apiAction({
+//     url: GetOurSpeakerAPI + '?page=' + params.page + '&limit=' + params.limit,
+//     method: 'GET',
+//     // data: params,
+//     onSuccess: response => {
+//       return { type: GET_OUR_SPEAKER_API_SUCCESS, payload: response };
+//     },
+//     onFailure: response => {
+//       return { type: SET_ERROR, payload: response };
+//     },
+//   });
+// }
 
-export function GetRequestedPrayersList(params) {
-  // console.log('params => ', params);
-  return apiAction({
-    url: GetRequestedPrayerAPI + '?page=' + params.pageno + '&limit=' + params.limit,
-    method: 'GET',
-    // data: params,
-    onSuccess: response => {
-      return { type: GET_REQUESTED_PRAYER_API_SUCCESS, payload: response };
-    },
-    onFailure: response => {
-      return { type: SET_ERROR, payload: response };
-    },
-  });
-}
+// export function GetBooksList(params) {
+//   // console.log('params => ', params);
+//   return apiAction({
+//     url: GetBooksAPI + '?page=' + params.page + '&limit=' + params.limit,
+//     method: 'GET',
+//     // data: params,
+//     onSuccess: response => {
+//       return { type: GET_BOOKS_API_SUCCESS, payload: response };
+//     },
+//     onFailure: response => {
+//       return { type: SET_ERROR, payload: response };
+//     },
+//   });
+// }
+
+// export function GetRequestedPrayersList(params) {
+//   // console.log('params => ', params);
+//   return apiAction({
+//     url: GetRequestedPrayerAPI + '?page=' + params.page + '&limit=' + params.limit,
+//     method: 'GET',
+//     // data: params,
+//     onSuccess: response => {
+//       return { type: GET_REQUESTED_PRAYER_API_SUCCESS, payload: response };
+//     },
+//     onFailure: response => {
+//       return { type: SET_ERROR, payload: response };
+//     },
+//   });
+// }
 
 export function GetNotificationsList(params) {
   // console.log('params => ', params);
   return apiAction({
     url:
-      GetNotificationsAPI + '?page=' + params.pageno + '&limit=' + params.limit,
+      GetNotificationsAPI + '?page=' + params.page + '&limit=' + params.limit,
     method: 'GET',
     // data: params,
     onSuccess: response => {
@@ -183,20 +187,20 @@ export function GetNotificationsList(params) {
   });
 }
 
-export function RequestPrayerApiCall(params) {
-  // console.log('params => ', params);
-  return apiAction({
-    url: RequestPrayerAPI,
-    method: 'POST',
-    data: params,
-    onSuccess: response => {
-      return { type: REQUEST_PRAYER_API_SUCCESS, payload: response };
-    },
-    onFailure: response => {
-      return { type: SET_ERROR, payload: response };
-    },
-  });
-}
+// export function RequestPrayerApiCall(params) {
+//   // console.log('params => ', params);
+//   return apiAction({
+//     url: RequestPrayerAPI,
+//     method: 'POST',
+//     data: params,
+//     onSuccess: response => {
+//       return { type: REQUEST_PRAYER_API_SUCCESS, payload: response };
+//     },
+//     onFailure: response => {
+//       return { type: SET_ERROR, payload: response };
+//     },
+//   });
+// }
 
 export function ContactApiCall(params) {
   // console.log('params => ', params);
@@ -228,20 +232,20 @@ export function AboutApiCall() {
   });
 }
 
-export function GetHomeBanner() {
-  // console.log('params => ', params);
-  return apiAction({
-    url: GetHomeBannerAPI,
-    method: 'GET',
-    // data: params,
-    onSuccess: response => {
-      return { type: HOME_BANNER_API_SUCCESS, payload: response };
-    },
-    onFailure: response => {
-      return { type: SET_ERROR, payload: response };
-    },
-  });
-}
+// export function GetHomeBanner() {
+//   // console.log('params => ', params);
+//   return apiAction({
+//     url: GetHomeBannerAPI,
+//     method: 'GET',
+//     // data: params,
+//     onSuccess: response => {
+//       return { type: HOME_BANNER_API_SUCCESS, payload: response };
+//     },
+//     onFailure: response => {
+//       return { type: SET_ERROR, payload: response };
+//     },
+//   });
+// }
 
 export function GetQuestions() {
   // console.log('params => ', params);
@@ -286,10 +290,23 @@ export function SendAskAQuestion(params) {
   });
 }
 
-
 export function GetPostByCategoryId(params) {
   return apiAction({
-    url: GetPostByCategoryIdAPI + '?category_id=' + params.id,
+    url: GetPostByCategoryIdAPI + '/' + params.id,
+    method: 'GET',
+    data: params,
+    onSuccess: response => {
+      return { type: GET_POST_BY_CATEGORY_ID_SUCCESS, payload: response };
+    },
+    onFailure: response => {
+      return { type: SET_ERROR, payload: response };
+    },
+  });
+}
+
+export function GetPostByCategoryScreenWiseId(params) {
+  return apiAction({
+    url: GetPostByCategoryIdScreenWiseAPI + '?category_id=' + params.id,
     method: 'GET',
     // data: params,
     onSuccess: response => {
@@ -403,7 +420,7 @@ export function GetDailiesList(params) {
 export function GetSearchPost(params) {
   // console.log('params => ', params);
   return apiAction({
-    url: GetPostsAPI + '?page=' + params.pageno + '&limit=' + params.limit + '&title=' + params.title,
+    url: GetPostsAPI + '?page=' + params.page + '&limit=' + params.limit + '&title=' + params.title,
     method: 'GET',
     // data: params,
     onSuccess: response => {
@@ -430,6 +447,10 @@ const ListingApiStateReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         getPostsListResponse: action.payload,
       });
+    case CLEAR_POST_LIST_SUCCESS:
+      return Object.assign({}, state, {
+        getPostsListResponse: action.payload,
+      });
     case GET_NOTIFICATIONS_API_SUCCESS:
       return Object.assign({}, state, {
         getNotificationsListResponse: action.payload,
@@ -442,10 +463,10 @@ const ListingApiStateReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         contactErrorResponse: action.payload,
       });
-    case HOME_BANNER_API_SUCCESS:
-      return Object.assign({}, state, {
-        getHomeBannerResponse: action.payload,
-      });
+    // case HOME_BANNER_API_SUCCESS:
+    //   return Object.assign({}, state, {
+    //     getHomeBannerResponse: action.payload,
+    //   });
     case GET_POST_BY_CATEGORY_ID_SUCCESS:
       return Object.assign({}, state, {
         getPostByCategoryIdResponse: action.payload,

@@ -97,6 +97,7 @@ const DrawerContent = (props) => {
 
   const [user, setUser] = useState(props.userInfo);
   const [drawerMenu, setDrawerMenu] = useState([]);
+  const textInput = useRef();
 
   useEffect(() => {
     // console.log('Drawer props.userInfo => ', props.userInfo);
@@ -166,13 +167,19 @@ const DrawerContent = (props) => {
       }
       <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <TextInput
+          ref={textInput}
           placeholder={strings.SearchHere}
           placeholderTextColor={'#777'}
+          onChangeText={value => textInput.current.value = value}
           style={{ height: 40, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, backgroundColor: '#f7f7f7', width: 235, color: colors.black, fontSize: 14, paddingHorizontal: 13, paddingVertical: 10, textAlign: isRTL ? 'right' : 'left' }}
         />
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => props.navigation.navigate('SearchPost', { title: 'Jesus' })}
+          onPress={() => {
+            console.log('textInput.current.value => ', textInput.current.value);
+            props.navigation.navigate('SearchPost', { title: textInput.current.value })
+            textInput.current.clear();
+          }}
           style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.orange }}
         >
           <Icon name="search" style={{ fontSize: 16, color: colors.white }} />
@@ -233,8 +240,8 @@ const DrawerContent = (props) => {
           // props.navigation.reset({ index: 0, routes: [{ name: 'AuthScreens' }] })
         }}
           style={styles.logoutitem}>
-          <Icon name="log-out" style={{ color: colors.black, marginRight: 15 }} size={16} />
-          <Text style={[globalstyle.draweritemtext, { color: colors.black }]}>{strings.logout}</Text>
+          <Icon name="log-out" style={{ color: colors.white, marginRight: 15 }} size={16} />
+          <Text style={[globalstyle.draweritemtext, { color: colors.white }]}>{strings.logout}</Text>
         </TouchableOpacity>
       </View>}
     </>

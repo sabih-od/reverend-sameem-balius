@@ -19,7 +19,8 @@ export const DeleteUserAPI = '/users';
 export const GetQuestionsAPI = '/faq';
 export const SendAskAQuestionAPI = '/faq/ask-a-question';
 export const GetCategoriesAPI = '/categories?page=1&limit=100';
-export const GetPostByCategoryIdAPI = '/posts/screen-wise';
+export const GetPostByCategoryIdAPI = '/posts/category-post';
+export const GetPostByCategoryIdScreenWiseAPI = '/posts/screen-wise';
 export const GetPostWithOutTypeByCategoryIdAPI = '/posts/category-post'
 export const GetFavouriteListAPI = '/posts/favourites/list'
 export const AddToFavouriteListAPI = '/posts/add-to-favourites'

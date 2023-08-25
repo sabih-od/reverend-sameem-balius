@@ -19,9 +19,9 @@ export default {
   ClickHere: 'Click Here',
   Language: 'Language',
 
-  Videos: 'Videos',
-  Audios: 'Audios',
-  Documents: 'Books',
+  Videos: 'Video',
+  Audios: 'Audio',
+  Documents: 'Book',
   Images: 'Images',
   MoreVideos: 'More Videos',
   MoreAudios: 'More Audios',
@@ -64,5 +64,17 @@ export default {
   History: 'History',
   Search: 'Search',
   SearchHere: 'Search Here...',
+
+  deleteAccountTitle: 'Delete Account',
+  deleteAccountDesc: 'Are you sure you want to delete your account?',
+  cancel: 'Cancel',
+  confirm: 'Confirm',
+  editProfile: 'Edit Profile',
+  updateProfile: 'Update Profile',
   
+  cameraTitle: 'Choose Photo',
+  cameraDesc: `Select an option to capture a new photo using your device's camera or select a photo from your device's photo gallery`,
+  gallery: 'Gallery',
+  camera: 'Camera',
+
 };

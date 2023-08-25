@@ -12,37 +12,43 @@ import globalstyle from "../theme/style";
 import strings from "../localization/translation";
 import { GetSearchPost } from "../redux/reducers/ListingApiStateReducer";
 import SectionItem from "../components/SectionItem";
+import SearchInput from "../components/SearchInput";
 
 const itemslimit = 50;
 const SearchPost = (props) => {
     const [searchPosts, setSearchPosts] = useState([]);
-    const [title, setTitle] = useState([]);
+    // const [title, setTitle] = useState('');
     const [refreshing, setRefreshing] = useState(false);
     const [pageno, setPageno] = useState(1);
     const [limit, setLimit] = useState(itemslimit);
     const [loadmore, setLoadmore] = useState(false);
-
-    const prevSearchPostResRef = useRef(props.getSearchPostResponse);
-
-    useEffect(() => {
-        setTitle(props.route.params.title)
-    }, [props.route.params.title])
+    const textInput = useRef();
 
     useEffect(() => {
-        props.GetSearchPost({ pageno, limit, title })
+        console.log('here 1')
+        props.GetSearchPost({ pageno, limit, title: props?.route?.params?.title })
+        setSearchPosts([])
+    }, [props?.route?.params?.title])
+
+    useEffect(() => {
+        console.log('here 2')
+        setSearchPosts([])
+        props.GetSearchPost({ pageno, limit, title: props?.route?.params?.title })
         return () => {
-            console.log('Announcement Unmount');
+            console.log('Search Unmount');
             setSearchPosts([])
         }
     }, [])
 
+    const prevSearchPostResRef = useRef(props.getSearchPostResponse);
     useEffect(() => {
         if (props.getSearchPostResponse !== prevSearchPostResRef.current && props.getSearchPostResponse?.success && props.getSearchPostResponse?.data.length) {
             prevSearchPostResRef.current = props.getSearchPostResponse;
             setSearchPosts(prevState => [...prevState, ...props.getSearchPostResponse?.data])
             console.log('props.getSearchPostResponse => ', props.getSearchPostResponse)
-            if (refreshing) setSearchPosts(props.getSearchPostResponse?.data)
-            else setSearchPosts(prevState => [...prevState, ...props.getSearchPostResponse?.data])
+            setSearchPosts(props.getSearchPostResponse?.data)
+            // if (refreshing) setSearchPosts(props.getSearchPostResponse?.data)
+            // else setSearchPosts(prevState => [...prevState, ...props.getSearchPostResponse?.data])
         }
         setRefreshing(false)
         // setLoadmore(false)
@@ -52,8 +58,7 @@ const SearchPost = (props) => {
         setRefreshing(true)
         setPageno(1);
         // setLimit(itemslimit);
-        props.GetSearchPost({ pageno, limit, title });
-        console.log('_handleLoadMore ');
+        props.GetSearchPost({ pageno, limit, title: textInput.current.value });
     }
 
     const _handleLoadMore = () => {
@@ -62,28 +67,19 @@ const SearchPost = (props) => {
         // props.GetSearchPost({ pageno: pageno + 1, limit });
         if (!loadmore) {
             if (searchPosts.length < props.getSearchPostResponse?.total) {
-                console.log('_handleLoadMore ');
-                props.GetSearchPost({ pageno: pageno + 1, limit, title });
+                props.GetSearchPost({ pageno: pageno + 1, limit, title: textInput.current.value });
                 setLoadmore(false)
             }
         }
     }
 
+    function _onSearch(value) {
+        props.GetSearchPost({ pageno, limit, title: value })
+    }
+
     return <SafeAreaView style={globalstyle.fullview}>
         <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
-        <View style={{ width: width - 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginLeft: 15, marginVertical: 15 }}>
-            <TextInput
-                placeholder={strings.SearchHere}
-                placeholderTextColor={'#777'}
-                style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, height: 42, backgroundColor: '#f7f7f7', width: width - 70, color: colors.black, fontSize: 14, paddingHorizontal: 15, paddingVertical: 10, textAlign: isRTL ? 'right' : 'left' }}
-            />
-            <TouchableOpacity
-                onPress={() => props.navigation.navigate('SearchPost')}
-                style={{ width: 42, height: 42, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.orange }}
-            >
-                <Icon name="search" style={{ fontSize: 18, color: colors.white }} />
-            </TouchableOpacity>
-        </View>
+        <SearchInput onSearch={_onSearch} value={props?.route?.params?.title} />
         {/* <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 15, }}>
 
         </ScrollView> */}
@@ -109,7 +105,7 @@ const SearchPost = (props) => {
             renderItem={({ item, index }) => {
                 return (
                     <SectionItem key={index}
-                        handlePlayer={() => console.log('asdasd')} 
+                        handlePlayer={() => console.log('asdasd')}
                         postdetail={true}
                         item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 100} audio={true} hideicon={true}
                     />
@@ -117,7 +113,7 @@ const SearchPost = (props) => {
                 )
             }}
         />
-    </SafeAreaView>
+    </SafeAreaView >
 }
 
 const setStateToProps = (state) => ({
