@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, TouchableOpacity, Switch } from "react-native";
-import { colorScheme, colors, fontcolor, fonts, height, width } from "../theme";
+import { backgroungImage, colorScheme, colors, fontcolor, fonts, height, width } from "../theme";
 
 import Icon from 'react-native-vector-icons/Feather';
 import globalstyle from "../theme/style";
@@ -29,8 +29,8 @@ const StartFreeWeek = () => {
         console.log('Try 7 Days Free');
     }
 
-    return <SafeAreaView style={{ flex: 1 }}>
-        <ImageBackground style={globalstyle.topicbgimage} resizeMode="cover" source={colorScheme == 'dark' ? require('./../../assets/images/home-bg.jpg') : require('./../../assets/images/auth-bg.jpg')}>
+    return <SafeAreaView style={globalstyle.fullview}>
+        <ImageBackground style={globalstyle.topicbgimage} resizeMode="cover" source={backgroungImage}>
 
             <View style={globalstyle.topicheadingrow}>
                 <Text style={[globalstyle.topicheading]}>Start You Free Week?</Text>

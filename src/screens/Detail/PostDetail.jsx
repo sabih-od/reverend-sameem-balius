@@ -14,7 +14,7 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import SectionTitle from "../../components/SectionTitle";
 import strings from "../../localization/translation";
 import SectionItem from "../../components/SectionItem";
-import { AddPostToHistory, AddToFavouriteList } from "../../redux/reducers/ListingApiStateReducer";
+import { AddPostToHistory, AddToFavouriteList, GetFavouriteIds } from "../../redux/reducers/ListingApiStateReducer";
 import { showToast } from "../../helpers/toastConfig";
 import AudioPlayerInner from "../../components/AudioPlayerInner";
 import TrackPlayer from "react-native-track-player";
@@ -51,6 +51,7 @@ const PostDetail = (props) => {
         // });
         // StatusBar.setTranslucent(true);
         // StatusBar.setBackgroundColor('transparent')
+        props.GetFavouriteIds();
     }, [])
 
     useEffect(() => {
@@ -113,12 +114,27 @@ const PostDetail = (props) => {
         // setLoadmore(false)
     }, [props.getPostByCategoryIdResponse]);
 
+
+    const prevFavouriteIdsResRef = useRef(props.getToFavouriteIdsResponse);
+    useEffect(() => {
+        if (props.getToFavouriteIdsResponse !== prevFavouriteIdsResRef.current && props.getToFavouriteIdsResponse?.success && props.getToFavouriteIdsResponse?.data) {
+            prevFavouriteIdsResRef.current = props.getToFavouriteIdsResponse;
+            console.log('props.getToFavouriteIdsResponse => ', props.getToFavouriteIdsResponse)
+            if (props.getToFavouriteIdsResponse?.data.includes(item.id)){
+                setIsFavourite(true)
+            }else{
+                setIsFavourite(false)
+            }
+        }
+    }, [props.getToFavouriteIdsResponse]);
+
     const prevAddToFavouriteListResRef = useRef(props.addToFavouriteListResponse);
     useEffect(() => {
         if (props.addToFavouriteListResponse !== prevAddToFavouriteListResRef.current && props.addToFavouriteListResponse?.success) {
             prevAddToFavouriteListResRef.current = props.addToFavouriteListResponse;
-            showToast('success', props.addToFavouriteListResponse.message)
-            setIsFavourite(!isFavourite)
+            // showToast('success', props.addToFavouriteListResponse.message)
+            props.GetFavouriteIds()
+            // setIsFavourite(!isFavourite)
         }
         // setRefreshing(false)
     }, [props.addToFavouriteListResponse])
@@ -213,7 +229,7 @@ const PostDetail = (props) => {
                         onPress={() => props.AddToFavouriteList({ id: item.id })}
                     >
                         <Icon name={'heart'} style={{ color: colors.white, fontSize: 17, marginBottom: -4 }} />
-                        {!isFavourite && <View style={{ width: 20, height: 1, backgroundColor: colors.white, transform: [{ rotate: '130deg' }, { translateX: -5 }, { translateY: 4 }] }} />}
+                        {isFavourite && <View style={{ width: 20, height: 1, backgroundColor: colors.white, transform: [{ rotate: '130deg' }, { translateX: -5 }, { translateY: 4 }] }} />}
                     </TouchableOpacity>
                 </ImageBackground>}
                 {/* <FlatList
@@ -259,7 +275,7 @@ const PostDetail = (props) => {
                             onPress={() => props.AddToFavouriteList({ id: item.id })}
                         >
                             <Icon name={'heart'} style={{ color: colors.white, fontSize: 17, marginBottom: -4 }} />
-                            {!isFavourite && <View style={{ width: 20, height: 1, backgroundColor: colors.white, transform: [{ rotate: '130deg' }, { translateX: -5 }, { translateY: 4 }] }} />}
+                            {isFavourite && <View style={{ width: 20, height: 1, backgroundColor: colors.white, transform: [{ rotate: '130deg' }, { translateX: -5 }, { translateY: 4 }] }} />}
                         </TouchableOpacity>}
 
                     </View>
@@ -360,12 +376,14 @@ const setStateToProps = (state) => ({
     // getSermonDetailResponse: state.detailpagestate.getSermonDetailResponse,
     getPostByCategoryIdResponse: state.listingstate.getPostByCategoryIdResponse,
     addToFavouriteListResponse: state.listingstate.addToFavouriteListResponse,
+    getToFavouriteIdsResponse: state.listingstate.getToFavouriteIdsResponse,
     userInfo: state.appstate.userInfo,
 })
 const mapDispatchToProps = (dispatch) => {
     return {
         AddToFavouriteList: bindActionCreators(AddToFavouriteList, dispatch),
         AddPostToHistory: bindActionCreators(AddPostToHistory, dispatch),
+        GetFavouriteIds: bindActionCreators(GetFavouriteIds, dispatch)
     }
 }
 export default connect(setStateToProps, mapDispatchToProps)(PostDetail);

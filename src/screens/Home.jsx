@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Platform, Button, Image } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Platform, Button, Image, useColorScheme } from "react-native";
 import { IOS, backgroungImage, colorScheme, colors, fonts, height, isRTL, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -26,6 +26,8 @@ import LinearGradient from "react-native-linear-gradient";
 const Home = (props) => {
 
     const [imagePath, setImagePath] = useState(null)
+    // const colorScheme = useColorScheme();
+
 
     const filename = Math.round(Math.random() * 10000000)
     const path = `${RNFS.DocumentDirectoryPath}/${filename}`;
@@ -110,6 +112,7 @@ const Home = (props) => {
         <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
             <ScrollView style={styles.homescollview} showsVerticalScrollIndicator={false}>
 
+                {/* <Text>{colorScheme}</Text> */}
                 {/* {imagePath && <Image source={{ uri: Platform.OS === 'android' ? 'file://' + imagePath : '' + imagePath }} style={{ width: width, height: height }} />}
                 <Button title="Download Audio" onPress={downloadimage} /> */}
 
@@ -197,7 +200,15 @@ const Home = (props) => {
                         <ImageBackground source={require('./../../assets/images/meditation.jpg')} style={{ height: width / 1.5, width: width / 2.4, borderRadius: 15, overflow: 'hidden', alignItems: 'center', justifyContent: 'flex-end' }}>
                             <View style={{ position: 'relative', zIndex: 1, paddingVertical: 15, paddingHorizontal: 15 }}>
                                 <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: colors.white, fontSize: 18 }}>{item?.name}</Text>
-                                <Text style={{ fontFamily: isRTL ? fonts.arabic : fonts.primary, textAlign: 'center', color: '#ddd', fontSize: 12 }} numberOfLines={2}>{'Meditation on the Mysteries of Jesus life, death and Resurrection'}</Text>
+                                <Text style={{ fontFamily: isRTL ? fonts.arabic : fonts.primary, textAlign: 'center', color: '#ddd', fontSize: 12 }} numberOfLines={2}>
+                                    {item?.name == 'Mass' && 'Access services and sacraments, fostering spiritual connection regardless of location'}
+                                    {item?.name == 'Homily' && 'Engage with insightful sermons and reflections from clergy, enhancing your understanding of scripture'}
+                                    {item?.name == 'Lectures' && 'Explore educational talks and discussions on theology, history, and Christian principles'}
+                                    {item?.name == 'Meditation' && 'Experience guided contemplative sessions that help you connect with your faith on a deeper level'}
+                                    {item?.name == 'News' && 'Stay updated with Christian world events, religious news, and community activities'}
+                                    {item?.name == 'Library' && 'Access a diverse collection of religious texts, books, and resources for spiritual growth'}
+                                    {item?.name == 'Courses' && 'Enroll in structured courses on Christianity, Bible studies, and personal spiritual development'}
+                                </Text>
                             </View>
                             <LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)', colors.black]} style={{ height: 150, width: '100%', position: 'absolute', left: 0, bottom: 0, zIndex: 0 }} />
                         </ImageBackground>
@@ -264,7 +275,7 @@ const Home = (props) => {
                     <Text style={{ color: colors.white, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryBold, fontSize: 17, marginBottom: 20, textAlign: 'center' }}>{strings.unlockContent}</Text>
                     <TouchableOpacity
                         activeOpacity={0.8}
-                        onPress={() => { console.log('$0.00'); }}
+                        onPress={() => { props.navigation.navigate('StartFreeWeek'); }}
                         style={{ backgroundColor: colors.orange, paddingVertical: 10, borderRadius: 40, width: 180 }}
                     >
                         <Text

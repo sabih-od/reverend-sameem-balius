@@ -1,4 +1,4 @@
-import { LOGOUT_USER, SET_IS_LOGIN, SET_USER_INFO, UPDATE_CURRENT_SCREEN, UPDATE_FCM_TOKEN, UPDATE_NOTIFICATION_BADGE, UPDATE_MESSAGE_BADGE, CHANGE_LANGUAGE, SET_DRAWER_MENU } from "../actiontypes";
+import { LOGOUT_USER, SET_IS_LOGIN, SET_USER_INFO, UPDATE_CURRENT_SCREEN, UPDATE_FCM_TOKEN, UPDATE_NOTIFICATION_BADGE, UPDATE_MESSAGE_BADGE, CHANGE_LANGUAGE, SET_DRAWER_MENU, UPDATE_DOWNLOADS } from "../actiontypes";
 
 export const initialState = {
     isLogin: false,
@@ -10,6 +10,7 @@ export const initialState = {
     accessToken: '',
     isLoading: false,
     language: 'en',
+    downloads: []
 }
 
 export function SetIsLogin(data) {
@@ -60,6 +61,12 @@ export function SetLanguage(data) {
         payload: data
     }
 }
+export function UpdateDownlaods(data) {
+    return {
+        type: UPDATE_DOWNLOADS,
+        payload: data
+    }
+}
 
 
 const AppStateReducer = (state = initialState, action) => {
@@ -98,6 +105,11 @@ const AppStateReducer = (state = initialState, action) => {
             return {
                 ...state,
                 language: action.payload
+            }
+        case UPDATE_DOWNLOADS:
+            return {
+                ...state,
+                downloads: action.payload
             }
         case LOGOUT_USER:
             return { ...initialState, language: state.language } // initialState

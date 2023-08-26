@@ -16,7 +16,7 @@ const SectionItem = (props) => {
             >
                 {/* require('./../../assets/images/sermons-01.jpeg') */}
                 <ImageBackground
-                    source={{ uri: item?.image }}
+                    source={{ uri: props?.downloads ? item?.artwork?.uri : item?.image }}
                     defaultSource={require('./../../assets/images/speaker-placeholder.png')}
                     style={itemstyle.audoimage}
                 >
@@ -31,7 +31,7 @@ const SectionItem = (props) => {
                 <View style={{ width: width - 30 }}>
                     <Text style={itemstyle.date}>{moment(parseInt(1691195928528)).format("DD MMM, YYYY")}</Text>
                     <Text style={itemstyle.title}>{item?.title}</Text>
-                    <Text style={itemstyle.desc} numberOfLines={1}>{item?.description}</Text>
+                    <Text style={itemstyle.desc} numberOfLines={1}>{props?.downloads ? item?.artist : item?.description}</Text>
                 </View>
                 {props?.remove && <TouchableOpacity
                     onPress={() => props.handleRemoveFromFav(item?.id)}

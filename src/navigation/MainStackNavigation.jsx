@@ -472,9 +472,9 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 component={AudioPlayer}
                 options={{
                     // headerShown: false,
-                    headerTitle: '',
+                    headerTitle: strings.NowPlaying,
                     headerTitleAlign: 'center',
-                    headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none' }],
+                    headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none', fontSize: 14 }],
                     headerTransparent: true,
                     headerStyle: {
                         elevation: 0,

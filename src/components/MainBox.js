@@ -60,7 +60,7 @@ const MainBox = ({ item }) => {
                     onPress={async () => {
                         const reset = await TrackPlayer.reset();
                         let queue = await TrackPlayer.getQueue();
-                        // console.log('queue => ', queue)
+                        console.log('queue => ', queue)
                         if (queue.length == 0) {
                             let added = await TrackAddItem(
                                 {

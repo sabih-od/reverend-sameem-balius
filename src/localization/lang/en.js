@@ -77,4 +77,10 @@ export default {
   gallery: 'Gallery',
   camera: 'Camera',
 
+  NowPlaying: 'Now Playing',
+
+  NoDownloads: 'No downloads are available',
+  NoHistory: 'No history available',
+  NoFavourites: 'No favourites are available',
+
 };

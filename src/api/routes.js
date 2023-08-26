@@ -29,6 +29,7 @@ export const GetFeaturedListAPI = '/posts/get/featured-posts';
 export const GetHistoryListAPI = 'posts/get/post-history';
 export const AddPostToHistoryAPI = '/user-post-histories';
 export const GetDailiesListAPI = '/quotations?page=1&limit=1';
+export const GetFavouriteIdsAPI = '/posts/favourites/post-ids';
 
 
 export const GetPostsAPI = '/posts';

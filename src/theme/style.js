@@ -96,7 +96,10 @@ const globalstyle = StyleSheet.create({
   topicdetailbox: { height: width / 2, width: width / 2.25, borderRadius: 10, overflow: 'hidden', alignItems: 'center', justifyContent: 'center', position: 'relative', marginBottom: 15, },
   topiccheckicon: { alignItems: 'center', justifyContent: 'center', width: 25, height: 25, backgroundColor: colors.lightblue, borderRadius: 20, position: 'absolute', top: 10, right: 10 },
   topiccontinuebtn: { backgroundColor: colors.orange, padding: 13, borderRadius: 40, marginVertical: 10 },
-  topiccontinuebtntext: { textTransform: 'uppercase', fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryBold, color: colors.white, textAlign: 'center', fontSize: 16 }
+  topiccontinuebtntext: { textTransform: 'uppercase', fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryBold, color: colors.white, textAlign: 'center', fontSize: 16 },
+
+  noproductfound: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary }
+
 });
 
 export default globalstyle;

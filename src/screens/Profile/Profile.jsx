@@ -151,6 +151,13 @@ const Profile = props => {
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.8}
+                onPress={() => props.navigation.navigate('Downloads')}
+                style={styles.edititem}>
+                <Icon name="download-cloud" style={styles.editicon} />
+                <Text style={styles.edititemstext}>{strings.Downloads}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
                 onPress={() => setShowConfirmationModal(true)}
                 style={[styles.edititem, { borderBottomColor: 'transparent' }]}>
                 <Icon name="trash" style={styles.editicon} />

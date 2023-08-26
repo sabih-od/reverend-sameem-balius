@@ -1,6 +1,6 @@
 import apiAction from '../../api/apiAction';
-import { AboutAPI, AddPostToHistoryAPI, AddToFavouriteListAPI, ContactAPI, GetAnnouncementAPI, GetBooksAPI, GetCategoriesAPI, GetDailiesListAPI, GetEventsAPI, GetFavouriteListAPI, GetFeaturedListAPI, GetHistoryListAPI, GetHomeBannerAPI, GetMenuAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostByCategoryIdAPI, GetPostByCategoryIdScreenWiseAPI, GetPostWithOutTypeByCategoryIdAPI, GetPostsAPI, GetQuestionsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, SendAskAQuestionAPI, } from '../../api/routes';
-import { ABOUT_API_SUCCESS, ADD_POST_TO_HISTORY_SUCCESS, ADD_TO_FAVOURITE_LIST_SUCCESS, CLEAR_POST_LIST_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_ASK_A_QUESTION, GET_BOOKS_API_SUCCESS, GET_DAILIES_LIST_SUCCESS, GET_EVENTS_API_SUCCESS, GET_FAVOURITE_LIST_SUCCESS, GET_FEATURED_LIST_SUCCESS, GET_HISTORY_LIST_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_POST_BY_CATEGORY_ID_SUCCESS, GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SEARCH_POST_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SEND_ASK_A_QUESTION, SET_DRAWER_MENU, SET_ERROR, } from '../actiontypes';
+import { AboutAPI, AddPostToHistoryAPI, AddToFavouriteListAPI, ContactAPI, GetAnnouncementAPI, GetBooksAPI, GetCategoriesAPI, GetDailiesListAPI, GetEventsAPI, GetFavouriteIdsAPI, GetFavouriteListAPI, GetFeaturedListAPI, GetHistoryListAPI, GetHomeBannerAPI, GetMenuAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostByCategoryIdAPI, GetPostByCategoryIdScreenWiseAPI, GetPostWithOutTypeByCategoryIdAPI, GetPostsAPI, GetQuestionsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, SendAskAQuestionAPI, } from '../../api/routes';
+import { ABOUT_API_SUCCESS, ADD_POST_TO_HISTORY_SUCCESS, ADD_TO_FAVOURITE_LIST_SUCCESS, CLEAR_POST_LIST_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_ASK_A_QUESTION, GET_BOOKS_API_SUCCESS, GET_DAILIES_LIST_SUCCESS, GET_EVENTS_API_SUCCESS, GET_FAVOURITE_IDS_SUCCESS, GET_FAVOURITE_LIST_SUCCESS, GET_FEATURED_LIST_SUCCESS, GET_HISTORY_LIST_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_POST_BY_CATEGORY_ID_SUCCESS, GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SEARCH_POST_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SEND_ASK_A_QUESTION, SET_DRAWER_MENU, SET_ERROR, } from '../actiontypes';
 
 const initialState = {
   getQuestionsResponse: {},
@@ -23,6 +23,7 @@ const initialState = {
   getPostWoTypeByCategoryIdResponse: {},
   addToFavouriteListResponse: {},
   getToFavouriteListResponse: {},
+  getToFavouriteIdsResponse: [],
   getToFeaturedListResponse: {},
   addPostToHistoryResponse: {},
   getHistoryListResponse: {},
@@ -347,6 +348,20 @@ export function GetFavouriteList(params) {
   });
 }
 
+export function GetFavouriteIds(params) {
+  return apiAction({
+    url: GetFavouriteIdsAPI,
+    method: 'GET',
+    // data: params,
+    onSuccess: response => {
+      return { type: GET_FAVOURITE_IDS_SUCCESS, payload: response };
+    },
+    onFailure: response => {
+      return { type: SET_ERROR, payload: response };
+    },
+  });
+}
+
 export function AddToFavouriteList(params) {
   return apiAction({
     url: AddToFavouriteListAPI + '/' + params.id,
@@ -482,6 +497,10 @@ const ListingApiStateReducer = (state = initialState, action) => {
     case GET_FAVOURITE_LIST_SUCCESS:
       return Object.assign({}, state, {
         getToFavouriteListResponse: action.payload,
+      });
+    case GET_FAVOURITE_IDS_SUCCESS:
+      return Object.assign({}, state, {
+        getToFavouriteIdsResponse: action.payload,
       });
     case GET_FEATURED_LIST_SUCCESS:
       return Object.assign({}, state, {

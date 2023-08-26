@@ -9,6 +9,7 @@ import { bindActionCreators } from "redux";
 import { AddToFavouriteList, GetFavouriteList } from "../redux/reducers/ListingApiStateReducer";
 import { useEffect, useRef, useState } from "react";
 import SectionItem from "../components/SectionItem";
+import strings from "../localization/translation";
 
 const IMAGE_WIDTH = width / 2;
 
@@ -47,7 +48,26 @@ const FavouriteList = (props) => {
 
     return <SafeAreaView style={globalstyle.fullview}>
         <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
-        <ScrollView style={styles.homescollview}>
+        <FlatList
+            data={favouriteList}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={item => String(item?.id)}
+            contentContainerStyle={{ paddingVertical: 15, paddingHorizontal: 15 }}
+            ListEmptyComponent={() => <View style={{ height: height - 150, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={globalstyle.noproductfound}>{strings?.NoFavourites}</Text>
+            </View>}
+            renderItem={({ item, index }) => <SectionItem key={index}
+                handlePlayer={() => console.log('asdasd')}
+                item={item} navigation={props.navigation}
+                width={isIPad ? (width / 2) - 22 : (width - 135)}
+                audio={true}
+                hideicon={true}
+                postdetail={true}
+                handleRemoveFromFav={_handleRemoveFromFav}
+                remove={true}
+            />}
+        />
+        {/* <ScrollView style={styles.homescollview}>
             <View>
                 {favouriteList.map((item, index) => {
                     return <SectionItem key={index}
@@ -62,7 +82,7 @@ const FavouriteList = (props) => {
                     />
                 })}
             </View>
-        </ScrollView>
+        </ScrollView> */}
     </SafeAreaView>
 }
 

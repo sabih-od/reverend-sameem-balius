@@ -9,6 +9,7 @@ const { width, height } = Dimensions.get('window')
 // const urdufont = I18nManager.isRTL ? {fontFamily: fonts.NafeesNaskh} : null;
 const flip = I18nManager.isRTL ? { transform: [{ scaleX: -1 }] } : null;
 const colorScheme = Appearance.getColorScheme();
+console.log('colorScheme => ', colorScheme)
 
 const isDarkMode = colorScheme == 'dark';
 const fontcolor = isDarkMode ? colors.white : colors.black;
