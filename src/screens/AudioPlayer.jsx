@@ -86,6 +86,7 @@ const AudioPlayer = (props) => {
     const filename = Math.round(Math.random() * 10000000)
     const path = `${RNFS.DocumentDirectoryPath}/${filename}`;
     function downloadAudio(url) {
+        console.log('url => ', url)
         ReactNativeBlobUtil.config({
             fileCache: true,
             path: path,

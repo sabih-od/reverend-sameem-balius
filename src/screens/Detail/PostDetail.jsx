@@ -19,6 +19,7 @@ import { showToast } from "../../helpers/toastConfig";
 import AudioPlayerInner from "../../components/AudioPlayerInner";
 import TrackPlayer from "react-native-track-player";
 import { TrackAddItem } from "../../helpers/track-player";
+import { ImageGallery } from '@georstat/react-native-image-gallery';
 
 const PostDetail = (props) => {
     console.log('props.route.params.item => ', props.route.params.item);
@@ -120,9 +121,9 @@ const PostDetail = (props) => {
         if (props.getToFavouriteIdsResponse !== prevFavouriteIdsResRef.current && props.getToFavouriteIdsResponse?.success && props.getToFavouriteIdsResponse?.data) {
             prevFavouriteIdsResRef.current = props.getToFavouriteIdsResponse;
             console.log('props.getToFavouriteIdsResponse => ', props.getToFavouriteIdsResponse)
-            if (props.getToFavouriteIdsResponse?.data.includes(item.id)){
+            if (props.getToFavouriteIdsResponse?.data.includes(item.id)) {
                 setIsFavourite(true)
-            }else{
+            } else {
                 setIsFavourite(false)
             }
         }
@@ -199,6 +200,17 @@ const PostDetail = (props) => {
         // });
     }
     const [showPlayer, setShowPlayer] = useState(false);
+
+    const [isOpen, setIsOpen] = useState(false);
+    const openGallery = (index) => {
+        console.log('index => ', index)
+        setInitialIndex(index);
+        setIsOpen(true)
+    };
+    const closeGallery = () => setIsOpen(false);
+    const [initialIndex, setInitialIndex] = useState(1)
+    console.log('initialIndex => ', initialIndex)
+
     return (
         <SafeAreaView style={globalstyle.fullview}>
             <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
@@ -302,16 +314,23 @@ const PostDetail = (props) => {
                         ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
                         data={item?.images}
                         keyExtractor={(imageitem, index) => String(index)}
-                        renderItem={(imageitem, index) => {
-                            console.log('imageitem => ', imageitem)
-                            return (<View style={{ width: width / 2.3, height: width / 2, borderRadius: 10, overflow: 'hidden', }}>
+                        renderItem={({ imageitem, index }) => {
+                            // console.log('imageitem => ', imageitem)
+                            return (<TouchableOpacity activeOpacity={0.8} onPress={() => openGallery(index)} style={{ width: width / 2.3, height: width / 2, borderRadius: 10, overflow: 'hidden', }}>
                                 <Image
                                     source={{ uri: imageitem?.item?.url }}
                                     style={{ width: '100%', height: '100%', }}
                                     defaultSource={require('./../../../assets/images/home-slider-placeholder.png')}
                                 />
-                            </View>)
+                            </TouchableOpacity>)
                         }}
+                    />
+                    <ImageGallery
+                        close={closeGallery}
+                        isOpen={isOpen}
+                        initialIndex={initialIndex}
+                        thumbColor={colors.orange}
+                        images={item?.images}
                     />
 
                     <View style={{ height: 30 }} />

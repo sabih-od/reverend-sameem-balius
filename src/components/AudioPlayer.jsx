@@ -69,7 +69,7 @@ const AudioPlayer = (props) => {
 
 
     return (
-        <View style={{ position: 'absolute', bottom: 0, left: 0, width: width }}>
+        <View style={{ position: 'absolute', bottom: 0, left: 0, width: width, zIndex: 112 }}>
             <Slider
                 style={{ width: width, marginBottom: -18, zIndex: 1 }}
                 minimumValue={0}

@@ -24,7 +24,7 @@ const SectionItem = (props) => {
                     {!props.hideicon && <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }} />}
                     {/* } */}
                     {!props.hideicon && <View style={[itemstyle?.iconbg, { width: 30, height: 30 }]}>
-                        {props?.audio && <Icon name="mic" style={[itemstyle?.icon, { fontSize: 15 }]} />}
+                        {props?.audio && <Icon name="headphones" style={[itemstyle?.icon, { fontSize: 15 }]} />}
                     </View>}
 
                 </ImageBackground>
@@ -63,6 +63,10 @@ const SectionItem = (props) => {
                     defaultSource={require('./../../assets/images/home-slider-placeholder.png')}
                     style={[itemstyle.otherimage, { height: width / 1.5 }]}
                 >
+                    {!props.hideicon && <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }} />}
+                    {!props.hideicon && <View style={[itemstyle?.iconbg, { width: 40, height: 40 }]}>
+                        <Icon name="headphones" style={[itemstyle?.icon, { fontSize: 18 }]} />
+                    </View>}
                     {(props?.video || props?.document || props?.audio || props?.image) && <>
                         {/* {item?.image && */}
                         <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }} />
@@ -70,7 +74,7 @@ const SectionItem = (props) => {
                         <View style={itemstyle?.iconbg}>
                             {props?.video && <Icon name="play" style={[itemstyle?.icon, isRTL ? { marginLeft: -4 } : { marginRight: -4 }]} />}
                             {props?.document && <Icon name="file-text" style={itemstyle?.icon} />}
-                            {props?.audio && <Icon name="mic" style={itemstyle?.icon} />}
+                            {props?.audio && <Icon name="headphones" style={itemstyle?.icon} />}
                             {props?.image && <Icon name="image" style={itemstyle?.icon} />}
                         </View>
                     </>}

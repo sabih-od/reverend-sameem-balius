@@ -35,7 +35,7 @@ const globalstyle = StyleSheet.create({
   showhideicon: { color: '#999' },
 
   draweritemtext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.white, fontSize: isIPad ? 19 : 14 },
-  draweritemrow: { flexDirection: 'row', paddingHorizontal: 15, paddingVertical: isRTL ? 13 : 12, borderBottomWidth: 1, borderBottomColor: '#ffffff09', borderLeftWidth: 4 },
+  draweritemrow: { flexDirection: 'row', paddingHorizontal: 15, paddingVertical: isRTL ? 13 : 12, borderBottomWidth: 1, borderBottomColor: isDarkMode ? '#ffffff09' : 'rgba(0,0,0,0.1)', borderLeftWidth: 4 },
 
   footerloadmore: { display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 7 },
   footerloadingtext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, marginLeft: 8, },

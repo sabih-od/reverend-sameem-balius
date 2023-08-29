@@ -71,7 +71,7 @@ export default {
   confirm: 'Confirm',
   editProfile: 'Edit Profile',
   updateProfile: 'Update Profile',
-  
+
   cameraTitle: 'Choose Photo',
   cameraDesc: `Select an option to capture a new photo using your device's camera or select a photo from your device's photo gallery`,
   gallery: 'Gallery',
@@ -82,5 +82,20 @@ export default {
   NoDownloads: 'No downloads are available',
   NoHistory: 'No history available',
   NoFavourites: 'No favourites are available',
+
+  StartFreeWeek: 'Start Free Week',
+  ProgramReady: 'Your program is ready.',
+  ProgramCreated: 'Program Created',
+  FreeAccess: 'Today - Instant Free Access',
+  Enjoy: 'Enjoy 1,000+ meditation, music, stories and more',
+  TrailReminder: 'Day 5 - Trail Reminder',
+  TrailReminderDesc: `We'll send a notification to mind when your trail will end.`,
+  EndOfTrail: 'Day 7 - End Of Trail',
+  SubscriptionBegins: 'Your subscription begins now. You can easily cancel before this date',
+  RemindMe: 'Remind me when the trial ends',
+  StoreReviews: 'Store Reviews',
+  StartMyFreeWeek: 'Start My Free Week',
+  DaysForFree: 'Try 7 days for free, then 100$/Month, billed annually as 1000$/Year.\nCancel anytime',
+
 
 };

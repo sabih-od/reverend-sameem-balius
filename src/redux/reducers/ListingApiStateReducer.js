@@ -1,6 +1,6 @@
 import apiAction from '../../api/apiAction';
 import { AboutAPI, AddPostToHistoryAPI, AddToFavouriteListAPI, ContactAPI, GetAnnouncementAPI, GetBooksAPI, GetCategoriesAPI, GetDailiesListAPI, GetEventsAPI, GetFavouriteIdsAPI, GetFavouriteListAPI, GetFeaturedListAPI, GetHistoryListAPI, GetHomeBannerAPI, GetMenuAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostByCategoryIdAPI, GetPostByCategoryIdScreenWiseAPI, GetPostWithOutTypeByCategoryIdAPI, GetPostsAPI, GetQuestionsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, SendAskAQuestionAPI, } from '../../api/routes';
-import { ABOUT_API_SUCCESS, ADD_POST_TO_HISTORY_SUCCESS, ADD_TO_FAVOURITE_LIST_SUCCESS, CLEAR_POST_LIST_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_ASK_A_QUESTION, GET_BOOKS_API_SUCCESS, GET_DAILIES_LIST_SUCCESS, GET_EVENTS_API_SUCCESS, GET_FAVOURITE_IDS_SUCCESS, GET_FAVOURITE_LIST_SUCCESS, GET_FEATURED_LIST_SUCCESS, GET_HISTORY_LIST_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_POST_BY_CATEGORY_ID_SUCCESS, GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SEARCH_POST_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SEND_ASK_A_QUESTION, SET_DRAWER_MENU, SET_ERROR, } from '../actiontypes';
+import { ABOUT_API_SUCCESS, ADD_POST_TO_HISTORY_SUCCESS, ADD_TO_FAVOURITE_LIST_SUCCESS, CLEAR_POST_LIST_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_ASK_A_QUESTION, GET_BOOKS_API_SUCCESS, GET_CDS_API_SUCCESS, GET_DAILIES_LIST_SUCCESS, GET_EVENTS_API_SUCCESS, GET_FAVOURITE_IDS_SUCCESS, GET_FAVOURITE_LIST_SUCCESS, GET_FEATURED_LIST_SUCCESS, GET_HISTORY_LIST_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_POST_BY_CATEGORY_ID_SUCCESS, GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SEARCH_POST_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SEND_ASK_A_QUESTION, SET_DRAWER_MENU, SET_ERROR, } from '../actiontypes';
 
 const initialState = {
   getQuestionsResponse: {},
@@ -63,6 +63,24 @@ export function GetPostsList(params) {
     },
   });
 }
+
+
+export function GetCDsList(params) {
+  console.log('params => ', params);
+  console.log('GetCDsList => ', GetPostsAPI + '?page=' + params.page + '&limit=' + params.limit + '&category_id=' + params.category_id)
+  return apiAction({
+    url: GetPostsAPI + '?page=' + params.page + '&limit=' + params.limit + '&category_id=' + params.category_id,
+    method: 'GET',
+    // data: params,
+    onSuccess: response => {
+      return { type: GET_CDS_API_SUCCESS, payload: response };
+    },
+    onFailure: response => {
+      return { type: SET_ERROR, payload: response };
+    },
+  });
+}
+
 export function ClearPostList() {
   return { type: CLEAR_POST_LIST_SUCCESS, payload: {} };
 }
@@ -461,6 +479,10 @@ const ListingApiStateReducer = (state = initialState, action) => {
     case GET_POSTS_API_SUCCESS:
       return Object.assign({}, state, {
         getPostsListResponse: action.payload,
+      });
+    case GET_CDS_API_SUCCESS:
+      return Object.assign({}, state, {
+        getCDsListResponse: action.payload,
       });
     case CLEAR_POST_LIST_SUCCESS:
       return Object.assign({}, state, {

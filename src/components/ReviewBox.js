@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, ImageBackground, StyleSheet } from "react-native";
-import { colors, fonts, height, width } from "../theme";
+import { colors, fonts, height, isRTL, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -33,7 +33,7 @@ export default ReviewBox;
 
 const styles = StyleSheet.create({
     reviewbox: {flexDirection: 'row', backgroundColor: colors.darkblue, padding: 13,borderRadius: 10},
-    reviewtext: {fontFamily: fonts.primary, fontSize: 12, color: colors.white},
+    reviewtext: {fontFamily: isRTL ? fonts.arabicBold : fonts.primary, fontSize: 12, color: colors.white, textAlign: 'left'},
     imageroundbox: {width: 50, height: 50, resizeMode: 'cover', borderRadius: 40, overflow: 'hidden', borderWidth: 2, borderColor: colors.white, marginRight: 10},
     iconrating: {color: colors.yellow, marginRight: 3},
     ratingrow: {flexDirection: 'row', marginTop: 7},

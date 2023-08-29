@@ -56,7 +56,7 @@ const MainBox = ({ item }) => {
         <View>
             <MainTopBox item={item} />
             <View style={styles.topboxactionbar}>
-                <TouchableOpacity activeOpacity={0.8} style={styles.playicon}
+                {item?.audio && <TouchableOpacity activeOpacity={0.8} style={styles.playicon}
                     onPress={async () => {
                         const reset = await TrackPlayer.reset();
                         let queue = await TrackPlayer.getQueue();
@@ -83,7 +83,7 @@ const MainBox = ({ item }) => {
                         </View>
                     </View>
                     <Text style={styles.playetext}>{strings.play}</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
                 <View style={styles.heartaction}>
                     <ActionIcons name="heart" route="FavouriteList" />
                     {/* <ActionIcons name="download" route="Downloads" /> */}

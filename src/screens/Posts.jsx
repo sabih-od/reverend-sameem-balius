@@ -100,7 +100,13 @@ const Posts = (props) => {
             data={postList}
             keyExtractor={(item, index) => String(index)}
             renderItem={({ item, index }) => {
-                return (<SectionItem key={index} item={item} width={isIPad ? (width / 3) - 20 : (width / 2) - 22} navigation={props.navigation} />)
+                return (<SectionItem
+                    key={index}
+                    item={item}
+                    width={isIPad ? (width / 3) - 20 : (width / 2) - 22}
+                    navigation={props.navigation}
+                    hideicon={category_id == 10 ? false : true}
+                />)
             }}
         />
     </SafeAreaView>

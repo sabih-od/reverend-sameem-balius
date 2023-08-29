@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Platform, Button, Image, useColorScheme } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Platform, Button, Image, useColorScheme, RefreshControl } from "react-native";
 import { IOS, backgroungImage, colorScheme, colors, fonts, height, isRTL, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -107,10 +107,38 @@ const Home = (props) => {
         }
     }, [props.drawerMenu])
 
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+
+        props.GetPostWithOutTypeByCategoryId({ id: 17 });
+        props.GetFeaturedList();
+        props.GetDailiesList();
+
+        // props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
+        // // props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
+        // props.GetPostsList({ pageno: 1, limit: PAGINATION_LIMIT });
+        // props.GetSermonsList({ pageno: 1, limit: PAGINATION_LIMIT });
+        // props.GetOurSpeakerList({ pageno: 1, limit: PAGINATION_LIMIT });
+        // props.GetOurStaffList({ pageno: 1, limit: PAGINATION_LIMIT });
+        // props.GetHomeBanner();
+
+        // props.GetSermonsDetailApiCall(item.id)
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 2000);
+    }, []);
+
     return <SafeAreaView style={globalstyle.fullview}>
         {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
         <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
-            <ScrollView style={styles.homescollview} showsVerticalScrollIndicator={false}>
+            <ScrollView
+                style={styles.homescollview}
+                showsVerticalScrollIndicator={false}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+            >
 
                 {/* <Text>{colorScheme}</Text> */}
                 {/* {imagePath && <Image source={{ uri: Platform.OS === 'android' ? 'file://' + imagePath : '' + imagePath }} style={{ width: width, height: height }} />}
