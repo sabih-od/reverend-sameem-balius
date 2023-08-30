@@ -26,8 +26,8 @@ const CameraModal = ({ visible, handleCamera, setVisible }) => {
                     <Text style={globalstyle.modaltitle}>{strings.cameraTitle}</Text>
                     <Text style={globalstyle.modaldesc}>{strings.cameraDesc}</Text>
                     <View style={globalstyle.modalbtnsrow}>
-                        <TouchableOpacity onPress={() => { handleCamera(true) }} activeOpacity={0.6} style={[globalstyle.modalbtn, { borderRightColor: '#ddd', borderRightWidth: 1, }]}><Icon name="camera" size={17} color={colors.green} style={{ marginRight: 10 }} /><Text style={globalstyle.modalbtntext}>{strings.camera}</Text></TouchableOpacity>
-                        <TouchableOpacity onPress={() => { handleCamera(false) }} activeOpacity={0.6} style={globalstyle.modalbtn}><Icon name="image" size={17} color={colors.green} style={{ marginRight: 10 }} /><Text style={globalstyle.modalbtntext}>{strings.gallery}</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => { handleCamera(true) }} activeOpacity={0.6} style={[globalstyle.modalbtn, { borderRightColor: '#ddd', borderRightWidth: 1, }]}><Icon name="camera" size={17} color={colors.orange} style={{ marginRight: 10 }} /><Text style={globalstyle.modalbtntext}>{strings.camera}</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => { handleCamera(false) }} activeOpacity={0.6} style={globalstyle.modalbtn}><Icon name="image" size={17} color={colors.orange} style={{ marginRight: 10 }} /><Text style={globalstyle.modalbtntext}>{strings.gallery}</Text></TouchableOpacity>
                     </View>
                 </View>
             </View>

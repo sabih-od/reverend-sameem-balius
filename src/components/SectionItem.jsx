@@ -4,18 +4,44 @@ import Icon from 'react-native-vector-icons/Feather';
 import { colors, fonts, isDarkMode, isRTL } from '../theme';
 import strings from '../localization/translation';
 import itemobject from './../data/itemobject';
+import { TrackAddItem, TrackPlay } from '../helpers/track-player';
+import TrackPlayer from 'react-native-track-player';
 
 const SectionItem = (props) => {
     const { item, width, navigation, handlePlayer } = props;
+    console.log('item => ', item)
     if (props?.audio) {
         return (
             <TouchableOpacity
-                onPress={() => props.postdetail ? navigation.navigate('PostDetail', { item: item }) : handlePlayer(true, item)}
+                onPress={async () => {
+                    if (props.postdetail) {
+                        navigation.navigate('PostDetail', { item: item })
+                    } else if (props?.downloads) {
+                        // handlePlayer(true, item)
+                        const reset = await TrackPlayer.reset();
+                        let queue = await TrackPlayer.getQueue();
+                        console.log('queue => ', queue)
+                        if (queue.length == 0) {
+                            let added = await TrackAddItem(
+                                {
+                                    id: item?.id,
+                                    url: item?.url,
+                                    title: moment(parseInt(item?.created_at)).format("ddd DD MMM, ") + strings.homeTopTitle,
+                                    artist: item?.artist,
+                                    artwork: require('./../../assets/images/meditation.jpg'),
+                                    created_at: item?.created_at,
+                                }
+                            );
+                            await TrackPlay();
+                        }
+                        navigation.navigate('AudioPlayer')
+                    } else { handlePlayer(true, item) }
+                }}
                 activeOpacity={0.9}
-                style={[itemstyle.audioview, { width: width - 30 }]}
+                style={[itemstyle.audioview, { width: width - 30, }]}
             >
                 {/* require('./../../assets/images/sermons-01.jpeg') */}
-                <ImageBackground
+                < ImageBackground
                     source={{ uri: props?.downloads ? item?.artwork?.uri : item?.image }}
                     defaultSource={require('./../../assets/images/speaker-placeholder.png')}
                     style={itemstyle.audoimage}
@@ -23,25 +49,29 @@ const SectionItem = (props) => {
                     {/* {item?.image && */}
                     {!props.hideicon && <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }} />}
                     {/* } */}
-                    {!props.hideicon && <View style={[itemstyle?.iconbg, { width: 30, height: 30 }]}>
-                        {props?.audio && <Icon name="headphones" style={[itemstyle?.icon, { fontSize: 15 }]} />}
-                    </View>}
+                    {
+                        !props.hideicon && <View style={[itemstyle?.iconbg, { width: 30, height: 30 }]}>
+                            {props?.audio && <Icon name="headphones" style={[itemstyle?.icon, { fontSize: 15 }]} />}
+                        </View>
+                    }
 
-                </ImageBackground>
+                </ImageBackground >
                 <View style={{ width: width - 30 }}>
-                    <Text style={itemstyle.date}>{moment(parseInt(1691195928528)).format("DD MMM, YYYY")}</Text>
+                    <Text style={itemstyle.date}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY")}</Text>
                     <Text style={itemstyle.title}>{item?.title}</Text>
                     <Text style={itemstyle.desc} numberOfLines={1}>{props?.downloads ? item?.artist : item?.description}</Text>
                 </View>
-                {props?.remove && <TouchableOpacity
-                    onPress={() => props.handleRemoveFromFav(item?.id)}
-                    style={[itemstyle?.iconbg, { width: 30, height: 30, marginLeft: 15 }]}
-                    activeOpacity={0.8}
-                >
-                    <Icon name="heart" style={[itemstyle?.icon, { fontSize: 15, marginBottom: -3 }]} />
-                    <View style={{ width: 20, height: 1, backgroundColor: colors.white, transform: [{ rotate: '130deg' }, { translateX: -5 }, { translateY: 4 }] }} />
-                </TouchableOpacity>}
-            </TouchableOpacity>
+                {
+                    props?.remove && <TouchableOpacity
+                        onPress={() => props.handleRemoveFromFav(item?.id)}
+                        style={[itemstyle?.iconbg, { width: 30, height: 30, marginLeft: 15 }]}
+                        activeOpacity={0.8}
+                    >
+                        <Icon name="heart" style={[itemstyle?.icon, { fontSize: 15, marginBottom: -3 }]} />
+                        <View style={{ width: 20, height: 1, backgroundColor: colors.white, transform: [{ rotate: '130deg' }, { translateX: -5 }, { translateY: 4 }] }} />
+                    </TouchableOpacity>
+                }
+            </TouchableOpacity >
         )
     } else {
         return (
@@ -79,7 +109,7 @@ const SectionItem = (props) => {
                         </View>
                     </>}
                 </ImageBackground>
-                <Text style={itemstyle.date}>{moment(parseInt(1691195928528)).format("DD MMM, YYYY")}</Text>
+                <Text style={itemstyle.date}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY")}</Text>
                 <Text style={itemstyle.title}>{item?.title}</Text>
                 <Text style={itemstyle.desc} numberOfLines={1}>{item?.description}</Text>
             </TouchableOpacity>

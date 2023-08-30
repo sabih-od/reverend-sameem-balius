@@ -12,15 +12,16 @@ import { bindActionCreators } from "redux";
 import globalstyle from "../theme/style";
 // import RoutineBox from "../components/RoutineBox";
 import SectionItem from "../components/SectionItem";
+import BookItem from "../components/BookItem";
 
 const itemslimit = 50;
 const Posts = (props) => {
     const { item } = props.route.params;
-    console.log('props.route.params => ', props.route.params)
+    // console.log('props.route.params => ', props.route.params)
     const [postList, setPostList] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
     const [page, setPageno] = useState(1);
-    const [category_id, setCategoryId] = useState(item?.id)
+    const [category_id, setCategoryId] = useState(props.route.params.item.id)
     const [limit, setLimit] = useState(itemslimit);
     const [loadmore, setLoadmore] = useState(false);
 
@@ -29,14 +30,16 @@ const Posts = (props) => {
 
     useEffect(() => {
         console.log('asd 1')
+        console.log('props.route.params => ', props.route.params)
         props.navigation.setOptions({ headerTitle: item?.name });
-        props.GetPostsList({ page, limit, category_id })
+        props.GetPostsList({ page, limit, category_id: props.route.params.item.id })
         return () => {
             console.log('Posts Unmount');
             props.ClearPostList()
+            // setCategoryId(null)
             setPostList([])
         }
-    }, [item])
+    }, [props.route.params.item.id])
 
     useEffect(() => {
         console.log('asd 2')
@@ -61,7 +64,7 @@ const Posts = (props) => {
         setRefreshing(true)
         setPageno(1);
         // setLimit(itemslimit);
-        props.GetPostsList({ page, limit, category_id });
+        props.GetPostsList({ page, limit, category_id: props.route.params.item.id });
         console.log('_handleLoadMore ');
     }
 
@@ -72,7 +75,7 @@ const Posts = (props) => {
         if (!loadmore) {
             if (postList.length < props.getPostsListResponse?.total) {
                 console.log('_handleLoadMore ');
-                props.GetPostsList({ page: page + 1, limit, category_id });
+                props.GetPostsList({ page: page + 1, limit, category_id: props.route.params.item.id });
                 setLoadmore(false)
             }
         }
@@ -100,13 +103,22 @@ const Posts = (props) => {
             data={postList}
             keyExtractor={(item, index) => String(index)}
             renderItem={({ item, index }) => {
-                return (<SectionItem
-                    key={index}
-                    item={item}
-                    width={isIPad ? (width / 3) - 20 : (width / 2) - 22}
-                    navigation={props.navigation}
-                    hideicon={category_id == 10 ? false : true}
-                />)
+                if (category_id == 13) {
+                    return (<BookItem
+                        item={item}
+                        width={isIPad ? (width / 3) - 20 : (width / 2) - 22}
+                        navigation={props.navigation}
+                    />)
+                } else {
+                    return (<SectionItem
+                        key={index}
+                        item={item}
+                        width={isIPad ? (width / 3) - 20 : (width / 2) - 22}
+                        navigation={props.navigation}
+                        hideicon={props.route.params.item.id == 10 ? false : true}
+                    />)
+                }
+
             }}
         />
     </SafeAreaView>

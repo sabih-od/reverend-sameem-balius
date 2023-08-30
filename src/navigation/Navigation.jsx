@@ -18,11 +18,11 @@ const Navigation = (props) => {
     console.log('Navigation props => ', props);
     changeLang(props.language)
     useEffect(() => {
-        console.log('props.language => ', props.language)
+        console.log('useEffect props.language => ', props.language)
         changeLang(props.language)
         I18nManager.allowRTL(true);
         I18nManager.forceRTL(props.language == 'ar' ? true : false);
-        console.log('isRTL => ', I18nManager.isRTL)
+        console.log('useEffect isRTL => ', I18nManager.isRTL)
     }, [props.language])
 
     // useEffect(() => {

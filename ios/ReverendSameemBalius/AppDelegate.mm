@@ -12,7 +12,7 @@
   // They will be passed down to the ViewController used by React Native.
 
   [[RCTI18nUtil sharedInstance] allowRTL:YES];
-  [[RCTI18nUtil sharedInstance] forceRTL:NO];
+  // [[RCTI18nUtil sharedInstance] forceRTL:NO];
 
   self.initialProps = @{};
 

@@ -19,21 +19,21 @@ const SearchPost = (props) => {
     const [searchPosts, setSearchPosts] = useState([]);
     // const [title, setTitle] = useState('');
     const [refreshing, setRefreshing] = useState(false);
-    const [pageno, setPageno] = useState(1);
+    const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(itemslimit);
     const [loadmore, setLoadmore] = useState(false);
     const textInput = useRef();
 
     useEffect(() => {
         console.log('here 1')
-        props.GetSearchPost({ pageno, limit, title: props?.route?.params?.title })
+        props.GetSearchPost({ page, limit, title: props?.route?.params?.title })
         setSearchPosts([])
     }, [props?.route?.params?.title])
 
     useEffect(() => {
         console.log('here 2')
         setSearchPosts([])
-        props.GetSearchPost({ pageno, limit, title: props?.route?.params?.title })
+        props.GetSearchPost({ page, limit, title: props?.route?.params?.title })
         return () => {
             console.log('Search Unmount');
             setSearchPosts([])
@@ -56,25 +56,25 @@ const SearchPost = (props) => {
 
     const _handleRefresh = () => {
         setRefreshing(true)
-        setPageno(1);
+        setPage(1);
         // setLimit(itemslimit);
-        props.GetSearchPost({ pageno, limit, title: textInput.current.value });
+        props.GetSearchPost({ page, limit, title: textInput.current.value });
     }
 
     const _handleLoadMore = () => {
         setLoadmore(true)
-        setPageno(prevState => prevState + 1);
-        // props.GetSearchPost({ pageno: pageno + 1, limit });
+        setPage(prevState => prevState + 1);
+        // props.GetSearchPost({ page: page + 1, limit });
         if (!loadmore) {
             if (searchPosts.length < props.getSearchPostResponse?.total) {
-                props.GetSearchPost({ pageno: pageno + 1, limit, title: textInput.current.value });
+                props.GetSearchPost({ page: page + 1, limit, title: textInput.current.value });
                 setLoadmore(false)
             }
         }
     }
 
     function _onSearch(value) {
-        props.GetSearchPost({ pageno, limit, title: value })
+        props.GetSearchPost({ page, limit, title: value })
     }
 
     return <SafeAreaView style={globalstyle.fullview}>

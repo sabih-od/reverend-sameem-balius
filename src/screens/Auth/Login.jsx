@@ -28,13 +28,12 @@ const Login = (props) => {
     const prevLoginErrorRef = useRef(props.loginError);
 
     useEffect(() => {
-
-        // if (!IOS) {
-        //     axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
-        //     axios.request({ url: 'https://hunterssocial.com/api/user', method: 'GET' })
-        //         .then(function (response) { console.log('response hunter => ', response); })
-        //         .catch(function (error) { console.log(error); });
-        // }
+        if (!IOS) {
+            // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+            axios.request({ url: 'https://hunterssocial.com/api/settings', method: 'GET' })
+                .then(function (response) { console.log('response hunter => ', response); })
+                .catch(function (error) { console.log(error); });
+        }
     }, [])
 
     useEffect(() => {
@@ -86,9 +85,10 @@ const Login = (props) => {
     const input01 = useRef();
     const input02 = useRef();
 
-    // useEffect(() => {
-    //     changeLang(isRTL ? 'ar' : 'en')
-    // }, [])
+    useEffect(() => {
+        console.log('isRTL 123 => ', isRTL)
+        // changeLang(isRTL ? 'ar' : 'en')
+    }, [])
 
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
@@ -106,10 +106,10 @@ const Login = (props) => {
                                 I18nManager.forceRTL(false);
                                 setTimeout(() => {
                                     RNRestart.restart();
-                                }, 300)
+                                }, 500)
                                 SplashScreen.show();
                             }}>
-                                <Text style={{ fontFamily: props.language == 'en' ? fonts.primarySemiBold : fonts.primary, fontSize: 13, color: isDarkMode ? colors.white : colors.black }}>English</Text>
+                                <Text style={{ fontFamily: !isRTL ? fonts.primarySemiBold : fonts.primary, fontSize: 13, color: isDarkMode ? colors.white : colors.black }}>English</Text>
                             </TouchableOpacity>
                             <View style={{ width: 1, height: 10, backgroundColor: colors.black, marginHorizontal: 10 }} />
                             <TouchableOpacity onPress={() => {
@@ -122,7 +122,7 @@ const Login = (props) => {
                                 }, 300)
                                 SplashScreen.show();
                             }}>
-                                <Text style={{ fontFamily: props.language == 'ur' ? fonts.arabicBold : fonts.arabicMedium, color: isDarkMode ? colors.white : colors.black }}>عربي</Text>
+                                <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.arabicMedium, color: isDarkMode ? colors.white : colors.black }}>عربي</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={isIPad && globalstyle.authscreencontainer}>

@@ -1,5 +1,5 @@
 import { Image, ImageBackground, Text, View, TouchableOpacity } from "react-native";
-import { backgroungImage, colors, fonts, height, isDarkMode, width } from "../theme"
+import { IOS, backgroungImage, colors, fonts, height, isDarkMode, width } from "../theme"
 import globalstyle from "../theme/style";
 import LinearGradient from "react-native-linear-gradient";
 import Slider from "@react-native-community/slider";
@@ -50,7 +50,9 @@ const AudioPlayer = (props) => {
         }
         abc()
 
-
+        return async () => {
+            const reset = await TrackPlayer.reset();
+        }
     }, [])
 
     useTrackPlayerEvents([Event.PlaybackTrackChanged], async (event) => {
@@ -157,8 +159,9 @@ const AudioPlayer = (props) => {
                     value={progress?.position}
                     maximumValue={progress?.duration}
                     minimumTrackTintColor={colors.orange}
-                    maximumTrackTintColor="#555"
+                    maximumTrackTintColor={IOS ? "#555" : isDarkMode ? '#fff' : '#666'}
                     tapToSeek={true}
+                    thumbTintColor={colors.orange}
                     onValueChange={(value) => {
                         console.log(Math.round(value))
                         TrackPlayer.seekTo(Math.round(value))

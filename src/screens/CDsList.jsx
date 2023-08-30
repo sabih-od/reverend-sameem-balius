@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Image } from "react-native";
-import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, width } from "../theme";
+import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, isRTL, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -26,18 +26,19 @@ const cdsdata = [
 ]
 const CdItem = ({ item, handlePlayer }) => {
     return <TouchableOpacity
+        activeOpacity={0.8}
         onPress={() => handlePlayer(true, item)}
         style={{ width: (width / 2) - 30, alignItems: 'center', paddingVertical: 15 }}>
         <ImageBackground
             source={{ uri: item?.image }}
-            style={{ width: width / 3, height: width / 3, justifyContent: 'center', alignItems: 'center', borderRadius: 120, overflow: 'hidden', marginBottom: 10 }}>
+            style={{ width: width / 2.5, height: width / 2.5, justifyContent: 'center', alignItems: 'center', borderRadius: 120, overflow: 'hidden', marginBottom: 10 }}>
             <View style={{ position: 'absolute', width: '100%', height: '100%', left: 0, top: 0, backgroundColor: colors.black, opacity: 0.3 }} />
             <View style={{ width: 40, height: 40, borderColor: 'rgba(0,0,0,0.4)', borderWidth: 2, borderRadius: 30, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ width: 30, height: 30, backgroundColor: colors.black, borderRadius: 30 }} />
             </View>
         </ImageBackground>
-        <Text style={{ fontFamily: fonts.primaryMedium, textAlign: 'center', color: isDarkMode ? colors.white : colors.black, fontSize: 15 }} numberOfLines={1}>{item?.title}</Text>
-        <Text style={{ fontFamily: fonts.primary, textAlign: 'center', color: isDarkMode ? '#eee' : colors.black, fontSize: 13 }} numberOfLines={1}>{item?.desc}</Text>
+        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: isDarkMode ? colors.white : colors.black, fontSize: 15 }} numberOfLines={1}>{item?.title}</Text>
+        <Text style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, textAlign: 'center', color: isDarkMode ? '#eee' : colors.black, fontSize: 13 }} numberOfLines={1}>{item?.desc}</Text>
     </TouchableOpacity>
 }
 
@@ -170,8 +171,8 @@ const CDsList = (props) => {
                 columnWrapperStyle={{ justifyContent: isIPad ? 'flex-start' : 'space-between' }}
                 numColumns={isIPad ? 3 : 2}
                 showsVerticleScrollIndicator={false}
-                // refreshing={refreshing}
-                // onRefresh={_handleRefresh}
+                refreshing={refreshing}
+                onRefresh={_handleRefresh}
                 // ListFooterComponent={() => loadmore ? <View style={globalstyle.footerloadmore}>
                 //     <ActivityIndicator size={Platform.OS == 'android' ? 25 : 'large'} color={colors.primary} />
                 //     <Text style={globalstyle.footerloadingtext}>Loading</Text>
@@ -229,5 +230,5 @@ export default connect(setStateToProps, mapDispatchToProps)(CDsList);
 // export default CDsList;
 
 const styles = StyleSheet.create({
-    homebgimage: {flex: 1}
+    homebgimage: { flex: 1 }
 })

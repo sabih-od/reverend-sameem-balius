@@ -10,5 +10,5 @@ const Seperator = () => {
 export default Seperator;
 
 const styles = StyleSheet.create({
-    seperatorline: { borderBottomWidth: 1, borderBottomColor: fontcolor, marginVertical: 25, opacity: 0.1, }
+    seperatorline: { borderBottomWidth: 1, borderBottomColor: fontcolor, marginVertical: 15, opacity: 0.1, }
 })

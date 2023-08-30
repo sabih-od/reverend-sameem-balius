@@ -50,7 +50,7 @@ onShare = async () => {
 };
 
 const MainBox = ({ item }) => {
-    console.log('MainBox item => ', item)
+    // console.log('MainBox item => ', item)
     const navigation = useNavigation();
     return (
         <View>
@@ -68,7 +68,8 @@ const MainBox = ({ item }) => {
                                     url: item?.audio,
                                     title: moment(parseInt(item?.created_at)).format("ddd DD MMM, ") + strings.homeTopTitle,
                                     artist: item?.title,
-                                    artwork: require('./../../assets/images/meditation.jpg')
+                                    artwork: require('./../../assets/images/meditation.jpg'),
+                                    created_at: item?.created_at,
                                 }
                             );
                             await TrackPlay();

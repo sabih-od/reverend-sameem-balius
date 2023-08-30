@@ -17,10 +17,12 @@ import draweritems from "../navigation/draweritems";
 import RNFS from 'react-native-fs';
 import ReactNativeBlobUtil from "react-native-blob-util";
 import { connect } from "react-redux";
-import { GetDailiesList, GetFeaturedList, GetPostWithOutTypeByCategoryId } from "../redux/reducers/ListingApiStateReducer";
+import { GetDailiesList, GetFeaturedList, GetHomeNewsList, GetPostWithOutTypeByCategoryId } from "../redux/reducers/ListingApiStateReducer";
 import { bindActionCreators } from "redux";
 import strings from "../localization/translation";
 import LinearGradient from "react-native-linear-gradient";
+import TryPlus from "../components/TryPlus";
+import axios from "axios";
 
 
 const Home = (props) => {
@@ -39,9 +41,24 @@ const Home = (props) => {
     }, [])
 
     useEffect(() => {
-        props.GetPostWithOutTypeByCategoryId({ id: 17 });
-        props.GetFeaturedList();
-        props.GetDailiesList();
+        if (!IOS) {
+            // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+            axios.request({ url: 'https://hunterssocial.com/api/settings', method: 'GET' })
+                .then(function (response) {
+                    console.log('response hunter => ', response);
+                    props.GetPostWithOutTypeByCategoryId({ id: 17 });
+                    props.GetFeaturedList();
+                    props.GetDailiesList();
+                    props.GetHomeNewsList()
+                })
+                .catch(function (error) { console.log(error); });
+        } else {
+            props.GetPostWithOutTypeByCategoryId({ id: 17 });
+            props.GetFeaturedList();
+            props.GetDailiesList();
+            props.GetHomeNewsList()
+        }
+
     }, [])
     useEffect(() => {
         console.log('bibleStudy => ', bibleStudy)
@@ -50,13 +67,15 @@ const Home = (props) => {
     const [bibleStudy, setBibleStudy] = useState([]);
     const [featuredList, setFeaturedList] = useState([]);
     const [dailies, setDailies] = useState([]);
+    const [news, setNews] = useState([]);
+
 
 
     const prevBibleStudyResRef = useRef(props.getPostWoTypeByCategoryIdResponse);
     useEffect(() => {
         if (props.getPostWoTypeByCategoryIdResponse !== prevBibleStudyResRef.current && props.getPostWoTypeByCategoryIdResponse?.success && props.getPostWoTypeByCategoryIdResponse?.data) {
             prevBibleStudyResRef.current = props.getPostWoTypeByCategoryIdResponse;
-            console.log('props.getPostWoTypeByCategoryIdResponse => ', props.getPostWoTypeByCategoryIdResponse)
+            // console.log('props.getPostWoTypeByCategoryIdResponse => ', props.getPostWoTypeByCategoryIdResponse)
             setBibleStudy(props.getPostWoTypeByCategoryIdResponse?.data?.data)
         }
     }, [props.getPostWoTypeByCategoryIdResponse])
@@ -65,7 +84,7 @@ const Home = (props) => {
     useEffect(() => {
         if (props.getToFeaturedListResponse !== prevFeaturedListResRef.current && props.getToFeaturedListResponse?.success && props.getToFeaturedListResponse?.data) {
             prevFeaturedListResRef.current = props.getToFeaturedListResponse;
-            console.log('props.getToFeaturedListResponse => ', props.getToFeaturedListResponse)
+            // console.log('props.getToFeaturedListResponse => ', props.getToFeaturedListResponse)
             setFeaturedList(props.getToFeaturedListResponse?.data)
         }
     }, [props.getToFeaturedListResponse])
@@ -74,12 +93,23 @@ const Home = (props) => {
     useEffect(() => {
         if (props.getDailiesListResponse !== prevDailiesResRef.current && props.getDailiesListResponse?.success && props.getDailiesListResponse?.data) {
             prevDailiesResRef.current = props.getDailiesListResponse;
-            console.log('props.getDailiesListResponse => ', props.getDailiesListResponse)
+            // console.log('props.getDailiesListResponse => ', props.getDailiesListResponse)
             if (props.getDailiesListResponse?.data.length > 0) {
                 setDailies(props.getDailiesListResponse?.data[0])
             }
         }
     }, [props.getDailiesListResponse])
+
+    const prevHomeNewsListResRef = useRef(props.getToFeaturedListResponse);
+    useEffect(() => {
+        if (props.getHomeNewsListResponse !== prevHomeNewsListResRef.current && props.getHomeNewsListResponse?.success && props.getHomeNewsListResponse?.data) {
+            prevHomeNewsListResRef.current = props.getHomeNewsListResponse;
+            console.log('props.getHomeNewsListResponse => ', props.getHomeNewsListResponse)
+            if (props.getHomeNewsListResponse?.data.length > 0) {
+                setNews(props.getHomeNewsListResponse?.data)
+            }
+        }
+    }, [props.getHomeNewsListResponse])
 
     const downloadimage = () => {
         ReactNativeBlobUtil.config({
@@ -114,6 +144,7 @@ const Home = (props) => {
         props.GetPostWithOutTypeByCategoryId({ id: 17 });
         props.GetFeaturedList();
         props.GetDailiesList();
+        props.GetHomeNewsList()
 
         // props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
         // // props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
@@ -223,7 +254,7 @@ const Home = (props) => {
                     keyExtractor={item => String(item?.id)}
                     renderItem={({ item, index }) => <TouchableOpacity
                         activeOpacity={0.8}
-                        onPress={() => props.navigation.navigate('PostsList', { item: item })}
+                        onPress={() => props.navigation.navigate('Posts', { item: item })}
                     >
                         <ImageBackground source={require('./../../assets/images/meditation.jpg')} style={{ height: width / 1.5, width: width / 2.4, borderRadius: 15, overflow: 'hidden', alignItems: 'center', justifyContent: 'flex-end' }}>
                             <View style={{ position: 'relative', zIndex: 1, paddingVertical: 15, paddingHorizontal: 15 }}>
@@ -243,7 +274,7 @@ const Home = (props) => {
                     </TouchableOpacity>}
                 />
 
-                {bibleStudy.length > 0 && <>
+                {news.length > 0 && <>
                     <View style={{ paddingHorizontal: 15 }}>
                         <Seperator />
                         <SectionHeading title={isRTL ? 'الأخبار' : 'News'} joined={false} />
@@ -259,7 +290,7 @@ const Home = (props) => {
                         // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
                         //     { useNativeDriver: false }
                         // )}
-                        data={bibleStudy}
+                        data={news}
                         keyExtractor={item => String(item.id)}
                         renderItem={({ item, index }) => {
                             // console.log('item => ', item)
@@ -296,22 +327,7 @@ const Home = (props) => {
                 <Seperator /> */}
 
 
-                <View style={{ paddingHorizontal: 15 }}>
-                    <Seperator />
-                </View>
-                <View style={{ alignItems: 'center', backgroundColor: colors.darkblue, paddingHorizontal: 20, paddingVertical: 20, borderRadius: 20, marginHorizontal: 15 }}>
-                    <Text style={{ color: colors.white, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryBold, fontSize: 17, marginBottom: 20, textAlign: 'center' }}>{strings.unlockContent}</Text>
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        onPress={() => { props.navigation.navigate('StartFreeWeek'); }}
-                        style={{ backgroundColor: colors.orange, paddingVertical: 10, borderRadius: 40, width: 180 }}
-                    >
-                        <Text
-                            style={{ textAlign: 'center', color: colors.white, fontFamily: isRTL ? fonts.arabicBold : fonts.primaryBold, textTransform: 'uppercase' }}
-                        >{strings.tryPlus}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ height: 50 }} />
+                <TryPlus navigation={props.navigation} />
                 {/* <Seperator /> */}
 
                 {/* <SectionHeading title={'Evening Horizontal'} joined={false} />
@@ -380,6 +396,7 @@ const setStateToProps = state => ({
     getPostWoTypeByCategoryIdResponse: state.listingstate.getPostWoTypeByCategoryIdResponse,
     getToFeaturedListResponse: state.listingstate.getToFeaturedListResponse,
     getDailiesListResponse: state.listingstate.getDailiesListResponse,
+    getHomeNewsListResponse: state.listingstate.getHomeNewsListResponse,
     drawerMenu: state.listingstate.drawerMenu,
 })
 
@@ -388,6 +405,7 @@ const mapDispatchToProps = dispatch => {
         GetPostWithOutTypeByCategoryId: bindActionCreators(GetPostWithOutTypeByCategoryId, dispatch),
         GetFeaturedList: bindActionCreators(GetFeaturedList, dispatch),
         GetDailiesList: bindActionCreators(GetDailiesList, dispatch),
+        GetHomeNewsList: bindActionCreators(GetHomeNewsList, dispatch)
     }
 }
 

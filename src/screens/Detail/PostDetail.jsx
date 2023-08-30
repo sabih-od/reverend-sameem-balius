@@ -234,7 +234,11 @@ const PostDetail = (props) => {
 
                 {item?.video && <Video source={{ uri: item?.video }}
                     autoplay={false}
-                    style={{ height: width / 1.6, marginLeft: -15, marginRight: -15 }} controls={true} />}
+                    resizeMode={"cover"}
+                    style={{
+                        height: width / 1.6, width: width, backgroundColor: '#111', // marginLeft: -15, marginRight: -15 
+                    }} controls={true}
+                />}
                 {!item?.video && <ImageBackground source={{ uri: item?.image }} style={{ height: 250, overflow: 'hidden', width: '100%', }}>
                     <TouchableOpacity
                         style={{ width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 20, right: 20 }}
@@ -314,9 +318,9 @@ const PostDetail = (props) => {
                         ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
                         data={item?.images}
                         keyExtractor={(imageitem, index) => String(index)}
-                        renderItem={({ imageitem, index }) => {
-                            // console.log('imageitem => ', imageitem)
-                            return (<TouchableOpacity activeOpacity={0.8} onPress={() => openGallery(index)} style={{ width: width / 2.3, height: width / 2, borderRadius: 10, overflow: 'hidden', }}>
+                        renderItem={(imageitem) => {
+                            console.log('imageitem => ', imageitem?.item?.url)
+                            return (<TouchableOpacity activeOpacity={0.8} onPress={() => openGallery(imageitem.index)} style={{ width: width / 2.3, height: width / 2, borderRadius: 10, overflow: 'hidden', }}>
                                 <Image
                                     source={{ uri: imageitem?.item?.url }}
                                     style={{ width: '100%', height: '100%', }}

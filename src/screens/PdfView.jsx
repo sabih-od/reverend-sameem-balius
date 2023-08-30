@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Dimensions, View } from 'react-native';
 import Pdf from 'react-native-pdf';
-import { height, width } from '../theme';
+import { colors, height, isDarkMode, width } from '../theme';
 
 const PdfView = (props) => {
     useEffect(() => {
@@ -40,7 +40,7 @@ const PdfView = (props) => {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'flex-start', alignItems: 'center', marginTop: 0, },
+    container: { flex: 1, justifyContent: 'flex-start', alignItems: 'center', marginTop: 0, backgroundColor: isDarkMode ? colors.deepblue : colors.headerbgcolor },
     pdf: { flex: 1, width: width, height: height, }
 });
 

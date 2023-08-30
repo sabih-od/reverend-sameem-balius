@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
 
-import { IOS, colors, fonts, isDarkMode, isIPad, isRTL } from '../theme';
+import { IOS, colors, fonts, isDarkMode, isIPad, isRTL, width } from '../theme';
 import { I18nManager, Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { DrawerContentScrollView, useDrawerProgress } from '@react-navigation/drawer';
@@ -26,6 +26,7 @@ import SplashScreen from 'react-native-splash-screen';
 import RNRestart from 'react-native-restart';
 import { GetDrawerMenu } from '../redux/reducers/ListingApiStateReducer';
 import { TextInput } from 'react-native-gesture-handler';
+import axios from 'axios';
 
 const DrawerContent = (props) => {
 
@@ -92,7 +93,18 @@ const DrawerContent = (props) => {
 
   useEffect(() => {
     // connectSocket();
-    props.GetDrawerMenu();
+    if (!IOS) {
+      // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+      axios.request({ url: 'https://hunterssocial.com/api/settings', method: 'GET' })
+        .then(function (response) {
+          console.log('response hunter => ', response);
+          props.GetDrawerMenu();
+        })
+        .catch(function (error) { console.log(error); });
+    }else{
+      props.GetDrawerMenu();
+    }
+    
   }, []);
 
   const [user, setUser] = useState(props.userInfo);
@@ -157,9 +169,9 @@ const DrawerContent = (props) => {
           }}>
             <Image source={user?.profile_picture ? { uri: user?.profile_picture } : require('./../../assets/images/dummy-profile-image.png')} style={{ width: isIPad ? 120 : 90, height: isIPad ? 120 : 90, resizeMode: 'cover', }} />
           </TouchableOpacity>
-          <Text style={{ fontFamily: fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 26 : 20, marginBottom: 3 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
+          <Text style={{ fontFamily: fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 26 : 20, marginBottom: 0 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-            <Icon name={'mail'} style={{ color: colors.orange, fontSize: 16, marginRight: 10, marginBottom: -4 }} />
+            <Icon name={'mail'} style={{ color: colors.orange, fontSize: 16, marginRight: 8, marginBottom: 0 }} />
             <Text style={{ fontFamily: fonts.primary, color: isDarkMode ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 18 : 13 }}>{user?.email}</Text>
           </View>
           {/* <Text style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center', fontSize: 12 }}>{user?.phone}</Text> */}
@@ -171,7 +183,12 @@ const DrawerContent = (props) => {
           placeholder={strings.SearchHere}
           placeholderTextColor={'#777'}
           onChangeText={value => textInput.current.value = value}
-          style={{ height: 40, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, backgroundColor: '#f7f7f7', width: 235, color: colors.black, fontSize: 14, paddingHorizontal: 13, paddingVertical: 10, textAlign: isRTL ? 'right' : 'left' }}
+          style={{
+            height: 40, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, // backgroundColor: '#f7f7f7',
+            width: '80%',
+            // width: isIPad ? '60%' : (width * 0.80) - 100, 
+            color: colors.black, fontSize: 14, paddingHorizontal: 13, paddingVertical: 10, textAlign: isRTL ? 'right' : 'left'
+          }}
         />
         <TouchableOpacity
           activeOpacity={0.8}

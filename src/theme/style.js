@@ -1,7 +1,7 @@
 import { I18nManager, StyleSheet } from 'react-native';
 
 import { IOS, colorScheme, colors, fontcolor, fonts, height, isDarkMode, isIPad, isRTL, width } from './index';
-
+console.log('isRTL czxc=> ', isRTL)
 const globalstyle = StyleSheet.create({
   // fullview: { ...StyleSheet.absoluteFillObject, height: '100%', backgroundColor: '#f4f4f4' },
   // inputBox: { marginBottom: 10, },

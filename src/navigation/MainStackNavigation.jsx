@@ -27,7 +27,6 @@ import GoBackIcon from "../components/header/GoBackIcon";
 import globalstyle from "../theme/style";
 import QuestionAnswer from "../screens/QuestionAnswer";
 import Audio from "../screens/Audio";
-import Test from "../screens/Test";
 import Social from "../screens/Lectures/Social";
 import BibleStudy from "../screens/Lectures/BibleStudy";
 import WellBeing from "../screens/Lectures/WellBeing";

@@ -46,10 +46,10 @@ const Downloads = (props) => {
                 renderItem={({ item, index }) => <SectionItem key={index}
                     handlePlayer={() => console.log('asdasd')}
                     item={item} navigation={props.navigation}
-                    width={isIPad ? (width / 2) - 22 : (width - 135)}
+                    width={isIPad ? (width / 2) - 22 : (width)}
                     audio={true}
                     hideicon={true}
-                    postdetail={true}
+                    // postdetail={true}
                     // handleRemoveFromFav={_handleRemoveFromFav}
                     downloads={true}
                 />}

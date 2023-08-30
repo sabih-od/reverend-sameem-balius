@@ -1,7 +1,6 @@
 import { NativeModules, Platform } from 'react-native';
 import { store } from '../redux/store';
 // import { LoadingStart, LoadingEnd } from './../state';
-// inspired by https://leanpub.com/redux-book
 import axios from 'axios';
 import { showToast } from '../helpers/toastConfig';
 import { LogOut } from '../redux/reducers/AppStateReducer';
@@ -64,6 +63,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
   // axios default configs
   axios.defaults.baseURL = process.env.API_BASE_URL ? process.env.API_BASE_URL : 'https://service.demowebsitelinks.com:3013';
   // axios.defaults.baseURL = 'https://texaschristianashram.org:3023';
+  // axios.defaults.httpsAgent = agent;
   axios.defaults.headers.common['Authorization'] = `Bearer ${state?.appstate?.userInfo?.access_token}`;
   axios.defaults.headers.common['lang'] = state?.appstate?.language == 'en' ? 1 : 2;
 
