@@ -13,6 +13,7 @@ export const SetupTrackPlayer = async () => {
                 appKilledPlaybackBehavior:
                     AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
             },
+            stopWithApp: true,
             capabilities: [
                 Capability.Play,
                 Capability.Pause,
@@ -25,7 +26,7 @@ export const SetupTrackPlayer = async () => {
                 Capability.Pause,
                 Capability.SkipToNext,
             ],
-            progressUpdateEventInterval: 2,
+            // progressUpdateEventInterval: 2,
         });
         isSetup = true;
     }

@@ -1,6 +1,6 @@
 import apiAction from '../../api/apiAction';
 import { AboutAPI, AddPostToHistoryAPI, AddToFavouriteListAPI, ContactAPI, GetAnnouncementAPI, GetBooksAPI, GetCategoriesAPI, GetDailiesListAPI, GetEventsAPI, GetFavouriteIdsAPI, GetFavouriteListAPI, GetFeaturedListAPI, GetHistoryListAPI, GetHomeBannerAPI, GetMenuAPI, GetNotificationsAPI, GetOurSpeakerAPI, GetOurStaffAPI, GetPostByCategoryIdAPI, GetPostByCategoryIdScreenWiseAPI, GetPostsAPI, GetQuestionsAPI, GetRequestedPrayerAPI, GetSermonsAPI, GetUpcomingEventsAPI, RequestPrayerAPI, SendAskAQuestionAPI, } from '../../api/routes';
-import { ABOUT_API_SUCCESS, ADD_POST_TO_HISTORY_SUCCESS, ADD_TO_FAVOURITE_LIST_SUCCESS, CLEAR_POST_LIST_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_ASK_A_QUESTION, GET_BOOKS_API_SUCCESS, GET_CDS_API_SUCCESS, GET_DAILIES_LIST_SUCCESS, GET_EVENTS_API_SUCCESS, GET_FAVOURITE_IDS_SUCCESS, GET_FAVOURITE_LIST_SUCCESS, GET_FEATURED_LIST_SUCCESS, GET_HISTORY_LIST_SUCCESS, GET_HOME_NEWS_LIST_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_POST_BY_CATEGORY_ID_SUCCESS, GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SEARCH_POST_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SEND_ASK_A_QUESTION, SET_DRAWER_MENU, SET_ERROR, } from '../actiontypes';
+import { ABOUT_API_SUCCESS, ADD_POST_TO_HISTORY_SUCCESS, ADD_TO_FAVOURITE_LIST_SUCCESS, CLEAR_POST_LIST_SUCCESS, CONTACT_API_ERROR, CONTACT_API_SUCCESS, GET_ANNOUNCEMENT_API_SUCCESS, GET_ASK_A_QUESTION, GET_BOOKS_API_SUCCESS, GET_CDS_API_SUCCESS, GET_DAILIES_LIST_SUCCESS, GET_EVENTS_API_SUCCESS, GET_FAVOURITE_IDS_SUCCESS, GET_FAVOURITE_LIST_SUCCESS, GET_FEATURED_LIST_SUCCESS, GET_HISTORY_LIST_SUCCESS, GET_HOME_NEWS_LIST_SUCCESS, GET_NOTIFICATIONS_API_SUCCESS, GET_OUR_SPEAKER_API_SUCCESS, GET_OUR_STAFF_API_SUCCESS, GET_POSTS_API_SUCCESS, GET_POST_BY_CATEGORY_ID_SUCCESS, GET_HOME_BIBLICAL_DATA_SUCCESS, GET_REQUESTED_PRAYER_API_SUCCESS, GET_SEARCH_POST_API_SUCCESS, GET_SERMONS_API_SUCCESS, GET_UPCOMING_EVENTS_API_SUCCESS, HOME_BANNER_API_SUCCESS, LOGOUT_USER, REQUEST_PRAYER_API_SUCCESS, SEND_ASK_A_QUESTION, SET_DRAWER_MENU, SET_ERROR, GET_HOME_SPIRITUAL_DATA_SUCCESS, GET_HOME_AUDIO_DATA_SUCCESS, GET_HOME_AUDIO_NO_DATA_SUCCESS, } from '../actiontypes';
 
 const initialState = {
   getQuestionsResponse: {},
@@ -19,7 +19,6 @@ const initialState = {
   contactErrorResponse: {},
   aboutResponse: {},
   getPostByCategoryIdResponse: {},
-  getPostWoTypeByCategoryIdResponse: {},
   addToFavouriteListResponse: {},
   getToFavouriteListResponse: {},
   getToFavouriteIdsResponse: [],
@@ -30,25 +29,29 @@ const initialState = {
 
   getHomeNewsListResponse: {},
   getDailiesListResponse: {},
-  
+  getHomeBiblicalDataResponse: {},
+  getHomeAudioDataResponse: {},
+  getHomeSpiritualDataResponse: {},
+  getHomeAudioNoDataResponse: {},
+
   errorResponse: {},
   drawerMenu: []
 };
 
-export function GetSermonsList(params) {
-  // console.log('params => ', params);
-  return apiAction({
-    url: GetSermonsAPI + '?page=' + params.page + '&limit=' + params.limit,
-    method: 'GET',
-    // data: params,
-    onSuccess: response => {
-      return { type: GET_SERMONS_API_SUCCESS, payload: response };
-    },
-    onFailure: response => {
-      return { type: SET_ERROR, payload: response };
-    },
-  });
-}
+// export function GetSermonsList(params) {
+//   // console.log('params => ', params);
+//   return apiAction({
+//     url: GetSermonsAPI + '?page=' + params.page + '&limit=' + params.limit,
+//     method: 'GET',
+//     // data: params,
+//     onSuccess: response => {
+//       return { type: GET_SERMONS_API_SUCCESS, payload: response };
+//     },
+//     onFailure: response => {
+//       return { type: SET_ERROR, payload: response };
+//     },
+//   });
+// }
 
 export function GetPostsList(params) {
   console.log('params => ', params);
@@ -346,7 +349,7 @@ export function GetPostWithOutTypeByCategoryId(params) {
     method: 'GET',
     // data: params,
     onSuccess: response => {
-      return { type: GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS, payload: response };
+      return { type: GET_HOME_BIBLICAL_DATA_SUCCESS, payload: response };
     },
     onFailure: response => {
       return { type: SET_ERROR, payload: response };
@@ -354,7 +357,50 @@ export function GetPostWithOutTypeByCategoryId(params) {
   });
 }
 
-export function GetFavouriteList(params) {
+export function GetHomeBiblicalData() {
+  return apiAction({
+    url: GetPostByCategoryIdAPI + '/9',
+    method: 'GET',
+    // data: params,
+    onSuccess: response => {
+      return { type: GET_HOME_BIBLICAL_DATA_SUCCESS, payload: response };
+    },
+    onFailure: response => {
+      return { type: SET_ERROR, payload: response };
+    },
+  });
+}
+
+export function GetHomeSpiritualData() {
+  return apiAction({
+    url: GetPostByCategoryIdAPI + '/8',
+    method: 'GET',
+    // data: params,
+    onSuccess: response => {
+      return { type: GET_HOME_SPIRITUAL_DATA_SUCCESS, payload: response };
+    },
+    onFailure: response => {
+      return { type: SET_ERROR, payload: response };
+    },
+  });
+}
+export function GetHomeAudioData() {
+  return apiAction({
+    // url: GetPostByCategoryIdAPI + '/8',
+    url: GetPostsAPI + '?page=' + 1 + '&limit=' + 5 + '&category_id=' + 10,
+    method: 'GET',
+    // data: params,
+    onSuccess: response => {
+      return { type: GET_HOME_AUDIO_NO_DATA_SUCCESS, payload: response };
+    },
+    onFailure: response => {
+      return { type: SET_ERROR, payload: response };
+    },
+  });
+}
+
+
+export function GetFavouriteList() {
   return apiAction({
     url: GetFavouriteListAPI,
     method: 'GET',
@@ -516,16 +562,21 @@ const ListingApiStateReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         contactErrorResponse: action.payload,
       });
-    // case HOME_BANNER_API_SUCCESS:
-    //   return Object.assign({}, state, {
-    //     ;
     case GET_POST_BY_CATEGORY_ID_SUCCESS:
       return Object.assign({}, state, {
         getPostByCategoryIdResponse: action.payload,
       });
-    case GET_POST_WO_TYPE_BY_CATEGORY_ID_SUCCESS:
+    case GET_HOME_BIBLICAL_DATA_SUCCESS:
       return Object.assign({}, state, {
-        getPostWoTypeByCategoryIdResponse: action.payload,
+        getHomeBiblicalDataResponse: action.payload,
+      });
+    case GET_HOME_SPIRITUAL_DATA_SUCCESS:
+      return Object.assign({}, state, {
+        getHomeSpiritualDataResponse: action.payload,
+      });
+    case GET_HOME_AUDIO_NO_DATA_SUCCESS:
+      return Object.assign({}, state, {
+        getHomeAudioNoDataResponse: action.payload,
       });
     case ADD_TO_FAVOURITE_LIST_SUCCESS:
       return Object.assign({}, state, {

@@ -46,7 +46,7 @@ const Downloads = (props) => {
                 renderItem={({ item, index }) => <SectionItem key={index}
                     handlePlayer={() => console.log('asdasd')}
                     item={item} navigation={props.navigation}
-                    width={isIPad ? (width / 2) - 22 : (width)}
+                    width={isIPad ? (width / 2) - 22 : (width - 100)}
                     audio={true}
                     hideicon={true}
                     // postdetail={true}

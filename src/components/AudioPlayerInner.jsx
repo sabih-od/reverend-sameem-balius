@@ -1,6 +1,6 @@
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { colors, fonts, isRTL, width } from '../theme';
+import { IOS, colors, fontSize, fonts, isRTL, width } from '../theme';
 import strings, { changeLang } from "../localization/translation";
 import { useEffect, useState } from 'react';
 import { CurrentTrackInfo, DurationFormat, GetPlayerState, TrackPause, TrackPlay } from '../helpers/track-player';
@@ -69,14 +69,18 @@ const AudioPlayerInner = (props) => {
 
 
     return (
-        <View style={{  width: width, marginLeft: -15, marginTop: -10 }}>
+        <View style={{ width: width, marginLeft: -15, marginTop: -10 }}>
             <Slider
-                style={{ width: width, marginBottom: -18, zIndex: 1 }}
+                style={
+                    IOS ? { width: width, marginBottom: -22, zIndex: 1 } : { width: width + 32, marginLeft: -16, marginBottom: -11, zIndex: 1 }
+                }
                 minimumValue={0}
                 value={progress?.position}
                 maximumValue={progress?.duration}
-                minimumTrackTintColor={colors.orange}
-                maximumTrackTintColor="#fff"
+                // minimumTrackTintColor={colors.orange}
+                // maximumTrackTintColor="#fff"
+                minimumTrackTintColor="transparent"
+                maximumTrackTintColor="transparent"
                 tapToSeek={true}
                 onValueChange={(value) => {
                     console.log(Math.round(value))
@@ -84,13 +88,13 @@ const AudioPlayerInner = (props) => {
                     // progress.position = Math.round(value)
                 }}
                 thumbTintColor={'transparent'}
-                
+
 
             />
-            {/* <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                 <View style={{ flex: progress.position, backgroundColor: colors.orange, height: 4 }} />
-                <View style={{ flex: progress.duration - progress.position, backgroundColor: '#999', height: 4 }} />
-            </View> */}
+                <View style={{ flex: progress.duration - progress.position, backgroundColor: '#fff', height: 4 }} />
+            </View>
             <View style={{
                 flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 15,
                 paddingHorizontal: 10,
@@ -110,9 +114,9 @@ const AudioPlayerInner = (props) => {
                         defaultSource={require('./../../assets/images/speaker-placeholder.png')}
                         style={{ width: 70, height: 70, borderRadius: 15, marginRight: 10 }} />
                     <View style={{ width: width - 140 }}>
-                        <Text numberOfLines={1} style={{ fontFamily: fonts.primarySemiBold, textAlign: 'left', fontSize: isRTL ? 17 : 15, marginBottom: 2, color: colors.white, fontFamily: isRTL ? fonts.arabicBold : fonts.primary }}>{trackInfo?.title}</Text>
-                        <Text numberOfLines={1} style={{ fontFamily: fonts.primary, textAlign: 'left', color: '#333', fontSize: 13, marginBottom: 2, color: colors.white, fontFamily: isRTL ? fonts.arabicRegular : fonts.primary }}>{trackInfo?.artist}</Text>
-                        <Text style={{ fontFamily: fonts.primary, color: colors.white, fontSize: 12, textAlign: 'left', }}>{DurationFormat(progress?.position)} - {DurationFormat(progress?.duration)}</Text>
+                        <Text numberOfLines={1} style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryBold, textAlign: 'left', fontSize: isRTL ? 17 : fontSize + 1, marginBottom: 2, color: colors.white, fontFamily: isRTL ? fonts.arabicBold : fonts.primary }}>{trackInfo?.title}</Text>
+                        <Text numberOfLines={1} style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, textAlign: 'left', color: '#333', fontSize: fontSize - 2, marginBottom: 2, color: colors.white, fontFamily: isRTL ? fonts.arabicRegular : fonts.primary }}>{trackInfo?.artist}</Text>
+                        <Text style={{ fontFamily: fonts.primary, color: colors.white, fontSize: fontSize - 2, textAlign: 'left', }}>{DurationFormat(progress?.position)} - {DurationFormat(progress?.duration)}</Text>
                     </View>
                 </View>
                 <TouchableOpacity

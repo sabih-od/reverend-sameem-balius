@@ -25,7 +25,7 @@ const isIPad = width > 700 ? true : false;
 const IOS = Platform.OS == 'ios' ? true : false;
 const backgroungImage = isDarkMode ? require('./../../assets/images/home-bg.jpg') : require('./../../assets/images/auth-bg.jpg')
 const textAlign = isRTL ? 'right' : 'left';
-
+export const fontSize = 14;
 export {
     colors, fonts, width, height, colorScheme, fontcolor, invertcolor, isIPad, IOS, backgroungImage,
     // urdufont, 

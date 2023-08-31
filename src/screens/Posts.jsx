@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Image } from "react-native";
-import { backgroungImage, colors, fonts, height, isIPad, width } from "../theme";
+import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -13,6 +13,7 @@ import globalstyle from "../theme/style";
 // import RoutineBox from "../components/RoutineBox";
 import SectionItem from "../components/SectionItem";
 import BookItem from "../components/BookItem";
+import strings from "../localization/translation";
 
 const itemslimit = 50;
 const Posts = (props) => {
@@ -20,6 +21,7 @@ const Posts = (props) => {
     // console.log('props.route.params => ', props.route.params)
     const [postList, setPostList] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [page, setPageno] = useState(1);
     const [category_id, setCategoryId] = useState(props.route.params.item.id)
     const [limit, setLimit] = useState(itemslimit);
@@ -30,6 +32,7 @@ const Posts = (props) => {
 
     useEffect(() => {
         console.log('asd 1')
+        setLoading(true)
         console.log('props.route.params => ', props.route.params)
         props.navigation.setOptions({ headerTitle: item?.name });
         props.GetPostsList({ page, limit, category_id: props.route.params.item.id })
@@ -40,6 +43,10 @@ const Posts = (props) => {
             setPostList([])
         }
     }, [props.route.params.item.id])
+
+    useEffect(() => {
+        console.log('loading => ', loading)
+    }, [loading]);
 
     useEffect(() => {
         console.log('asd 2')
@@ -55,6 +62,7 @@ const Posts = (props) => {
                 console.log('not refreshing')
                 setPostList(prevState => [...prevState, ...props.getPostsListResponse?.data])
             }
+            loading && setLoading(false);
         }
         setRefreshing(false)
         // setLoadmore(false)
@@ -83,7 +91,11 @@ const Posts = (props) => {
 
     return <SafeAreaView style={{ flex: 1 }}>
         <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
-        <FlatList
+        {loading && <View style={globalstyle.loadingview}>
+            <ActivityIndicator color={isDarkMode ? colors.white : colors.black} style={{ marginBottom: 15 }} />
+            <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
+        </View>}
+        {!loading && <FlatList
             style={{ padding: 15 }}
             // horizontal
             // snapToInterval={width / 2}
@@ -96,10 +108,11 @@ const Posts = (props) => {
             onRefresh={_handleRefresh}
             ListFooterComponent={() => loadmore ? <View style={globalstyle.footerloadmore}>
                 <ActivityIndicator size={Platform.OS == 'android' ? 25 : 'large'} color={colors.primary} />
-                <Text style={globalstyle.footerloadingtext}>Loading</Text>
+                <Text style={globalstyle.footerloadingtext}>{strings.Loading}</Text>
             </View> : <View style={{ height: 20 }} />}
             // onEndReachedThreshold={0.8}
             // onEndReached={_handleLoadMore}
+            ListEmptyComponent={() => <View style={globalstyle.loadingview}><Text style={globalstyle.noproductfound}>{'No data found'}</Text></View>}
             data={postList}
             keyExtractor={(item, index) => String(index)}
             renderItem={({ item, index }) => {
@@ -120,8 +133,8 @@ const Posts = (props) => {
                 }
 
             }}
-        />
-    </SafeAreaView>
+        />}
+    </SafeAreaView >
 }
 
 const setStateToProps = (state) => ({

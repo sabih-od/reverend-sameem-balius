@@ -9,13 +9,31 @@ import TrackPlayer from 'react-native-track-player';
 
 const SectionItem = (props) => {
     const { item, width, navigation, handlePlayer } = props;
-    console.log('item => ', item)
+    // console.log('item => ', item)
     if (props?.audio) {
         return (
             <TouchableOpacity
                 onPress={async () => {
                     if (props.postdetail) {
                         navigation.navigate('PostDetail', { item: item })
+                    } else if (props.audiodetail) {
+                        const reset = await TrackPlayer.reset();
+                        let queue = await TrackPlayer.getQueue();
+                        console.log('queue => ', queue)
+                        if (queue.length == 0) {
+                            let added = await TrackAddItem(
+                                {
+                                    id: item?.id,
+                                    url: item?.audio,
+                                    title: item?.title,
+                                    artist: item?.description,
+                                    artwork: item?.image,
+                                    created_at: item?.created_at,
+                                }
+                            );
+                            await TrackPlay();
+                        }
+                        navigation.navigate('AudioPlayer', { item: item })
                     } else if (props?.downloads) {
                         // handlePlayer(true, item)
                         const reset = await TrackPlayer.reset();
@@ -26,15 +44,15 @@ const SectionItem = (props) => {
                                 {
                                     id: item?.id,
                                     url: item?.url,
-                                    title: moment(parseInt(item?.created_at)).format("ddd DD MMM, ") + strings.homeTopTitle,
+                                    title: item?.title,
                                     artist: item?.artist,
-                                    artwork: require('./../../assets/images/meditation.jpg'),
+                                    artwork: item?.artwork, //require('./../../assets/images/meditation.jpg'),
                                     created_at: item?.created_at,
                                 }
                             );
                             await TrackPlay();
                         }
-                        navigation.navigate('AudioPlayer')
+                        navigation.navigate('AudioPlayer', { fromdownloads: true })
                     } else { handlePlayer(true, item) }
                 }}
                 activeOpacity={0.9}
@@ -42,7 +60,7 @@ const SectionItem = (props) => {
             >
                 {/* require('./../../assets/images/sermons-01.jpeg') */}
                 < ImageBackground
-                    source={{ uri: props?.downloads ? item?.artwork?.uri : item?.image }}
+                    source={{ uri: props?.downloads ? item?.artwork : item?.image }}
                     defaultSource={require('./../../assets/images/speaker-placeholder.png')}
                     style={itemstyle.audoimage}
                 >
@@ -123,7 +141,7 @@ const itemstyle = StyleSheet.create({
     iconbg: { width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 30, justifyContent: 'center', alignItems: 'center', },
     icon: { fontSize: 18, color: colors.white },
     date: { fontFamily: fonts.primary, fontSize: 11, textAlign: 'left', color: isDarkMode ? colors.white : '#444', marginBottom: isRTL ? 7 : 0 },
-    title: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: 16, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', marginBottom: isRTL ? 7 : 0 },
+    title: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: 15, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', marginBottom: isRTL ? 7 : 0 },
     desc: { fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: isRTL ? 13 : 12, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', lineHeight: isRTL ? 17 : 16 },
     audoimage: { width: 80, height: 80, marginRight: 15, marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' },
     otherimage: { width: '100%', marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' },

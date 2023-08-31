@@ -37,6 +37,8 @@ export default {
   contactus: 'اتصل بنا',
   home: 'بيت',
 
+  Biblical: 'الكتاب المقدس',
+  Spiritual: 'روحي',
 
   contactTitle: 'اتصل بنا',
   contactDesc: 'اتصل بنا لأي سؤال واستفسار',
@@ -96,4 +98,7 @@ export default {
   StoreReviews: 'تقييمات المتجر',
   StartMyFreeWeek: 'ابدأ أسبوعي المجاني',
   DaysForFree: 'جرب 7 أيام مجانًا، ثم 100 دولار شهريًا، ويتم إصدار فاتورة سنوية بقيمة 1000 دولار أمريكي سنويًا. إلغاء في أي وقت',
+
+  Loading: 'جاري التحميل الرجاءالانتظار',
+
 };

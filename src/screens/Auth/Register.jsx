@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, I18nManager } from "react-native";
 // import { fonts } from "../../theme";
 import { useForm } from 'react-hook-form';
-import { IOS, backgroungImage, colorScheme, colors, fonts, invertcolor, isIPad, isRTL } from "../../theme";
+import { IOS, backgroungImage, colorScheme, colors, fontSize, fonts, invertcolor, isIPad, isRTL } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
@@ -75,14 +75,16 @@ const Register = (props) => {
                                     placeholder="First Name"
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('first_name', {
-                                        value: 'John',
+                                        // value: 'John',
+                                        value: '',
                                         required: 'First name is required',
                                         pattern: {
                                             value: /^[A-Za-z\s]+$/i,
                                             message: "Please provide a valid name"
                                         },
                                     })}
-                                    defaultValue='John'
+                                    defaultValue=''
+                                    // defaultValue='John'
                                     onChangeText={(value) => setValue('first_name', value)}
                                     ref={input01}
                                     returnKeyType="next"
@@ -97,14 +99,16 @@ const Register = (props) => {
                                     placeholder="Last Name"
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('last_name', {
-                                        value: 'Martin',
+                                        // value: 'Martin',
+                                        value: '',
                                         required: 'Last name is required',
                                         pattern: {
                                             value: /^[A-Za-z\s]+$/i,
                                             message: "Please provide a valid name"
                                         },
                                     })}
-                                    defaultValue='Martin'
+                                    defaultValue=''
+                                    // defaultValue='Martin'
                                     onChangeText={(value) => setValue('last_name', value)}
                                     ref={input01}
                                     returnKeyType="next"
@@ -120,14 +124,16 @@ const Register = (props) => {
                                     placeholder="Email Address"
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('email', {
-                                        value: 'johnmartin@mailinator.com',
+                                        // value: 'johnmartin@mailinator.com',
+                                        value: '',
                                         required: 'Email Address is required',
                                         pattern: {
                                             value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
                                             message: "Please provide valid email"
                                         },
                                     })}
-                                    defaultValue={'johnmartin@mailinator.com'}
+                                    defaultValue={''}
+                                    // defaultValue={'johnmartin@mailinator.com'}
                                     onChangeText={(value) => setValue('email', value)}
                                     autoCapitalize='none'
                                     ref={input02}
@@ -146,14 +152,16 @@ const Register = (props) => {
                                     // keyboardType='phone-pad'
                                     keyboardType='numeric'
                                     {...register('phone', {
-                                        value: '+8134234123123',
+                                        // value: '+8134234123123',
+                                        value: '',
                                         // required: 'Phone number is required',
                                         pattern: {
                                             value: /[0-9+]$/i,
                                             message: "Please provide valid phone number"
                                         },
                                     })}
-                                    defaultValue='+8134234123123'
+                                    defaultValue=''
+                                    // defaultValue='+8134234123123'
                                     onChangeText={(value) => setValue('phone', value)}
                                     ref={input03}
                                     returnKeyType="next"
@@ -170,11 +178,13 @@ const Register = (props) => {
                                         placeholder="Password"
                                         placeholderTextColor={colors.placeholdercolor}
                                         {...register('password', {
-                                            value: '12345678',
+                                            value: '',
+                                            // value: '12345678',
                                             required: 'Password is required',
                                             minLength: { value: 8, message: 'Password length must be greater then 8' }
                                         })}
-                                        defaultValue={'12345678'}
+                                        defaultValue={''}
+                                        // defaultValue={'12345678'}
                                         // inputRef={password.ref}
                                         onChangeText={(value) => setValue('password', value)}
                                         secureTextEntry={!showPassword ? true : false}
@@ -200,7 +210,7 @@ const Register = (props) => {
                                     }}>
                                     <Icon
                                         name={isChecked ? "check-circle" : "circle"}
-                                        style={{ fontSize: isIPad ? 20 : 16, marginRight: 10 }}
+                                        style={{ fontSize: isIPad ? 20 : fontSize, marginRight: 8, color: colors.orange }}
                                     />
                                     <Text style={styles.termstext}>{strings.YesIAgree} </Text>
                                     <TouchableOpacity
@@ -247,6 +257,6 @@ export default connect(setStateToProps, mapDispatchToProps)(Register);
 
 
 const styles = StyleSheet.create({
-    termstext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, fontSize: isIPad ? 18 : 14 },
-    termstextbold: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 18 : 14 }
+    termstext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, fontSize: isIPad ? 18 : fontSize, color: colors.black },
+    termstextbold: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 18 : fontSize, color: colors.black }
 })

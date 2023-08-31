@@ -1,5 +1,5 @@
 import { View, ImageBackground, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { colors, fontcolor, fonts, isRTL } from "../theme";
+import { colors, fontSize, fontcolor, fonts, isRTL } from "../theme";
 
 import Icon from 'react-native-vector-icons/Feather';
 const RoutineBox = ({ item, navigation }) => {
@@ -48,9 +48,9 @@ export default RoutineBox;
 
 const styles = StyleSheet.create({
     routinebgimage: { resizeMode: 'cover', width: '100%', height: 130, borderRadius: 10, overflow: 'hidden', marginBottom: 6, marginBottom: 10 },
-    boxtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: fontcolor, fontSize: 14, textAlign: 'left', marginBottom: isRTL ? 7 : 0 },
+    boxtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: fontcolor, fontSize: fontSize, textAlign: 'left', marginBottom: isRTL ? 3 : 0, textTransform: 'capitalize' },
     locationrow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-    locationtoreach: { fontFamily: isRTL ? fonts.arabicRegular : fonts.primaryMedium, color: fontcolor, fontSize: 12, textAlign: 'left' },
+    locationtoreach: { fontFamily: isRTL ? fonts.arabicRegular : fonts.primaryMedium, color: fontcolor, fontSize: fontSize - 2, textAlign: 'left' },
     timetoreach: { fontFamily: fonts.primarySemiBold, color: fontcolor, fontSize: 10 },
     heartbtnbg: { backgroundColor: colors.orange, width: 25, height: 25, alignItems: 'center', justifyContent: 'center', borderRadius: 30 },
     moreicon: { padding: 10, position: 'absolute', right: 0 },

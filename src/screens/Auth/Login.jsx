@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, I18nManager, StatusBar } from "react-native";
 
 import { useForm } from 'react-hook-form';
-import { IOS, backgroungImage, colorScheme, colors, fonts, isDarkMode, isIPad, isRTL, width } from "../../theme";
+import { IOS, backgroungImage, colorScheme, colors, fontSize, fonts, isDarkMode, isIPad, isRTL, width } from "../../theme";
 
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
@@ -137,14 +137,14 @@ const Login = (props) => {
                                         style={globalstyle.inputfield}
                                         placeholder="Email Address"
                                         {...register('email', {
-                                            value: 'johnmartin@mailinator.com', // johnmartin@mailinator.com
+                                            value: '', // johnmartin@mailinator.com
                                             required: 'Email Address is required',
                                             pattern: {
                                                 value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
                                                 message: "Please provide valid email"
                                             },
                                         })}
-                                        defaultValue={'johnmartin@mailinator.com'} // johnmartin@mailinator.com
+                                        defaultValue={''} // johnmartin@mailinator.com
                                         placeholderTextColor={colors.placeholdercolor}
                                         autoCapitalize='none'
                                         onChangeText={(value) => setValue('email', value)}
@@ -168,11 +168,11 @@ const Login = (props) => {
                                             placeholder="Password"
                                             placeholderTextColor={colors.placeholdercolor}
                                             {...register('password', {
-                                                value: '12345678', // 12345678
+                                                value: '', // 12345678
                                                 required: 'Password is required',
                                                 minLength: { value: 8, message: 'Password length must be greater then 8' }
                                             })}
-                                            defaultValue={'12345678'} // 12345678
+                                            defaultValue={''} // 12345678
                                             // inputRef={password.ref}
                                             onChangeText={(value) => setValue('password', value)}
                                             secureTextEntry={!showPassword ? true : false}
@@ -234,5 +234,5 @@ export default connect(setStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
     forgetpasslink: { marginLeft: 'auto', marginTop: 10, marginBottom: 0, marginRight: 15 },
-    forgetpasstext: { color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 13 },
+    forgetpasstext: { color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: fontSize - 1 },
 })

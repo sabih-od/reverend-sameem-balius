@@ -28,10 +28,10 @@ const CdItem = ({ item, handlePlayer }) => {
     return <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => handlePlayer(true, item)}
-        style={{ width: (width / 2) - 30, alignItems: 'center', paddingVertical: 15 }}>
+        style={{ width: (width / 2) - 30, alignItems: 'center', paddingVertical: 5 }}>
         <ImageBackground
             source={{ uri: item?.image }}
-            style={{ width: width / 2.5, height: width / 2.5, justifyContent: 'center', alignItems: 'center', borderRadius: 120, overflow: 'hidden', marginBottom: 10 }}>
+            style={{ width: width / 2.9, height: width / 2.9, justifyContent: 'center', alignItems: 'center', borderRadius: 120, overflow: 'hidden', marginBottom: 10 }}>
             <View style={{ position: 'absolute', width: '100%', height: '100%', left: 0, top: 0, backgroundColor: colors.black, opacity: 0.3 }} />
             <View style={{ width: 40, height: 40, borderColor: 'rgba(0,0,0,0.4)', borderWidth: 2, borderRadius: 30, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ width: 30, height: 30, backgroundColor: colors.black, borderRadius: 30 }} />

@@ -53,6 +53,9 @@ const PostDetail = (props) => {
         // StatusBar.setTranslucent(true);
         // StatusBar.setBackgroundColor('transparent')
         props.GetFavouriteIds();
+        return async () => {
+            await TrackPlayer.reset();
+        }
     }, [])
 
     useEffect(() => {

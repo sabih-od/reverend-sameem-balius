@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, ActivityIndicator, View, Image, Modal, Animated, Easing, Text } from 'react-native';
 import { colors, fonts } from './../theme';
 import NetInfo from '@react-native-community/netinfo'
+import strings from '../localization/translation';
 
 function AnimatedImage() {
 
@@ -65,7 +66,7 @@ const Loader = (props) => {
                 <View style={{backgroundColor: colors.black, alignItems: 'center', flexDirection: 'row', padding: 15, borderRadius: 10}}>
                     {/* <AnimatedImage /> */}
                     <ActivityIndicator color={colors.white} size={'small'} />
-                    {!isConnected ? <Text style={styles.nonetwork}>No Network Connection</Text> : <Text style={styles.nonetwork}>Loading. Please wait...</Text>}
+                    {!isConnected ? <Text style={styles.nonetwork}>No Network Connection</Text> : <Text style={styles.nonetwork}>{strings.Loading}</Text>}
                 </View>
             </View>
         </Modal>

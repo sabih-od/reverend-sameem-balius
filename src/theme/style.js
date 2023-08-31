@@ -1,6 +1,6 @@
 import { I18nManager, StyleSheet } from 'react-native';
 
-import { IOS, colorScheme, colors, fontcolor, fonts, height, isDarkMode, isIPad, isRTL, width } from './index';
+import { IOS, colorScheme, colors, fontSize, fontcolor, fonts, height, isDarkMode, isIPad, isRTL, width } from './index';
 console.log('isRTL czxc=> ', isRTL)
 const globalstyle = StyleSheet.create({
   // fullview: { ...StyleSheet.absoluteFillObject, height: '100%', backgroundColor: '#f4f4f4' },
@@ -11,7 +11,7 @@ const globalstyle = StyleSheet.create({
   // logoText: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.primary, fontSize: 30, textAlign: 'center', marginBottom: 20,textTransform: 'uppercase' },
   // loginbox: { width: '90%', marginHorizontal: '5%' },
 
-  fullview: { ...StyleSheet.absoluteFillObject, height: height - 70, },
+  fullview: { ...StyleSheet.absoluteFillObject, height: height - 70, width: width },
   authContainer: { ...StyleSheet.absoluteFillObject, height: height, resizeMode: 'cover' },
   authLogoContainer: { alignItems: 'center' },
   authLogo: { width: 150, height: 130, resizeMode: 'contain', marginBottom: 25, },
@@ -34,7 +34,7 @@ const globalstyle = StyleSheet.create({
   // showhideicontouch: { padding: 10, zIndex: 1, position: 'absolute', right: 10, },
   showhideicon: { color: '#999' },
 
-  draweritemtext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.white, fontSize: isIPad ? 19 : 14 },
+  draweritemtext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.white, fontSize: isIPad ? 19 : fontSize },
   draweritemrow: { flexDirection: 'row', paddingHorizontal: 15, paddingVertical: isRTL ? 13 : 12, borderBottomWidth: 1, borderBottomColor: isDarkMode ? '#ffffff09' : 'rgba(0,0,0,0.1)', borderLeftWidth: 4 },
 
   footerloadmore: { display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 7 },
@@ -52,18 +52,18 @@ const globalstyle = StyleSheet.create({
   headerTitleStyle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 22 : 18, textTransform: 'capitalize', color: isDarkMode ? colors.white : colors.black },
 
   speakerboximage: { height: isIPad ? 100 : 75, borderRadius: 7, overflow: 'hidden', width: isIPad ? 100 : 75, marginRight: isIPad ? 15 : 10 },
-  speakerboxtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.orange, fontSize: isIPad ? 18 : 14 },
+  speakerboxtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.orange, fontSize: isIPad ? 18 : fontSize },
   speakerboxrow: { flexDirection: 'row', marginBottom: 4, alignItems: 'center' },
   speakerboxname: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.black, fontSize: isIPad ? 22 : 16, },
   speakerboxdesc: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.grey, fontSize: isIPad ? 18 : 13, },
   speakerdetailheading: { fontSize: isIPad ? 28 : 22, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.black, marginBottom: 5 },
-  speakerdetailparagraph: { fontSize: isIPad ? 18 : 14, marginBottom: 0, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.grey, lineHeight: isIPad ? 24 : 20 },
-  speakerdetailparabold: { fontSize: 14, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.black },
+  speakerdetailparagraph: { fontSize: isIPad ? 18 : fontSize, marginBottom: 0, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.grey, lineHeight: isIPad ? 24 : 20 },
+  speakerdetailparabold: { fontSize: fontSize, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.black },
   speakerdetailimage: { width: 100, height: 100, resizeMode: 'cover', borderRadius: 10, marginBottom: 15, marginRight: 15 },
   speakerdetaildesignation: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.orange, fontSize: isIPad ? 18 : 15 },
 
   detaildate: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: isDarkMode ? colors.white : colors.grey, marginBottom: 5, fontSize: isIPad ? 15 : 13, textAlign: 'left', marginBottom: isRTL ? 12 : 0 },
-  detailtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 30 : 24, marginBottom: 5, textAlign: 'left', marginBottom: isRTL ? 10 : 10 },
+  detailtitle: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 30 : 21, marginBottom: 5, textAlign: 'left', marginBottom: isRTL ? 10 : 0 },
   detaildescription: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: isDarkMode ? colors.white : colors.black, fontSize: isIPad ? 18 : 15, textAlign: 'left', lineHeight: isRTL ? 28 : 22 },
 
 
@@ -71,7 +71,7 @@ const globalstyle = StyleSheet.create({
 
 
 
-
+  loadingview: { height: height - 150, alignItems: 'center', justifyContent: 'center' },
 
 
   authbgimage: { paddingHorizontal: 15, flex: 1, justifyContent: 'space-between', },
@@ -84,7 +84,7 @@ const globalstyle = StyleSheet.create({
   // alreadysignin: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, },
   // errorField: { color: '#f00', fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, fontSize: 12, marginTop: 2, marginLeft: 15 },
   // alreadyaccount: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', color: fontcolor },
-  actionauthtext: { color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 18 : 14 },
+  actionauthtext: { color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 18 : fontSize },
   authlefticon: { color: isDarkMode ? colors.white : colors.deepblue },
   // showhideicontouch: { padding: 10, zIndex: 1, position: 'absolute', right: 10, },
   // showhideicon: { color: '#999' },

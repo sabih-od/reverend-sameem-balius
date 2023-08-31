@@ -1,5 +1,5 @@
-import { Image, ImageBackground, Text, View, TouchableOpacity } from "react-native";
-import { IOS, backgroungImage, colors, fonts, height, isDarkMode, width } from "../theme"
+import { Image, ImageBackground, Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
+import { IOS, backgroungImage, colors, fontSize, fonts, height, isDarkMode, isRTL, width } from "../theme"
 import globalstyle from "../theme/style";
 import LinearGradient from "react-native-linear-gradient";
 import Slider from "@react-native-community/slider";
@@ -14,7 +14,7 @@ import { UpdateDownlaods } from "../redux/reducers/AppStateReducer";
 import { showToast } from "../helpers/toastConfig";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
+import Loader from './../components/Loader';
 
 const AudioPlayer = (props) => {
 
@@ -85,10 +85,19 @@ const AudioPlayer = (props) => {
         }
     }
 
+    const [downlaodStart, setDownloadStart] = useState(false);
+    const [isDownloaded, setIsDownloaded] = useState(false);
+
     const filename = Math.round(Math.random() * 10000000)
-    const path = `${RNFS.DocumentDirectoryPath}/${filename}`;
+    const path = `${RNFS.DocumentDirectoryPath}/${filename}.mp3`;
     function downloadAudio(url) {
         console.log('url => ', url)
+        // const extensionRegex = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+        // const match = url.match(extensionRegex);
+        // const ext = match[1];
+        // const pathwithext = path + '.' + ext;
+        // console.log('pathwithext => ', pathwithext)
+        setDownloadStart(true);
         ReactNativeBlobUtil.config({
             fileCache: true,
             path: path,
@@ -97,7 +106,6 @@ const AudioPlayer = (props) => {
                 console.log('response => ', res);
                 console.log('res => ', res.info());
                 console.log('path => ', path)
-                // setImagePath(path)
                 const newinfo = { ...trackInfo, url: path }
                 console.log('newinfo => ', newinfo)
                 if (props.downloads) {
@@ -110,10 +118,13 @@ const AudioPlayer = (props) => {
                     props.UpdateDownlaods(abcd)
                 }
                 showToast('success', `${newinfo?.title} download completed`)
+                setDownloadStart(false);
+                setIsDownloaded(true);
             }).catch((errorMessage, statusCode) => {
                 // error handling
                 console.log('errorMessage => ', errorMessage)
                 console.log('statusCode => ', statusCode)
+                setDownloadStart(false);
             })
     }
 
@@ -137,24 +148,30 @@ const AudioPlayer = (props) => {
         // console.log('downloads => ', downloads)
     }, [])
 
-    return (
+    return (<>
+        {/* <Loader isLoading={downlaodStart} /> */}
         <View style={[globalstyle.fullview, { backgroundColor: isDarkMode ? colors.deepblue : colors.headerbgcolor, height: height }]}>
             <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
-            <View style={{ width: width, height: width + 100, alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
-                <Image source={require('./../../assets/images/meditation.jpg')} style={{ width: width - 100, height: width - 100, borderRadius: 20, marginBottom: -34, zIndex: 1 }} />
+            <View style={{ marginTop: 30, width: width, height: width - 50, alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+                <Image
+                    source={
+                        { uri: trackInfo?.artwork }
+                        // { uri: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/fyucZ7SkvlvpDDxFgoIY.jpg' }
+                        // require('./../../assets/images/meditation.jpg')
+                    } style={{ width: width - 100, height: width - 100, borderRadius: 20, marginBottom: -34, zIndex: 1 }} />
             </View>
             {/* <ImageBackground source={require('./../../assets/images/meditation.jpg')} style={{ width: width, height: width + 100, alignItems: 'center', justifyContent: 'center', marginBottom: 20 }} blurRadius={20}>
                 <Image source={require('./../../assets/images/meditation.jpg')} style={{ width: width - 100, height: width - 100, borderRadius: 20, marginBottom: -34, zIndex: 1 }} />
                 <View style={{ width: width, height: width, position: 'absolute', backgroundColor: colors.deepblue, top: 0, left: 0, opacity: 0.5, zIndex: 0 }} />
                 <LinearGradient colors={['transparent', colors.deepblue]} style={{ width: width, height: width, position: 'absolute', bottom: 0, left: 0, zIndex: 0 }} />
             </ImageBackground> */}
-            <View style={{ marginTop: -50 }}>
-                <Text style={{ fontFamily: fonts.primarySemiBold, fontSize: 22, color: isDarkMode ? colors.white : colors.black, textAlign: 'center' }}>{trackInfo?.title}</Text>
-                <Text style={{ fontFamily: fonts.primary, fontSize: 16, color: isDarkMode ? colors.white : colors.black, textAlign: 'center' }}>{trackInfo?.artist}</Text>
+            <View style={{ marginTop: 0, paddingHorizontal: 20 }}>
+                <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: (fontSize * 2) - 4, color: isDarkMode ? colors.white : colors.black, textAlign: 'center' }}>{trackInfo?.title}</Text>
+                <Text numberOfLines={2} style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: fontSize, color: isDarkMode ? colors.white : colors.black, textAlign: 'center' }}>{trackInfo?.artist}</Text>
             </View>
-            <View style={{ marginTop: 50, width: width - 40, marginHorizontal: 20 }}>
+            <View style={{ marginTop: 30, width: width - 40, marginHorizontal: 20 }}>
                 <Slider
-                    style={{ width: width - 40, height: 40 }}
+                    style={{ width: width - 40, height: 40, }}
                     minimumValue={0}
                     value={progress?.position}
                     maximumValue={progress?.duration}
@@ -209,13 +226,18 @@ const AudioPlayer = (props) => {
                 >
                     <Icon name="plus-circle" style={{ color: isDarkMode ? colors.white : colors.black, fontSize: 30, }} />
                 </TouchableOpacity> */}
-                <TouchableOpacity
+                {downlaodStart && <ActivityIndicator color={isDarkMode ? colors.white : colors.black} />}
+                {!downlaodStart && <TouchableOpacity
+                    disabled={(props?.route?.params?.fromdownloads || isDownloaded) ? true : false}
                     activeOpacity={0.8}
-                    onPress={() => { downloadAudio(trackInfo?.url) }}>
-                    <Icon name="download-cloud" style={{ color: isDarkMode ? colors.white : colors.black, fontSize: 25, }} />
-                </TouchableOpacity>
+                    onPress={() => { downloadAudio(trackInfo?.url) }}
+                    style={{ opacity: (props?.route?.params?.fromdownloads || isDownloaded) ? 0.6 : 1 }}
+                >
+                    <Icon name={"download-cloud"} style={{ color: isDarkMode ? colors.white : colors.black, fontSize: 25, }} />
+                </TouchableOpacity>}
             </View>
         </View>
+    </>
     )
 }
 

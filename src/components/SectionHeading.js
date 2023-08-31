@@ -19,7 +19,7 @@ const SectionHeading = (props) => {
 export default SectionHeading;
 
 const styles = StyleSheet.create({
-    sectionheading: { color: fontcolor, fontFamily: isRTL ? fonts.arabicBold : fonts.primaryBold, fontSize: 20, textTransform: 'capitalize', textAlign: 'left' },
+    sectionheading: { color: fontcolor, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: 20, textTransform: 'capitalize', textAlign: 'left' },
     sectionheadrow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
     joinicon: { marginRight: 5, backgroundColor: colors.darkblue, alignItems: 'center', justifyContent: 'center', borderRadius: 20, width: 23, height: 23, marginRight: 7 },
     joinedtext: { color: fontcolor, fontFamily: fonts.primaryBold },

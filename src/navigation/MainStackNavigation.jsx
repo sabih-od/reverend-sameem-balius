@@ -305,9 +305,10 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 name="StartFreeWeek"
                 component={StartFreeWeek}
                 options={{
-                    headerTitle: strings.StartFreeWeek,
+                    headerTitle: '',
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
+                    // headerTransparent: true,
                     headerStyle: {
                         backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
                         elevation: 0,

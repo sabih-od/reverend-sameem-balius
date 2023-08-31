@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Image, TextInput } from "react-native";
-import { backgroungImage, colors, fonts, height, isIPad, isRTL, width } from "../theme";
+import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, isRTL, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -19,6 +19,7 @@ const SearchPost = (props) => {
     const [searchPosts, setSearchPosts] = useState([]);
     // const [title, setTitle] = useState('');
     const [refreshing, setRefreshing] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(itemslimit);
     const [loadmore, setLoadmore] = useState(false);
@@ -28,6 +29,7 @@ const SearchPost = (props) => {
         console.log('here 1')
         props.GetSearchPost({ page, limit, title: props?.route?.params?.title })
         setSearchPosts([])
+        setLoading(true)
     }, [props?.route?.params?.title])
 
     useEffect(() => {
@@ -51,6 +53,7 @@ const SearchPost = (props) => {
             // else setSearchPosts(prevState => [...prevState, ...props.getSearchPostResponse?.data])
         }
         setRefreshing(false)
+        setLoading(false)
         // setLoadmore(false)
     }, [props.getSearchPostResponse])
 
@@ -74,6 +77,7 @@ const SearchPost = (props) => {
     }
 
     function _onSearch(value) {
+        setLoading(true)
         props.GetSearchPost({ page, limit, title: value })
     }
 
@@ -83,8 +87,12 @@ const SearchPost = (props) => {
         {/* <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 15, }}>
 
         </ScrollView> */}
-        <FlatList
-            style={{ padding: 15 }}
+        {loading && <View style={globalstyle.loadingview}>
+            <ActivityIndicator color={isDarkMode ? colors.white : colors.black} style={{ marginBottom: 15 }} />
+            <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
+        </View>}
+        {!loading && <FlatList
+            style={{ paddingHorizontal: 15, paddingBottom: 15 }}
             // horizontal
             // snapToInterval={width / 2}
             // scrollEnabled
@@ -98,6 +106,7 @@ const SearchPost = (props) => {
                 <ActivityIndicator size={Platform.OS == 'android' ? 25 : 'large'} color={colors.primary} />
                 <Text style={globalstyle.footerloadingtext}>Loading</Text>
             </View> : <View style={{ height: 20 }} />}
+            ListEmptyComponent={() => <View style={globalstyle.loadingview}><Text style={globalstyle.noproductfound}>{'No data found'}</Text></View>}
             // onEndReachedThreshold={0.8}
             // onEndReached={_handleLoadMore}
             data={searchPosts}
@@ -112,7 +121,7 @@ const SearchPost = (props) => {
                     // <PostBox key={index} item={item} width={isIPad ? (width / 3) - 20 : (width / 2) - 20} navigation={props.navigation} />
                 )
             }}
-        />
+        />}
     </SafeAreaView >
 }
 

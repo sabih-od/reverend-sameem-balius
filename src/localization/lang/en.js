@@ -37,6 +37,8 @@ export default {
   contactus: 'Contact Us',
   home: 'Home',
 
+  Biblical: 'Biblical',
+  Spiritual: 'Spiritual',
 
   contactTitle: 'Contact Us',
   contactDesc: 'Contact us for any question and query',
@@ -79,9 +81,9 @@ export default {
 
   NowPlaying: 'Now Playing',
 
-  NoDownloads: 'No downloads are available',
+  NoDownloads: 'No downloads available',
   NoHistory: 'No history available',
-  NoFavourites: 'No favourites are available',
+  NoFavourites: 'No favourites available',
 
   StartFreeWeek: 'Start Free Week',
   ProgramReady: 'Your program is ready.',
@@ -97,5 +99,5 @@ export default {
   StartMyFreeWeek: 'Start My Free Week',
   DaysForFree: 'Try 7 days for free, then 100$/Month, billed annually as 1000$/Year.\nCancel anytime',
 
-
+  Loading: 'Loading. Please wait...',
 };

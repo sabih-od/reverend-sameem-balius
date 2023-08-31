@@ -68,7 +68,7 @@ const MainBox = ({ item }) => {
                                     url: item?.audio,
                                     title: moment(parseInt(item?.created_at)).format("ddd DD MMM, ") + strings.homeTopTitle,
                                     artist: item?.title,
-                                    artwork: require('./../../assets/images/meditation.jpg'),
+                                    artwork: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/fyucZ7SkvlvpDDxFgoIY.jpg',
                                     created_at: item?.created_at,
                                 }
                             );
@@ -87,7 +87,7 @@ const MainBox = ({ item }) => {
                 </TouchableOpacity>}
                 <View style={styles.heartaction}>
                     <ActionIcons name="heart" route="FavouriteList" />
-                    {/* <ActionIcons name="download" route="Downloads" /> */}
+                    <ActionIcons name="download" route="Downloads" />
                     {/* <ActionIcons name="calendar" route="calendarList" /> */}
                     <ActionIcons name="clock" route="HistoryList" />
                 </View>
