@@ -58,7 +58,7 @@ const ForgetPassword = (props) => {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         <View style={globalstyle.authLogoContainer}>
-                            {/* <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} /> */}
+                            {/* <Image source={require('./../../../assets/images/logo.png')} style={globalstyle.authLogo} /> */}
                             <Text style={globalstyle.authheading}>{strings.ForgetPasswordTitle}</Text>
                             <Text style={globalstyle.authdescription}>{strings.ForgetPasswordDesc}</Text>
                         </View>

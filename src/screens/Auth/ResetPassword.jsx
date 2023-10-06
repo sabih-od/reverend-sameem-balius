@@ -73,7 +73,7 @@ const ResetPassword = (props) => {
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         {/* <ScrollView> */}
                         <View style={globalstyle.authLogoContainer}>
-                            {/* <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} /> */}
+                            {/* <Image source={require('./../../../assets/images/logo.png')} style={globalstyle.authLogo} /> */}
                             <Text style={globalstyle.authheading}>{strings.ResetPass}</Text>
                             <Text style={globalstyle.authdescription}>{strings.ResetAccPass}</Text>
                         </View>

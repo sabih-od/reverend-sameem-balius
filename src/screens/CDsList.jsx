@@ -111,7 +111,7 @@ const CDsList = (props) => {
         //     id: '1',
         //     url: 'https://www.divinerevelations.info/documents/bible/english_mp3_bible/dbs_kjv_bible/12_2_kings.mp3',
         //     title: 'Do not Fear Bad News',
-        //     artist: 'Reverend Sameem Balius',
+        //     artist: 'Light of the Words',
         //     artwork: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/4UToGtgL8e4R5ZMeoHLJ.jpg'
         // }
         setShowPlayer(value)
@@ -125,7 +125,7 @@ const CDsList = (props) => {
                         id: item?.id,
                         url: item?.audio,
                         title: item?.title,
-                        artist: 'Reverend Sameem Balius',
+                        artist: 'Light of the Words',
                         artwork: item?.image
                     }
                 );

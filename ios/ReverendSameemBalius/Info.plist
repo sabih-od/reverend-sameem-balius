@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>ReverendSameemBalius</string>
+	<string>Light&#x2007;Of&#x2007;The&#x2007;Words</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -36,11 +36,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Please grant permission for Reverend Sameem to access your camera in order to capture a profile picture.</string>
+	<string>Please grant permission for Light of the Words to access your camera in order to capture a profile picture.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please grant permission for Reverend Sameem to access your photo library, allowing the selection and upload of a desired image as your profile picture.</string>
+	<string>Please grant permission for Light of the Words to access your photo library, allowing the selection and upload of a desired image as your profile picture.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Regular.ttf</string>

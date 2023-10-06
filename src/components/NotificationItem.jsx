@@ -26,7 +26,7 @@ const NotificationItem = ({ item, navigation }) => {
         <View style={styles.notiInnerRow}>
             {/* <View style={{flexDirection: 'row', alignItems: 'center'}}> */}
             <Image
-                source={item.icon ? { uri: item.icon } : require('./../../assets/images/default_icon.png')} style={styles.image}
+                source={item.icon ? { uri: item.icon } : require('./../../assets/images/dummy-profile-image.png')} style={styles.image}
                 defaultSource={require('./../../assets/images/speaker-placeholder.png')}
             />
             <View style={styles.notirowmsg}>

@@ -587,7 +587,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ReverendSameemBalius/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Reverend Sameem Balius";
+				INFOPLIST_KEY_CFBundleDisplayName = "Light of the Words";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -620,7 +620,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = ReverendSameemBalius/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Reverend Sameem Balius";
+				INFOPLIST_KEY_CFBundleDisplayName = "Light of the Words";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

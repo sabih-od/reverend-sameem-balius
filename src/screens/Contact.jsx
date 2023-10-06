@@ -65,8 +65,7 @@ const Contact = (props) => {
                     // style={[globalstyle.authContainer, { paddingHorizontal: 15 }]}
                     // contentContainerStyle={{justifyContent: 'center',}}
                     >
-                        {/* <ImageBackground source={require('./../../assets/images/background-with-img.png')}
-            style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}> */}
+                        
                         {/* <ScrollView> */}
                         <View style={[globalstyle.authLogoContainer, { alignItems: 'flex-start', }]}>
                             <Text style={[globalstyle.authheading, { fontSize: isIPad ? 35 : 28, marginTop: 10 }]}>{strings.contactTitle}</Text>

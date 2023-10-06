@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, StatusBar, Text, Platform } from "react-native";
 import SplashScreen from 'react-native-splash-screen';
-import { colors, IOS, isIPad } from './src/theme';
+import { colors, IOS, isDarkMode, isIPad } from './src/theme';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/redux/store';
@@ -36,9 +36,10 @@ const App = () => {
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <StatusBar
-                // barStyle={IOS ? 'dark-content' : 'light-content'}
-                // backgroundColor={colors.orange} // transparent
-                // StatusBarStyle={'dark-content'}
+                    barStyle={!isDarkMode ? 'dark-content' : 'light-content'}
+                    // backgroundColor={colors.orange} // transparent
+                    // StatusBarStyle={'dark-content'}
+                    backgroundColor={isDarkMode ? colors.drawerbg : colors.headerbgcolor}
                 // translucent={true}
                 />
                 <Navigation />

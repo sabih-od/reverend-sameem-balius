@@ -98,7 +98,7 @@ const SubmitOTP = (props) => {
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         {/* <ScrollView> */}
                         <View style={globalstyle.authLogoContainer}>
-                            {/* <Image source={require('./../../../assets/images/logo-with-text.png')} style={globalstyle.authLogo} /> */}
+                            {/* <Image source={require('./../../../assets/images/logo.png')} style={globalstyle.authLogo} /> */}
                             <Text style={globalstyle.authheading}>{strings.SubmitOTP}</Text>
                             <Text style={[globalstyle.authdescription, { textAlign: 'center', lineHeight: 22 }]}>{strings.OtpDesc} <Text style={{ fontSize: 14, color: isDarkMode ? colors.white : colors.black }}>{props?.route?.params?.email}</Text></Text>
                         </View>
