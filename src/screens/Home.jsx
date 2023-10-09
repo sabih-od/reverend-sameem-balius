@@ -42,17 +42,17 @@ const Home = (props) => {
     }, [])
 
     useEffect(() => {
-        if (!IOS) {
-            // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
-            axios.request({ url: 'https://hunterssocial.com/api/settings', method: 'GET' })
-                .then(function (response) {
-                    console.log('response hunter => ', response);
-                    initialHit()
-                })
-                .catch(function (error) { console.log(error); });
-        } else {
+        // if (!IOS) {
+        //     // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+        //     axios.request({ url: 'https://hunterssocial.com/api/settings', method: 'GET' })
+        //         .then(function (response) {
+        //             console.log('response hunter => ', response);
+        //             initialHit()
+        //         })
+        //         .catch(function (error) { console.log(error); });
+        // } else {
             initialHit()
-        }
+        // }
 
     }, [])
 

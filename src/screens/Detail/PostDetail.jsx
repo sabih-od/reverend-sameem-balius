@@ -242,7 +242,7 @@ const PostDetail = (props) => {
                         height: width / 1.6, width: width, backgroundColor: '#111', // marginLeft: -15, marginRight: -15 
                     }} controls={true}
                 />}
-                {!item?.video && <ImageBackground source={{ uri: item?.image }} style={{ height: 250, overflow: 'hidden', width: '100%', }}>
+                {!item?.video && <ImageBackground source={item?.image ? { uri: item?.image } : require('./../../../assets/images/home-slider-placeholder.png')} defaultSource={require('./../../../assets/images/home-slider-placeholder.png')} style={{ height: 250, overflow: 'hidden', width: '100%', }}>
                     <TouchableOpacity
                         style={{ width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 20, right: 20 }}
                         onPress={() => props.AddToFavouriteList({ id: item.id })}

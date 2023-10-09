@@ -110,7 +110,7 @@ const AudioPlayerInner = (props) => {
                         <Icon name="x" style={{ color: colors.white, fontSize: 16 }} />
                     </TouchableOpacity> */}
                     <Image
-                        source={{ uri: trackInfo?.artwork }}
+                        source={trackInfo?.artwork ? { uri: trackInfo?.artwork } : require('./../../assets/images/speaker-placeholder.png')}
                         defaultSource={require('./../../assets/images/speaker-placeholder.png')}
                         style={{ width: 70, height: 70, borderRadius: 15, marginRight: 10 }} />
                     <View style={{ width: width - 140 }}>

@@ -107,7 +107,7 @@ const SectionItem = (props) => {
                 style={{ width: width, marginBottom: 20, }}
             >
                 <ImageBackground
-                    source={{ uri: item?.image }}
+                    source={item?.image ? { uri: item?.image } : require('./../../assets/images/home-slider-placeholder.png')}
                     defaultSource={require('./../../assets/images/home-slider-placeholder.png')}
                     style={[itemstyle.otherimage, { height: width / 1.5 }]}
                 >

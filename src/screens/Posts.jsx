@@ -50,7 +50,7 @@ const Posts = (props) => {
 
     useEffect(() => {
         console.log('asd 2')
-        if (props.getPostsListResponse !== prevPostsListResRef.current && props.getPostsListResponse?.success && props.getPostsListResponse?.data.length) {
+        if (props.getPostsListResponse !== prevPostsListResRef.current && props.getPostsListResponse?.success && props.getPostsListResponse?.data.length > 0) {
             prevPostsListResRef.current = props.getPostsListResponse;
             setPostList(prevState => [...prevState, ...props.getPostsListResponse?.data])
             console.log('props.getPostsListResponse => ', props.getPostsListResponse)
@@ -62,6 +62,8 @@ const Posts = (props) => {
                 console.log('not refreshing')
                 setPostList(prevState => [...prevState, ...props.getPostsListResponse?.data])
             }
+            loading && setLoading(false);
+        } else if (props.getPostsListResponse !== prevPostsListResRef.current && props.getPostsListResponse?.success && props.getPostsListResponse?.data.length == 0) {
             loading && setLoading(false);
         }
         setRefreshing(false)

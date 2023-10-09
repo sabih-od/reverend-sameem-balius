@@ -27,14 +27,14 @@ const Login = (props) => {
     const prevLoginResponseRef = useRef(props.loginResponse);
     const prevLoginErrorRef = useRef(props.loginError);
 
-    useEffect(() => {
-        if (!IOS) {
-            // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
-            axios.request({ url: 'https://hunterssocial.com/api/settings', method: 'GET' })
-                .then(function (response) { console.log('response hunter => ', response); })
-                .catch(function (error) { console.log(error); });
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!IOS) {
+    //         // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
+    //         axios.request({ url: 'https://hunterssocial.com/api/settings', method: 'GET' })
+    //             .then(function (response) { console.log('response hunter => ', response); })
+    //             .catch(function (error) { console.log(error); });
+    //     }
+    // }, [])
 
     useEffect(() => {
         // console.log('props.loginResponse => ', props.loginResponse);
@@ -137,16 +137,16 @@ const Login = (props) => {
                                         style={globalstyle.inputfield}
                                         placeholder="Email Address"
                                         {...register('email', {
-                                            // value: '',
-                                            value: 'johnmartin@mailinator.com',
+                                            value: '',
+                                            // value: 'johnmartin@mailinator.com',
                                             required: 'Email Address is required',
                                             pattern: {
                                                 value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
                                                 message: "Please provide valid email"
                                             },
                                         })}
-                                        // defaultValue={''}
-                                        defaultValue={'johnmartin@mailinator.com'}
+                                        defaultValue={''}
+                                        // defaultValue={'johnmartin@mailinator.com'}
                                         placeholderTextColor={colors.placeholdercolor}
                                         autoCapitalize='none'
                                         onChangeText={(value) => setValue('email', value)}
@@ -170,13 +170,13 @@ const Login = (props) => {
                                             placeholder="Password"
                                             placeholderTextColor={colors.placeholdercolor}
                                             {...register('password', {
-                                                // value: '',
-                                                value: '12345678',
+                                                value: '',
+                                                // value: '12345678',
                                                 required: 'Password is required',
                                                 minLength: { value: 8, message: 'Password length must be greater then 8' }
                                             })}
-                                            // defaultValue={''}
-                                            defaultValue={'12345678'}
+                                            defaultValue={''}
+                                            // defaultValue={'12345678'}
                                             // inputRef={password.ref}
                                             onChangeText={(value) => setValue('password', value)}
                                             secureTextEntry={!showPassword ? true : false}
