@@ -16,12 +16,12 @@ import { TrackAddItem, TrackPlay } from "../helpers/track-player";
 
 const itemslimit = 50;
 const cdsdata = [
-    { id: 1, title: 'Let God Make Your Way', image: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/mo1z33Djx50V2TR1SUoJ.jpg', desc: 'God cares about and has a plan for your life.' },
-    { id: 2, title: 'God Is With You', image: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/FeuX9rtyac4atGTku9RA.jpg', desc: 'God cares about and has a plan for your life.' },
-    { id: 3, title: 'God Keeps His Word', image: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/sGzAMyHu8GQZ7ozoN2Tz.jpg', desc: 'God cares about and has a plan for your life.' },
-    { id: 4, title: 'God Is Working for Your Good', image: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/4WgreqcWlXS9UTdgo920.jpg', desc: 'God cares about and has a plan for your life.' },
-    { id: 5, title: 'God Is With You', image: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/FeuX9rtyac4atGTku9RA.jpg', desc: 'God cares about and has a plan for your life.' },
-    { id: 6, title: 'God Keeps His Word', image: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/sGzAMyHu8GQZ7ozoN2Tz.jpg', desc: 'God cares about and has a plan for your life.' },
+    { id: 1, title: 'Let God Make Your Way', image: 'https://reverendsameembalius.com:3013/uploads/posts/images/mo1z33Djx50V2TR1SUoJ.jpg', desc: 'God cares about and has a plan for your life.' },
+    { id: 2, title: 'God Is With You', image: 'https://reverendsameembalius.com:3013/uploads/posts/images/FeuX9rtyac4atGTku9RA.jpg', desc: 'God cares about and has a plan for your life.' },
+    { id: 3, title: 'God Keeps His Word', image: 'https://reverendsameembalius.com:3013/uploads/posts/images/sGzAMyHu8GQZ7ozoN2Tz.jpg', desc: 'God cares about and has a plan for your life.' },
+    { id: 4, title: 'God Is Working for Your Good', image: 'https://reverendsameembalius.com:3013/uploads/posts/images/4WgreqcWlXS9UTdgo920.jpg', desc: 'God cares about and has a plan for your life.' },
+    { id: 5, title: 'God Is With You', image: 'https://reverendsameembalius.com:3013/uploads/posts/images/FeuX9rtyac4atGTku9RA.jpg', desc: 'God cares about and has a plan for your life.' },
+    { id: 6, title: 'God Keeps His Word', image: 'https://reverendsameembalius.com:3013/uploads/posts/images/sGzAMyHu8GQZ7ozoN2Tz.jpg', desc: 'God cares about and has a plan for your life.' },
 
 ]
 const CdItem = ({ item, handlePlayer }) => {
@@ -112,7 +112,7 @@ const CDsList = (props) => {
         //     url: 'https://www.divinerevelations.info/documents/bible/english_mp3_bible/dbs_kjv_bible/12_2_kings.mp3',
         //     title: 'Do not Fear Bad News',
         //     artist: 'Light of the Words',
-        //     artwork: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/4UToGtgL8e4R5ZMeoHLJ.jpg'
+        //     artwork: 'https://reverendsameembalius.com:3013/uploads/posts/images/4UToGtgL8e4R5ZMeoHLJ.jpg'
         // }
         setShowPlayer(value)
         if (value) {
@@ -208,7 +208,7 @@ const CDsList = (props) => {
             keyExtractor={(item, index) => String(index)}
             renderItem={({ item, index }) => {
                 return (<View>
-                    <Image source={{uri: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/mo1z33Djx50V2TR1SUoJ.jpg'}} />
+                    <Image source={{uri: 'https://reverendsameembalius.com:3013/uploads/posts/images/mo1z33Djx50V2TR1SUoJ.jpg'}} />
                 </View>)
             }}
         /> */}

@@ -54,7 +54,7 @@ const ForgetPassword = (props) => {
         <ImageBackground source={backgroungImage}
             style={[globalstyle?.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
             {/* <ScrollView> */}
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         <View style={globalstyle.authLogoContainer}>
@@ -71,14 +71,16 @@ const ForgetPassword = (props) => {
                                     placeholder="Email Address"
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('email', {
-                                        // value: 'johncanady@mailinator.com',
+                                        value: '',
+                                        // value: 'johnmartin@mailinator.com',
                                         required: 'Email Address is required',
                                         pattern: {
                                             value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
                                             message: "Please provide valid email"
                                         },
                                     })}
-                                    // defaultValue={'johncanady@mailinator.com'}
+                                    defaultValue={''}
+                                    // defaultValue={'johnmartin@mailinator.com'}
                                     onChangeText={(value) => setValue('email', value)}
                                     autoCapitalize='none'
                                 />

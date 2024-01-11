@@ -60,9 +60,9 @@ const Register = (props) => {
         <ImageBackground
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}
             source={backgroungImage}>
-            <KeyboardAvoidingView behavior={IOS ? 'padding' : 'height'} >
+            <KeyboardAvoidingView behavior={IOS ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <ScrollView style={isIPad && globalstyle.authscreencontainer}>
+                    <ScrollView style={isIPad && globalstyle.authscreencontainer} showsVerticalScrollIndicator={false}>
                         <View>
                             <Text style={globalstyle.authheading}>{strings.SignUp}</Text>
                             <Text style={globalstyle.authdescription}>{strings.SignUpDesc}</Text>
@@ -88,7 +88,7 @@ const Register = (props) => {
                                     onChangeText={(value) => setValue('first_name', value)}
                                     ref={input01}
                                     returnKeyType="next"
-                                    onSubmitEditing={() => input02.current.focus()}
+                                    onSubmitEditing={() => input05.current.focus()}
                                 />
                             </View>
                             {errors.first_name && <Text style={globalstyle.errorField}>{errors.first_name.message}</Text>}
@@ -110,7 +110,7 @@ const Register = (props) => {
                                     defaultValue=''
                                     // defaultValue='Martin'
                                     onChangeText={(value) => setValue('last_name', value)}
-                                    ref={input01}
+                                    ref={input05}
                                     returnKeyType="next"
                                     onSubmitEditing={() => input02.current.focus()}
                                 />
@@ -233,7 +233,7 @@ const Register = (props) => {
                                 <Text style={globalstyle.actionauthtext}> {strings.Login}</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ paddingBottom: 30 }} />
+                        <View style={{ paddingBottom: 40 }} />
                     </ScrollView>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>

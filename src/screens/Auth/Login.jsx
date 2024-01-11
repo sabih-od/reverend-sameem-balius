@@ -96,8 +96,8 @@ const Login = (props) => {
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}
             source={backgroungImage}>
             <KeyboardAvoidingView behavior={IOS ? 'padding' : 'padding'} >
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                    <View style={{}}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                             <TouchableOpacity onPress={() => {
                                 props.SetLanguage('en')
@@ -210,7 +210,7 @@ const Login = (props) => {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                    </>
+                    </View>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
         </ImageBackground>

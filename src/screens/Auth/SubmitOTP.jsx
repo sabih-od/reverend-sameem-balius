@@ -93,7 +93,7 @@ const SubmitOTP = (props) => {
         {/* <ScrollView style={globalstyle.authContainer}> */}
         <ImageBackground source={backgroungImage}
             style={[globalstyle?.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         {/* <ScrollView> */}

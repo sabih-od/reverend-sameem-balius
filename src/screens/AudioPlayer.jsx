@@ -156,7 +156,7 @@ const AudioPlayer = (props) => {
                 <Image
                     source={
                         { uri: trackInfo?.artwork }
-                        // { uri: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/fyucZ7SkvlvpDDxFgoIY.jpg' }
+                        // { uri: 'https://reverendsameembalius.com:3013/uploads/posts/images/fyucZ7SkvlvpDDxFgoIY.jpg' }
                         // require('./../../assets/images/meditation.jpg')
                     } style={{ width: width - 100, height: width - 100, borderRadius: 20, marginBottom: -34, zIndex: 1 }} />
             </View>

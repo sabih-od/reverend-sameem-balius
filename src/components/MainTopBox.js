@@ -9,7 +9,7 @@ import moment from "moment";
 const MainTopBox = (props) => {
         return(<ImageBackground source={
             // require('./../../assets/images/home/home-main.jpg')
-            { uri: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/fyucZ7SkvlvpDDxFgoIY.jpg' }
+            { uri: 'https://reverendsameembalius.com:3013/uploads/posts/images/fyucZ7SkvlvpDDxFgoIY.jpg' }
         } resizeMode="cover" style={styles.maintopbox}>
             {/* {props.dayspending &&
                 <View style={styles.dayspending}>

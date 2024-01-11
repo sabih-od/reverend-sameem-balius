@@ -61,7 +61,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
   // console.log(`Bearer ${state?.appstate?.userInfo?.access_token}`);
 
   // axios default configs
-  axios.defaults.baseURL = process.env.API_BASE_URL ? process.env.API_BASE_URL : 'https://service.demowebsitelinks.com:3013';
+  axios.defaults.baseURL = process.env.API_BASE_URL ? process.env.API_BASE_URL : 'https://reverendsameembalius.com:3013';
   // axios.defaults.baseURL = 'https://texaschristianashram.org:3023';
   // axios.defaults.httpsAgent = agent;
   axios.defaults.headers.common['Authorization'] = `Bearer ${state?.appstate?.userInfo?.access_token}`;

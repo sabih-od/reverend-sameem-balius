@@ -51,13 +51,13 @@ const ResetPassword = (props) => {
     const input02 = useRef();
 
     const password = register('password', {
-        value: 'tabish@123',
+        value: '',
         required: 'Password is required',
         minLength: { value: 8, message: 'Min lenght 8' }
     })
 
     const confirmpass = register('confirmpass', {
-        value: 'tabish@123',
+        value: '',
         required: 'Confirm Password is required',
         minLength: { value: 8, message: 'Min lenght 8' },
         // validate: value => value === password.current || "Password does not match"
@@ -68,7 +68,7 @@ const ResetPassword = (props) => {
         {/* <ScrollView style={globalstyle.authContainer}> */}
         <ImageBackground source={backgroungImage}
             style={[globalstyle?.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={isIPad && globalstyle.authscreencontainer}>
                         {/* <ScrollView> */}
@@ -93,7 +93,7 @@ const ResetPassword = (props) => {
                                         //     required: 'Password is required',
                                         //     minLength: { value: 8, message: 'Password length must be greater then 8' }
                                         // })}
-                                        // defaultValue={'tabish@123'}
+                                        // defaultValue={''}
                                         // inputRef={password.ref}
                                         onChangeText={(value) => setValue('password', value)}
                                         secureTextEntry={!showPassword ? true : false}
@@ -123,7 +123,7 @@ const ResetPassword = (props) => {
                                         //     required: 'Password is required',
                                         //     minLength: { value: 8, message: 'Password length must be greater then 8' }
                                         // })}
-                                        // defaultValue={'tabish@123'}
+                                        // defaultValue={''}
                                         // inputRef={password.ref}
                                         onChangeText={(value) => setValue('password', value)}
                                         secureTextEntry={!showConfPassword ? true : false}

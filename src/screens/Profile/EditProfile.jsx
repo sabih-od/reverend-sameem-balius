@@ -366,7 +366,6 @@ const EditProfile = props => {
                           message: 'Password length must be greater then 8',
                         },
                       })}
-                      // defaultValue={'tabish@123'}
                       // inputRef={password.ref}
                       onChangeText={value => setValue('password', value)}
                       secureTextEntry={!showPassword ? true : false}

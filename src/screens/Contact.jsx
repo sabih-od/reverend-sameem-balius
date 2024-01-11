@@ -180,8 +180,7 @@ const Contact = (props) => {
                                         })}
                                         multiline={true}
                                         numberOfLines={Platform.OS === 'ios' ? null : 8}
-                                        minHeight={(Platform.OS === 'ios' && 8) ? (20 * 8) : null} numberOf
-                                        // defaultValue={'tabish@123'}
+                                        minHeight={(Platform.OS === 'ios' && 8) ? (20 * 8) : null}
                                         // inputRef={message.ref}
                                         onChangeText={(value) => setValue('message', value)}
                                         ref={input04}

@@ -160,7 +160,7 @@ const PostDetail = (props) => {
         //     url: 'https://www.divinerevelations.info/documents/bible/english_mp3_bible/dbs_kjv_bible/12_2_kings.mp3',
         //     title: 'Do not Fear Bad News',
         //     artist: 'Light of the Words',
-        //     artwork: 'https://service.demowebsitelinks.com:3013/uploads/posts/images/4UToGtgL8e4R5ZMeoHLJ.jpg'
+        //     artwork: 'https://reverendsameembalius.com:3013/uploads/posts/images/4UToGtgL8e4R5ZMeoHLJ.jpg'
         // }
         setShowPlayer(value)
         if (value) {
