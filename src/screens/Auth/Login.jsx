@@ -198,10 +198,10 @@ const Login = (props) => {
                                 </TouchableOpacity>
                             </View>
                             {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, marginBottom: 10 }}>
-                    <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
-                    <Text style={{ fontFamily: fonts.primary }}>Or Sign In With</Text>
-                    <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
-                </View> */}
+                                <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
+                                <Text style={{ fontFamily: fonts.primary }}>Or Sign In With</Text>
+                                <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
+                            </View> */}
                             <View style={globalstyle.alreadysignin}>
                                 <Text style={globalstyle.alreadyaccount}>{strings.DontHaveAccount} </Text>
                                 <TouchableOpacity activeOpacity={0.8}

@@ -5,7 +5,8 @@ let socket = null;
 export function connectSocket() {
     console.log('SOCKET_URL => ', process.env.SOCKET_URL);
 
-    socket = io(process.env.SOCKET_URL ? process.env.SOCKET_URL : 'https://texaschristianashram.org:3022');
+    // socket = io(process.env.SOCKET_URL ? process.env.SOCKET_URL : 'https://service.demowebsitelinks.com:3011');
+    socket = io('https://service.demowebsitelinks.com:3011');
     // socket = io('ws://172.16.104.225:8028');
 
     socket.on('connect', () => {

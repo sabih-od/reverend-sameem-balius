@@ -45,6 +45,7 @@ import CDsList from "../screens/CDsList";
 import AudioPlayer from "../screens/AudioPlayer";
 import SearchPost from "../screens/SearchPost";
 import Posts from "../screens/Posts";
+import LiveStream from "../screens/LiveStream";
 
 
 const Stack = createStackNavigator();
@@ -98,6 +99,24 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerRight: () => (<TouchableOpacity>
                     //     <Icon name={'bell'} size={18} color={colors.black} />
                     // </TouchableOpacity>)
+                }}
+            />
+            <Stack.Screen
+                name="LiveStream"
+                component={LiveStream}
+                options={{
+                    // headerTransparent: true,
+                    headerTitle: strings.LiveStream,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen

@@ -36,6 +36,7 @@
     "react-native-gesture-handler": "^2.10.2",
     "react-native-gradle-plugin": "^0.71.19",
     "react-native-image-picker": "^5.6.0",
+    "react-native-incall-manager": "^4.2.0",
     "react-native-linear-gradient": "^2.8.2",
     "react-native-localization": "^2.3.2",
     "react-native-pdf": "^6.7.1",
@@ -49,13 +50,15 @@
     "react-native-track-player": "^3.2.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.1",
-    "react-native-webview": "^13.3.1",
+    "react-native-webrtc": "^118.0.1",
+    "react-native-webview": "^13.8.4",
     "react-native-youtube-iframe": "^2.3.0",
     "react-redux": "^8.1.1",
     "redux": "^4.2.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.4.2"
+    "redux-thunk": "^2.4.2",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

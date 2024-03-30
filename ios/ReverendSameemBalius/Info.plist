@@ -37,6 +37,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Please grant permission for Light of the Words to access your camera in order to capture a profile picture.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Please grant permission for Light of the Words to access your microphone to use in video call.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>

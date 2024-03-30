@@ -17,7 +17,7 @@ import { localNotificationService } from '../helpers/firebase/LocalNotificationS
 import messaging from '@react-native-firebase/messaging';
 import { GetProfileApiCall } from '../redux/reducers/AuthReducer';
 
-// import { connectSocket, getSocket } from '../helpers/socket-manager';
+import { connectSocket, getSocket } from '../helpers/socket-manager';
 // import { useAppState } from '../hooks/useAppState';
 import { EditProfileApiCall } from '../redux/reducers/UserStateReducer';
 import draweritems from './draweritems';
@@ -92,19 +92,8 @@ const DrawerContent = (props) => {
   // }, []);
 
   useEffect(() => {
-    // connectSocket();
-    // if (!IOS) {
-    //   // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
-    //   axios.request({ url: 'https://hunterssocial.com/api/settings', method: 'GET' })
-    //     .then(function (response) {
-    //       console.log('response hunter => ', response);
-    //       props.GetDrawerMenu();
-    //     })
-    //     .catch(function (error) { console.log(error); });
-    // }else{
+    connectSocket();
     props.GetDrawerMenu();
-    // }
-
   }, []);
 
   const [user, setUser] = useState(props.userInfo);
@@ -241,6 +230,7 @@ const DrawerContent = (props) => {
       </View>
       <DrawerContentScrollView {...props} style={[styles.sidebar,]} contentContainerStyle={{ paddingTop: 0 }}>
         {/* {draweritems.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)} */}
+        <DrawerItem key={0} item={{ title: strings.LiveStream, nav: 'LiveStream' }} navigation={props.navigation} activescreen={props.currentScreen} />
         <DrawerItem key={0} item={{ title: strings.home, nav: 'Home' }} navigation={props.navigation} activescreen={props.currentScreen} />
         {drawerMenu.length > 0 && drawerMenu.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)}
         <DrawerItem key={100} item={{ title: strings.questionanswer, nav: 'QuestionAnswer' }} navigation={props.navigation} activescreen={props.currentScreen} />

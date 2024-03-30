@@ -37,6 +37,8 @@ export default {
   contactus: 'اتصل بنا',
   home: 'بيت',
 
+  LiveStream: 'البث المباشر',
+
   Biblical: 'الكتاب المقدس',
   Spiritual: 'روحي',
 

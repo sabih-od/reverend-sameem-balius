@@ -37,6 +37,8 @@ export default {
   contactus: 'Contact Us',
   home: 'Home',
 
+  LiveStream: 'Live Stream',
+
   Biblical: 'Biblical',
   Spiritual: 'Spiritual',
 
