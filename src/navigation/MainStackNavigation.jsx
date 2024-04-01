@@ -105,6 +105,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 name="LiveStream"
                 component={LiveStream}
                 options={{
+                    headerShown:false,
                     // headerTransparent: true,
                     headerTitle: strings.LiveStream,
                     headerTitleAlign: 'center',

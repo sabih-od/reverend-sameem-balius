@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Platform, Button, Image, useColorScheme, RefreshControl } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Platform, Button, Image, useColorScheme, RefreshControl, Linking } from "react-native";
 import { IOS, backgroungImage, colorScheme, colors, fonts, height, isIPad, isRTL, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -24,6 +24,8 @@ import strings from "../localization/translation";
 import LinearGradient from "react-native-linear-gradient";
 import TryPlus from "../components/TryPlus";
 import axios from "axios";
+import { addListener, getSocket } from "../helpers/socket-manager";
+import { showToast } from "../helpers/toastConfig";
 
 
 const Home = (props) => {
@@ -37,9 +39,30 @@ const Home = (props) => {
     // const url = 'https://www.w3schools.com/html/horse.mp3';
     const url = 'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60';
 
+    const socket = getSocket();
     useEffect(() => {
         console.log('ReactNativeBlobUtil')
-    }, [])
+
+        addListener('testmsg', (res) => {
+            console.log('receive testmsg => ', res);
+            showToast('success', res.message)
+        })
+        // socket?.on('testmsg', (res) => {
+        //     console.log('receive testmsg => ', res);
+        //     showToast('success', res.message)
+        // });
+
+        return () => {
+            console.log('off testmsg')
+            socket?.off('testmsg');
+        }
+
+    }, [socket])
+
+    function sendmes() {
+        console.log('props.userInfo.id => ', props.userInfo.id == 3 ? 9 : 3)
+        socket?.emit('testmsg', { id: props.userInfo.id == 3 ? 9 : 3, message: 'Hello Dear' })
+    }
 
     useEffect(() => {
         // if (!IOS) {
@@ -51,7 +74,7 @@ const Home = (props) => {
         //         })
         //         .catch(function (error) { console.log(error); });
         // } else {
-            initialHit()
+        initialHit()
         // }
 
     }, [])
@@ -103,10 +126,10 @@ const Home = (props) => {
 
     const prevHomeAudioResRef = useRef(props.getHomeAudioNoDataResponse);
     useEffect(() => {
-        console.log('props.getHomeAudioNoDataResponse => ', props.getHomeAudioNoDataResponse)
+        // console.log('props.getHomeAudioNoDataResponse => ', props.getHomeAudioNoDataResponse)
         if (props.getHomeAudioNoDataResponse !== prevHomeAudioResRef.current && props.getHomeAudioNoDataResponse?.success && props.getHomeAudioNoDataResponse?.data) {
             prevHomeAudioResRef.current = props.getHomeAudioNoDataResponse;
-            console.log('props.getHomeAudioNoDataResponse => ', props.getHomeAudioNoDataResponse)
+            // console.log('props.getHomeAudioNoDataResponse => ', props.getHomeAudioNoDataResponse)
             setAudio(props.getHomeAudioNoDataResponse?.data)
         }
     }, [props.getHomeAudioNoDataResponse])
@@ -189,6 +212,22 @@ const Home = (props) => {
     }, []);
 
     return <SafeAreaView style={globalstyle.fullview}>
+        <TouchableOpacity style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
+            <Text
+                style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}
+                onPress={() => {
+                    // Linking.openURL('https://service.demowebsitelinks.com/viewer.html')
+                    sendmes()
+                }}>Join Live Stream</Text>
+        </TouchableOpacity>
+        {/* <TouchableOpacity style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
+            <Text
+                style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}
+                onPress={() => {
+                    Linking.openURL('https://service.demowebsitelinks.com/viewer.html')
+                    // sendmes()
+                }}>Join Live Stream</Text>
+        </TouchableOpacity> */}
         {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
         <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
             <ScrollView
@@ -299,7 +338,7 @@ const Home = (props) => {
                         <Seperator />
                         <SectionHeading title={strings.Audios} joined={false} />
                     </View>
-                    <View style={{paddingHorizontal: 15, marginBottom: -10}}>
+                    <View style={{ paddingHorizontal: 15, marginBottom: -10 }}>
                         {audio && audio.length > 0 && audio.map((item, index) => {
                             return (
                                 <SectionItem
@@ -499,6 +538,7 @@ const Home = (props) => {
 
 
 const setStateToProps = state => ({
+    userInfo: state.appstate.userInfo,
     getHomeBiblicalDataResponse: state.listingstate.getHomeBiblicalDataResponse,
     getHomeSpiritualDataResponse: state.listingstate.getHomeSpiritualDataResponse,
     getHomeAudioNoDataResponse: state.listingstate.getHomeAudioNoDataResponse,
