@@ -212,7 +212,7 @@ const Home = (props) => {
     }, []);
 
     return <SafeAreaView style={globalstyle.fullview}>
-        <TouchableOpacity style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
+        {/* <TouchableOpacity style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
             <Text
                 style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}
                 onPress={() => {
@@ -220,7 +220,7 @@ const Home = (props) => {
                     Linking.openURL('https://service.demowebsitelinks.com/viewer.html')
                     // sendmes()
                 }}>Join Live Stream</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {/* <TouchableOpacity style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
             <Text
                 style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}
@@ -389,6 +389,7 @@ const Home = (props) => {
                     <View style={{ paddingHorizontal: 15 }}>
                         <Seperator />
                         <SectionHeading title={strings.exploreByCategory} />
+                        {/* <Text style={{marginTop: -20, marginBottom: 10}}>Browse posts by category with ease, ensuring targeted content exploration</Text> */}
                     </View>
                     <FlatList
                         horizontal
@@ -404,7 +405,8 @@ const Home = (props) => {
                             <ImageBackground source={require('./../../assets/images/meditation.jpg')} style={{ height: width / 1.5, width: width / 2.4, borderRadius: 15, overflow: 'hidden', alignItems: 'center', justifyContent: 'flex-end' }}>
                                 <View style={{ position: 'relative', zIndex: 1, paddingVertical: 15, paddingHorizontal: 15 }}>
                                     <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: colors.white, fontSize: 18 }}>{item?.name}</Text>
-                                    <Text style={{ fontFamily: isRTL ? fonts.arabic : fonts.primary, textAlign: 'center', color: '#ddd', fontSize: 12 }} numberOfLines={2}>
+                                    <Text style={{ fontFamily: isRTL ? fonts.arabic : fonts.primary, textAlign: 'center', color: '#ddd', fontSize: 12 }} numberOfLines={2}>Browse posts by category with ease</Text>
+                                    {/* <Text style={{ fontFamily: isRTL ? fonts.arabic : fonts.primary, textAlign: 'center', color: '#ddd', fontSize: 12 }} numberOfLines={2}>
                                         {item?.name == 'Mass' && 'Access services and sacraments, fostering spiritual connection regardless of location'}
                                         {item?.name == 'Homily' && 'Engage with insightful sermons and reflections from clergy, enhancing your understanding of scripture'}
                                         {item?.name == 'Lectures' && 'Explore educational talks and discussions on theology, history, and Christian principles'}
@@ -412,7 +414,7 @@ const Home = (props) => {
                                         {item?.name == 'News' && 'Stay updated with Christian world events, religious news, and community activities'}
                                         {item?.name == 'Library' && 'Access a diverse collection of religious texts, books, and resources for spiritual growth'}
                                         {item?.name == 'Courses' && 'Enroll in structured courses on Christianity, Bible studies, and personal spiritual development'}
-                                    </Text>
+                                    </Text> */}
                                 </View>
                                 <LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)', colors.black]} style={{ height: 150, width: '100%', position: 'absolute', left: 0, bottom: 0, zIndex: 0 }} />
                             </ImageBackground>

@@ -17,7 +17,7 @@ import { localNotificationService } from '../helpers/firebase/LocalNotificationS
 import messaging from '@react-native-firebase/messaging';
 import { GetProfileApiCall } from '../redux/reducers/AuthReducer';
 
-import { connectSocket, getSocket } from '../helpers/socket-manager';
+// import { connectSocket, getSocket } from '../helpers/socket-manager';
 // import { useAppState } from '../hooks/useAppState';
 import { EditProfileApiCall } from '../redux/reducers/UserStateReducer';
 import draweritems from './draweritems';
@@ -92,7 +92,7 @@ const DrawerContent = (props) => {
   // }, []);
 
   useEffect(() => {
-    connectSocket(props.userInfo?.id);
+    // connectSocket(props.userInfo?.id);
     props.GetDrawerMenu();
   }, []);
 
@@ -230,7 +230,7 @@ const DrawerContent = (props) => {
       </View>
       <DrawerContentScrollView {...props} style={[styles.sidebar,]} contentContainerStyle={{ paddingTop: 0 }}>
         {/* {draweritems.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)} */}
-        <DrawerItem key={21312} item={{ title: strings.LiveStream, nav: 'LiveStream' }} navigation={props.navigation} activescreen={props.currentScreen} />
+        {/* <DrawerItem key={21312} item={{ title: strings.LiveStream, nav: 'LiveStream' }} navigation={props.navigation} activescreen={props.currentScreen} /> */}
         <DrawerItem key={0} item={{ title: strings.home, nav: 'Home' }} navigation={props.navigation} activescreen={props.currentScreen} />
         {drawerMenu.length > 0 && drawerMenu.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)}
         <DrawerItem key={100} item={{ title: strings.questionanswer, nav: 'QuestionAnswer' }} navigation={props.navigation} activescreen={props.currentScreen} />

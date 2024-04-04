@@ -143,14 +143,17 @@ const PostDetail = (props) => {
         // setRefreshing(false)
     }, [props.addToFavouriteListResponse])
 
-    // function findvideoid(url) {
-    //     var regex = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|v\/|embed\/|shorts\/)?([^\/\?\s&]+)/;
+    function findvideoid(url) {
+        console.log('url => ', url)
+        // var regex = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|v\/|embed\/|shorts\/)?([^\/\?\s&]+)/;
+        // var regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\?\s&]+\/)?(?:live\/)?|youtu\.be\/|youtube\.com\/watch\?)([^\/\?\s&]+)/;
+        var regex = /(?:youtu\.be\/|youtube\.com(?:\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|(?:\/(?:live\/)?)))([a-zA-Z0-9_-]{11})/i;
 
-    //     var match = url.match(regex);
-    //     var videoId = match ? match[1] : null;
-    //     console.log('videoId => ', videoId);
-    //     return videoId;  // Output: dQw4w9WgXcQ
-    // }
+        var match = url.match(regex);
+        var videoId = match ? match[1] : null;
+        console.log('videoId => ', videoId);
+        return videoId;  // Output: dQw4w9WgXcQ
+    }
 
     console.log('item?.images => ', item?.images)
     async function _setShowPlayer(value, item) {
@@ -235,6 +238,14 @@ const PostDetail = (props) => {
                 }
             >
 
+                {item?.url != '' && <View>
+                    <YoutubePlayer
+                        height={220}
+                        play={true}
+                        videoId={findvideoid(item.url)}
+                        // onChangeState={onStateChange}
+                    />
+                </View>}
                 {item?.video && <Video source={{ uri: item?.video }}
                     autoplay={false}
                     resizeMode={"cover"}
@@ -242,7 +253,7 @@ const PostDetail = (props) => {
                         height: width / 1.6, width: width, backgroundColor: '#111', // marginLeft: -15, marginRight: -15 
                     }} controls={true}
                 />}
-                {!item?.video && <ImageBackground source={item?.image ? { uri: item?.image } : require('./../../../assets/images/home-slider-placeholder.png')} defaultSource={require('./../../../assets/images/home-slider-placeholder.png')} style={{ height: 250, overflow: 'hidden', width: '100%', }}>
+                {!item?.video && item?.url == '' && <ImageBackground source={item?.image ? { uri: item?.image } : require('./../../../assets/images/home-slider-placeholder.png')} defaultSource={require('./../../../assets/images/home-slider-placeholder.png')} style={{ height: 250, overflow: 'hidden', width: '100%', }}>
                     <TouchableOpacity
                         style={{ width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 20, alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 20, right: 20 }}
                         onPress={() => props.AddToFavouriteList({ id: item.id })}

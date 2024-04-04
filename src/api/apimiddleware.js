@@ -90,7 +90,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
       // httpsAgent: agent
     })
     .then(({ data }) => {
-      // console.log(`API: ${url} => `, data);
+      console.log(`API: ${url} => `, data);
       dispatch(onSuccess(data));
     })
     .catch(error => {

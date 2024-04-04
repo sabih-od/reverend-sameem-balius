@@ -199,7 +199,7 @@ export function GetNotificationsList(params) {
   // console.log('params => ', params);
   return apiAction({
     url:
-      GetNotificationsAPI + '?page=' + params.page + '&limit=' + params.limit,
+      GetNotificationsAPI + '?page=' + params.pageno + '&limit=' + params.limit,
     method: 'GET',
     // data: params,
     onSuccess: response => {
