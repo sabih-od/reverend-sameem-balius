@@ -25,18 +25,12 @@ const LiveStream = (props) => {
   const [isCameraOn, setCameraOn] = useState(true);
   const otherUserId = useRef(otheruser.id);
 
-  useEffect(() => {
-    console.log(`${props.userInfo.id} type => `, type)
-  }, [type])
-
-  const peerConnection = useRef(
-    new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302', }, { urls: 'stun:stun1.l.google.com:19302', }, { urls: 'stun:stun2.l.google.com:19302', },], }),
-  );
+  const socket = getSocket();
+  const peerConnection = useRef(new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302', }, { urls: 'stun:stun1.l.google.com:19302', }, { urls: 'stun:stun2.l.google.com:19302', },], }));
   let remoteRTCMessage = useRef(null);
+  let isFront = false;
 
   useEffect(() => {
-
-    const socket = getSocket();
 
     console.log('WebRtcScreen socketId => ', socket?.id)
     socket?.on('newCall', data => {
@@ -49,9 +43,7 @@ const LiveStream = (props) => {
     socket?.on('callAnswered', data => {
       console.log('on callAnswered', data.sdpAnswer)
       remoteRTCMessage.current = data.sdpAnswer;
-      peerConnection.current.setRemoteDescription(
-        new RTCSessionDescription(remoteRTCMessage.current),
-      );
+      peerConnection.current.setRemoteDescription(new RTCSessionDescription(remoteRTCMessage.current));
       setType('WEBRTC_ROOM');
     });
 
@@ -66,6 +58,24 @@ const LiveStream = (props) => {
       }
     });
 
+    return () => {
+      socket?.off('newCall');
+      socket?.off('callAnswered');
+      socket?.off('IceCandidate');
+      socket?.off('testmsg');
+    };
+
+  }, [socket]);
+
+  useEffect(() => {
+    if (localStream) {
+      localStream.getTracks().forEach(
+        track => {
+          peerConnection.current.addTrack(track, localStream)
+          console.log('addTrack');
+        }
+      )
+    }
 
     peerConnection.current.ontrack = event => {
       console.log('onTrack event => ', event);
@@ -80,14 +90,16 @@ const LiveStream = (props) => {
         console.log('No streams in the ontrack event');
       }
     };
-    peerConnection.current.onaddtrack = event => {
-      console.log('onaddtrack event => ', event)
-      setRemoteStream(event.stream);
-    };
-    peerConnection.current.onaddstream = event => {
-      console.log('onaddstream event => ', event)
-      setRemoteStream(event.stream);
-    };
+    
+    // peerConnection.current.onaddtrack = event => {
+    //   console.log('onaddtrack event => ', event)
+    //   setRemoteStream(event.stream);
+    // };
+
+    // peerConnection.current.onaddstream = event => {
+    //   console.log('onaddstream event => ', event)
+    //   setRemoteStream(event.stream);
+    // };
     // Setup ice handling
     peerConnection.current.onicecandidate = event => {
       console.log('onicecandidate event => ', event)
@@ -104,20 +116,9 @@ const LiveStream = (props) => {
         console.log('End of candidates.');
       }
     };
-
-    return () => {
-      socket?.off('newCall');
-      socket?.off('callAnswered');
-      socket?.off('IceCandidate');
-      socket?.off('testmsg');
-    };
-
-  }, [socket]);
-
-
+  }, [localStream])
 
   useEffect(() => {
-    let isFront = false;
     mediaDevices.enumerateDevices().then(sourceInfos => {
       let videoSourceId;
       for (let i = 0; i < sourceInfos.length; i++) {
@@ -140,18 +141,6 @@ const LiveStream = (props) => {
         },
       }).then(stream => { // Got stream!
         setLocalStream(stream);
-        // setup stream listening
-        peerConnection.current.addStream(stream);
-
-        const remote = new MediaStream();
-        console.log('remote => ', remote)
-        setRemoteStream(remote);
-
-        // Push tracks from local stream to peer connection
-        localStream.getTracks().forEach(track => {
-          peerConnection.current.getLocalStreams()[0].addTrack(track);
-        });
-
       }).catch(error => { // Log error
       });
     });
@@ -168,13 +157,8 @@ const LiveStream = (props) => {
 
 
   async function processCall() {
-    console.log('processCall')
-    // for (const track of localStream.getTracks()) {
-    //   peerConnection.current.addTrack(track, localStream);
-    // }
     const sessionDescription = await peerConnection.current.createOffer();
     await peerConnection.current.setLocalDescription(sessionDescription);
-
     socket?.emit('makeCall', {
       calleeId: otherUserId.current,
       sdpOffer: sessionDescription,
@@ -182,15 +166,9 @@ const LiveStream = (props) => {
   }
 
   async function processAccept() {
-    peerConnection.current.setRemoteDescription(
-      new RTCSessionDescription(remoteRTCMessage.current),
-    );
-    // for (const track of localStream.getTracks()) {
-    //   peerConnection.current.addTrack(track, localStream);
-    // }
+    peerConnection.current.setRemoteDescription(new RTCSessionDescription(remoteRTCMessage.current));
     const sessionDescription = await peerConnection.current.createAnswer();
     await peerConnection.current.setLocalDescription(sessionDescription);
-
     socket?.emit('answerCall', {
       callerId: otherUserId.current,
       sdpAnswer: sessionDescription,

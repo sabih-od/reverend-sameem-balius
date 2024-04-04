@@ -216,8 +216,9 @@ const Home = (props) => {
             <Text
                 style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}
                 onPress={() => {
-                    // Linking.openURL('https://service.demowebsitelinks.com/viewer.html')
-                    sendmes()
+                    // props.navigation.navigate('LiveStream')
+                    Linking.openURL('https://service.demowebsitelinks.com/viewer.html')
+                    // sendmes()
                 }}>Join Live Stream</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
