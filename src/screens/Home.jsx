@@ -18,7 +18,7 @@ import draweritems from "../navigation/draweritems";
 import RNFS from 'react-native-fs';
 import ReactNativeBlobUtil from "react-native-blob-util";
 import { connect } from "react-redux";
-import { GetDailiesList, GetFeaturedList, GetHomeAudioData, GetHomeNewsList, GetHomeSpiritualData, GetHomeBiblicalData } from "../redux/reducers/ListingApiStateReducer";
+import { GetDailiesList, GetFeaturedList, GetHomeAudioData, GetHomeNewsList, GetHomeSpiritualData, GetHomeBiblicalData, GetDrawerMenu } from "../redux/reducers/ListingApiStateReducer";
 import { bindActionCreators } from "redux";
 import strings from "../localization/translation";
 import LinearGradient from "react-native-linear-gradient";
@@ -100,6 +100,7 @@ const Home = (props) => {
         props.GetHomeNewsList();
         props.GetHomeSpiritualData();
         props.GetHomeAudioData();
+        props.GetDrawerMenu();
     }
 
     const prevBibleStudyResRef = useRef(props.getHomeBiblicalDataResponse);
@@ -560,6 +561,7 @@ const mapDispatchToProps = dispatch => {
         GetHomeBiblicalData: bindActionCreators(GetHomeBiblicalData, dispatch),
         GetHomeSpiritualData: bindActionCreators(GetHomeSpiritualData, dispatch),
         GetHomeAudioData: bindActionCreators(GetHomeAudioData, dispatch),
+        GetDrawerMenu: bindActionCreators(GetDrawerMenu, dispatch),
     }
 }
 

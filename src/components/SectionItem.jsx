@@ -7,9 +7,25 @@ import itemobject from './../data/itemobject';
 import { TrackAddItem, TrackPlay } from '../helpers/track-player';
 import TrackPlayer from 'react-native-track-player';
 
+function findvideoid(url) {
+    // console.log('url => ', url)
+    // var regex = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|v\/|embed\/|shorts\/)?([^\/\?\s&]+)/;
+    // var regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\?\s&]+\/)?(?:live\/)?|youtu\.be\/|youtube\.com\/watch\?)([^\/\?\s&]+)/;
+    var regex = /(?:youtu\.be\/|youtube\.com(?:\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|(?:\/(?:live\/)?)))([a-zA-Z0-9_-]{11})/i;
+
+    var match = url.match(regex);
+    var videoId = match ? match[1] : null;
+    // console.log('videoId => ', videoId);
+    return videoId;  // Output: dQw4w9WgXcQ
+}
+
 const SectionItem = (props) => {
     const { item, width, navigation, handlePlayer } = props;
-    // console.log('item => ', item)
+    // console.log('item => ', item.title)
+
+    const image = props?.downloads ? item?.artwork : (item?.url ? `https://img.youtube.com/vi/${findvideoid(item?.url)}/0.jpg` : item?.image)
+    console.log('image => ', image)
+
     if (props?.audio) {
         return (
             <TouchableOpacity
@@ -59,8 +75,8 @@ const SectionItem = (props) => {
                 style={[itemstyle.audioview, { width: width - 30, }]}
             >
                 {/* require('./../../assets/images/sermons-01.jpeg') */}
-                < ImageBackground
-                    source={{ uri: props?.downloads ? item?.artwork : item?.image }}
+                <ImageBackground
+                    source={image != null ? { uri: image } : require('./../../assets/images/speaker-placeholder.png')}
                     defaultSource={require('./../../assets/images/speaker-placeholder.png')}
                     style={itemstyle.audoimage}
                 >
@@ -107,7 +123,8 @@ const SectionItem = (props) => {
                 style={{ width: width, marginBottom: 20, }}
             >
                 <ImageBackground
-                    source={item?.image ? { uri: item?.image } : require('./../../assets/images/home-slider-placeholder.png')}
+                    // source={item?.image ? { uri: item?.image } : require('./../../assets/images/home-slider-placeholder.png')}
+                    source={image != null ? { uri: image } : require('./../../assets/images/speaker-placeholder.png')}
                     defaultSource={require('./../../assets/images/home-slider-placeholder.png')}
                     style={[itemstyle.otherimage, { height: width / 1.5 }]}
                 >
@@ -130,7 +147,7 @@ const SectionItem = (props) => {
                 <Text style={itemstyle.date}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY")}</Text>
                 <Text style={itemstyle.title}>{item?.title}</Text>
                 <Text style={itemstyle.desc} numberOfLines={1}>{item?.description}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity >
         )
     }
 }
