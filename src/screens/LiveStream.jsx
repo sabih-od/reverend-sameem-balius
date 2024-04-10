@@ -285,7 +285,7 @@ const LiveStream = (props) => {
         {/* When You Call SomeOne */}
         {type == null && <TouchableOpacity onPress={() => {
           if (otherUserId.current) {
-            setType('OUTGOING_CALL');
+            // setType('OUTGOING_CALL');
             processCall()
           }
         }}

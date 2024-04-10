@@ -213,15 +213,15 @@ const Home = (props) => {
     }, []);
 
     return <SafeAreaView style={globalstyle.fullview}>
-        {/* <TouchableOpacity style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
+        <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
             <Text
                 style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}
-                onPress={() => {
+                onPress={() => Linking.openURL('https://reverendsameembalius.com:3014/viewers')
                     // props.navigation.navigate('LiveStream')
-                    Linking.openURL('https://service.demowebsitelinks.com/viewer.html')
+
                     // sendmes()
-                }}>Join Live Stream</Text>
-        </TouchableOpacity> */}
+                }>Join Live Stream</Text>
+        </TouchableOpacity>
         {/* <TouchableOpacity style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
             <Text
                 style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}

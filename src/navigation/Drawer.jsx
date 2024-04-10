@@ -17,7 +17,7 @@ import { localNotificationService } from '../helpers/firebase/LocalNotificationS
 import messaging from '@react-native-firebase/messaging';
 import { GetProfileApiCall } from '../redux/reducers/AuthReducer';
 
-// import { connectSocket, getSocket } from '../helpers/socket-manager';
+import { connectSocket, getSocket } from '../helpers/socket-manager';
 // import { useAppState } from '../hooks/useAppState';
 import { EditProfileApiCall } from '../redux/reducers/UserStateReducer';
 import draweritems from './draweritems';
@@ -34,65 +34,65 @@ const DrawerContent = (props) => {
   // const appState = useAppState();
   // console.log('appState status => ', appState);
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   fcmService.register(onRegister, onNotification, onOpenNotification);
-  //   localNotificationService.configure(onOpenNotification);
+    fcmService.register(onRegister, onNotification, onOpenNotification);
+    localNotificationService.configure(onOpenNotification);
 
-  //   function onRegister(token) {
-  //     console.log('onRegister => ', token);
-  //     if (props.fcmToken == '' || props.fcmToken != token) {
-  //       props.UpdateFcmToken(token);
-  //       props.EditProfileApiCall(user.id, { fcm_token: token });
-  //     }
-  //   }
+    function onRegister(token) {
+      console.log('onRegister => ', token);
+      if (props.fcmToken == '' || props.fcmToken != token) {
+        props.UpdateFcmToken(token);
+        props.EditProfileApiCall(user.id, { fcm_token: token });
+      }
+    }
 
-  //   const testtopic = 'test';
-  //   messaging().subscribeToTopic(testtopic).then(() => console.log("Subscribed to topic:", testtopic)).catch((e) => {
-  //     console.log(e);
-  //   });
+    // const testtopic = 'test';
+    // messaging().subscribeToTopic(testtopic).then(() => console.log("Subscribed to topic:", testtopic)).catch((e) => {
+    //   console.log(e);
+    // });
 
-  //   const newtopic = 'newFirebaseNotification';
-  //   messaging().subscribeToTopic(newtopic).then(() => console.log("Subscribed to topic:", newtopic)).catch((e) => {
-  //     console.log(e);
-  //   });
+    // const newtopic = 'newFirebaseNotification';
+    // messaging().subscribeToTopic(newtopic).then(() => console.log("Subscribed to topic:", newtopic)).catch((e) => {
+    //   console.log(e);
+    // });
 
-  //   function onNotification(notify) {
-  //     console.log('onNotification => ', notify);
-  //     const options = { soundName: 'default', };
-  //     // localNotificationService.showNotification(0, notify.notification.title, notify.notification.body, notify, options,);
-  //     // props.UpdateNotificationBadge(props.notificationBadge + 1);
-  //     // if (notify.data.rideid) {
-  //     //   props.navigation.navigate('Map', { rideid: notify?.data?.rideid });
-  //     // }
-  //   }
+    function onNotification(notify) {
+      console.log('onNotification => ', notify);
+      const options = { soundName: 'default', };
+      // localNotificationService.showNotification(0, notify.notification.title, notify.notification.body, notify, options,);
+      // props.UpdateNotificationBadge(props.notificationBadge + 1);
+      // if (notify.data.rideid) {
+      //   props.navigation.navigate('Map', { rideid: notify?.data?.rideid });
+      // }
+    }
 
-  //   function onOpenNotification(notify) {
-  //     console.log('onOpenNotification => ', notify);
-  //     if (props.isLogin && Object.keys(notify).length > 0) {
-  //       props.navigation.navigate('Notifications')
-  //     }
-  //   }
+    function onOpenNotification(notify) {
+      console.log('onOpenNotification => ', notify);
+      if (props.isLogin && Object.keys(notify).length > 0) {
+        props.navigation.navigate('Notifications')
+      }
+    }
 
-  //   const unsubscribe = messaging().onMessage(async remoteMessage => {
-  //     console.log('A new FCM message arrived!', remoteMessage);
-  //     props.UpdateNotificationBadge(props.notificationBadge + 1);
-  //     const notify = remoteMessage
-  //     // const options = { soundName: 'default', };
-  //     // localNotificationService.showNotification(0, notify.notification.title, notify.notification.body, notify, options,);
-  //     // console.log('notify.rideid => ', notify.rideid);
-  //   });
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log('A new FCM message arrived!', remoteMessage);
+      props.UpdateNotificationBadge(props.notificationBadge + 1);
+      const notify = remoteMessage
+      // const options = { soundName: 'default', };
+      // localNotificationService.showNotification(0, notify.notification.title, notify.notification.body, notify, options,);
+      // console.log('notify.rideid => ', notify.rideid);
+    });
 
-  //   return () => {
-  //     fcmService.unRegister();
-  //     localNotificationService.unregister();
-  //     unsubscribe;
-  //   };
+    return () => {
+      fcmService.unRegister();
+      localNotificationService.unregister();
+      unsubscribe;
+    };
 
-  // }, []);
+  }, []);
 
   useEffect(() => {
-    // connectSocket(props.userInfo?.id);
+    connectSocket(props.userInfo?.id);
     props.GetDrawerMenu();
   }, []);
 
@@ -230,7 +230,7 @@ const DrawerContent = (props) => {
       </View>
       <DrawerContentScrollView {...props} style={[styles.sidebar,]} contentContainerStyle={{ paddingTop: 0 }}>
         {/* {draweritems.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)} */}
-        {/* <DrawerItem key={21312} item={{ title: strings.LiveStream, nav: 'LiveStream' }} navigation={props.navigation} activescreen={props.currentScreen} /> */}
+        <DrawerItem key={21312} item={{ title: strings.LiveStream, nav: 'LiveStream' }} navigation={props.navigation} activescreen={props.currentScreen} />
         <DrawerItem key={0} item={{ title: strings.home, nav: 'Home' }} navigation={props.navigation} activescreen={props.currentScreen} />
         {drawerMenu.length > 0 && drawerMenu.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} />)}
         <DrawerItem key={100} item={{ title: strings.questionanswer, nav: 'QuestionAnswer' }} navigation={props.navigation} activescreen={props.currentScreen} />

@@ -24,7 +24,7 @@ const SectionItem = (props) => {
     // console.log('item => ', item.title)
 
     const image = props?.downloads ? item?.artwork : (item?.url ? `https://img.youtube.com/vi/${findvideoid(item?.url)}/0.jpg` : item?.image)
-    console.log('image => ', image)
+    // console.log('image => ', image)
 
     if (props?.audio) {
         return (
