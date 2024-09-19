@@ -33,8 +33,7 @@ const Downloads = (props) => {
         }
     }, [props.getToFavouriteListResponse])
 
-    return <SafeAreaView style={globalstyle.fullview}>
-        <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
+    return <SafeAreaView style={[globalstyle.fullview, {backgroundColor: colors.white, height: height, paddingBottom: 142}]}>
             <FlatList
                 data={favouriteList}
                 showsVerticalScrollIndicator={false}
@@ -71,7 +70,6 @@ const Downloads = (props) => {
                     })}
                 </View>
             </ScrollView> */}
-        </ImageBackground>
     </SafeAreaView>
 }
 

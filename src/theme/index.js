@@ -19,11 +19,11 @@ const colorScheme = Appearance.getColorScheme();
 console.log('colorScheme => ', colorScheme)
 
 const isDarkMode = colorScheme == 'dark';
-const fontcolor = isDarkMode ? colors.white : colors.black;
+const fontcolor = isDarkMode ? colors.black : colors.black;
 const invertcolor = colorScheme != 'dark' ? colors.white : colors.black;
 const isIPad = width > 700 ? true : false;
 const IOS = Platform.OS == 'ios' ? true : false;
-const backgroungImage = isDarkMode ? require('./../../assets/images/home-bg.jpg') : require('./../../assets/images/auth-bg.jpg')
+const backgroungImage = isDarkMode ? require('./../../assets/images/auth-bg.jpg') : require('./../../assets/images/auth-bg.jpg')
 const textAlign = isRTL ? 'right' : 'left';
 export const fontSize = 14;
 export {

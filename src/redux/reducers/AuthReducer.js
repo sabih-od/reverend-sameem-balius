@@ -38,6 +38,7 @@ export function RegisterApiCall(params) {
         url: RegisterAPI,
         method: 'POST',
         data: params,
+        headersOverride:true,
         onSuccess: (response) => {
             return { type: REGISTER_API_SUCCESS, payload: response };
         },

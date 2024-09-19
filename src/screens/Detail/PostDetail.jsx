@@ -218,7 +218,7 @@ const PostDetail = (props) => {
     console.log('initialIndex => ', initialIndex)
 
     return (
-        <SafeAreaView style={globalstyle.fullview}>
+        <SafeAreaView style={[globalstyle.fullview, {backgroundColor: colors.headerbgcolor, height: height, paddingBottom: 80}]}>
             <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
             {/* {isStarted && <View style={{ height: width / 1.8, justifyContent: 'center', backgroundColor: colors.black, position: 'absolute', zIndex: 1, width: width, left: 0, top: 0 }}>
                 <ActivityIndicator color={colors.green} />
@@ -240,7 +240,7 @@ const PostDetail = (props) => {
 
                 {item?.url != '' && <View>
                     <YoutubePlayer
-                        height={220}
+                        height={260}
                         play={true}
                         videoId={findvideoid(item.url)}
                         // onChangeState={onStateChange}
@@ -334,7 +334,7 @@ const PostDetail = (props) => {
                         keyExtractor={(imageitem, index) => String(index)}
                         renderItem={(imageitem) => {
                             console.log('imageitem => ', imageitem?.item?.url)
-                            return (<TouchableOpacity activeOpacity={0.8} onPress={() => openGallery(imageitem.index)} style={{ width: width / 2.3, height: width / 2, borderRadius: 10, overflow: 'hidden', }}>
+                            return (<TouchableOpacity activeOpacity={1} style={{ width: width / 2.3, height: width / 2, borderRadius: 10, overflow: 'hidden', }}>
                                 <Image
                                     source={{ uri: imageitem?.item?.url }}
                                     style={{ width: '100%', height: '100%', }}

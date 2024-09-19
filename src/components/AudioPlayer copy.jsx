@@ -82,7 +82,7 @@ const AudioPlayer = (props) => {
                     <TouchableOpacity
                         style={{ width: 25, height: 70, alignItems: 'center', justifyContent: 'center' }}
                         activeOpacity={0.8}
-                        onPress={() => props.handleClose(false, null)}
+                        onPress={() => props?.handleClose(false, null)}
                     >
                         <Icon name="x" style={{ color: colors.white, fontSize: 16 }} />
                     </TouchableOpacity>

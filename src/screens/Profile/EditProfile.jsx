@@ -11,8 +11,8 @@ import {
   TextInput,
   Platform,
   ImageBackground,
+  Alert,
 } from 'react-native';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Feather';
 import CameraModal from './../../components/modal/CameraModal';
 
@@ -22,7 +22,7 @@ import CameraModal from './../../components/modal/CameraModal';
 
 import { useForm } from 'react-hook-form';
 import globalstyle from '../../theme/style';
-import { backgroungImage, colors, fonts, isIPad } from '../../theme';
+import { backgroungImage, colors, fonts, height, isIPad, width } from '../../theme';
 import { useRef } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -31,6 +31,8 @@ import { SetUserInfo } from '../../redux/reducers/AppStateReducer';
 import { showToast } from '../../helpers/toastConfig';
 import Loader from "../../components/Loader";
 import strings from '../../localization/translation';
+import ImagePicker from 'react-native-image-crop-picker';
+import { UPDATE_PROFILE_PIC_API_ERROR, UPDATE_PROFILE_PIC_API_SUCCESS } from '../../redux/actiontypes';
 
 const EditProfile = props => {
   const [showModal, setShowModal] = useState(false);
@@ -47,57 +49,85 @@ const EditProfile = props => {
   }
 
   const chooseFile = async isCamera => {
-    var options = {
-      title: 'Select Profile Picture',
-      customButtons: [
-        { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-      ],
-      storageOptions: { skipBackup: true, path: 'images' },
-    };
-
-    // setTimeout(() => {
-    //   launchCamera(
-    //     options,
-    //     // { saveToPhotos: true, mediaType: 'photo', includeBase64: true, maxHeight: 400, maxWidth: 400, },
-    //     response => {
-    //       // console.log({ response }); 
-    //       if (response.didCancel) {
-    //         console.log(' Photo picker didCancel');
-    //       } else if (response.error) {
-    //         console.log('ImagePicker Error: ', response.error);
-    //       } else {
-    //         console.log('ImagePicker: ', response);
-    //         // setResponse(response)
-    //       }
-    //     });
-    // }, 200);
-
-
-    let response = {};
-    if (isCamera) {
-      console.log('launchCamera');
-      await delay(200);
-      response = await launchCamera(options);
-      // response = setTimeout(() => { launchCamera(options) }, 200);
-    } else {
-      console.log('launchImageLibrary');
-      await delay(200);
-      response = await launchImageLibrary(options);
-      // response = setTimeout(() => { launchImageLibrary(options) }, 200);
-    }
-
-    console.log('response here => ', response);
-    if (Object.keys(response).length > 0) {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+    try {
+      let response;
+      if (isCamera) {
+        response = await ImagePicker.openCamera({
+          cropping: true,
+          mediaType: 'photo',
+          // includeBase64: true,
+          compressImageQuality: 0.8, // Adjust as needed
+        });
       } else {
-        console.log('response: ', response);
-        setFilePath(response.assets[0]);
+        response = await ImagePicker.openPicker({
+          cropping: true,
+          mediaType: 'photo',
+          // includeBase64: true,
+          compressImageQuality: 0.8, // Adjust as needed
+        });
       }
+
+      console.log('response =>', response);
+      if (response) {
+        setFilePath(response);
+      }
+    } catch (error) {
+      console.log('ImagePicker Error: ', error);
     }
   };
+
+  // const chooseFile = async isCamera => {
+  //   var options = {
+  //     title: 'Select Profile Picture',
+  //     customButtons: [
+  //       { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
+  //     ],
+  //     storageOptions: { skipBackup: true, path: 'images' },
+  //   };
+
+  //   // setTimeout(() => {
+  //   //   launchCamera(
+  //   //     options,
+  //   //     // { saveToPhotos: true, mediaType: 'photo', includeBase64: true, maxHeight: 400, maxWidth: 400, },
+  //   //     response => {
+  //   //       // console.log({ response }); 
+  //   //       if (response.didCancel) {
+  //   //         console.log(' Photo picker didCancel');
+  //   //       } else if (response.error) {
+  //   //         console.log('ImagePicker Error: ', response.error);
+  //   //       } else {
+  //   //         console.log('ImagePicker: ', response);
+  //   //         // setResponse(response)
+  //   //       }
+  //   //     });
+  //   // }, 200);
+
+
+  //   let response = {};
+  //   if (isCamera) {
+  //     console.log('launchCamera');
+  //     await delay(200);
+  //     response = await launchCamera(options);
+  //     // response = setTimeout(() => { launchCamera(options) }, 200);
+  //   } else {
+  //     console.log('launchImageLibrary');
+  //     await delay(200);
+  //     response = await launchImageLibrary(options);
+  //     // response = setTimeout(() => { launchImageLibrary(options) }, 200);
+  //   }
+
+  //   console.log('response here => ', response);
+  //   if (Object.keys(response).length > 0) {
+  //     if (response.didCancel) {
+  //       console.log('User cancelled image picker');
+  //     } else if (response.error) {
+  //       console.log('ImagePicker Error: ', response.error);
+  //     } else {
+  //       console.log('response: ', response);
+  //       setFilePath(response.assets[0]);
+  //     }
+  //   }
+  // };
 
   const [isEditable, setIsEditable] = useState(true);
   const [user, setUser] = useState(props.userInfo);
@@ -124,15 +154,47 @@ const EditProfile = props => {
 
   useEffect(() => {
     console.log('filePath => ', filePath);
-    if (filePath != null && filePath != prevFilePathRef.current) {
+    if (filePath) {
+      const { path, mime } = filePath
+      // const formData = new FormData();
+      // formData.append('profile_picture', {
+      //   uri: path,
+      //   name: `Profile${Date.now()}.${mime.slice(
+      //     mime.lastIndexOf('/') + 1,
+      //   )}`,
+      //   type: mime,
+      // });
+      // props.UpdateProfilePicApiCall(formData);
+      // isLoading(true);
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", "Bearer " + props.userInfo?.access_token);
+
       const formData = new FormData();
       formData.append('profile_picture', {
-        name: filePath.fileName,
-        type: filePath.type,
-        uri: Platform.OS === 'android' ? filePath.uri : filePath.uri.replace('file://', '')
+        uri: path,
+        name: `Profile${Date.now()}.${mime.slice(
+          mime.lastIndexOf('/') + 1,
+        )}`,
+        type: mime,
       });
-      props.UpdateProfilePicApiCall(formData);
-      isLoading(true);
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: formData,
+        redirect: "follow"
+      };
+
+      fetch(process.env.API_BASE_URL ? process.env.API_BASE_URL + "/auth/upload-profile-picture" : 'https://reverendsameembalius.com:3013' + "/auth/upload-profile-picture", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result)
+          props.saveProfilePicture(result)
+        })
+        .catch((error) => {
+          console.error(error)
+          props.profilePictureError(error)
+        });
     }
   }, [filePath]);
 
@@ -185,6 +247,7 @@ const EditProfile = props => {
   }, [props.editProfileResponse])
 
   const onSubmit = data => {
+
     if (data.password == undefined) {
       delete data.password
     }
@@ -198,23 +261,23 @@ const EditProfile = props => {
 
   return (
     <>
-      <CameraModal
+      {/* <CameraModal
         handleCamera={handleCamera}
         visible={showModal}
         setVisible={setShowModal}
-      />
+      /> */}
       <Loader isLoading={loading} />
-      <SafeAreaView style={globalstyle.fullview}>
-        <ImageBackground style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}
-          source={backgroungImage}>
-          <ScrollView style={styles.container}>
+      <SafeAreaView style={[globalstyle.fullview, {backgroundColor: colors.headerbgcolor, height: height, paddingBottom: 142}]}>
+      <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
+        
+          <ScrollView showsVerticalScrollIndicator={false} style={{}}>
             {/* <View style={{ backgroundColor: colors.black, height: 400, width: '100%', top: 0, position: 'absolute', }}></View> */}
-            <View style={[{ paddingVertical: 20, paddingHorizontal: 15 }, isIPad && globalstyle.authscreencontainer]}>
-              <View style={{ width: 140, height: 140, borderRadius: 140, marginLeft: 'auto', marginRight: 'auto', marginVertical: 20, position: 'relative', backgroundColor: '#ddd', borderColor: colors.white, borderWidth: 2, marginTop: 100 }}>
+            <View style={[{  paddingHorizontal: 15 }, isIPad && globalstyle.authscreencontainer]}>
+              <View style={{ width: 140, height: 140, borderRadius: 140, marginLeft: 'auto', marginRight: 'auto', position: 'relative', backgroundColor: '#ddd', borderColor: colors.white, borderWidth: 2, marginTop: 30, marginBottom: 15}}>
                 <Image
                   source={
-                    filePath?.uri
-                      ? { uri: filePath?.uri }
+                    filePath?.path
+                      ? { uri: filePath?.path }
                       : user?.profile_picture
                         ? { uri: user?.profile_picture }
                         : require('./../../../assets/images/dummy-profile-image.png')
@@ -229,7 +292,25 @@ const EditProfile = props => {
                     activeOpacity={0.7}
                     style={{ borderWidth: 1, borderColor: colors.white, position: 'absolute', right: 5, bottom: 2, zIndex: 1, alignItems: 'center', justifyContent: 'center', width: 40, height: 40, borderRadius: 40, backgroundColor: colors.white, }}
                     onPress={() => {
-                      setShowModal(true);
+                      Alert.alert(
+                        'Choose Image Source',
+                        '',
+                        [
+                          {
+                            text: 'Camera',
+                            onPress: () => chooseFile(true),
+                          },
+                          {
+                            text: 'Gallery',
+                            onPress: () => chooseFile(false),
+                          },
+                          {
+                            text: 'Cancel',
+                            style: 'cancel',
+                          },
+                        ],
+                        { cancelable: true },
+                      );
                     }}>
                     <Icon name="camera" size={isIPad ? 20 : 18} color={colors.black} />
                   </TouchableOpacity>
@@ -245,10 +326,10 @@ const EditProfile = props => {
             </TouchableOpacity> */}
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.black} name={'user'} size={18} />
+                <Icon color={colors.drawerbg} name={'user'} size={18} />
                 <TextInput
                   style={globalstyle.inputfield}
-                  placeholder="First Name"
+                  placeholder={strings.firstName}
                   defaultValue={user?.first_name}
                   editable={isEditable}
                   placeholderTextColor={colors.placeholdercolor}
@@ -269,10 +350,10 @@ const EditProfile = props => {
               {errors.first_name && (<Text style={globalstyle.errorField}> {errors.first_name.message} </Text>)}
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.black} name={'user'} size={18} />
+                <Icon color={colors.drawerbg} name={'user'} size={18} />
                 <TextInput
                   style={globalstyle.inputfield}
-                  placeholder="Last Name"
+                  placeholder={strings.lastName}
                   defaultValue={user?.last_name}
                   editable={isEditable}
                   placeholderTextColor={colors.placeholdercolor}
@@ -293,12 +374,12 @@ const EditProfile = props => {
               {errors.last_name && (<Text style={globalstyle.errorField}> {errors.last_name.message} </Text>)}
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.black} name={'mail'} size={18} />
+                <Icon color={colors.drawerbg} name={'mail'} size={18} />
                 <TextInput
-                  style={[globalstyle.inputfield, { opacity: 0.6 }]}
+                  style={globalstyle.inputfield}
                   defaultValue={user?.email}
                   editable={false}
-                  placeholder="Email Address"
+                  placeholder={strings.email}
                   placeholderTextColor={colors.placeholdercolor}
                   {...register('email', {
                     value: user?.email,
@@ -320,10 +401,10 @@ const EditProfile = props => {
                 <Text style={globalstyle.errorField}>{errors.email.message}</Text>
               )}
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.black} name={'phone'} size={18} />
+                <Icon color={colors.drawerbg} name={'phone'} size={18} />
                 <TextInput
                   style={globalstyle.inputfield}
-                  placeholder="Phone Number (Optional)"
+                  placeholder={strings.phoneNumber}
                   placeholderTextColor={colors.placeholdercolor}
                   defaultValue={user?.phone}
                   editable={isEditable}
@@ -352,10 +433,10 @@ const EditProfile = props => {
                     { justifyContent: 'space-between' },
                   ]}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon color={colors.black} name={'lock'} size={18} />
+                    <Icon color={colors.drawerbg} name={'lock'} size={18} />
                     <TextInput
                       style={[globalstyle.inputfield, { flex: 0.8 }]}
-                      placeholder="Password"
+                      placeholder={strings.password}
                       // value="password123"
                       placeholderTextColor={colors.placeholdercolor}
                       {...register('password', {
@@ -363,7 +444,7 @@ const EditProfile = props => {
                         // required: 'Password is required',
                         minLength: {
                           value: 8,
-                          message: 'Password length must be greater then 8',
+                          message: 'Password length should be atleast 8 characters',
                         },
                       })}
                       // inputRef={password.ref}
@@ -375,6 +456,7 @@ const EditProfile = props => {
                     // onSubmitEditing={() => input05.current.focus()}
                     />
                   </View>
+
                   <TouchableOpacity
                     activeOpacity={0.8}
                     style={globalstyle.showhideicontouch}
@@ -389,6 +471,7 @@ const EditProfile = props => {
                   </TouchableOpacity>
                 </View>
               )}
+              {errors.password && (<Text style={globalstyle.errorField}>{errors.password.message}</Text>)}
               {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15, marginTop: 5 }}>
                             <Text style={[styles.labelinput, { marginRight: 55 }]}>Gender</Text>
                             <View style={{ flexDirection: 'row' }}><TouchableOpacity activeOpacity={0.6} style={[styles.checkboxtick]}
@@ -458,7 +541,6 @@ const EditProfile = props => {
               )}
             </View>
           </ScrollView>
-        </ImageBackground>
       </SafeAreaView>
     </>
   );
@@ -483,6 +565,8 @@ const mapDispatchToProps = dispatch => {
     SetUserInfo: bindActionCreators(SetUserInfo, dispatch),
     EditProfileApiCall: bindActionCreators(EditProfileApiCall, dispatch),
     UpdateProfilePicApiCall: bindActionCreators(UpdateProfilePicApiCall, dispatch),
+    saveProfilePicture: (response) => dispatch({ type: UPDATE_PROFILE_PIC_API_SUCCESS, payload: response }),
+    profilePictureError: (response) => dispatch({type: UPDATE_PROFILE_PIC_API_ERROR, payload: response})
   };
 };
 

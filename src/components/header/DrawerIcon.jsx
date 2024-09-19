@@ -11,7 +11,7 @@ const DrawerIcon = ({ navigation }) => {
             navigation.openDrawer();
         }}
         style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
-        <Icon name={'align-right'} size={22} color={isDarkMode ? colors.white : colors.black} />
+        <Icon name={'align-right'} size={22} color={isDarkMode ? colors.white : colors.white} />
     </TouchableOpacity >)
 }
 

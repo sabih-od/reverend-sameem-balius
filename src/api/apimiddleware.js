@@ -6,8 +6,8 @@ import { showToast } from '../helpers/toastConfig';
 import { LogOut } from '../redux/reducers/AppStateReducer';
 // import { showToast } from '../helpers/toastConfig';
 
-// import https from 'https';
-// const agent = new https.Agent({ rejectUnauthorized: false });
+// import  from '';
+// const agent = new .Agent({ rejectUnauthorized: false });
 
 
 export const API_REQUEST = "API_REQUEST";
@@ -62,8 +62,8 @@ const apiMiddleware = ({ dispatch }) => next => action => {
 
   // axios default configs
   axios.defaults.baseURL = process.env.API_BASE_URL ? process.env.API_BASE_URL : 'https://reverendsameembalius.com:3013';
-  // axios.defaults.baseURL = 'https://texaschristianashram.org:3023';
-  // axios.defaults.httpsAgent = agent;
+  // axios.defaults.baseURL = '://texaschristianashram.org:3023';
+  // axios.defaults.Agent = agent;
   axios.defaults.headers.common['Authorization'] = `Bearer ${state?.appstate?.userInfo?.access_token}`;
   axios.defaults.headers.common['lang'] = state?.appstate?.language == 'en' ? 1 : 2;
 
@@ -87,7 +87,7 @@ const apiMiddleware = ({ dispatch }) => next => action => {
       method,
       headers,
       [dataOrParams]: data,
-      // httpsAgent: agent
+      // Agent: agent
     })
     .then(({ data }) => {
       console.log(`API: ${url} => `, data);

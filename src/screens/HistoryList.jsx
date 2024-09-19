@@ -1,6 +1,6 @@
-import { FlatList, Image, ImageBackground, SafeAreaView, StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
+import { FlatList, Image, ImageBackground, SafeAreaView, StyleSheet, Text, View, TouchableOpacity, ScrollView, ActivityIndicator } from "react-native";
 import globalstyle from "../theme/style";
-import { backgroungImage, colors, fonts, height, isIPad, width } from "../theme";
+import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, width } from "../theme";
 import Icon from "react-native-vector-icons/Feather";
 import nightroutine from "../data/nightly-routines";
 import RoutineBoxHorizontal from "../components/RoutineBoxHorizontal";
@@ -16,6 +16,8 @@ const IMAGE_WIDTH = width / 2;
 const HistoryList = (props) => {
 
     const [favouriteList, setFavouriteList] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
     const prevHistoryListResRef = useRef(props.getHistoryListResponse);
 
     useEffect(() => {
@@ -28,20 +30,37 @@ const HistoryList = (props) => {
             // setPostList(prevState => [...prevState, ...props.getHistoryListResponse?.data])
             console.log('props.getHistoryListResponse => ', props.getHistoryListResponse)
             setFavouriteList(props.getHistoryListResponse?.data)
+            if (refreshing) {
+                console.log('refreshing')
+                setFavouriteList(props.getHistoryListResponse?.data)
+            }
+            else {
+                console.log('not refreshing')
+                setFavouriteList(prevState => [...prevState, ...props.getHistoryListResponse?.data])
+            }
+            loading && setLoading(false);
+        } else if (props.getHistoryListResponse !== prevHistoryListResRef.current && props.getHistoryListResponse?.success && props.getHistoryListResponse?.data.length == 0) {
+            loading && setLoading(false);
         }
+        setRefreshing(false)
     }, [props.getHistoryListResponse])
 
-    return <SafeAreaView style={globalstyle.fullview}>
-        <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
-            <FlatList
-                data={favouriteList}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={item => String(item?.id)}
-                contentContainerStyle={{ paddingVertical: 15, paddingHorizontal: 15 }}
-                ListEmptyComponent={() => <View style={{ height: height - 150, alignItems: 'center', justifyContent: 'center' }}><Text style={globalstyle.noproductfound}>{strings?.NoHistory}</Text></View>}
-                renderItem={({ item, index }) => <SectionItem key={index} handlePlayer={() => console.log('asdasd')} item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 100} audio={true} hideicon={true} postdetail={true} />}
-            />
-        </ImageBackground>
+    return <SafeAreaView style={[globalstyle.fullview, { backgroundColor: colors.headerbgcolor, height: height, paddingBottom: 142 }]}>
+        <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
+        {loading && <View style={globalstyle.loadingview}>
+            <ActivityIndicator color={isDarkMode ? colors.black : colors.black} style={{ marginBottom: 15 }} />
+            <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
+        </View>}
+        <FlatList
+            data={favouriteList}
+            showsVerticalScrollIndicator={false}
+            refreshing={refreshing}
+            keyExtractor={item => String(item?.id)}
+            contentContainerStyle={{ paddingVertical: 15, paddingHorizontal: 15 }}
+            ListEmptyComponent={() => <View style={{ height: height - 150, alignItems: 'center', justifyContent: 'center' }}><Text style={globalstyle.noproductfound}>{strings?.NoHistory}</Text></View>}
+            renderItem={({ item, index }) => <SectionItem key={index} handlePlayer={() => console.log('asdasd')} item={item} navigation={props.navigation} width={isIPad ? (width / 2) - 22 : (width) - 100} audio={true} hideicon={true} postdetail={true} />}
+        />
+        <View style={{ paddingBottom: 142 }} />
     </SafeAreaView>
 }
 

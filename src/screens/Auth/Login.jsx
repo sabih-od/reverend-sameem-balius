@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, I18nManager, StatusBar } from "react-native";
-
+import messaging from '@react-native-firebase/messaging';
 import { useForm } from 'react-hook-form';
 import { IOS, backgroungImage, colorScheme, colors, fontSize, fonts, isDarkMode, isIPad, isRTL, width } from "../../theme";
-
 import Icon from "react-native-vector-icons/Feather";
 import globalstyle from "../../theme/style";
-
 import { connect } from "react-redux";
 import { SetIsLogin, SetLanguage, SetUserInfo } from "../../redux/reducers/AppStateReducer";
 import { bindActionCreators } from "redux";
@@ -14,38 +12,51 @@ import { LoginApiCall } from "../../redux/reducers/AuthReducer";
 import Loader from "../../components/Loader";
 import { showToast } from "../../helpers/toastConfig";
 import axios from "axios";
-
 import strings, { changeLang } from "./../../localization/translation";
 import SplashScreen from "react-native-splash-screen";
 import RNRestart from 'react-native-restart';
 
 const Login = (props) => {
-
     const [showPassword, setShowPassword] = useState(false);
     const [loading, isLoading] = useState(false);
     const { handleSubmit, formState: { errors }, register, setValue } = useForm();
     const prevLoginResponseRef = useRef(props.loginResponse);
     const prevLoginErrorRef = useRef(props.loginError);
-
-    // useEffect(() => {
-    //     if (!IOS) {
-    //         // axios.defaults.headers.common['Authorization'] = `Bearer 1656|35uwDzTjVDwexmX0Om94BtA9VPUKPHo2etdpGSUV`
-    //         axios.request({ url: 'https://hunterssocial.com/api/settings', method: 'GET' })
-    //             .then(function (response) { console.log('response hunter => ', response); })
-    //             .catch(function (error) { console.log(error); });
-    //     }
-    // }, [])
+    const [fcm_token, setFcm_token] = useState('');
 
     useEffect(() => {
-        // console.log('props.loginResponse => ', props.loginResponse);
+        const requestUserPermission = async () => {
+            const authStatus = await messaging().requestPermission();
+            const enabled =
+                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+            if (enabled) {
+                console.log('Authorization status:', authStatus);
+                const token = await messaging().getToken();
+                setFcm_token(token);
+                console.log('Device Token:', token);
+            } else {
+                console.log('Authorization status:', authStatus);
+            }
+        };
+
+        requestUserPermission();
+
+        const unsubscribe = messaging().onTokenRefresh((token) => {
+            setFcm_token(token);
+            console.log('Device Token refreshed:', token);
+        });
+
+        return unsubscribe;
+    }, []);
+
+
+    useEffect(() => {
         if (props.loginResponse !== prevLoginResponseRef.current && props.loginResponse?.success && props.loginResponse?.data) {
             prevLoginResponseRef.current = props.loginResponse;
             props.SetUserInfo(props.loginResponse?.data);
-            console.log('props.loginResponse => ', props.loginResponse);
-            // showToast();
             props.SetIsLogin(true);
-            // props.navigation.navigate('Screens', { screen: 'Home' })
-            // props.navigation.reset({ index: 0, routes: [{ name: 'Screens' }] })
         }
 
         if (props.loginResponse !== prevLoginResponseRef.current && !props.loginResponse?.success) {
@@ -55,30 +66,15 @@ const Login = (props) => {
     }, [props.loginResponse])
 
     useEffect(() => {
-        console.log('props.loginError => ', props.loginError);
         if (props.loginError && props.loginError !== prevLoginErrorRef.current && props.loginError?.message) {
-            console.log('props.loginError => ', props.loginError);
             showToast('error', props.loginError?.message)
         }
         isLoading(false);
     }, [props.loginError])
 
-    // const showToast = () => {
-    //     Toast.show({
-    //         type: 'success', // Can be 'success', 'error', 'info', or 'none'
-    //         // text1: 'Success',
-    //         text2: 'User logedin successfully..',
-    //         position: 'top', // Can be 'top', 'bottom', or 'center'
-    //         visibilityTime: 3000, // Duration to show the toast message (in milliseconds)
-    //         autoHide: true, // Automatically hide the toast after the duration
-    //         topOffset: 30, // Additional offset from the top/bottom (in pixels)
-    //         // bottomOffset: 40,
-    //     });
-    // }
-
     const onSubmit = (data) => {
-        console.log('onSubmit data => ', data)
-        props.LoginApiCall(data);
+        const requestData = { ...data, fcm_token };
+        props.LoginApiCall(requestData);
         isLoading(true);
     }
 
@@ -87,14 +83,13 @@ const Login = (props) => {
 
     useEffect(() => {
         console.log('isRTL 123 => ', isRTL)
-        // changeLang(isRTL ? 'ar' : 'en')
     }, [])
 
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
         <ImageBackground
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}
-            source={backgroungImage}>
+            source={require('./../../../assets/images/bgAuth.png')}>
             <KeyboardAvoidingView behavior={IOS ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <View style={{}}>
@@ -109,7 +104,7 @@ const Login = (props) => {
                                 }, 500)
                                 SplashScreen.show();
                             }}>
-                                <Text style={{ fontFamily: !isRTL ? fonts.primarySemiBold : fonts.primary, fontSize: 13, color: isDarkMode ? colors.white : colors.black }}>English</Text>
+                                <Text style={{ fontFamily: !isRTL ? fonts.primarySemiBold : fonts.primary, fontSize: 13, color: isDarkMode ? colors.black : colors.black }}>English</Text>
                             </TouchableOpacity>
                             <View style={{ width: 1, height: 10, backgroundColor: colors.black, marginHorizontal: 10 }} />
                             <TouchableOpacity onPress={() => {
@@ -122,7 +117,7 @@ const Login = (props) => {
                                 }, 300)
                                 SplashScreen.show();
                             }}>
-                                <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.arabicMedium, color: isDarkMode ? colors.white : colors.black }}>عربي</Text>
+                                <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.arabicMedium, color: isDarkMode ? colors.black : colors.black }}>عربي</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={isIPad && globalstyle.authscreencontainer}>
@@ -132,14 +127,12 @@ const Login = (props) => {
                             </View>
                             <View>
                                 <View style={globalstyle.inputbox}>
-                                    <Icon color={colors.black} name={'mail'} size={18} />
+                                    <Icon color={colors.drawerbg} name={'mail'} size={18} />
                                     <TextInput
                                         style={globalstyle.inputfield}
-                                        placeholder="Email Address"
+                                        placeholder={strings.email}
                                         {...register('email', {
                                             value: '',
-                                            // value: 'johnmartin@mailinator.com',
-                                            // value: 'sarahthompson@mailinator.com',
                                             required: 'Email Address is required',
                                             pattern: {
                                                 value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
@@ -147,8 +140,6 @@ const Login = (props) => {
                                             },
                                         })}
                                         defaultValue={''}
-                                        // defaultValue={'johnmartin@mailinator.com'}
-                                        // defaultValue={'sarahthompson@mailinator.com'}
                                         placeholderTextColor={colors.placeholdercolor}
                                         autoCapitalize='none'
                                         onChangeText={(value) => setValue('email', value)}
@@ -166,26 +157,21 @@ const Login = (props) => {
                                 </TouchableOpacity>
                                 <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <Icon color={colors.black} name={'lock'} size={18} />
+                                        <Icon color={colors.drawerbg} name={'lock'} size={18} />
                                         <TextInput
                                             style={[globalstyle.inputfield, { flex: 0.8 }]}
-                                            placeholder="Password"
+                                            placeholder={strings.password}
                                             placeholderTextColor={colors.placeholdercolor}
                                             {...register('password', {
                                                 value: '',
-                                                // value: '12345678',
                                                 required: 'Password is required',
                                                 minLength: { value: 8, message: 'Password length must be greater then 8' }
                                             })}
                                             defaultValue={''}
-                                            // defaultValue={'12345678'}
-                                            // inputRef={password.ref}
                                             onChangeText={(value) => setValue('password', value)}
                                             secureTextEntry={!showPassword ? true : false}
                                             autoCapitalize='none'
                                             ref={input02}
-                                        // returnKeyType="next"
-                                        // onSubmitEditing={() => input05.current.focus()}
                                         />
                                     </View>
                                     <TouchableOpacity activeOpacity={0.8} style={globalstyle.showhideicontouch} onPress={() => { setShowPassword(!showPassword) }}>
@@ -199,11 +185,6 @@ const Login = (props) => {
                                     <Text style={globalstyle.authSubmitButtonText}>{strings.Login}</Text>
                                 </TouchableOpacity>
                             </View>
-                            {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40, marginBottom: 10 }}>
-                                <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
-                                <Text style={{ fontFamily: fonts.primary }}>Or Sign In With</Text>
-                                <View style={{ width: '30%', height: 1, backgroundColor: '#000' }} />
-                            </View> */}
                             <View style={globalstyle.alreadysignin}>
                                 <Text style={globalstyle.alreadyaccount}>{strings.DontHaveAccount} </Text>
                                 <TouchableOpacity activeOpacity={0.8}
@@ -235,10 +216,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(setStateToProps, mapDispatchToProps)(Login);
-// export default Login;
-
 
 const styles = StyleSheet.create({
     forgetpasslink: { marginLeft: 'auto', marginTop: 10, marginBottom: 0, marginRight: 15 },
-    forgetpasstext: { color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: fontSize - 1 },
+    forgetpasstext: { color: isDarkMode ? colors.black : colors.black, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: fontSize - 1 },
 })

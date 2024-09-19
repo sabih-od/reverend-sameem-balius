@@ -66,6 +66,7 @@ export default {
   Favourites: 'Favourites',
   Downloads: 'Downloads',
   History: 'History',
+  SubscribePackage: 'Subscribe Package',
   Search: 'Search',
   SearchHere: 'Search Here...',
 
@@ -101,5 +102,18 @@ export default {
   StartMyFreeWeek: 'Start My Free Week',
   DaysForFree: 'Try 7 days for free, then 100$/Month, billed annually as 1000$/Year.\nCancel anytime',
 
+  firstName: 'Enter First Name',
+  lastName: 'Enter Last Name',
+  email: 'Enter Email Address',
+  phoneNumber: 'Enter Phone Number',
+  password: 'Enter Password',
+  didntRecieveOtp: `Didn't received OTP ?`,
+  resend: 'Resend',
+
   Loading: 'Loading. Please wait...',
+  DailyRosary: 'Daily Rosary',
+  DailyBible: 'Daily Bible',
+  NightPrayers: 'Night Prayers',
+  BibleExplain: 'Bible Explain',
+  NoDataFound: 'No Data Found'
 };

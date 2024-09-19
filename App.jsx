@@ -14,6 +14,7 @@ import { toastConfig } from './src/helpers/toastConfig';
 import Navigation from "./src/navigation/Navigation";
 import strings from "./src/localization/translation";
 import { TrackAddItem, SetupTrackPlayer, GetCurrentTrack } from "./src/helpers/track-player";
+import { StripeProvider } from "@stripe/stripe-react-native";
 
 const App = () => {
     useEffect(() => {
@@ -35,15 +36,21 @@ const App = () => {
     return (
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <StatusBar
-                    barStyle={!isDarkMode ? 'dark-content' : 'light-content'}
-                    // backgroundColor={colors.orange} // transparent
-                    // StatusBarStyle={'dark-content'}
-                    backgroundColor={isDarkMode ? colors.drawerbg : colors.headerbgcolor}
-                // translucent={true}
-                />
-                <Navigation />
-                <Toast config={toastConfig} />
+                <StripeProvider
+                    publishableKey="pk_test_0rY5rGJ7GN1xEhCB40mAcWjg" // Replace with your Stripe publishable key
+                    urlScheme="reverendsameembalius" // required for 3D Secure and bank redirects
+                    merchantIdentifier="merchant.com.reverendsameembalius"
+                >
+                    <StatusBar
+                        barStyle={!isDarkMode ? 'dark-content' : 'light-content'}
+                        // backgroundColor={colors.orange} // transparent
+                        // StatusBarStyle={'dark-content'}
+                        backgroundColor={colors.drawerbg}
+                    // translucent={true}
+                    />
+                    <Navigation />
+                    <Toast config={toastConfig} />
+                </StripeProvider>
             </PersistGate>
         </Provider>
     )

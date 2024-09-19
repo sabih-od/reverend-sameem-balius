@@ -61,7 +61,7 @@ const SearchPost = (props) => {
         setRefreshing(true)
         setPage(1);
         // setLimit(itemslimit);
-        props.GetSearchPost({ page, limit, title: textInput.current.value });
+        props.GetSearchPost({ page, limit, title: textInput?.current?.value });
     }
 
     const _handleLoadMore = () => {
@@ -81,14 +81,14 @@ const SearchPost = (props) => {
         props.GetSearchPost({ page, limit, title: value })
     }
 
-    return <SafeAreaView style={globalstyle.fullview}>
+    return <SafeAreaView style={[globalstyle.fullview, {backgroundColor: colors.headerbgcolor, height: height, paddingBottom: 142}]}>
         <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
         <SearchInput onSearch={_onSearch} value={props?.route?.params?.title} />
         {/* <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 15, }}>
 
         </ScrollView> */}
         {loading && <View style={globalstyle.loadingview}>
-            <ActivityIndicator color={isDarkMode ? colors.white : colors.black} style={{ marginBottom: 15 }} />
+            <ActivityIndicator color={isDarkMode ? colors.black : colors.black} style={{ marginBottom: 15 }} />
             <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
         </View>}
         {!loading && <FlatList
@@ -106,7 +106,7 @@ const SearchPost = (props) => {
                 <ActivityIndicator size={Platform.OS == 'android' ? 25 : 'large'} color={colors.primary} />
                 <Text style={globalstyle.footerloadingtext}>Loading</Text>
             </View> : <View style={{ height: 20 }} />}
-            ListEmptyComponent={() => <View style={globalstyle.loadingview}><Text style={globalstyle.noproductfound}>{'No data found'}</Text></View>}
+            ListEmptyComponent={() => <View style={globalstyle.loadingview}><Text style={globalstyle.noproductfound}>{strings.NoDataFound}</Text></View>}
             // onEndReachedThreshold={0.8}
             // onEndReached={_handleLoadMore}
             data={searchPosts}

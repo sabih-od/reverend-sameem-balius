@@ -15,7 +15,7 @@ const NotificationIcon = (props) => {
                 props.navigation.navigate('Notifications');
             }}
             style={globalstyle.notibadge}>
-            <Icon name={'bell'} size={20} color={isDarkMode ? colors.white : colors.black} />
+            <Icon name={'bell'} size={20} color={isDarkMode ? colors.white : colors.white} />
             {props.notificationBadge > 0 && <View style={globalstyle.badge}></View>}
         </TouchableOpacity>
     )

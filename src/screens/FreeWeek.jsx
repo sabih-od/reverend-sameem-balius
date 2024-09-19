@@ -30,8 +30,8 @@ const StartFreeWeek = () => {
         console.log('Try 7 Days Free');
     }
 
-    return <SafeAreaView style={globalstyle.fullview}>
-        <Image style={globalstyle.fullview} resizeMode="cover" source={backgroungImage} />
+    return <SafeAreaView style={[globalstyle.fullview, {backgroundColor: colors.white, height: height, paddingBottom: 112}]}>
+        {/* <Image style={globalstyle.fullview} resizeMode="cover" source={backgroungImage} /> */}
         <ScrollView style={{ flex: 1, paddingHorizontal: 15 }} showsVerticalScrollIndicator={false}>
             <View style={globalstyle.topicheadingrow}>
                 <Text style={[globalstyle.topicheading, { marginBottom: isRTL ? 10 : 0 }]}>{strings.StartFreeWeek}</Text>

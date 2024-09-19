@@ -61,7 +61,7 @@ const Notifications = (props) => {
         }
     }
 
-    return <SafeAreaView style={globalstyle.fullview}>
+    return <SafeAreaView style={[globalstyle.fullview, {backgroundColor: colors.headerbgcolor, height: height}]}>
 
         <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
         {/* <ScrollView style={{ padding: 15 }}> */}

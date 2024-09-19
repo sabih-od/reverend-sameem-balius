@@ -233,5 +233,5 @@ export default connect(setStateToProps, mapDispatchToProps)(PostsList);
 
 const styles = StyleSheet.create({
     homebgimage: { paddingHorizontal: 15, flex: 1 },
-    seperator: { width: '100%', height: 1, backgroundColor: isDarkMode ? 'rgba(0,0,0,0.2)' : '#bbb', marginBottom: 15, marginTop: 5 },
+    seperator: { width: '100%', height: 1, backgroundColor: isDarkMode ? '#bbb' : '#bbb', marginBottom: 15, marginTop: 5 },
 })

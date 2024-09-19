@@ -1,7 +1,7 @@
 import moment from 'moment/moment';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { colors, fonts, isDarkMode, isRTL } from '../theme';
+import { colors, fonts, isDarkMode, isRTL, width } from '../theme';
 import strings from '../localization/translation';
 import itemobject from './../data/itemobject';
 import { TrackAddItem, TrackPlay } from '../helpers/track-player';
@@ -92,8 +92,8 @@ const SectionItem = (props) => {
                 </ImageBackground >
                 <View style={{ width: width - 30 }}>
                     <Text style={itemstyle.date}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY")}</Text>
-                    <Text style={itemstyle.title}>{item?.title}</Text>
-                    <Text style={itemstyle.desc} numberOfLines={1}>{props?.downloads ? item?.artist : item?.description}</Text>
+                    <Text style={[itemstyle.title, props.titleStyle]}>{item?.title}</Text>
+                    {/* <Text style={itemstyle.desc} numberOfLines={1}>{props?.downloads ? item?.artist : item?.description}</Text> */}
                 </View>
                 {
                     props?.remove && <TouchableOpacity
@@ -120,13 +120,13 @@ const SectionItem = (props) => {
                     }
                 }}
                 activeOpacity={0.9}
-                style={{ width: width, marginBottom: 20, }}
+                style={{ width: width, marginBottom: 20, flexDirection: 'row', alignItems: 'center' }}
             >
                 <ImageBackground
                     // source={item?.image ? { uri: item?.image } : require('./../../assets/images/home-slider-placeholder.png')}
                     source={image != null ? { uri: image } : require('./../../assets/images/speaker-placeholder.png')}
                     defaultSource={require('./../../assets/images/home-slider-placeholder.png')}
-                    style={[itemstyle.otherimage, { height: width / 1.5 }]}
+                    style={[itemstyle.otherimage, { height: 60, width: 60}]}
                 >
                     {!props.hideicon && <View style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }} />}
                     {!props.hideicon && <View style={[itemstyle?.iconbg, { width: 40, height: 40 }]}>
@@ -144,9 +144,11 @@ const SectionItem = (props) => {
                         </View>
                     </>}
                 </ImageBackground>
+                <View style={{marginLeft: 10}}>
+                <Text numberOfLines={2} style={itemstyle.title}>{item?.title}</Text>
+                {/* <Text style={itemstyle.desc} numberOfLines={1}>{item?.description}</Text> */}
                 <Text style={itemstyle.date}>{moment(parseInt(item?.created_at)).format("DD MMM, YYYY")}</Text>
-                <Text style={itemstyle.title}>{item?.title}</Text>
-                <Text style={itemstyle.desc} numberOfLines={1}>{item?.description}</Text>
+                </View>
             </TouchableOpacity >
         )
     }
@@ -157,10 +159,10 @@ export default SectionItem;
 const itemstyle = StyleSheet.create({
     iconbg: { width: 35, height: 35, backgroundColor: colors.orange, borderRadius: 30, justifyContent: 'center', alignItems: 'center', },
     icon: { fontSize: 18, color: colors.white },
-    date: { fontFamily: fonts.primary, fontSize: 11, textAlign: 'left', color: isDarkMode ? colors.white : '#444', marginBottom: isRTL ? 7 : 0 },
-    title: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: 15, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', marginBottom: isRTL ? 7 : 0 },
-    desc: { fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: isRTL ? 13 : 12, color: isDarkMode ? colors.white : colors.black, textAlign: 'left', lineHeight: isRTL ? 17 : 16 },
+    date: { fontFamily: fonts.primary, fontSize: 11, textAlign: 'left', color: isDarkMode ? '#444' : '#444', marginBottom: isRTL ? 7 : 0 },
+    title: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: 15, color: isDarkMode ? colors.black : colors.black, textAlign: 'left', marginBottom: isRTL ? 7 : 0 , width: width - 120},
+    desc: { fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: isRTL ? 13 : 12, color: isDarkMode ? colors.black : colors.black, textAlign: 'left', lineHeight: isRTL ? 17 : 16 },
     audoimage: { width: 80, height: 80, marginRight: 15, marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' },
-    otherimage: { width: '100%', marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' },
+    otherimage: { marginBottom: 5, borderRadius: 10, overflow: 'hidden', justifyContent: 'center', alignItems: 'center' },
     audioview: { marginBottom: 15, flexDirection: 'row', alignItems: 'center', },
 })

@@ -17,7 +17,7 @@ const ActionIcons = ({ name, route }) => {
     return <TouchableOpacity
         onPress={() => navigation.navigate(route)}
         activeOpacity={0.8}
-        style={{ width: 35, height: 35, alignItems: 'center', justifyContent: 'center', backgroundColor: isDarkMode ? colors.lightblue : colors.orange, marginLeft: 7, borderRadius: 30 }}
+        style={{ width: 35, height: 35, alignItems: 'center', justifyContent: 'center', backgroundColor: isDarkMode ? colors.orange : colors.orange, marginLeft: 7, borderRadius: 30 }}
     >
         <Icon name={name} size={18} color={colors.white} />
     </TouchableOpacity>
@@ -78,7 +78,7 @@ const MainBox = ({ item }) => {
                     }}
                 >
                     <View style={styles.playborder}>
-                        <View style={styles.playiconbg}>
+                        <View style={{}}>
                             <Image source={require('./../../assets/images/play.png')} style={{ width: 33, height: 33 }} />
                             {/* <Icon name="play" size={18} color={colors.white} style={isRTL ? { marginLeft: -4 } : { marginRight: -4 }} /> */}
                         </View>
@@ -111,18 +111,18 @@ const MainBox = ({ item }) => {
 export default MainBox;
 
 const styles = StyleSheet.create({
-    topboxactionbar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: isDarkMode ? colors.deepblue : colors.headerbgcolor2, paddingHorizontal: 18, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, overflow: 'hidden', marginTop: -20, zIndex: 1, paddingTop: 35, paddingBottom: 15 },
+    topboxactionbar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg, paddingHorizontal: 18, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, overflow: 'hidden', marginTop: -20, zIndex: 1, paddingTop: 35, paddingBottom: 15 },
     playicon: { flexDirection: 'row', alignItems: 'center' },
     playborder: { borderWidth: 1, borderRadius: 40, borderColor: colors.orange, width: 40, height: 40, alignItems: 'center', justifyContent: 'center', marginRight: 10 },
     // playiconbg: { backgroundColor: colors.orange, width: 32, height: 32, alignItems: 'center', justifyContent: 'center', borderRadius: 30, },
-    playetext: { color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicM : fonts.primary },
+    playetext: { color: isDarkMode ? colors.white : colors.white, fontFamily: isRTL ? fonts.arabicM : fonts.primary },
     heartaction: { flexDirection: 'row', alignItems: 'center', },
-    bottombarinfo: { alignItems: 'center', justifyContent: 'space-between', backgroundColor: isDarkMode ? colors.darkblue : colors.headerbgcolor, paddingBottom: 20, paddingTop: 30, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, overflow: 'hidden', marginTop: -30, zIndex: 0, paddingTop: 50 },
+    bottombarinfo: { alignItems: 'center', justifyContent: 'space-between', backgroundColor: isDarkMode ? '#f7f7f7' : '#f7f7f7', paddingBottom: 20, paddingTop: 30, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, overflow: 'hidden', marginTop: -30, zIndex: 0, paddingTop: 50 },
     bottombarlink: {
-        fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 13, color: isDarkMode ? colors.lightblue : colors.black, textTransform: 'uppercase',
+        fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: 13, color: isDarkMode ? colors.black : colors.black, textTransform: 'uppercase',
         // textDecorationLine: 'underline' 
     },
     shareiconbg: { backgroundColor: colors.orange, width: 35, height: 35, alignItems: 'center', justifyContent: 'center', borderRadius: 30, marginBottom: 10 },
-    sharequote: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: isDarkMode ? colors.white : colors.black, fontSize: 12 },
-    bottomtitle: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, fontSize: 18, marginVertical: 15, textAlign: 'center', marginHorizontal: 20, lineHeight: isRTL ? 30 : 24 }
+    sharequote: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: isDarkMode ? colors.black : colors.black, fontSize: 12 },
+    bottomtitle: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primarySemiBold, color: isDarkMode ? colors.black : colors.black, fontSize: 18, marginVertical: 15, textAlign: 'center', marginHorizontal: 20, lineHeight: isRTL ? 30 : 24 }
 })

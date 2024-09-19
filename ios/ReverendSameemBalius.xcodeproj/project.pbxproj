@@ -15,6 +15,7 @@
 		5E3F19392A72E9F600727143 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E3F19382A72E9F600727143 /* GoogleService-Info.plist */; };
 		5E3F193B2A73170100727143 /* libreact-native-splash-screen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E3F193A2A73170100727143 /* libreact-native-splash-screen.a */; };
 		5E48B4512A2AB76300C25FB5 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E48B4502A2AB76300C25FB5 /* Ionicons.ttf */; };
+		5E5B7FE02C736DEF00DD4D7A /* Splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E5B7FDF2C736DEF00DD4D7A /* Splash.png */; };
 		5E77FE442A7858C5005A2470 /* Tajawal-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E77FE3D2A7858C4005A2470 /* Tajawal-Black.ttf */; };
 		5E77FE452A7858C5005A2470 /* Tajawal-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E77FE3E2A7858C5005A2470 /* Tajawal-ExtraBold.ttf */; };
 		5E77FE462A7858C5005A2470 /* Tajawal-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E77FE3F2A7858C5005A2470 /* Tajawal-ExtraLight.ttf */; };
@@ -65,6 +66,8 @@
 		5E3F19382A72E9F600727143 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ReverendSameemBalius/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5E3F193A2A73170100727143 /* libreact-native-splash-screen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-splash-screen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E48B4502A2AB76300C25FB5 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		5E49B0A92C24B1DF00D2BD97 /* ReverendSameemBalius.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ReverendSameemBalius.entitlements; path = ReverendSameemBalius/ReverendSameemBalius.entitlements; sourceTree = "<group>"; };
+		5E5B7FDF2C736DEF00DD4D7A /* Splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Splash.png; sourceTree = "<group>"; };
 		5E77FE3D2A7858C4005A2470 /* Tajawal-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Tajawal-Black.ttf"; path = "../assets/fonts/Tajawal-Black.ttf"; sourceTree = "<group>"; };
 		5E77FE3E2A7858C5005A2470 /* Tajawal-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Tajawal-ExtraBold.ttf"; path = "../assets/fonts/Tajawal-ExtraBold.ttf"; sourceTree = "<group>"; };
 		5E77FE3F2A7858C5005A2470 /* Tajawal-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Tajawal-ExtraLight.ttf"; path = "../assets/fonts/Tajawal-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -130,6 +133,8 @@
 		13B07FAE1A68108700A75B9A /* ReverendSameemBalius */ = {
 			isa = PBXGroup;
 			children = (
+				5E5B7FDF2C736DEF00DD4D7A /* Splash.png */,
+				5E49B0A92C24B1DF00D2BD97 /* ReverendSameemBalius.entitlements */,
 				5E3F19382A72E9F600727143 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -328,6 +333,7 @@
 				5E77FE482A7858C5005A2470 /* Tajawal-Regular.ttf in Resources */,
 				5E77FE492A7858C5005A2470 /* Tajawal-Light.ttf in Resources */,
 				5E77FE4A2A7858C5005A2470 /* Tajawal-Bold.ttf in Resources */,
+				5E5B7FE02C736DEF00DD4D7A /* Splash.png in Resources */,
 				5E3F19392A72E9F600727143 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -584,7 +590,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ReverendSameemBalius/ReverendSameemBalius.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R6U34AT6G6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ReverendSameemBalius/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Light of the Words";
@@ -598,8 +606,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.reverendsameembalius;
+				PRODUCT_BUNDLE_IDENTIFIER = com.reverendsameembalius;
 				PRODUCT_NAME = "Reverend Sameem Balius";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -618,7 +625,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ReverendSameemBalius/ReverendSameemBalius.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R6U34AT6G6;
 				INFOPLIST_FILE = ReverendSameemBalius/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Light of the Words";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -631,8 +640,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.reverendsameembalius;
+				PRODUCT_BUNDLE_IDENTIFIER = com.reverendsameembalius;
 				PRODUCT_NAME = "Reverend Sameem Balius";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

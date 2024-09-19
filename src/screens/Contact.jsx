@@ -55,17 +55,17 @@ const Contact = (props) => {
 
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
-        <ImageBackground style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}
-            source={backgroungImage}>
+        <View style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15, backgroundColor: colors.headerbgcolor }]}
+        >
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <ScrollView
-                        contentContainerStyle={{ paddingTop: 60 }}
+                        contentContainerStyle={{ paddingTop: 0 }}
                         style={isIPad && globalstyle.authscreencontainer}
                     // style={[globalstyle.authContainer, { paddingHorizontal: 15 }]}
                     // contentContainerStyle={{justifyContent: 'center',}}
                     >
-                        
+
                         {/* <ScrollView> */}
                         <View style={[globalstyle.authLogoContainer, { alignItems: 'flex-start', }]}>
                             <Text style={[globalstyle.authheading, { fontSize: isIPad ? 35 : 28, marginTop: 10 }]}>{strings.contactTitle}</Text>
@@ -73,20 +73,20 @@ const Contact = (props) => {
                         </View>
                         <View>
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.darkblue} name={'user'} size={18} />
+                                <Icon color={colors.drawerbg} name={'user'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.contactFullName}
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('name', {
-                                        value: user.first_name + ' ' + user.last_name,
+                                        value: user?.first_name + ' ' + user?.last_name,
                                         required: 'Full name is required',
                                         pattern: {
                                             value: /^[A-Za-z\s]+$/i,
                                             message: "Please provide a valid name"
                                         },
                                     })}
-                                    defaultValue={user.first_name + ' ' + user.last_name}
+                                    defaultValue={user?.first_name + ' ' + user?.last_name}
                                     onChangeText={(value) => setValue('name', value)}
                                     ref={input01}
                                     returnKeyType="next"
@@ -96,13 +96,13 @@ const Contact = (props) => {
                             {errors.name && <Text style={globalstyle.errorField}>{errors.name.message}</Text>}
 
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.darkblue} name={'mail'} size={18} />
+                                <Icon color={colors.drawerbg} name={'mail'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.contactEmailAddress}
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('email', {
-                                        value: user.email,
+                                        value: user?.email,
                                         required: 'Email Address is required',
                                         pattern: {
                                             value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
@@ -111,7 +111,7 @@ const Contact = (props) => {
                                     })}
                                     editable={false}
                                     selectTextOnFocus={false}
-                                    defaultValue={user.email}
+                                    defaultValue={user?.email}
                                     onChangeText={(value) => setValue('email', value)}
                                     autoCapitalize='none'
                                     ref={input02}
@@ -122,7 +122,7 @@ const Contact = (props) => {
                             {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
 
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.darkblue} name={'phone'} size={18} />
+                                <Icon color={colors.drawerbg} name={'phone'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.contactPhoneNumber}
@@ -130,14 +130,14 @@ const Contact = (props) => {
                                     // keyboardType='phone-pad'
                                     keyboardType='numeric'
                                     {...register('phone', {
-                                        value: user.phone,
+                                        value: user?.phone,
                                         // required: 'Phone number is required',
                                         pattern: {
                                             value: /[0-9+]$/i,
                                             message: "Please provide valid phone number"
                                         },
                                     })}
-                                    defaultValue={user.phone}
+                                    defaultValue={user?.phone}
                                     onChangeText={(value) => setValue('phone', value)}
                                     ref={input03}
                                     returnKeyType="next"
@@ -147,7 +147,7 @@ const Contact = (props) => {
                             {errors.phone && <Text style={globalstyle.errorField}>{errors.phone.message}</Text>}
 
                             {/* <View style={globalstyle.inputbox}>
-                                <Icon color={colors.darkblue} name={'globe'} size={18} />
+                                <Icon color={colors.drawerbg} name={'globe'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder="Your Company (Optional)"
@@ -168,7 +168,7 @@ const Contact = (props) => {
 
                             <View style={[globalstyle.inputbox, { justifyContent: 'space-between', borderRadius: 25 }]}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                    <Icon color={colors.darkblue} name={'message-square'} size={18} style={{ marginTop: 15 }} />
+                                    <Icon color={colors.drawerbg} name={'message-square'} size={18} style={{ marginTop: 15 }} />
                                     <TextInput
                                         style={[globalstyle.inputfield, { flex: 1, textAlignVertical: 'top', paddingTop: 17 }]}
                                         placeholder={strings.contactEnterMessage}
@@ -203,7 +203,7 @@ const Contact = (props) => {
                     </ScrollView>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
-        </ImageBackground>
+        </View>
         {/* </ScrollView> */}
     </SafeAreaView>
 }

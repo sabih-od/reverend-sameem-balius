@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, TouchableOpacity, View, Text, Image, TextInput, Platform, ImageBackground, } from 'react-native';
-// import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Feather';
 // import CameraModal from '../../components/modal/CameraModal';
 
@@ -96,9 +95,9 @@ const Profile = props => {
       <DeleteProfileConfirmationModal handleDeleteConfirmValue={_handleDeleteConfirmValue} visible={showConfirmationModal} setVisible={setShowConfirmationModal} />
 
       <Loader isLoading={loading} />
-      <SafeAreaView style={[globalstyle.fullview, { backgroundColor: isDarkMode ? colors.darkblue : colors.headerbgcolor, height: height }]}>
-        {!isDarkMode && <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />}
-        <View style={styles.container}>
+      <SafeAreaView style={[globalstyle.fullview, { backgroundColor:  colors.headerbgcolor, height: height, paddingBottom: 120 }]}>
+        <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
+        <ScrollView bounces={false} showsVerticalScrollIndicator={false} style={styles.container}>
 
           {/* <BlockedUsers passReferenceToParent={handleChildReference} /> */}
           {/* <BlockedUsersListModal visible={showBlockedUsers} setVisible={setShowBlockedUsers} /> */}
@@ -120,7 +119,7 @@ const Profile = props => {
               />
             </View>
             <View style={{ alignItems: 'center' }}>
-              <Text style={{ fontFamily: fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, fontSize: 24 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
+              <Text style={{ fontFamily: fonts.primarySemiBold, color: isDarkMode ? colors.black : colors.black, fontSize: 24 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 {/* <Icon name="mail" style={{ color: colors.orange, fontSize: 18, marginRight: 8 }} /> */}
                 <Text style={[styles.edititemstext, { fontFamily: fonts.primary }]}>{`${user?.email}`}</Text>
@@ -151,11 +150,18 @@ const Profile = props => {
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.8}
+                onPress={() => props.navigation.navigate('Packages')}
+                style={styles.edititem}>
+                <Icon name="package" style={styles.editicon} />
+                <Text style={styles.edititemstext}>{strings.SubscribePackage}</Text>
+              </TouchableOpacity>
+              {/* <TouchableOpacity
+                activeOpacity={0.8}
                 onPress={() => props.navigation.navigate('Downloads')}
                 style={styles.edititem}>
                 <Icon name="download-cloud" style={styles.editicon} />
                 <Text style={styles.edititemstext}>{strings.Downloads}</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => setShowConfirmationModal(true)}
@@ -203,7 +209,7 @@ const Profile = props => {
                 </TouchableOpacity>
               </View> */}
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView >
     </>
   );
@@ -214,9 +220,9 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   checkboxtick: { flexDirection: 'row', alignItems: 'center', marginRight: 20 },
   labelinput: { fontFamily: fonts.latoRegular, fontSize: 13, color: '#000' },
-  edititem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 18, paddingHorizontal: 20, backgroundColor: isDarkMode ? colors.darkblue : colors.headerbgcolor, borderBottomColor: colors.deepblue, borderBottomWidth: 1 },
-  editicon: { color: isDarkMode ? colors.orange : colors.deepblue, fontSize: 18, marginRight: 25 },
-  edititemstext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: isDarkMode ? colors.white : colors.black },
+  edititem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 18, paddingHorizontal: 20, backgroundColor:  colors.headerbgcolor, borderBottomColor: colors.deepblue, borderBottomWidth: 1 },
+  editicon: { color: isDarkMode ? colors.deepblue : colors.deepblue, fontSize: 18, marginRight: 25 },
+  edititemstext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: isDarkMode ? colors.black : colors.black },
 });
 
 const setStateToProps = state => ({

@@ -31,9 +31,9 @@ const SubmitOTP = (props) => {
             console.log('props.submitOtpResponse => ', props.submitOtpResponse);
             props.SetUserInfo(props.submitOtpResponse?.data);
             // props.SetIsLogin(true);
-            // props.navigation.navigate('ResetPassword');
+            props.navigation.navigate('ResetPassword', {email: props?.route?.params?.email});
             // props.navigation.replace('ResetPassword');
-            props.navigation.reset({ index: 0, routes: [{ name: 'ResetPassword' }] })
+            // props.navigation.reset({ index: 0, routes: [{ name: 'ResetPassword' }] })
         } else if (props.submitOtpResponse !== prevSubmitOtpResRef.current && !props.submitOtpResponse?.success) {
             showToast('error', props.submitOtpResponse?.message)
         }
@@ -91,7 +91,7 @@ const SubmitOTP = (props) => {
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
         {/* <ScrollView style={globalstyle.authContainer}> */}
-        <ImageBackground source={backgroungImage}
+        <ImageBackground source={require('./../../../assets/images/bgAuth.png')}
             style={[globalstyle?.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -100,7 +100,7 @@ const SubmitOTP = (props) => {
                         <View style={globalstyle.authLogoContainer}>
                             {/* <Image source={require('./../../../assets/images/logo.png')} style={globalstyle.authLogo} /> */}
                             <Text style={globalstyle.authheading}>{strings.SubmitOTP}</Text>
-                            <Text style={[globalstyle.authdescription, { textAlign: 'center', lineHeight: 22 }]}>{strings.OtpDesc} <Text style={{ fontSize: 14, color: isDarkMode ? colors.white : colors.black }}>{props?.route?.params?.email}</Text></Text>
+                            <Text style={[globalstyle.authdescription, { textAlign: 'center', lineHeight: 22 }]}>{strings.OtpDesc} <Text style={{ fontSize: 14, color: isDarkMode ? colors.black : colors.black }}>{props?.route?.params?.email}</Text></Text>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={[globalstyle.inputbox, styles.inputboxotp]}>
@@ -280,10 +280,10 @@ const SubmitOTP = (props) => {
                         </View> */}
 
                         <View style={globalstyle.alreadysignin}>
-                            <Text style={globalstyle.alreadyaccount}>{`Didn't received OTP ?`} </Text>
+                            <Text style={globalstyle.alreadyaccount}>{strings.didntRecieveOtp} </Text>
                             <TouchableOpacity activeOpacity={0.8}
                                 onPress={() => onResendCode()}>
-                                <Text style={globalstyle.actionauthtext}> {'Resend'}</Text>
+                                <Text style={globalstyle.actionauthtext}> {strings.resend}</Text>
                             </TouchableOpacity>
                         </View>
 

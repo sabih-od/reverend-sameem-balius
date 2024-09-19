@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Platform, Button, Image, useColorScheme, RefreshControl, Linking } from "react-native";
-import { IOS, backgroungImage, colorScheme, colors, fonts, height, isIPad, isRTL, width } from "../theme";
+import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, Platform, Button, Image, useColorScheme, RefreshControl, Linking, ActivityIndicator } from "react-native";
+import { IOS, backgroungImage, colorScheme, colors, fonts, height, isDarkMode, isIPad, isRTL, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -26,11 +26,18 @@ import TryPlus from "../components/TryPlus";
 import axios from "axios";
 import { addListener, getSocket } from "../helpers/socket-manager";
 import { showToast } from "../helpers/toastConfig";
+import { useNavigation } from "@react-navigation/native";
+import DrawerItem from '../components/drawer/DrawerItem';
 
 
 const Home = (props) => {
 
+    const navigation = useNavigation()
+
     const [imagePath, setImagePath] = useState(null)
+    const [isTab, setIsTab] = useState('')
+    const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
     // const colorScheme = useColorScheme();
 
 
@@ -189,10 +196,24 @@ const Home = (props) => {
         if (props.drawerMenu != menuRef.current && props.drawerMenu?.success && props.drawerMenu?.data && props.drawerMenu?.data.length > 0) {
             // console.log('props.drawerMenu?.data => ', props.drawerMenu?.data)
             setCategories(props.drawerMenu?.data) //.reverse()
+            setLoading(false)
         }
     }, [props.drawerMenu])
 
-    const [refreshing, setRefreshing] = useState(false);
+    const filteredCategories = categories.filter(item => item?.name !== "Daily Rosary" && item?.name !== "Bible Explain" && item?.name !== "Night Prayers" && item?.name !== "Daily Bible");
+
+    const rosaryItem = categories.filter(item => item?.name === "Daily Rosary");
+    const rosayName = rosaryItem.map((item)=>  item?.name)
+
+    const dailyBible = categories.filter(item => item?.name === "Daily Bible");
+    const dailyBibleName = dailyBible.map((item)=>  item?.name)
+
+    const nightPrayers = categories.filter(item => item?.name === "Night Prayers");
+    const nightPrayersName = nightPrayers.map((item)=>  item?.name)
+
+    const bibleExplain = categories.filter(item => item?.name === "Bible Explain");
+    const bibleExplainName = bibleExplain.map((item)=>  item?.name)
+    
     const onRefresh = useCallback(() => {
         setRefreshing(true);
 
@@ -212,16 +233,17 @@ const Home = (props) => {
         }, 2000);
     }, []);
 
-    return <SafeAreaView style={globalstyle.fullview}>
+    return <SafeAreaView style={[globalstyle.fullview, { backgroundColor: colors.headerbgcolor, height: height, paddingBottom: 80 }]}>
         <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
             <Text
                 style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}
-                onPress={() => Linking.openURL('https://reverendsameembalius.com:3014/viewers')
-                    // props.navigation.navigate('LiveStream')
-
-                    // sendmes()
-                }>Join Live Stream</Text>
+                onPress={() => props.navigation.navigate('LiveStream')}
+            >Join Live Stream</Text>
         </TouchableOpacity>
+        {loading && <View style={globalstyle.loadingview}>
+            <ActivityIndicator color={isDarkMode ? colors.black : colors.black} style={{ marginBottom: 15 }} />
+            <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
+        </View>}
         {/* <TouchableOpacity style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
             <Text
                 style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}
@@ -231,8 +253,10 @@ const Home = (props) => {
                 }}>Join Live Stream</Text>
         </TouchableOpacity> */}
         {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
-        <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
+        <ImageBackground style={[styles.homebgimage, {}]} resizeMode="stretch" source={require('./../../assets/images/bgHome.png')}>
+            <View style={{ paddingVertical: 25, }} />
             <ScrollView
+                contentContainerStyle={{ paddingBottom: 25 }}
                 style={styles.homescollview}
                 showsVerticalScrollIndicator={false}
                 refreshControl={
@@ -256,11 +280,62 @@ const Home = (props) => {
                 {/* <TouchableOpacity onPress={() => props.navigation.navigate('AudioPlayer')}>
                     <Text>Audio Player</Text>
                 </TouchableOpacity> */}
-                {dailies && <View style={{ paddingHorizontal: 15 }}>
-                    <MainBox item={dailies} />
-                </View>}
+                {/* {drawerMenu.length > 0 && drawerMenu.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} mainStyle={{alignItems: 'center', justifyContent: 'center', borderLeftWidth: 0}} arrowStyle={{position: 'absolute', right: (width - 120)/2}} childrenStyle={{justifyContent: 'center', alignItems: 'center', borderLeftWidth: 0}} bulletStyle={{position: 'absolute', left: 20}} />)}
+                <DrawerItem key={100} item={{ title: strings.questionanswer, nav: 'QuestionAnswer' }} navigation={props.navigation} activescreen={props.currentScreen} mainStyle={{alignItems: 'center', justifyContent: 'center', borderLeftWidth: 0}} arrowStyle={{position: 'absolute', right: (width - 120)/2}} childrenStyle={{justifyContent: 'center', alignItems: 'center', borderLeftWidth: 0}} bulletStyle={{position: 'absolute', left: 20}} /> */}
 
-                {featuredList.length > 0 && <>
+                <FlatList
+                    vertical
+                    showsVerticalScrollIndicator={false}
+                    data={filteredCategories}
+                    contentContainerStyle={{ paddingHorizontal: 15 }}
+                    ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
+                    keyExtractor={item => String(item?.id)}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                onPress={() => props.navigation.navigate('Posts', { item: item })}
+                            >
+
+                                <View style={{ position: 'relative', zIndex: 1, paddingVertical: 5, paddingHorizontal: 15 }}>
+                                    <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: colors.black, fontSize: 18 }}>{item?.name}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    }}
+                />
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => props.navigation.navigate('QuestionAnswer', { text: isTab })}
+                >
+                    <View style={{ position: 'relative', zIndex: 1, paddingTop: 5, paddingHorizontal: 15 }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: colors.black, fontSize: 18 }}>{strings.questionanswer}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: dailyBible[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.grey, marginRight: 10 }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.drawerbg, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyBible}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: rosaryItem[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.grey }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.drawerbg, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyRosary}</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 20, }}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: bibleExplain[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.grey, marginRight: 10 }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.drawerbg, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.BibleExplain}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: nightPrayers[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.grey }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.drawerbg, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.NightPrayers}</Text>
+                    </TouchableOpacity>
+                </View>
+
+
+                {/* {dailies && <View style={{ paddingHorizontal: 15, marginTop: 15 }}>
+                    <MainBox item={dailies} />
+                </View>} */}
+
+                {/* {featuredList.length > 0 && <>
                     <View style={{ paddingHorizontal: 15 }}>
                         <Seperator />
                         <SectionHeading title={isRTL ? 'متميز' : 'Featured'} joined={false} />
@@ -283,9 +358,9 @@ const Home = (props) => {
                             return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
                         }}
                     />
-                </>}
+                </>} */}
 
-                {spiritual.length > 0 && <>
+                {/* {spiritual.length > 0 && <>
                     <View style={{ paddingHorizontal: 15 }}>
                         <Seperator />
                         <SectionHeading title={strings.Spiritual} joined={false} />
@@ -308,9 +383,9 @@ const Home = (props) => {
                             return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
                         }}
                     />
-                </>}
+                </>} */}
 
-                {biblical.length > 0 && <>
+                {/* {biblical.length > 0 && <>
                     <View style={{ paddingHorizontal: 15 }}>
                         <Seperator />
                         <SectionHeading title={strings.Biblical} joined={false} />
@@ -333,9 +408,9 @@ const Home = (props) => {
                             return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
                         }}
                     />
-                </>}
+                </>} */}
 
-                {audio.length > 0 && <>
+                {/* {audio.length > 0 && <>
                     <View style={{ paddingHorizontal: 15 }}>
                         <Seperator />
                         <SectionHeading title={strings.Audios} joined={false} />
@@ -356,8 +431,10 @@ const Home = (props) => {
                             );
                         })}
                     </View>
+                    </>} */}
 
-                    {/* <FlatList
+
+                {/* <FlatList
                         // horizontal
                         // snapToInterval={width / 2}
                         scrollEnabled
@@ -384,46 +461,11 @@ const Home = (props) => {
                             />)
                         }}
                     /> */}
-                </>}
 
-                {categories.length > 0 && <>
-                    <View style={{ paddingHorizontal: 15 }}>
-                        <Seperator />
-                        <SectionHeading title={strings.exploreByCategory} />
-                        {/* <Text style={{marginTop: -20, marginBottom: 10}}>Browse posts by category with ease, ensuring targeted content exploration</Text> */}
-                    </View>
-                    <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={categories}
-                        contentContainerStyle={{ paddingHorizontal: 15 }}
-                        ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
-                        keyExtractor={item => String(item?.id)}
-                        renderItem={({ item, index }) => <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={() => props.navigation.navigate('Posts', { item: item })}
-                        >
-                            <ImageBackground source={require('./../../assets/images/meditation.jpg')} style={{ height: width / 1.5, width: width / 2.4, borderRadius: 15, overflow: 'hidden', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                <View style={{ position: 'relative', zIndex: 1, paddingVertical: 15, paddingHorizontal: 15 }}>
-                                    <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: colors.white, fontSize: 18 }}>{item?.name}</Text>
-                                    <Text style={{ fontFamily: isRTL ? fonts.arabic : fonts.primary, textAlign: 'center', color: '#ddd', fontSize: 12 }} numberOfLines={2}>Browse posts by category with ease</Text>
-                                    {/* <Text style={{ fontFamily: isRTL ? fonts.arabic : fonts.primary, textAlign: 'center', color: '#ddd', fontSize: 12 }} numberOfLines={2}>
-                                        {item?.name == 'Mass' && 'Access services and sacraments, fostering spiritual connection regardless of location'}
-                                        {item?.name == 'Homily' && 'Engage with insightful sermons and reflections from clergy, enhancing your understanding of scripture'}
-                                        {item?.name == 'Lectures' && 'Explore educational talks and discussions on theology, history, and Christian principles'}
-                                        {item?.name == 'Meditation' && 'Experience guided contemplative sessions that help you connect with your faith on a deeper level'}
-                                        {item?.name == 'News' && 'Stay updated with Christian world events, religious news, and community activities'}
-                                        {item?.name == 'Library' && 'Access a diverse collection of religious texts, books, and resources for spiritual growth'}
-                                        {item?.name == 'Courses' && 'Enroll in structured courses on Christianity, Bible studies, and personal spiritual development'}
-                                    </Text> */}
-                                </View>
-                                <LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)', colors.black]} style={{ height: 150, width: '100%', position: 'absolute', left: 0, bottom: 0, zIndex: 0 }} />
-                            </ImageBackground>
-                        </TouchableOpacity>}
-                    />
-                </>}
 
-                {news.length > 0 && <>
+                {/* categories section in notes */}
+
+                {/* {news.length > 0 && <>
                     <View style={{ paddingHorizontal: 15 }}>
                         <Seperator />
                         <SectionHeading title={isRTL ? 'الأخبار' : 'News'} joined={false} />
@@ -446,7 +488,7 @@ const Home = (props) => {
                             return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
                         }}
                     />
-                </>}
+                </>} */}
 
 
                 {/* <View style={{ paddingHorizontal: 15 }}>
@@ -476,7 +518,7 @@ const Home = (props) => {
                 <Seperator /> */}
 
 
-                <TryPlus navigation={props.navigation} />
+                {/* <TryPlus navigation={props.navigation} /> */}
                 {/* <Seperator /> */}
 
                 {/* <SectionHeading title={'Evening Horizontal'} joined={false} />
@@ -536,7 +578,9 @@ const Home = (props) => {
                     <Text style={{fontFamily: fonts.primarySemiBold, fontSize: 18, color: colors.white}}>User</Text>
                 </TouchableOpacity>
             </View> */}
+            <View style={{ paddingBottom: 30 }} />
         </ImageBackground>
+        <View style={{ paddingBottom: IOS ? 150 : 30 }} />
     </SafeAreaView >
 }
 
@@ -577,5 +621,5 @@ const styles = StyleSheet.create({
         // ...StyleSheet.absoluteFillObject,
         // height: height, resizeMode: 'cover'
     },
-    homescollview: { flex: 1, paddingVertical: 15 }
+    homescollview: { flex: 1, paddingVertical: 0 }
 });

@@ -53,7 +53,7 @@ export function UpdateProfilePicApiCall(params) {
             return { type: UPDATE_PROFILE_PIC_API_SUCCESS, payload: response };
         },
         onFailure: (response) => {
-            console.log('Error Response => ', response);
+            console.log('Error Response => ', response?.response);
             return { type: UPDATE_PROFILE_PIC_API_ERROR, payload: response };
         },
         headersOverride: true

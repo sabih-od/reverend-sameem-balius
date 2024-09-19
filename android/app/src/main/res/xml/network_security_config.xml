@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
   <domain-config cleartextTrafficPermitted="true">
-    <domain includeSubdomains="true">service.demowebsitelinks.com:3013</domain>
+    <domain includeSubdomains="true">https://reverendsameembalius.com:3013</domain>
     <trust-anchors>
         <certificates src="@raw/my_cert"/>
         <certificates src="system"/>

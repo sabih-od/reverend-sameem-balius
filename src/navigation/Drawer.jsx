@@ -97,6 +97,7 @@ const DrawerContent = (props) => {
   }, []);
 
   const [user, setUser] = useState(props.userInfo);
+  console.log('useruseruser', user)
   const [drawerMenu, setDrawerMenu] = useState([]);
   const textInput = useRef();
 
@@ -146,22 +147,22 @@ const DrawerContent = (props) => {
   return (
     <>
       {user &&
-        <View style={{ backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor, paddingBottom: isIPad ? 60 : 30, paddingTop: IOS ? 80 : 30, }}>
+        <View style={{ backgroundColor: isDarkMode ? colors.headerbgcolor : colors.headerbgcolor, paddingBottom: isIPad ? 60 : 30, paddingTop: IOS ? 80 : 30, }}>
           {/* <TouchableOpacity onPress={() => { props.navigation.closeDrawer() }} activeOpacity={0.8}>
           <Icon name={'x'} color={colors.white} size={16} />
         </TouchableOpacity> */}
-          <TouchableOpacity activeOpacity={0.8} onPress={() => {
-            props.navigation.navigate('Profile')
+          <TouchableOpacity activeOpacity={1} onPress={() => {
+            // props.navigation.navigate('Profile')
           }} style={{
             width: isIPad ? 120 : 90, height: isIPad ? 120 : 90, borderRadius: isIPad ? 120 : 90, overflow: 'hidden', marginLeft: 'auto', marginRight: 'auto', marginBottom: 10,
             // borderColor: colors.white, borderWidth: 1, 
           }}>
             <Image source={user?.profile_picture ? { uri: user?.profile_picture } : require('./../../assets/images/dummy-profile-image.png')} style={{ width: isIPad ? 120 : 90, height: isIPad ? 120 : 90, resizeMode: 'cover', }} />
           </TouchableOpacity>
-          <Text style={{ fontFamily: fonts.primarySemiBold, color: isDarkMode ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 26 : 20, marginBottom: 0 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
+          <Text style={{ fontFamily: fonts.primarySemiBold, color: isDarkMode ? colors.black : colors.black, textAlign: 'center', fontSize: isIPad ? 26 : 20, marginBottom: 0 }}>{`${user?.first_name} ${user?.last_name}`}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
             <Icon name={'mail'} style={{ color: colors.orange, fontSize: 16, marginRight: 8, marginBottom: 0 }} />
-            <Text style={{ fontFamily: fonts.primary, color: isDarkMode ? colors.white : colors.black, textAlign: 'center', fontSize: isIPad ? 18 : 13 }}>{user?.email}</Text>
+            <Text style={{ fontFamily: fonts.primary, color: isDarkMode ? colors.black : colors.black, textAlign: 'center', fontSize: isIPad ? 18 : 13 }}>{user?.email}</Text>
           </View>
           {/* <Text style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center', fontSize: 12 }}>{user?.phone}</Text> */}
         </View>
@@ -237,7 +238,7 @@ const DrawerContent = (props) => {
         <DrawerItem key={101} item={{ title: strings.contactus, nav: 'Contact' }} navigation={props.navigation} activescreen={props.currentScreen} />
         <View style={{ height: 10 }} />
       </DrawerContentScrollView>
-      {user && <View style={{ backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor }}>
+      {user && <View style={{ backgroundColor: isDarkMode ? colors.headerbgcolor : colors.headerbgcolor }}>
         <TouchableOpacity activeOpacity={0.8} onPress={() => {
           // logout(props.navigation) 
           props.navigation.closeDrawer();
@@ -257,7 +258,7 @@ const DrawerContent = (props) => {
 
 const styles = StyleSheet.create({
   sidebar: {
-    backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+    backgroundColor: isDarkMode ? colors.headerbgcolor : colors.headerbgcolor,
     //flex: 1 
   },
   logoutitem: { flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 13, borderBottomWidth: 1, borderBottomColor: '#ffffff09', backgroundColor: colors.orange, borderTopRightRadius: 30 }
@@ -288,4 +289,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(setStateToProps, mapDispatchToProps)(DrawerContent);
-

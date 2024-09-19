@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, FlatList, ImageBackground, StyleSheet, ActivityIndicator, Image } from "react-native";
-import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, width } from "../theme";
+import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, isRTL, width } from "../theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -18,6 +18,7 @@ import strings from "../localization/translation";
 const itemslimit = 50;
 const Posts = (props) => {
     const { item } = props.route.params;
+    console.log('item', item)
     // console.log('props.route.params => ', props.route.params)
     const [postList, setPostList] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
@@ -91,51 +92,117 @@ const Posts = (props) => {
         }
     }
 
-    return <SafeAreaView style={{ flex: 1 }}>
+    return <SafeAreaView style={{ flex: 1, paddingBottom: 30, backgroundColor: colors.headerbgcolor }}>
         <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
         {loading && <View style={globalstyle.loadingview}>
-            <ActivityIndicator color={isDarkMode ? colors.white : colors.black} style={{ marginBottom: 15 }} />
+            <ActivityIndicator color={isDarkMode ? colors.black : colors.black} style={{ marginBottom: 15 }} />
             <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
         </View>}
-        {!loading && <FlatList
-            style={{ padding: 15 }}
-            // horizontal
-            // snapToInterval={width / 2}
-            // scrollEnabled
-            // scrollEventThrottle={16}
-            columnWrapperStyle={{ justifyContent: isIPad ? 'flex-start' : 'space-between' }}
-            numColumns={isIPad ? 3 : 2}
-            showsVerticleScrollIndicator={false}
-            refreshing={refreshing}
-            onRefresh={_handleRefresh}
-            ListFooterComponent={() => loadmore ? <View style={globalstyle.footerloadmore}>
-                <ActivityIndicator size={Platform.OS == 'android' ? 25 : 'large'} color={colors.primary} />
-                <Text style={globalstyle.footerloadingtext}>{strings.Loading}</Text>
-            </View> : <View style={{ height: 20 }} />}
-            // onEndReachedThreshold={0.8}
-            // onEndReached={_handleLoadMore}
-            ListEmptyComponent={() => <View style={globalstyle.loadingview}><Text style={globalstyle.noproductfound}>{'No data found'}</Text></View>}
-            data={postList}
-            keyExtractor={(item, index) => String(index)}
-            renderItem={({ item, index }) => {
-                if (category_id == 13) {
-                    return (<BookItem
-                        item={item}
-                        width={isIPad ? (width / 3) - 20 : (width / 2) - 22}
-                        navigation={props.navigation}
-                    />)
-                } else {
-                    return (<SectionItem
-                        key={index}
-                        item={item}
-                        width={isIPad ? (width / 3) - 20 : (width / 2) - 22}
-                        navigation={props.navigation}
-                        hideicon={props.route.params.item.id == 10 ? false : true}
-                    />)
-                }
+        {!loading &&
+            <ScrollView>
+                <View style={{ marginTop: 20, alignItems: 'center' }}>
+                    {item?.name === 'Mass' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/mass.jpg')}></ImageBackground>
+                    }
+                    {item?.name === 'Homily' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/homily.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'Lectures' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/lectures.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'Meditation' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/meditations.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'News' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/news.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'Library' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/library.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'Courses' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/courses.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'Programs' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/programs.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'Daily Rosary' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/dailyRosary.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'Daily Bible' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/dailyBible.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'Night Prayers' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/nightPrayers.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'Bible Explain' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/storiesFromBible.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'القداس' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/mass.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'مواعظ' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/homily.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'محاضرات' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/lectures.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'تأملات' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/meditations.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'الأخبار' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/news.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'المكتبة' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/library.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'كورسات أونلاين' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/courses.jpg')} ></ImageBackground>
+                    }
+                    {item?.name === 'البرامج' &&
+                        <ImageBackground style={{ height: height / 2, width: width - 40, }} imageStyle={{ resizeMode: 'stretch', borderRadius: 20 }} source={require('./../../assets/images/programs.jpg')} ></ImageBackground>
+                    }
+                </View>
+                <FlatList
+                    style={{ padding: 15 }}
+                    // horizontal
+                    // snapToInterval={width / 2}
+                    // scrollEnabled
+                    // scrollEventThrottle={16}
+                    // columnWrapperStyle={{ justifyContent: isIPad ? 'flex-start' : 'space-between' }}
+                    // numColumns={isIPad ? 3 : 2}
+                    showsVerticleScrollIndicator={false}
+                    refreshing={refreshing}
+                    onRefresh={_handleRefresh}
+                    ListFooterComponent={() => loadmore ? <View style={globalstyle.footerloadmore}>
+                        <ActivityIndicator size={Platform.OS == 'android' ? 25 : 'large'} color={colors.primary} />
+                        <Text style={globalstyle.footerloadingtext}>{strings.Loading}</Text>
+                    </View> : <View style={{ height: 20 }} />}
+                    // onEndReachedThreshold={0.8}
+                    // onEndReached={_handleLoadMore}
+                    ListEmptyComponent={() => <View style={{ alignSelf: 'center', marginTop: 30 }}><Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.black, fontSize: 16 }}>{strings.NoDataFound}</Text></View>}
+                    data={postList}
+                    keyExtractor={(item, index) => String(index)}
+                    renderItem={({ item, index }) => {
+                        if (category_id == 13) {
+                            return (<BookItem
+                                item={item}
+                                width={isIPad ? (width / 3) - 20 : (width / 2) - 22}
+                                navigation={props.navigation}
+                            />)
+                        } else {
+                            return (<SectionItem
+                                key={index}
+                                item={item}
+                                width={isIPad ? (width / 3) - 20 : (width / 2) - 22}
+                                navigation={props.navigation}
+                                hideicon={props.route.params.item.id == 10 ? false : true}
+                            />)
+                        }
 
-            }}
-        />}
+                    }}
+                />
+            </ScrollView>
+        }
     </SafeAreaView >
 }
 

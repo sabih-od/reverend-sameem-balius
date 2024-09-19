@@ -37,8 +37,8 @@ const CdItem = ({ item, handlePlayer }) => {
                 <View style={{ width: 30, height: 30, backgroundColor: colors.black, borderRadius: 30 }} />
             </View>
         </ImageBackground>
-        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: isDarkMode ? colors.white : colors.black, fontSize: 15 }} numberOfLines={1}>{item?.title}</Text>
-        <Text style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, textAlign: 'center', color: isDarkMode ? '#eee' : colors.black, fontSize: 13 }} numberOfLines={1}>{item?.desc}</Text>
+        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: isDarkMode ? colors.black : colors.black, fontSize: 15 }} numberOfLines={1}>{item?.title}</Text>
+        <Text style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, textAlign: 'center', color: isDarkMode ? colors.black : colors.black, fontSize: 13 }} numberOfLines={1}>{item?.desc}</Text>
     </TouchableOpacity>
 }
 
@@ -158,9 +158,9 @@ const CDsList = (props) => {
     const [showPlayer, setShowPlayer] = useState(false);
 
     return <SafeAreaView style={globalstyle.fullview}>
-        {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
+        <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
 
-        <ImageBackground style={styles.homebgimage} resizeMode="cover" source={backgroungImage}>
+        <ImageBackground style={[styles.homebgimage]} resizeMode="cover" >
             {showPlayer && <AudioPlayer handleClose={_setShowPlayer} />}
             <FlatList
                 style={{ padding: 15, }}

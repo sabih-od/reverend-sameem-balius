@@ -46,6 +46,8 @@ import AudioPlayer from "../screens/AudioPlayer";
 import SearchPost from "../screens/SearchPost";
 import Posts from "../screens/Posts";
 import LiveStream from "../screens/LiveStream";
+import TabStackNavigation from "./TabStackNavigation";
+import Packages from "../screens/Packages";
 
 
 const Stack = createStackNavigator();
@@ -75,7 +77,10 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
 
     return <Animated.View style={[styles.stack, animatedStyle]}>
         <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen
+            <Stack.Screen name="Home" options={{ headerShown: false }}>
+                {props => <TabStackNavigation {...props} />}
+            </Stack.Screen>
+            {/* <Stack.Screen
                 name="Home"
                 component={Home}
                 options={{
@@ -84,7 +89,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
@@ -94,29 +99,29 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     // headerStyle: { height: 120 },
                     // headerTitle: () => <SearchHeader />,
                     // headerLeft: () => <TouchableOpacity style={{ backgroundColor: '#ddd', padding: 10 }} onPress={() => { navigation.dispatch(DrawerActions.openDrawer()); }} activeOpacity={0.8}>
-                    //     <Icon name={'align-right'} size={22} color={colors.black} />
+                    //     <Icon name={'align-right'} size={22}  />
                     // </TouchableOpacity>,
                     // headerRight: () => (<TouchableOpacity>
-                    //     <Icon name={'bell'} size={18} color={colors.black} />
+                    //     <Icon name={'bell'} size={18}  />
                     // </TouchableOpacity>)
                 }}
-            />
+            /> */}
             <Stack.Screen
                 name="LiveStream"
                 component={LiveStream}
                 options={{
-                    headerShown:false,
+                    headerShown: false,
                     // headerTransparent: true,
                     headerTitle: strings.LiveStream,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -128,11 +133,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -145,11 +150,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -164,11 +169,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerTransparent: true,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -181,11 +186,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -195,11 +200,10 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 component={Profile}
                 options={{
                     headerTitle: '',
-                    headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
@@ -208,20 +212,35 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 }}
             />
             <Stack.Screen
+                name="Packages"
+                component={Packages}
+                options={{
+                    headerTitle: 'Packages',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: globalstyle.headerTitleStyle,
+                    headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
+                        elevation: 0,
+                        shadowOpacity: 0,
+                    },
+                    headerLeft: () => <GoBackIcon navigation={navigation} />,
+                    // headerRight: () => <NotificationIcon navigation={navigation} />
+                }}
+            />
+            <Stack.Screen
                 name="EditProfile"
                 component={EditProfile}
                 options={{
                     headerTitle: '',
-                    headerTransparent: true,
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,                    
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -233,7 +252,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: { fontFamily: fonts.headingFont, textTransform: 'capitalize' },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'Books'} />,
+                    // headerLeft: () => <GoBackIcon navigation={navigation}  screen={'Books'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -245,12 +264,12 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
                     headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -262,12 +281,12 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -279,7 +298,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
@@ -295,7 +314,7 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
@@ -312,12 +331,12 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -330,12 +349,12 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     // headerTransparent: true,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  screen={'ChatGroups'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -347,12 +366,12 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    // headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} screen={'ChatGroups'} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  screen={'ChatGroups'} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
@@ -365,15 +384,14 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                 //     headerTransparent: true
                 // }}
                 options={{
-                    headerTransparent: true,
-                    // headerLeft: () => <GoBackIcon navigation={navigation} />,
-                    headerLeft: () => <DrawerIcon navigation={navigation} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation} />,
+                    // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerTitle: strings.contactus,
                     // // headerShown: false,
                     // headerTitle: 'Contact Us',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
@@ -391,11 +409,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -408,11 +426,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -425,11 +443,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: globalstyle.headerTitleStyle,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -442,11 +460,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleAlign: 'center',
                     headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none' }],
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -460,13 +478,13 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none' }],
                     // headerTransparent: true,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
-                    headerRight: () => <NotificationIcon navigation={navigation} />
+                    // headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
             />
             <Stack.Screen
@@ -478,11 +496,11 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none' }],
                     // headerTransparent: true,
                     headerStyle: {
-                        backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor,
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     headerRight: () => <NotificationIcon navigation={navigation} />
                 }}
@@ -495,12 +513,12 @@ const MainStackNavigation = ({ navigation, style, notificationBadge }) => {
                     headerTitle: strings.NowPlaying,
                     headerTitleAlign: 'center',
                     headerTitleStyle: [globalstyle.headerTitleStyle, { textTransform: 'none', fontSize: 14 }],
-                    headerTransparent: true,
                     headerStyle: {
+                        backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg,
                         elevation: 0,
                         shadowOpacity: 0,
                     },
-                    headerLeft: () => <GoBackIcon navigation={navigation} color={colors.black} />,
+                    headerLeft: () => <GoBackIcon navigation={navigation}  />,
                     // headerLeft: () => <DrawerIcon navigation={navigation} />,
                     // headerRight: () => <NotificationIcon navigation={navigation} />
                 }}

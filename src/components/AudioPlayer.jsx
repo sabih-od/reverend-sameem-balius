@@ -7,7 +7,8 @@ import { CurrentTrackInfo, DurationFormat, GetPlayerState, TrackPause, TrackPlay
 import TrackPlayer, { Event, State, useProgress, useTrackPlayerEvents } from 'react-native-track-player';
 import Slider from "@react-native-community/slider";
 
-const AudioPlayer = (props) => {
+const AudioPlayer = ({props, route}) => {
+    console.log('route', route)
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [trackInfo, setTrackInfo] = useState(false);
@@ -97,13 +98,16 @@ const AudioPlayer = (props) => {
                 backgroundColor: colors.black,
             }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={{ width: 30, height: 70, alignItems: 'center', justifyContent: 'center' }}
                         activeOpacity={0.8}
-                        onPress={() => props.handleClose(false, null)}
+                        onPress={() => props?.handleClose(false, null)}
                     >
                         <Icon name="x" style={{ color: colors.white, fontSize: 16 }} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                    <View
+                        style={{ marginLeft: 15 }}>
+                    </View>
                     <Image
                         source={{ uri: trackInfo?.artwork }}
                         defaultSource={require('./../../assets/images/speaker-placeholder.png')}

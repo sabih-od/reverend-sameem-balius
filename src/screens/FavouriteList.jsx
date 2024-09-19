@@ -1,6 +1,6 @@
-import { FlatList, Image, ImageBackground, SafeAreaView, StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
+import { FlatList, Image, ImageBackground, SafeAreaView, StyleSheet, Text, View, TouchableOpacity, ScrollView, ActivityIndicator } from "react-native";
 import globalstyle from "../theme/style";
-import { backgroungImage, colors, fonts, height, isIPad, width } from "../theme";
+import { backgroungImage, colors, fonts, height, isDarkMode, isIPad, width } from "../theme";
 import Icon from "react-native-vector-icons/Feather";
 import nightroutine from "../data/nightly-routines";
 import RoutineBoxHorizontal from "../components/RoutineBoxHorizontal";
@@ -16,6 +16,8 @@ const IMAGE_WIDTH = width / 2;
 const FavouriteList = (props) => {
 
     const [favouriteList, setFavouriteList] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         props.GetFavouriteList();
@@ -28,6 +30,7 @@ const FavouriteList = (props) => {
             // setPostList(prevState => [...prevState, ...props.getToFavouriteListResponse?.data])
             console.log('props.getToFavouriteListResponse => ', props.getToFavouriteListResponse)
             setFavouriteList(props.getToFavouriteListResponse?.data)
+            setLoading(false)
         }
     }, [props.getToFavouriteListResponse])
 
@@ -46,8 +49,12 @@ const FavouriteList = (props) => {
         props.AddToFavouriteList({ id: id })
     }
 
-    return <SafeAreaView style={globalstyle.fullview}>
+    return <SafeAreaView style={[globalstyle.fullview, { backgroundColor: colors.headerbgcolor, height: height }]}>
         <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
+        {loading && <View style={globalstyle.loadingview}>
+            <ActivityIndicator color={isDarkMode ? colors.black : colors.black} style={{ marginBottom: 15 }} />
+            <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
+        </View>}
         <FlatList
             data={favouriteList}
             showsVerticalScrollIndicator={false}
@@ -65,8 +72,10 @@ const FavouriteList = (props) => {
                 postdetail={true}
                 handleRemoveFromFav={_handleRemoveFromFav}
                 remove={true}
+                titleStyle={{ width: width - 150 }}
             />}
         />
+        <View style={{ paddingBottom: 142 }} />
         {/* <ScrollView style={styles.homescollview}>
             <View>
                 {favouriteList.map((item, index) => {

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, I18nManager } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, I18nManager, Alert } from "react-native";
 // import { fonts } from "../../theme";
 import { useForm } from 'react-hook-form';
 import { IOS, backgroungImage, colorScheme, colors, fontSize, fonts, invertcolor, isIPad, isRTL } from "../../theme";
@@ -14,6 +14,9 @@ import { RegisterApiCall } from "../../redux/reducers/AuthReducer";
 import { bindActionCreators } from "redux";
 import { showToast } from "../../helpers/toastConfig";
 import strings from "../../localization/translation";
+import messaging from '@react-native-firebase/messaging';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const Register = (props) => {
@@ -22,8 +25,37 @@ const Register = (props) => {
     const [loading, isLoading] = useState(false);
     const [isChecked, setChecked] = useState(false);
     const { handleSubmit, formState: { errors }, register, setValue } = useForm();
+    const [fcm_token, setFcm_token] = useState('');
 
     const prevResgisterResponseRef = useRef(props.registerResponse);
+
+    useEffect(() => {
+        const requestUserPermission = async () => {
+            const authStatus = await messaging().requestPermission();
+            const enabled =
+                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+            if (enabled) {
+                console.log('Authorization status:', authStatus);
+                const token = await messaging().getToken();
+                setFcm_token(token);
+                console.log('Device Token:', token);
+            } else {
+                console.log('Authorization status:', authStatus);
+            }
+        };
+
+        requestUserPermission();
+
+        const unsubscribe = messaging().onTokenRefresh((token) => {
+            setFcm_token(token);
+            console.log('Device Token refreshed:', token);
+        });
+
+        return unsubscribe;
+    }, []);
+
 
     useEffect(() => {
         if (props.registerResponse !== prevResgisterResponseRef.current && props.registerResponse?.success && props.registerResponse?.data) {
@@ -31,16 +63,43 @@ const Register = (props) => {
             props.SetUserInfo(props.registerResponse?.data);
             console.log('props.registerResponse => ', props.registerResponse);
             props.SetIsLogin(true);
-            // props.navigation.reset({ index: 0, routes: [{ name: 'Screens' }] })
+            props.navigation.navigate('Login')
         }
         isLoading(false);
     }, [props.registerResponse])
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         if (isChecked) {
-            console.log('data => ', data)
-            props.RegisterApiCall(data)
+            const requestData = { ...data, fcm_token };
+            console.log('data => ', requestData);
             isLoading(true);
+            try {
+                const response = await fetch(process.env.API_BASE_URL ? process.env.API_BASE_URL + '/auth/signup' : 'https://reverendsameembalius.com:3013' + '/auth/signup', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(data),
+                });
+          
+                const result = await response.json();
+                console.log('result', result)
+                if (result?.success) {
+                    const token = result?.data?.access_token;
+                    console.log('token', token)
+                    await AsyncStorage.setItem('token', token);
+                    props.SetUserInfo(result.data);
+                    props.SetIsLogin(true);
+                    showToast('success', result?.message)
+                  } 
+                  if(result?.statusCode === 409){
+                    showToast('error', result.message || 'Signup failed')
+                  }
+                } catch (error) {
+                  showToast('error', error.message || 'Signup failed'); // Show toast on error
+                } finally {
+                isLoading(false);
+            }
         } else {
             showToast('success', 'Please read and agree with terms and conditions')
         }
@@ -59,7 +118,7 @@ const Register = (props) => {
         <TermsAndConditionsModal visible={showTermsModal} setVisible={setShowTermsModal} />
         <ImageBackground
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}
-            source={backgroungImage}>
+            source={require('./../../../assets/images/bgAuth.png')}>
             <KeyboardAvoidingView behavior={IOS ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <ScrollView style={isIPad && globalstyle.authscreencontainer} showsVerticalScrollIndicator={false}>
@@ -72,7 +131,7 @@ const Register = (props) => {
                                 <Icon style={globalstyle.authlefticon} name={'user'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
-                                    placeholder="First Name"
+                                    placeholder={strings.firstName}
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('first_name', {
                                         // value: 'John',
@@ -96,7 +155,7 @@ const Register = (props) => {
                                 <Icon style={globalstyle.authlefticon} name={'user'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
-                                    placeholder="Last Name"
+                                    placeholder={strings.lastName}
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('last_name', {
                                         // value: 'Martin',
@@ -121,7 +180,7 @@ const Register = (props) => {
                                 <Icon style={globalstyle.authlefticon} name={'mail'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
-                                    placeholder="Email Address"
+                                    placeholder={strings.email}
                                     placeholderTextColor={colors.placeholdercolor}
                                     {...register('email', {
                                         // value: 'johnmartin@mailinator.com',
@@ -147,7 +206,7 @@ const Register = (props) => {
                                 <Icon style={globalstyle.authlefticon} name={'phone'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
-                                    placeholder="Phone Number (Optional)"
+                                    placeholder={strings.phoneNumber}
                                     placeholderTextColor={colors.placeholdercolor}
                                     // keyboardType='phone-pad'
                                     keyboardType='numeric'
@@ -175,7 +234,7 @@ const Register = (props) => {
                                     <Icon style={globalstyle.authlefticon} name={'lock'} size={18} />
                                     <TextInput
                                         style={[globalstyle.inputfield, { flex: 0.8 }]}
-                                        placeholder="Password"
+                                        placeholder={strings.password}
                                         placeholderTextColor={colors.placeholdercolor}
                                         {...register('password', {
                                             value: '',

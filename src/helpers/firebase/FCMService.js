@@ -36,6 +36,7 @@ class FCMService {
             .then(fcmToken => {
                 if (fcmToken) {
                     onRegister(fcmToken)
+                    console.log('token=>', fcmToken)
                 } else {
                     console.log("User does not have a device token")
                 }

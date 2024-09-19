@@ -40,7 +40,7 @@ const PdfView = (props) => {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'flex-start', alignItems: 'center', marginTop: 0, backgroundColor: isDarkMode ? colors.deepblue : colors.headerbgcolor },
+    container: { flex: 1, justifyContent: 'flex-start', alignItems: 'center', marginTop: 0, backgroundColor: isDarkMode ? colors.headerbgcolor2 : colors.headerbgcolor2 },
     pdf: { flex: 1, width: width, height: height, }
 });
 

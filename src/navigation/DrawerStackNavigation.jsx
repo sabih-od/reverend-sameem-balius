@@ -8,8 +8,12 @@ const Drawer = createDrawerNavigator();
 
 import DrawerContent from '../navigation/Drawer';
 import MainStackNavigation from "./MainStackNavigation";
+import TabStackNavigation from "./TabStackNavigation";
+import globalstyle from "../theme/style";
+import NotificationIcon from "../components/header/NotificationIcon";
+import DrawerIcon from "../components/header/DrawerIcon";
 
-function DrawerStackNavigation() {
+function DrawerStackNavigation({ navigation }) {
 
     return (
         //headerMode="none"
@@ -31,7 +35,7 @@ function DrawerStackNavigation() {
                 overlayColor: "transparent",
                 keyboardDismissMode: "on-drag",
                 // sceneContainerStyle: { backgroundColor: 'transparent' },
-                sceneContainerStyle: { backgroundColor: isDarkMode ? colors.drawerbg : colors.headerbgcolor },
+                sceneContainerStyle: { backgroundColor: isDarkMode ? colors.drawerbg : colors.drawerbg },
             }}>
             {/* <Drawer.Screen name="AuthScreens" options={{
                 headerShown: false,

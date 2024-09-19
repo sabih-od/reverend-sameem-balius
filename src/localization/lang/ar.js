@@ -32,7 +32,7 @@ export default {
   postdesc: 'انضم إلى الكنيسة حول العالم بإغلاق يومك بالمجموعة التقليدية من المزامير والقراءة والصلاة.',
 
   logout: 'تسجيل خروج',
-  questionanswer: 'جواب السؤال',
+  questionanswer: 'سؤال وجواب',
   AskAQuestion: 'طرح سؤال',
   contactus: 'اتصل بنا',
   home: 'بيت',
@@ -66,6 +66,7 @@ export default {
   Favourites: 'المفضلة',
   Downloads: 'التحميلات',
   History: 'تاريخ',
+  SubscribePackage: 'حزمة الاشتراك',
   Search: 'يبحث',
   SearchHere: 'ابحث هنا...',
 
@@ -101,6 +102,18 @@ export default {
   StartMyFreeWeek: 'ابدأ أسبوعي المجاني',
   DaysForFree: 'جرب 7 أيام مجانًا، ثم 100 دولار شهريًا، ويتم إصدار فاتورة سنوية بقيمة 1000 دولار أمريكي سنويًا. إلغاء في أي وقت',
 
-  Loading: 'جاري التحميل الرجاءالانتظار',
+  firstName: 'أدخل الاسم الأول',
+  lastName: 'أدخل الاسم الأخير',
+  email: 'أدخل عنوان البريد الإلكتروني',
+  phoneNumber: 'أدخل رقم الهاتف',
+  password: 'أدخل كلمة المرور',
+  didntRecieveOtp: `لم يتلق OTP؟`,
+  resend: 'إعادة الالتحاق',
 
+  Loading: 'جاري التحميل الرجاءالانتظار',
+  DailyRosary: 'الوردية اليومية',
+  DailyBible: 'الكتاب المقدس اليومي',
+  NightPrayers: 'صلاة الليل',
+  BibleExplain: 'شرح الكتاب المقدس',
+  NoDataFound: 'لم يتم العثور على بيانات',
 };

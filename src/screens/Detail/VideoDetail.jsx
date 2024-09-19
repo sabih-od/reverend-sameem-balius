@@ -116,10 +116,10 @@ const VideoDetail = (props) => {
             />} */}
 
             {!item?.video && <View style={{
-                width: width, height: width / 1.8, backgroundColor: isDarkMode ? colors.deepblue : colors.white,
+                width: width, height: width / 1.8, backgroundColor: isDarkMode ? colors.white : colors.white,
                 alignItems: 'center', justifyContent: 'center'
             }}>
-                <Text style={{ color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicRegular : fonts.primary }}>{strings.videoNotFound}</Text>
+                <Text style={{ color: isDarkMode ? colors.black : colors.black, fontFamily: isRTL ? fonts.arabicRegular : fonts.primary }}>{strings.videoNotFound}</Text>
             </View>}
             {item?.video && <Video source={{ uri: item?.video }} style={{ height: width / 1.8 }} controls={true} />}
 

@@ -6,7 +6,7 @@ import { NavigationContainer, useNavigationContainerRef, DefaultTheme, DarkTheme
 import Animated, { Extrapolate, interpolate, interpolateNode, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import Icon from 'react-native-vector-icons/Feather';
-import { colors, fontcolor, fonts, height, width } from "../theme";
+import { colors, fontcolor, fonts, height, isDarkMode, isRTL, width } from "../theme";
 import { createDrawerNavigator, useDrawerProgress, useDrawerStatus } from "@react-navigation/drawer";
 
 /* Screens */
@@ -63,7 +63,14 @@ const AuthStackNavigation = (props) => {
                 return {
                     headerTransparent: true,
                     headerTitle: '',
-                    headerLeft: (props) => <GoBackIcon navigation={navigation} />,
+                    headerLeft: (props) => <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => {
+                            navigation.goBack();
+                        }}
+                        style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
+                        <Icon name={isRTL ? 'chevron-right' : 'chevron-left'} size={22} color={isDarkMode ? colors.black : colors.black} />
+                    </TouchableOpacity >,
                 }
             }}
         />
@@ -73,7 +80,14 @@ const AuthStackNavigation = (props) => {
             options={({ navigation }) => {
                 return {
                     headerTransparent: true, headerTitle: '',
-                    headerLeft: (props) => <GoBackIcon navigation={navigation} />,
+                    headerLeft: (props) => <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => {
+                            navigation.goBack();
+                        }}
+                        style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
+                        <Icon name={isRTL ? 'chevron-right' : 'chevron-left'} size={22} color={isDarkMode ? colors.black : colors.black} />
+                    </TouchableOpacity >,
                 }
             }}
         />
@@ -83,7 +97,14 @@ const AuthStackNavigation = (props) => {
             options={({ navigation }) => {
                 return {
                     headerTransparent: true, headerTitle: '',
-                    headerLeft: (props) => <GoBackIcon navigation={navigation} />,
+                    headerLeft: (props) => <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => {
+                            navigation.goBack();
+                        }}
+                        style={[{ padding: 10, paddingHorizontal: 15, borderRadius: 40, overflow: 'hidden', marginRight: 15 }]} >
+                        <Icon name={isRTL ? 'chevron-right' : 'chevron-left'} size={22} color={isDarkMode ? colors.black : colors.black} />
+                    </TouchableOpacity >,
                 }
             }}
         />

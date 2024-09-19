@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Light&#x2007;Of&#x2007;The&#x2007;Words</string>
+	<string>Light Of The Words</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -28,19 +28,17 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
-		<!--Include to allow subdomains-->
 		<key>NSIncludesSubdomains</key>
 		<true/>
-		<!--Include to allow HTTP requests-->
 		<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Please grant permission for Light of the Words to access your camera in order to capture a profile picture.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Please grant permission for Light of the Words to access your microphone to use in video call.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Please grant permission for Light of the Words to access your microphone to use in video call.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Please grant permission for Light of the Words to access your photo library, allowing the selection and upload of a desired image as your profile picture.</string>
 	<key>UIAppFonts</key>
@@ -62,6 +60,10 @@
 		<string>Tajawal-Light.ttf</string>
 		<string>Tajawal-Medium.ttf</string>
 		<string>Tajawal-Regular.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>

@@ -150,9 +150,9 @@ const AudioPlayer = (props) => {
 
     return (<>
         {/* <Loader isLoading={downlaodStart} /> */}
-        <View style={[globalstyle.fullview, { backgroundColor: isDarkMode ? colors.deepblue : colors.headerbgcolor, height: height }]}>
-            <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
-            <View style={{ marginTop: 30, width: width, height: width - 50, alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+        <View style={[globalstyle.fullview, { backgroundColor: colors.white, height: height }]}>
+            {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
+            <View style={{ marginTop: 10, width: width, height: width - 50, alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
                 <Image
                     source={
                         { uri: trackInfo?.artwork }
@@ -166,8 +166,8 @@ const AudioPlayer = (props) => {
                 <LinearGradient colors={['transparent', colors.deepblue]} style={{ width: width, height: width, position: 'absolute', bottom: 0, left: 0, zIndex: 0 }} />
             </ImageBackground> */}
             <View style={{ marginTop: 0, paddingHorizontal: 20 }}>
-                <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: (fontSize * 2) - 4, color: isDarkMode ? colors.white : colors.black, textAlign: 'center' }}>{trackInfo?.title}</Text>
-                <Text numberOfLines={2} style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: fontSize, color: isDarkMode ? colors.white : colors.black, textAlign: 'center' }}>{trackInfo?.artist}</Text>
+                <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: (fontSize * 2) - 4, color: isDarkMode ? colors.black : colors.black, textAlign: 'center' }}>{trackInfo?.title}</Text>
+                <Text numberOfLines={2} style={{ fontFamily: isRTL ? fonts.arabicRegular : fonts.primary, fontSize: fontSize, color: isDarkMode ? colors.black : colors.black, textAlign: 'center' }}>{trackInfo?.artist}</Text>
             </View>
             <View style={{ marginTop: 30, width: width - 40, marginHorizontal: 20 }}>
                 <Slider
@@ -176,7 +176,7 @@ const AudioPlayer = (props) => {
                     value={progress?.position}
                     maximumValue={progress?.duration}
                     minimumTrackTintColor={colors.orange}
-                    maximumTrackTintColor={IOS ? "#555" : isDarkMode ? '#fff' : '#666'}
+                    maximumTrackTintColor={IOS ? "#555" : isDarkMode ? '#666' : '#666'}
                     tapToSeek={true}
                     thumbTintColor={colors.orange}
                     onValueChange={(value) => {
@@ -186,8 +186,8 @@ const AudioPlayer = (props) => {
                     }}
                 />
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 8 }}>
-                    <Text style={{ fontFamily: fonts.primary, color: isDarkMode ? colors.white : colors.black }}>{DurationFormat(progress?.position)}</Text>
-                    <Text style={{ fontFamily: fonts.primary, color: isDarkMode ? colors.white : colors.black }}>{DurationFormat(progress?.duration)}</Text>
+                    <Text style={{ fontFamily: fonts.primary, color: isDarkMode ? colors.black : colors.black }}>{DurationFormat(progress?.position)}</Text>
+                    <Text style={{ fontFamily: fonts.primary, color: isDarkMode ? colors.black : colors.black }}>{DurationFormat(progress?.duration)}</Text>
                 </View>
             </View>
             <View style={{ width: width - 30, marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: 40 }}>
@@ -198,7 +198,7 @@ const AudioPlayer = (props) => {
                         await TrackPlayer.play()
                     }}
                 >
-                    <Icon name="refresh-ccw" style={{ color: isDarkMode ? colors.white : colors.black, fontSize: 25, }} />
+                    <Icon name="refresh-ccw" style={{ color: isDarkMode ? colors.black : colors.black, fontSize: 25, }} />
                 </TouchableOpacity>
                 {/* <TouchableOpacity
                     activeOpacity={0.8}
@@ -226,14 +226,14 @@ const AudioPlayer = (props) => {
                 >
                     <Icon name="plus-circle" style={{ color: isDarkMode ? colors.white : colors.black, fontSize: 30, }} />
                 </TouchableOpacity> */}
-                {downlaodStart && <ActivityIndicator color={isDarkMode ? colors.white : colors.black} />}
+                {downlaodStart && <ActivityIndicator color={isDarkMode ? colors.black : colors.black} />}
                 {!downlaodStart && <TouchableOpacity
                     disabled={(props?.route?.params?.fromdownloads || isDownloaded) ? true : false}
                     activeOpacity={0.8}
                     onPress={() => { downloadAudio(trackInfo?.url) }}
                     style={{ opacity: (props?.route?.params?.fromdownloads || isDownloaded) ? 0.6 : 1 }}
                 >
-                    <Icon name={"download-cloud"} style={{ color: isDarkMode ? colors.white : colors.black, fontSize: 25, }} />
+                    <Icon name={"download-cloud"} style={{ color: isDarkMode ? colors.black : colors.black, fontSize: 25, }} />
                 </TouchableOpacity>}
             </View>
         </View>
