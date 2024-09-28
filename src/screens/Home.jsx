@@ -203,17 +203,17 @@ const Home = (props) => {
     const filteredCategories = categories.filter(item => item?.name !== "Daily Rosary" && item?.name !== "Bible Explain" && item?.name !== "Night Prayers" && item?.name !== "Daily Bible");
 
     const rosaryItem = categories.filter(item => item?.name === "Daily Rosary");
-    const rosayName = rosaryItem.map((item)=>  item?.name)
+    const rosayName = rosaryItem.map((item) => item?.name)
 
     const dailyBible = categories.filter(item => item?.name === "Daily Bible");
-    const dailyBibleName = dailyBible.map((item)=>  item?.name)
+    const dailyBibleName = dailyBible.map((item) => item?.name)
 
     const nightPrayers = categories.filter(item => item?.name === "Night Prayers");
-    const nightPrayersName = nightPrayers.map((item)=>  item?.name)
+    const nightPrayersName = nightPrayers.map((item) => item?.name)
 
     const bibleExplain = categories.filter(item => item?.name === "Bible Explain");
-    const bibleExplainName = bibleExplain.map((item)=>  item?.name)
-    
+    const bibleExplainName = bibleExplain.map((item) => item?.name)
+
     const onRefresh = useCallback(() => {
         setRefreshing(true);
 
@@ -234,12 +234,17 @@ const Home = (props) => {
     }, []);
 
     return <SafeAreaView style={[globalstyle.fullview, { backgroundColor: colors.headerbgcolor, height: height, paddingBottom: 80 }]}>
-        <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
+        <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: colors.orange, marginTop: 10, paddingHorizontal: 10, paddingVertical: 10, borderRadius: 30, width: '65%', alignSelf: 'center' }}>
+
             <Text
                 style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}
                 onPress={() => props.navigation.navigate('LiveStream')}
             >Join Live Stream</Text>
         </TouchableOpacity>
+        <Image
+            source={require('../../assets/images/borderimg.png')} // Path to your local image
+            style={{ display: 'flex', justifyContent: 'center', alignSelf: 'center', marginTop: 10, alignItems: 'center', width: '80%' }}
+        />
         {loading && <View style={globalstyle.loadingview}>
             <ActivityIndicator color={isDarkMode ? colors.black : colors.black} style={{ marginBottom: 15 }} />
             <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
@@ -253,7 +258,9 @@ const Home = (props) => {
                 }}>Join Live Stream</Text>
         </TouchableOpacity> */}
         {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
-        <ImageBackground style={[styles.homebgimage, {}]} resizeMode="stretch" source={require('./../../assets/images/bgHome.png')}>
+        <ImageBackground style={[styles.homebgimage, {}]} resizeMode="stretch"
+        // source={require('./../../assets/images/bgHome.png')}
+        >
             <View style={{ paddingVertical: 25, }} />
             <ScrollView
                 contentContainerStyle={{ paddingBottom: 25 }}
@@ -282,8 +289,9 @@ const Home = (props) => {
                 </TouchableOpacity> */}
                 {/* {drawerMenu.length > 0 && drawerMenu.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} mainStyle={{alignItems: 'center', justifyContent: 'center', borderLeftWidth: 0}} arrowStyle={{position: 'absolute', right: (width - 120)/2}} childrenStyle={{justifyContent: 'center', alignItems: 'center', borderLeftWidth: 0}} bulletStyle={{position: 'absolute', left: 20}} />)}
                 <DrawerItem key={100} item={{ title: strings.questionanswer, nav: 'QuestionAnswer' }} navigation={props.navigation} activescreen={props.currentScreen} mainStyle={{alignItems: 'center', justifyContent: 'center', borderLeftWidth: 0}} arrowStyle={{position: 'absolute', right: (width - 120)/2}} childrenStyle={{justifyContent: 'center', alignItems: 'center', borderLeftWidth: 0}} bulletStyle={{position: 'absolute', left: 20}} /> */}
-
+ 
                 <FlatList
+                    style={{ height: 380, }}
                     vertical
                     showsVerticalScrollIndicator={false}
                     data={filteredCategories}
@@ -293,42 +301,171 @@ const Home = (props) => {
                     renderItem={({ item, index }) => {
                         return (
                             <TouchableOpacity
+                                style={{ backgroundColor: '#191B1D', width: '70%',paddingHorizontal:5, paddingVertical:5, height: 70, alignSelf: 'center', borderRadius: 10, marginTop: 10, flexDirection: 'row', alignItems: 'center', }}
                                 activeOpacity={0.8}
                                 onPress={() => props.navigation.navigate('Posts', { item: item })}
                             >
+                               {item?.name === 'Mass' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/mass.jpg')} 
+    />
+}
+{item?.name === 'Homily' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/homily.jpg')} 
+    />
+}
+{item?.name === 'Lectures' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/lectures.jpg')} 
+    />
+}
+{item?.name === 'Meditation' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/meditations.jpg')} 
+    />
+}
+{item?.name === 'News' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/news.jpg')} 
+    />
+}
+{item?.name === 'Library' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/library.jpg')} 
+    />
+}
+{item?.name === 'Courses' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/courses.jpg')} 
+    />
+}
+{item?.name === 'Programs' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/programs.jpg')} 
+    />
+}
+{item?.name === 'Daily Rosary' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/dailyRosary.jpg')} 
+    />
+}
+{item?.name === 'Daily Bible' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/dailyBible.jpg')} 
+    />
+}
+{item?.name === 'Night Prayers' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/nightPrayers.jpg')} 
+    />
+}
+{item?.name === 'Bible Explain' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/storiesFromBible.jpg')} 
+    />
+}
+{item?.name === 'القداس' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/mass.jpg')} 
+    />
+}
+{item?.name === 'مواعظ' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/homily.jpg')} 
+    />
+}
+{item?.name === 'محاضرات' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/lectures.jpg')} 
+    />
+}
+{item?.name === 'تأملات' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/meditations.jpg')} 
+    />
+}
+{item?.name === 'الأخبار' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/news.jpg')} 
+    />
+}
+{item?.name === 'المكتبة' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/library.jpg')} 
+    />
+}
+{item?.name === 'كورسات أونلاين' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/courses.jpg')} 
+    />
+}
+{item?.name === 'البرامج' &&
+    <Image 
+     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
+        source={require('./../../assets/images/programs.jpg')} 
+    />
+}
 
-                                <View style={{ position: 'relative', zIndex: 1, paddingVertical: 5, paddingHorizontal: 15 }}>
-                                    <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: colors.black, fontSize: 18 }}>{item?.name}</Text>
+
+                                <View style={{ position: 'relative', zIndex: 1, paddingVertical: 5, paddingHorizontal: 15, }}>
+
+                                    <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.black, fontSize: 18 }}>{item?.name}</Text>
                                 </View>
                             </TouchableOpacity>
                         )
                     }}
                 />
-                <TouchableOpacity
+                <Image
+            source={require('../../assets/images/borderimg.png')} // Path to your local image
+            style={{ display: 'flex', justifyContent: 'center', alignSelf: 'center', marginTop: 10, alignItems: 'center', width: '80%' }}
+        />
+                {/* <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => props.navigation.navigate('QuestionAnswer', { text: isTab })}
                 >
                     <View style={{ position: 'relative', zIndex: 1, paddingTop: 5, paddingHorizontal: 15 }}>
                         <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: colors.black, fontSize: 18 }}>{strings.questionanswer}</Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: dailyBible[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.grey, marginRight: 10 }}>
-                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.drawerbg, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyBible}</Text>
+                <View style={{ alignItems: 'center', justifyContent: 'space-evenly', gap: 10, marginTop: 20 }}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: dailyBible[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange, }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyBible}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: rosaryItem[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.grey }}>
-                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.drawerbg, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyRosary}</Text>
+
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: rosaryItem[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyRosary}</Text>
+                    </TouchableOpacity>
+                    {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 20, }}> */}
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: bibleExplain[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange, }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.BibleExplain}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: nightPrayers[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 22, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.NightPrayers}</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 20, }}>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: bibleExplain[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.grey, marginRight: 10 }}>
-                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.drawerbg, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.BibleExplain}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: nightPrayers[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.grey }}>
-                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.drawerbg, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.NightPrayers}</Text>
-                    </TouchableOpacity>
-                </View>
+
+                {/* </View> */}
 
 
                 {/* {dailies && <View style={{ paddingHorizontal: 15, marginTop: 15 }}>
