@@ -89,11 +89,12 @@ const Login = (props) => {
         <Loader isLoading={loading} />
         <ImageBackground
             style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}
-            source={require('./../../../assets/images/bgAuth.png')}>
+        // source={require('./../../../assets/images/bgAuth.png')}
+        >
             <KeyboardAvoidingView behavior={IOS ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <View style={{}}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+                        {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                             <TouchableOpacity onPress={() => {
                                 props.SetLanguage('en')
                                 changeLang('en')
@@ -119,17 +120,25 @@ const Login = (props) => {
                             }}>
                                 <Text style={{ fontFamily: isRTL ? fonts.arabicBold : fonts.arabicMedium, color: isDarkMode ? colors.black : colors.black }}>عربي</Text>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                         <View style={isIPad && globalstyle.authscreencontainer}>
                             <View>
-                                <Text style={globalstyle.authheading}>{strings.Login}</Text>
-                                <Text style={globalstyle.authdescription}>{strings.LoginDesc}</Text>
+                                <Text style={[globalstyle.authheading, { color: '#ffffff', marginBottom:12 }]}>{strings.Login}</Text>
+                                <Text style={[globalstyle.authdescription, { color: '#8B9094', fontSize: 14, marginBottom:20 }]}>{strings.LoginDesc}</Text>
+                            </View>
+                            <View style={{marginBottom:45}}>
+                                <Image
+                                    source={require('./../../../assets/images/borderimg.png')} // Path to your local image
+                                    style={{ display: 'flex', justifyContent: 'center', margin: 'auto', alignItems: 'center', width: 'auto' }}
+                                />
                             </View>
                             <View>
-                                <View style={globalstyle.inputbox}>
-                                    <Icon color={colors.drawerbg} name={'mail'} size={18} />
+                                <Text style={{color:'#fff', fontSize:12}}>Email*</Text>
+                                <View style={[globalstyle.inputbox, { marginBottom:45 }]}>
+                                    
+                                    {/* <Icon color={colors.drawerbg} name={'mail'} size={18} /> */}
                                     <TextInput
-                                        style={globalstyle.inputfield}
+                                        style={[globalstyle.inputfield, { color: '#fff' }]}
                                         placeholder={strings.email}
                                         {...register('email', {
                                             value: '',
@@ -149,17 +158,12 @@ const Login = (props) => {
                                     />
                                 </View>
                                 {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
-                                <TouchableOpacity
-                                    activeOpacity={0.8}
-                                    onPress={() => props.navigation.navigate('ForgetPassword')}
-                                    style={styles.forgetpasslink}>
-                                    <Text style={styles.forgetpasstext}>{strings.ForgetPassword}</Text>
-                                </TouchableOpacity>
-                                <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
+                                <Text style={{color:'#fff', fontSize:12}}>Password*</Text>
+                                <View style={[globalstyle.inputbox, { justifyContent: 'space-between', marginBottom:15 }]}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <Icon color={colors.drawerbg} name={'lock'} size={18} />
+                                        {/* <Icon color={colors.drawerbg} name={'lock'} size={18} /> */}
                                         <TextInput
-                                            style={[globalstyle.inputfield, { flex: 0.8 }]}
+                                            style={[globalstyle.inputfield, { flex: 0.8, color: '#fff' }]}
                                             placeholder={strings.password}
                                             placeholderTextColor={colors.placeholdercolor}
                                             {...register('password', {
@@ -174,23 +178,51 @@ const Login = (props) => {
                                             ref={input02}
                                         />
                                     </View>
+
                                     <TouchableOpacity activeOpacity={0.8} style={globalstyle.showhideicontouch} onPress={() => { setShowPassword(!showPassword) }}>
                                         <Icon name={!showPassword ? 'eye' : 'eye-off'} size={18} style={globalstyle.showhideicon} />
                                     </TouchableOpacity>
                                 </View>
+                                <TouchableOpacity
+                                    activeOpacity={0.8}
+                                    onPress={() => props.navigation.navigate('ForgetPassword')}
+                                    style={styles.forgetpasslink}>
+                                    <Text style={styles.forgetpasstext}>{strings.ForgetPassword}</Text>
+                                </TouchableOpacity>
                                 {errors.password && <Text style={globalstyle.errorField}>{errors.password.message}</Text>}
                                 <TouchableOpacity activeOpacity={0.8}
                                     onPress={handleSubmit(onSubmit)}
                                     style={globalstyle.authSubmitButton}>
                                     <Text style={globalstyle.authSubmitButtonText}>{strings.Login}</Text>
                                 </TouchableOpacity>
-                            </View>
-                            <View style={globalstyle.alreadysignin}>
-                                <Text style={globalstyle.alreadyaccount}>{strings.DontHaveAccount} </Text>
-                                <TouchableOpacity activeOpacity={0.8}
-                                    onPress={() => { props.navigation.navigate('Register') }}>
-                                    <Text style={globalstyle.actionauthtext}>{strings.SignUp}</Text>
-                                </TouchableOpacity>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 40 }}>
+                                    <View>
+                                        <Text style={{ backgroundColor: 'white', width: 110, height: 1 }}></Text>
+                                    </View>
+                                    <View>
+
+                                        <Text style={{ color: '#818282', textAlign: 'center', fontSize: 14, fontWeight: 400 }}>Or Login with</Text>
+                                    </View>
+                                    <View>
+                                        <Text style={{ backgroundColor: 'white', width: 110, height: 1, margin: 'auto' }}></Text>
+
+                                    </View>
+                                </View>
+
+                                <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 50 }}>
+                                    <Text style={{ color: 'white', fontSize: 20, fontWeight: 500 }}>
+                                        Don't have an account?
+                                        <TouchableOpacity onPress={() => { props.navigation.navigate('Register') }}>
+                                            <Text style={{
+                                                textDecorationLine: 'underline',
+                                                color: 'white', fontSize: 20, fontWeight: 500
+                                            }}> Register Now</Text>
+                                        </TouchableOpacity>
+                                    </Text>
+
+                                </View>
+
+
                             </View>
                         </View>
                     </View>
@@ -219,5 +251,5 @@ export default connect(setStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
     forgetpasslink: { marginLeft: 'auto', marginTop: 10, marginBottom: 0, marginRight: 15 },
-    forgetpasstext: { color: isDarkMode ? colors.black : colors.black, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: fontSize - 1 },
+    forgetpasstext: { color: isDarkMode ? colors.white : colors.black, fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, fontSize: fontSize - 1, textDecorationLine: 'underline', marginBottom: 30, },
 })

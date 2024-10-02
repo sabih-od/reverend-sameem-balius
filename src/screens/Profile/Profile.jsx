@@ -96,7 +96,7 @@ const Profile = props => {
 
       <Loader isLoading={loading} />
       <SafeAreaView style={[globalstyle.fullview, { backgroundColor:  colors.headerbgcolor, height: height, paddingBottom: 120 }]}>
-        <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
+        {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
         <ScrollView bounces={false} showsVerticalScrollIndicator={false} style={styles.container}>
 
           {/* <BlockedUsers passReferenceToParent={handleChildReference} /> */}
@@ -221,7 +221,9 @@ const styles = StyleSheet.create({
   checkboxtick: { flexDirection: 'row', alignItems: 'center', marginRight: 20 },
   labelinput: { fontFamily: fonts.latoRegular, fontSize: 13, color: '#000' },
   edititem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 18, paddingHorizontal: 20, backgroundColor:  colors.headerbgcolor, borderBottomColor: colors.deepblue, borderBottomWidth: 1 },
-  editicon: { color: isDarkMode ? colors.deepblue : colors.deepblue, fontSize: 18, marginRight: 25 },
+  editicon: {
+    //  color: isDarkMode ? colors.deepblue : colors.deepblue,
+     fontSize: 18, marginRight: 25 },
   edititemstext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: isDarkMode ? colors.black : colors.black },
 });
 

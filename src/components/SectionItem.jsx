@@ -120,7 +120,7 @@ const SectionItem = (props) => {
                     }
                 }}
                 activeOpacity={0.9}
-                style={{ width: width, marginBottom: 20, flexDirection: 'row', alignItems: 'center' }}
+                style={{ marginBottom: 20, flexDirection: 'row', alignItems: 'center', borderWidth:1, borderColor:'grey',paddingVertical:5,paddingHorizontal:5,borderRadius:10 }}
             >
                 <ImageBackground
                     // source={item?.image ? { uri: item?.image } : require('./../../assets/images/home-slider-placeholder.png')}

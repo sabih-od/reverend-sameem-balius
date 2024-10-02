@@ -10,21 +10,21 @@ const globalstyle = StyleSheet.create({
   // buttonText: { color: '#fff', fontSize: 16, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, textAlign: 'center', textTransform: 'uppercase'},
   // logoText: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, color: colors.primary, fontSize: 30, textAlign: 'center', marginBottom: 20,textTransform: 'uppercase' },
   // loginbox: { width: '90%', marginHorizontal: '5%' },
-
-  fullview: { ...StyleSheet.absoluteFillObject, height: height - 70, width: width },
+  
+  fullview: { ...StyleSheet.absoluteFillObject, height: height - 0, width: width,backgroundColor:'#0B0C0D'  },
   authContainer: { ...StyleSheet.absoluteFillObject, height: height, resizeMode: 'cover' },
   authLogoContainer: { alignItems: 'center' },
   authLogo: { width: 150, height: 130, resizeMode: 'contain', marginBottom: 25, },
-  authheading: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 44 : 34, color: colors.black, },
-  authdescription: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, fontSize: isIPad ? 22 : 17, color: colors.grey, marginBottom: 15 },
+  authheading: { fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 44 : 34, color: colors.white , fontWeight:'900' },
+  authdescription: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, fontSize: isIPad ? 22 : 17, color: colors.white, marginBottom: 15 },
   authSubmitButton: { backgroundColor: colors.orange, padding: 17, borderRadius: 30, marginTop: 15 },
   authSubmitButtonText: { color: colors.white, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 17 : 16, textAlign: 'center', textTransform: 'uppercase' },
 
-  authscreencontainer: { maxWidth: 500, marginLeft: 'auto', marginRight: 'auto' },
+  authscreencontainer: { maxWidth: 500, marginLeft: 'auto', marginRight: 'auto', color:colors.white },
 
   authbuttontext: { textTransform: 'uppercase', fontSize: 18, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, textAlign: 'center', color: colors.white },
-  inputbox: { backgroundColor: 'transparent', marginBottom: 5, borderRadius: 30, borderColor: 'grey', borderWidth: 1, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginTop: 15 },
-  inputfield: { paddingHorizontal: 15, paddingVertical: IOS ? 20 : 13, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, width: '100%', color: colors.black, fontSize: isIPad ? 17 : 14, textAlign: isRTL ? 'right' : 'left' },
+  inputbox: { backgroundColor: '#191B1D', marginBottom: 5, borderRadius: 10, borderColor: 'grey', borderWidth: 1, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginTop: 15 },
+  inputfield: { paddingHorizontal: 15, paddingVertical: IOS ? 20 : 13, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, width: '100%', fontSize: isIPad ? 17 : 14, textAlign: isRTL ? 'right' : 'left' },
   inputlabel: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, fontSize: 15, marginBottom: -5, marginLeft: 14, textAlign: isRTL ? 'right' : 'left' },
   alreadysignin: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, },
   errorField: { color: colors.red, fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, fontSize: 12, marginTop: 2, marginLeft: 15 },
@@ -32,7 +32,7 @@ const globalstyle = StyleSheet.create({
   // actionauthtext: { color: colors.black, fontFamily: isRTL ? fonts.arabicBold : fonts.primarySemiBold, fontSize: isIPad ? 18 : 14 },
   // authlefticon: { color: colors.deepblue },
   // showhideicontouch: { padding: 10, zIndex: 1, position: 'absolute', right: 10, },
-  showhideicon: { color: '#999' },
+  showhideicon: { color: '#999', },
 
   draweritemtext: { fontFamily: isRTL ? fonts.arabicMedium : fonts.primary, color: colors.white, fontSize: isIPad ? 19 : fontSize },
   draweritemrow: { flexDirection: 'row', paddingHorizontal: 15, paddingVertical: isRTL ? 13 : 12, borderBottomWidth: 1, borderBottomColor: isDarkMode ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.1)', borderLeftWidth: 4 },

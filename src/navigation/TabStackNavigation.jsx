@@ -72,8 +72,8 @@ function MyTabBar({ state, descriptors, navigation }) {
             style={{ flex: 1, justifyContent: 'center', height: 60, alignItems: 'center', backgroundColor: colors.headerbgcolor }}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Image style={{ height: 30, width: 20, resizeMode: 'contain', tintColor: isFocused ? colors.orange : 'black' }} source={label === 'Home' ? require('./../../assets/images/Icons/home.png') : label === 'Search' ? require('./../../assets/images/Icons/search.png') : require('./../../assets/images/Icons/profile.png')} />
-              <Text style={{ color: isFocused ? colors.orange : 'black', fontSize: 16, marginLeft: 5 }}>
+              <Image style={{ height: 30, width: 20, resizeMode: 'contain', tintColor: isFocused ? colors.orange : '#fff' }} source={label === 'Home' ? require('./../../assets/images/Icons/home.png') : label === 'Search' ? require('./../../assets/images/Icons/search.png') : require('./../../assets/images/Icons/profile.png')} />
+              <Text style={{ color: isFocused ? colors.orange : '#fff', fontSize: 16, marginLeft: 5 }}>
                 {label === 'HomeStack' ? 'Home' : label === 'ProfileStack' ? 'Profile' : label}
               </Text>
             </View>

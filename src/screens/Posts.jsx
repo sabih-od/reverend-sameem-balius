@@ -93,7 +93,7 @@ const Posts = (props) => {
     }
 
     return <SafeAreaView style={{ flex: 1, paddingBottom: 30, backgroundColor: colors.headerbgcolor }}>
-        <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
+        {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
         {loading && <View style={globalstyle.loadingview}>
             <ActivityIndicator color={isDarkMode ? colors.black : colors.black} style={{ marginBottom: 15 }} />
             <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
@@ -163,7 +163,7 @@ const Posts = (props) => {
                     }
                 </View>
                 <FlatList
-                    style={{ padding: 15 }}
+                    style={{ padding: 15,  }}
                     // horizontal
                     // snapToInterval={width / 2}
                     // scrollEnabled

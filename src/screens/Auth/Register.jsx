@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, I18nManager, Alert } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View, Text, TextInput, Image, TouchableOpacity, ImageBackground, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, I18nManager, Alert } from "react-native";
 // import { fonts } from "../../theme";
 import { useForm } from 'react-hook-form';
 import { IOS, backgroungImage, colorScheme, colors, fontSize, fonts, invertcolor, isIPad, isRTL } from "../../theme";
@@ -75,13 +75,13 @@ const Register = (props) => {
             isLoading(true);
             try {
                 const response = await fetch(process.env.API_BASE_URL ? process.env.API_BASE_URL + '/auth/signup' : 'https://reverendsameembalius.com:3013' + '/auth/signup', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(data),
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
                 });
-          
+
                 const result = await response.json();
                 console.log('result', result)
                 if (result?.success) {
@@ -91,13 +91,13 @@ const Register = (props) => {
                     props.SetUserInfo(result.data);
                     props.SetIsLogin(true);
                     showToast('success', result?.message)
-                  } 
-                  if(result?.statusCode === 409){
+                }
+                if (result?.statusCode === 409) {
                     showToast('error', result.message || 'Signup failed')
-                  }
-                } catch (error) {
-                  showToast('error', error.message || 'Signup failed'); // Show toast on error
-                } finally {
+                }
+            } catch (error) {
+                showToast('error', error.message || 'Signup failed'); // Show toast on error
+            } finally {
                 isLoading(false);
             }
         } else {
@@ -113,22 +113,29 @@ const Register = (props) => {
 
     const [showTermsModal, setShowTermsModal] = useState(false);
 
-    return <SafeAreaView style={{ flex: 1 }}>
+    return <SafeAreaView style={globalstyle.fullview}
+    // style={{ flex: 1 }}
+    >
         <Loader isLoading={loading} />
         <TermsAndConditionsModal visible={showTermsModal} setVisible={setShowTermsModal} />
-        <ImageBackground
-            style={[globalstyle.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}
-            source={require('./../../../assets/images/bgAuth.png')}>
+        
             <KeyboardAvoidingView behavior={IOS ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <ScrollView style={isIPad && globalstyle.authscreencontainer} showsVerticalScrollIndicator={false}>
+                    <ScrollView style={[isIPad && globalstyle.authscreencontainer, { backgroundColor: '#000',paddingHorizontal:30 }]} showsVerticalScrollIndicator={false}>
                         <View>
-                            <Text style={globalstyle.authheading}>{strings.SignUp}</Text>
-                            <Text style={globalstyle.authdescription}>{strings.SignUpDesc}</Text>
+                            <Text style={[globalstyle.authheading, { color: '#ffffff', marginBottom: 8 }]}>{strings.SignUp}</Text>
+                            <Text style={[globalstyle.authdescription, { color: '#ffffff', marginBottom: 18 }]}>{strings.SignUpDesc}</Text>
+                        </View>
+                        <View style={{ marginBottom: 25 }}>
+                            <Image
+                                source={require('./../../../assets/images/borderimg.png')} // Path to your local image
+                                style={{ display: 'flex', justifyContent: 'center', margin: 'auto', alignItems: 'center', width: 'auto' }}
+                            />
                         </View>
                         <View>
-                            <View style={globalstyle.inputbox}>
-                                <Icon style={globalstyle.authlefticon} name={'user'} size={18} />
+                            <Text style={{ color: '#fff', fontSize: 12  }}>First Name*</Text>
+                            <View style={[globalstyle.inputbox, {marginBottom:15}]}>
+                                {/* <Icon style={globalstyle.authlefticon} name={'user'} size={18} /> */}
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.firstName}
@@ -151,8 +158,10 @@ const Register = (props) => {
                                 />
                             </View>
                             {errors.first_name && <Text style={globalstyle.errorField}>{errors.first_name.message}</Text>}
-                            <View style={globalstyle.inputbox}>
-                                <Icon style={globalstyle.authlefticon} name={'user'} size={18} />
+                            <Text style={{color:'#fff', fontSize:12}}>Last Name*</Text>
+                            <View style={[globalstyle.inputbox, {marginBottom:15}]}>
+                            
+                                {/* <Icon style={globalstyle.authlefticon} name={'user'} size={18} /> */}
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.lastName}
@@ -175,9 +184,9 @@ const Register = (props) => {
                                 />
                             </View>
                             {errors.last_name && <Text style={globalstyle.errorField}>{errors.last_name.message}</Text>}
-
-                            <View style={globalstyle.inputbox}>
-                                <Icon style={globalstyle.authlefticon} name={'mail'} size={18} />
+                            <Text style={{color:'#fff', fontSize:12}}>Email Address*</Text>
+                            <View style={[globalstyle.inputbox, {marginBottom:15}]}>
+                                {/* <Icon style={globalstyle.authlefticon} name={'mail'} size={18} /> */}
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.email}
@@ -201,9 +210,9 @@ const Register = (props) => {
                                 />
                             </View>
                             {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
-
-                            <View style={globalstyle.inputbox}>
-                                <Icon style={globalstyle.authlefticon} name={'phone'} size={18} />
+                            <Text style={{color:'#fff', fontSize:12}}>Phone Number*</Text>
+                            <View style={[globalstyle.inputbox, {marginBottom:15}]}>
+                                {/* <Icon style={globalstyle.authlefticon} name={'phone'} size={18} /> */}
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.phoneNumber}
@@ -228,10 +237,11 @@ const Register = (props) => {
                                 />
                             </View>
                             {errors.phone && <Text style={globalstyle.errorField}>{errors.phone.message}</Text>}
-
-                            <View style={[globalstyle.inputbox, { justifyContent: 'space-between' }]}>
-                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <Icon style={globalstyle.authlefticon} name={'lock'} size={18} />
+                            <Text style={{color:'#fff', fontSize:12}}>Password*</Text>
+                            <View style={[globalstyle.inputbox, {marginBottom:15,justifyContent:'space-between'}]}>
+                                <View style={{ flexDirection: 'row',
+                                 alignItems: 'center' }}>
+                                    {/* <Icon style={globalstyle.authlefticon} name={'lock'} size={18} /> */}
                                     <TextInput
                                         style={[globalstyle.inputfield, { flex: 0.8 }]}
                                         placeholder={strings.password}
@@ -253,13 +263,13 @@ const Register = (props) => {
                                     // onSubmitEditing={() => input05.current.focus()}
                                     />
                                 </View>
-                                <TouchableOpacity activeOpacity={0.8} style={globalstyle.showhideicontouch} onPress={() => { setShowPassword(!showPassword) }}>
+                                <TouchableOpacity activeOpacity={0.8} style={[globalstyle.showhideicontouch,{justifyContent:'flex-end'}]} onPress={() => { setShowPassword(!showPassword) }}>
                                     <Icon name={!showPassword ? 'eye' : 'eye-off'} size={18} style={globalstyle.showhideicon} />
                                 </TouchableOpacity>
                             </View>
                             {errors.password && <Text style={globalstyle.errorField}>{errors.password.message}</Text>}
 
-                            <View style={{ marginTop: 15, marginBottom: 15 }}>
+                            <View>
                                 <TouchableOpacity
                                     activeOpacity={0.9}
                                     onPress={() => setChecked(!isChecked)}
@@ -271,11 +281,11 @@ const Register = (props) => {
                                         name={isChecked ? "check-circle" : "circle"}
                                         style={{ fontSize: isIPad ? 20 : fontSize, marginRight: 8, color: colors.orange }}
                                     />
-                                    <Text style={styles.termstext}>{strings.YesIAgree} </Text>
+                                    <Text style={[styles.termstext, { color: '#fff' }]}>{strings.YesIAgree} </Text>
                                     <TouchableOpacity
                                         activeOpacity={0.9}
                                         onPress={() => setShowTermsModal(true)}>
-                                        <Text style={styles.termstextbold}>{' '}{strings.TermsCondition}</Text>
+                                        <Text style={[styles.termstextbold, { color: '#fff' }]}>{' '}{strings.TermsCondition}</Text>
                                     </TouchableOpacity>
                                 </TouchableOpacity>
                             </View>
@@ -296,7 +306,7 @@ const Register = (props) => {
                     </ScrollView>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
-        </ImageBackground>
+        
     </SafeAreaView>
 }
 
