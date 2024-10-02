@@ -46,7 +46,7 @@ const HistoryList = (props) => {
     }, [props.getHistoryListResponse])
 
     return <SafeAreaView style={[globalstyle.fullview, { backgroundColor: colors.headerbgcolor, height: height, paddingBottom: 142 }]}>
-        <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
+        {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
         {loading && <View style={globalstyle.loadingview}>
             <ActivityIndicator color={isDarkMode ? colors.black : colors.black} style={{ marginBottom: 15 }} />
             <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>

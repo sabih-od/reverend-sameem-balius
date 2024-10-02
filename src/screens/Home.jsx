@@ -289,7 +289,7 @@ const Home = (props) => {
                 </TouchableOpacity> */}
                 {/* {drawerMenu.length > 0 && drawerMenu.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} mainStyle={{alignItems: 'center', justifyContent: 'center', borderLeftWidth: 0}} arrowStyle={{position: 'absolute', right: (width - 120)/2}} childrenStyle={{justifyContent: 'center', alignItems: 'center', borderLeftWidth: 0}} bulletStyle={{position: 'absolute', left: 20}} />)}
                 <DrawerItem key={100} item={{ title: strings.questionanswer, nav: 'QuestionAnswer' }} navigation={props.navigation} activescreen={props.currentScreen} mainStyle={{alignItems: 'center', justifyContent: 'center', borderLeftWidth: 0}} arrowStyle={{position: 'absolute', right: (width - 120)/2}} childrenStyle={{justifyContent: 'center', alignItems: 'center', borderLeftWidth: 0}} bulletStyle={{position: 'absolute', left: 20}} /> */}
- 
+
                 <FlatList
                     style={{ height: 380, }}
                     vertical
@@ -301,130 +301,130 @@ const Home = (props) => {
                     renderItem={({ item, index }) => {
                         return (
                             <TouchableOpacity
-                                style={{ backgroundColor: '#191B1D', width: '70%',paddingHorizontal:5, paddingVertical:5, height: 70, alignSelf: 'center', borderRadius: 10, marginTop: 10, flexDirection: 'row', alignItems: 'center', }}
+                                style={{ backgroundColor: '#191B1D', width: '70%', paddingHorizontal: 5, paddingVertical: 5, height: 70, alignSelf: 'center', borderRadius: 10, marginTop: 10, flexDirection: 'row', alignItems: 'center', }}
                                 activeOpacity={0.8}
                                 onPress={() => props.navigation.navigate('Posts', { item: item })}
                             >
-                               {item?.name === 'Mass' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/mass.jpg')} 
-    />
-}
-{item?.name === 'Homily' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/homily.jpg')} 
-    />
-}
-{item?.name === 'Lectures' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/lectures.jpg')} 
-    />
-}
-{item?.name === 'Meditation' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/meditations.jpg')} 
-    />
-}
-{item?.name === 'News' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/news.jpg')} 
-    />
-}
-{item?.name === 'Library' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/library.jpg')} 
-    />
-}
-{item?.name === 'Courses' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/courses.jpg')} 
-    />
-}
-{item?.name === 'Programs' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/programs.jpg')} 
-    />
-}
-{item?.name === 'Daily Rosary' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/dailyRosary.jpg')} 
-    />
-}
-{item?.name === 'Daily Bible' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/dailyBible.jpg')} 
-    />
-}
-{item?.name === 'Night Prayers' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/nightPrayers.jpg')} 
-    />
-}
-{item?.name === 'Bible Explain' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/storiesFromBible.jpg')} 
-    />
-}
-{item?.name === 'القداس' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/mass.jpg')} 
-    />
-}
-{item?.name === 'مواعظ' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/homily.jpg')} 
-    />
-}
-{item?.name === 'محاضرات' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/lectures.jpg')} 
-    />
-}
-{item?.name === 'تأملات' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/meditations.jpg')} 
-    />
-}
-{item?.name === 'الأخبار' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/news.jpg')} 
-    />
-}
-{item?.name === 'المكتبة' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/library.jpg')} 
-    />
-}
-{item?.name === 'كورسات أونلاين' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/courses.jpg')} 
-    />
-}
-{item?.name === 'البرامج' &&
-    <Image 
-     style={{ maxHeight: '100%', width: 70, borderRadius:10 }}
-        source={require('./../../assets/images/programs.jpg')} 
-    />
-}
+                                {item?.name === 'Mass' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/mass.jpg')}
+                                    />
+                                }
+                                {item?.name === 'Homily' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/homily.jpg')}
+                                    />
+                                }
+                                {item?.name === 'Lectures' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/lectures.jpg')}
+                                    />
+                                }
+                                {item?.name === 'Meditation' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/meditations.jpg')}
+                                    />
+                                }
+                                {item?.name === 'News' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/news.jpg')}
+                                    />
+                                }
+                                {item?.name === 'Library' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/library.jpg')}
+                                    />
+                                }
+                                {item?.name === 'Courses' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/courses.jpg')}
+                                    />
+                                }
+                                {item?.name === 'Programs' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/programs.jpg')}
+                                    />
+                                }
+                                {item?.name === 'Daily Rosary' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/dailyRosary.jpg')}
+                                    />
+                                }
+                                {item?.name === 'Daily Bible' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/dailyBible.jpg')}
+                                    />
+                                }
+                                {item?.name === 'Night Prayers' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/nightPrayers.jpg')}
+                                    />
+                                }
+                                {item?.name === 'Bible Explain' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/storiesFromBible.jpg')}
+                                    />
+                                }
+                                {item?.name === 'القداس' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/mass.jpg')}
+                                    />
+                                }
+                                {item?.name === 'مواعظ' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/homily.jpg')}
+                                    />
+                                }
+                                {item?.name === 'محاضرات' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/lectures.jpg')}
+                                    />
+                                }
+                                {item?.name === 'تأملات' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/meditations.jpg')}
+                                    />
+                                }
+                                {item?.name === 'الأخبار' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/news.jpg')}
+                                    />
+                                }
+                                {item?.name === 'المكتبة' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/library.jpg')}
+                                    />
+                                }
+                                {item?.name === 'كورسات أونلاين' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/courses.jpg')}
+                                    />
+                                }
+                                {item?.name === 'البرامج' &&
+                                    <Image
+                                        style={{ maxHeight: '100%', width: 70, borderRadius: 10 }}
+                                        source={require('./../../assets/images/programs.jpg')}
+                                    />
+                                }
 
 
                                 <View style={{ position: 'relative', zIndex: 1, paddingVertical: 5, paddingHorizontal: 15, }}>
@@ -436,9 +436,9 @@ const Home = (props) => {
                     }}
                 />
                 <Image
-            source={require('../../assets/images/borderimg.png')} // Path to your local image
-            style={{ display: 'flex', justifyContent: 'center', alignSelf: 'center', marginTop: 10, alignItems: 'center', width: '80%' }}
-        />
+                    source={require('../../assets/images/borderimg.png')} // Path to your local image
+                    style={{ display: 'flex', justifyContent: 'center', alignSelf: 'center', marginTop: 10, alignItems: 'center', width: '80%' }}
+                />
                 {/* <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => props.navigation.navigate('QuestionAnswer', { text: isTab })}
@@ -453,9 +453,9 @@ const Home = (props) => {
                         <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyBible}</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: rosaryItem[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange }}>
+                    {/* <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: rosaryItem[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange }}>
                         <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyRosary}</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 20, }}> */}
                     <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: bibleExplain[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange, }}>
                         <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.BibleExplain}</Text>

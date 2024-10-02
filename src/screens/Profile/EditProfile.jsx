@@ -268,7 +268,7 @@ const EditProfile = props => {
       /> */}
       <Loader isLoading={loading} />
       <SafeAreaView style={[globalstyle.fullview, {backgroundColor: colors.headerbgcolor, height: height, paddingBottom: 142}]}>
-      <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
+      {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
         
           <ScrollView showsVerticalScrollIndicator={false} style={{}}>
             {/* <View style={{ backgroundColor: colors.black, height: 400, width: '100%', top: 0, position: 'absolute', }}></View> */}
@@ -312,7 +312,7 @@ const EditProfile = props => {
                         { cancelable: true },
                       );
                     }}>
-                    <Icon name="camera" size={isIPad ? 20 : 18} color={colors.black} />
+                    <Icon name="camera" size={isIPad ? 20 : 18} color={colors.orange} />
                   </TouchableOpacity>
                 )}
               </View>
@@ -326,7 +326,7 @@ const EditProfile = props => {
             </TouchableOpacity> */}
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.drawerbg} name={'user'} size={18} />
+                <Icon color={colors.orange} name={'user'} size={18} />
                 <TextInput
                   style={globalstyle.inputfield}
                   placeholder={strings.firstName}
@@ -350,7 +350,7 @@ const EditProfile = props => {
               {errors.first_name && (<Text style={globalstyle.errorField}> {errors.first_name.message} </Text>)}
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.drawerbg} name={'user'} size={18} />
+                <Icon color={colors.orange} name={'user'} size={18} />
                 <TextInput
                   style={globalstyle.inputfield}
                   placeholder={strings.lastName}
@@ -374,7 +374,7 @@ const EditProfile = props => {
               {errors.last_name && (<Text style={globalstyle.errorField}> {errors.last_name.message} </Text>)}
 
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.drawerbg} name={'mail'} size={18} />
+                <Icon color={colors.orange} name={'mail'} size={18} />
                 <TextInput
                   style={globalstyle.inputfield}
                   defaultValue={user?.email}
@@ -401,7 +401,7 @@ const EditProfile = props => {
                 <Text style={globalstyle.errorField}>{errors.email.message}</Text>
               )}
               <View style={globalstyle.inputbox}>
-                <Icon color={colors.drawerbg} name={'phone'} size={18} />
+                <Icon color={colors.orange} name={'phone'} size={18} />
                 <TextInput
                   style={globalstyle.inputfield}
                   placeholder={strings.phoneNumber}
@@ -433,7 +433,7 @@ const EditProfile = props => {
                     { justifyContent: 'space-between' },
                   ]}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon color={colors.drawerbg} name={'lock'} size={18} />
+                    <Icon color={colors.orange} name={'lock'} size={18} />
                     <TextInput
                       style={[globalstyle.inputfield, { flex: 0.8 }]}
                       placeholder={strings.password}

@@ -82,7 +82,7 @@ const SearchPost = (props) => {
     }
 
     return <SafeAreaView style={[globalstyle.fullview, {backgroundColor: colors.headerbgcolor, height: height, paddingBottom: 142}]}>
-        <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} />
+        {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
         <SearchInput onSearch={_onSearch} value={props?.route?.params?.title} />
         {/* <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 15, }}>
 

@@ -224,13 +224,6 @@ const Login = (props) => {
 
 
                             </View>
-                            <View style={globalstyle.alreadysignin}>
-                                <Text style={globalstyle.alreadyaccount}>{strings.DontHaveAccount} </Text>
-                                <TouchableOpacity activeOpacity={0.8}
-                                    onPress={() => { props.navigation.navigate('Register') }}>
-                                    <Text style={globalstyle.actionauthtext}>{strings.SignUp}</Text>
-                                </TouchableOpacity>
-                            </View>
                         </View>
                     </View>
                 </TouchableWithoutFeedback>

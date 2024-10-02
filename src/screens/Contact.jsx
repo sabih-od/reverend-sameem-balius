@@ -73,7 +73,7 @@ const Contact = (props) => {
                         </View>
                         <View>
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.drawerbg} name={'user'} size={18} />
+                                <Icon color={colors.orange} name={'user'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.contactFullName}
@@ -96,7 +96,7 @@ const Contact = (props) => {
                             {errors.name && <Text style={globalstyle.errorField}>{errors.name.message}</Text>}
 
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.drawerbg} name={'mail'} size={18} />
+                                <Icon color={colors.orange} name={'mail'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.contactEmailAddress}
@@ -122,7 +122,7 @@ const Contact = (props) => {
                             {errors.email && <Text style={globalstyle.errorField}>{errors.email.message}</Text>}
 
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.drawerbg} name={'phone'} size={18} />
+                                <Icon color={colors.orange} name={'phone'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.contactPhoneNumber}
@@ -147,7 +147,7 @@ const Contact = (props) => {
                             {errors.phone && <Text style={globalstyle.errorField}>{errors.phone.message}</Text>}
 
                             {/* <View style={globalstyle.inputbox}>
-                                <Icon color={colors.drawerbg} name={'globe'} size={18} />
+                                <Icon color={colors.orange} name={'globe'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder="Your Company (Optional)"
@@ -168,7 +168,7 @@ const Contact = (props) => {
 
                             <View style={[globalstyle.inputbox, { justifyContent: 'space-between', borderRadius: 25 }]}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                    <Icon color={colors.drawerbg} name={'message-square'} size={18} style={{ marginTop: 15 }} />
+                                    <Icon color={colors.orange} name={'message-square'} size={18} style={{ marginTop: 15 }} />
                                     <TextInput
                                         style={[globalstyle.inputfield, { flex: 1, textAlignVertical: 'top', paddingTop: 17 }]}
                                         placeholder={strings.contactEnterMessage}
