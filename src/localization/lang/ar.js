@@ -111,7 +111,7 @@ export default {
   resend: 'إعادة الالتحاق',
 
   Loading: 'جاري التحميل الرجاءالانتظار',
-  DailyRosary: 'الوردية اليومية',
+  // DailyRosary: 'الوردية اليومية',
   DailyBible: 'الكتاب المقدس اليومي',
   NightPrayers: 'صلاة الليل',
   BibleExplain: 'شرح الكتاب المقدس',

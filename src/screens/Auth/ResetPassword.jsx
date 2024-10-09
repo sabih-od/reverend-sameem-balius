@@ -77,10 +77,10 @@ const ResetPassword = (props) => {
   return (
     <SafeAreaView style={globalstyle.fullview}>
       <Loader isLoading={loading} />
-      <ImageBackground
+      {/* <ImageBackground
         source={require('./../../../assets/images/bgAuth.png')}
         style={[globalstyle.authContainer, { justifyContent: "center", paddingHorizontal: 15 }]}
-      >
+      > */}
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "padding"}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={isIPad && globalstyle.authscreencontainer}>
@@ -91,7 +91,7 @@ const ResetPassword = (props) => {
               <View>
                 <View style={[globalstyle.inputbox, { justifyContent: "space-between" }]}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Icon color={colors.black} name={"lock"} size={18} />
+                    <Icon color={colors.orange} name={"lock"} size={18} />
                     <TextInput
                       style={[globalstyle.inputfield, { flex: 0.8 }]}
                       placeholder={strings.password}
@@ -132,7 +132,7 @@ const ResetPassword = (props) => {
             </View>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
-      </ImageBackground>
+      {/* </ImageBackground> */}
     </SafeAreaView>
   );
 };

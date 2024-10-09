@@ -91,8 +91,8 @@ const SubmitOTP = (props) => {
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
         {/* <ScrollView style={globalstyle.authContainer}> */}
-        <ImageBackground source={require('./../../../assets/images/bgAuth.png')}
-            style={[globalstyle?.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
+        {/* <ImageBackground source={require('./../../../assets/images/bgAuth.png')} */}
+            {/* style={[globalstyle?.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}> */}
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={isIPad && globalstyle.authscreencontainer}>
@@ -292,7 +292,7 @@ const SubmitOTP = (props) => {
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
             {/* </ScrollView> */}
-        </ImageBackground>
+        {/* </ImageBackground> */}
         {/* </ScrollView> */}
     </SafeAreaView>
 }

@@ -111,7 +111,7 @@ export default {
   resend: 'Resend',
 
   Loading: 'Loading. Please wait...',
-  DailyRosary: 'Daily Rosary',
+  // DailyRosary: 'Daily Rosary',
   DailyBible: 'Daily Bible',
   NightPrayers: 'Night Prayers',
   BibleExplain: 'Bible Explain',

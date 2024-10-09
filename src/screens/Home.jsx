@@ -249,49 +249,22 @@ const Home = (props) => {
             <ActivityIndicator color={isDarkMode ? colors.black : colors.black} style={{ marginBottom: 15 }} />
             <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
         </View>}
-        {/* <TouchableOpacity style={{ backgroundColor: colors.orange, paddingHorizontal: 10, paddingVertical: 10 }}>
-            <Text
-                style={{ fontFamily: fonts.primary, color: colors.white, textAlign: 'center' }}
-                onPress={() => {
-                    Linking.openURL('https://service.demowebsitelinks.com/viewer.html')
-                    // sendmes()
-                }}>Join Live Stream</Text>
-        </TouchableOpacity> */}
+     
         {/* <Image style={[{ width: width, height: height, position: 'absolute', zIndex: 0 }]} resizeMode="cover" source={backgroungImage} /> */}
-        <ImageBackground style={[styles.homebgimage, {}]} resizeMode="stretch"
-        // source={require('./../../assets/images/bgHome.png')}
-        >
+
             <View style={{ paddingVertical: 25, }} />
             <ScrollView
                 contentContainerStyle={{ paddingBottom: 25 }}
                 style={styles.homescollview}
                 showsVerticalScrollIndicator={false}
-                refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                }
+                // refreshControl={
+                //     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                // }
             >
 
-                {/* <Text>{colorScheme}</Text> */}
-                {/* {imagePath && <Image source={{ uri: Platform.OS === 'android' ? 'file://' + imagePath : '' + imagePath }} style={{ width: width, height: height }} />}
-                <Button title="Download Audio" onPress={downloadimage} /> */}
-
-                {/* {draweritems.map((item, index) => <>
-                    <TouchableOpacity key={index} onPress={() => props.navigation.navigate(item.nav)}>
-                        <Text>{item.title}</Text>
-                    </TouchableOpacity>
-                    {item.children && item.children.map((subitem, index) => <TouchableOpacity onPress={() => props.navigation.navigate(subitem.nav)}>
-                        <Text>{'   '}{subitem.title}</Text>
-                    </TouchableOpacity>)}
-                </>)} */}
-
-                {/* <TouchableOpacity onPress={() => props.navigation.navigate('AudioPlayer')}>
-                    <Text>Audio Player</Text>
-                </TouchableOpacity> */}
-                {/* {drawerMenu.length > 0 && drawerMenu.map((item, index) => <DrawerItem key={index} item={item} navigation={props.navigation} activescreen={props.currentScreen} mainStyle={{alignItems: 'center', justifyContent: 'center', borderLeftWidth: 0}} arrowStyle={{position: 'absolute', right: (width - 120)/2}} childrenStyle={{justifyContent: 'center', alignItems: 'center', borderLeftWidth: 0}} bulletStyle={{position: 'absolute', left: 20}} />)}
-                <DrawerItem key={100} item={{ title: strings.questionanswer, nav: 'QuestionAnswer' }} navigation={props.navigation} activescreen={props.currentScreen} mainStyle={{alignItems: 'center', justifyContent: 'center', borderLeftWidth: 0}} arrowStyle={{position: 'absolute', right: (width - 120)/2}} childrenStyle={{justifyContent: 'center', alignItems: 'center', borderLeftWidth: 0}} bulletStyle={{position: 'absolute', left: 20}} /> */}
-
+                
                 <FlatList
-                    style={{ height: 380, }}
+                    style={{ height: 480, }}
                     vertical
                     showsVerticalScrollIndicator={false}
                     data={filteredCategories}
@@ -434,289 +407,46 @@ const Home = (props) => {
                             </TouchableOpacity>
                         )
                     }}
-                />
+                /> 
                 <Image
                     source={require('../../assets/images/borderimg.png')} // Path to your local image
-                    style={{ display: 'flex', justifyContent: 'center', alignSelf: 'center', marginTop: 10, alignItems: 'center', width: '80%' }}
+                    style={{ display: 'flex', justifyContent: 'center', alignSelf: 'center', marginTop: 10,  alignItems: 'center', width: '80%' }}
                 />
-                {/* <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => props.navigation.navigate('QuestionAnswer', { text: isTab })}
-                >
-                    <View style={{ position: 'relative', zIndex: 1, paddingTop: 5, paddingHorizontal: 15 }}>
-                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, textAlign: 'center', color: colors.black, fontSize: 18 }}>{strings.questionanswer}</Text>
-                    </View>
-                </TouchableOpacity> */}
+               
 
-                <View style={{ alignItems: 'center', justifyContent: 'space-evenly', gap: 10, marginTop: 20 }}>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: dailyBible[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange, }}>
-                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyBible}</Text>
+                <View style={{ alignItems: 'center', justifyContent: 'space-evenly',  flexDirection:'row',  marginTop:50,}}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: dailyBible[0] })} activeOpacity={0.8} style={{
+                        //  height: 50, width: (width - 90) / 2,
+                    //  borderRadius: 25, borderWidth: 1,
+                      alignItems: 'center', justifyContent: 'center',
+                      borderColor: colors.orange,
+                      }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.white, fontSize: 14, fontWeight: '700', textAlign: 'center' }}>{strings.DailyBible}</Text>
                     </TouchableOpacity>
 
                     {/* <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: rosaryItem[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange }}>
                         <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyRosary}</Text>
                     </TouchableOpacity> */}
                     {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 20, }}> */}
-                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: bibleExplain[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange, }}>
-                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.BibleExplain}</Text>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: bibleExplain[0] })} activeOpacity={0.8} style={{ 
+                        // height: 50, width: (width - 90) / 2,
+                    //  borderRadius: 25, borderWidth: 1,
+                      alignItems: 'center', justifyContent: 'center', borderColor: colors.orange, }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.white, fontSize: 14, fontWeight: '700', textAlign: 'center' }}>{strings.BibleExplain}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: nightPrayers[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 22, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange }}>
-                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.NightPrayers}</Text>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: nightPrayers[0] })} activeOpacity={0.8} style={{
+                        //  height: 50, width: (width - 90) / 2, 
+                    // borderRadius: 22, borderWidth: 1,
+                     alignItems: 'center', justifyContent: 'center', borderColor: colors.orange }}>
+                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.white, fontSize: 14, fontWeight: '700', textAlign: 'center' }}>{strings.NightPrayers}</Text>
                     </TouchableOpacity>
                 </View>
 
-                {/* </View> */}
-
-
-                {/* {dailies && <View style={{ paddingHorizontal: 15, marginTop: 15 }}>
-                    <MainBox item={dailies} />
-                </View>} */}
-
-                {/* {featuredList.length > 0 && <>
-                    <View style={{ paddingHorizontal: 15 }}>
-                        <Seperator />
-                        <SectionHeading title={isRTL ? 'متميز' : 'Featured'} joined={false} />
-                    </View>
-                    <FlatList
-                        horizontal
-                        snapToInterval={width / 2}
-                        scrollEnabled
-                        scrollEventThrottle={16}
-                        contentContainerStyle={{ paddingHorizontal: 15 }}
-                        ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
-                        showsHorizontalScrollIndicator={false}
-                        // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                        //     { useNativeDriver: false }
-                        // )}
-                        data={featuredList}
-                        keyExtractor={item => String(item.id)}
-                        renderItem={({ item, index }) => {
-                            // console.log('item => ', item)
-                            return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
-                        }}
-                    />
-                </>} */}
-
-                {/* {spiritual.length > 0 && <>
-                    <View style={{ paddingHorizontal: 15 }}>
-                        <Seperator />
-                        <SectionHeading title={strings.Spiritual} joined={false} />
-                    </View>
-                    <FlatList
-                        horizontal
-                        snapToInterval={width / 2}
-                        scrollEnabled
-                        scrollEventThrottle={16}
-                        contentContainerStyle={{ paddingHorizontal: 15 }}
-                        ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
-                        showsHorizontalScrollIndicator={false}
-                        // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                        //     { useNativeDriver: false }
-                        // )}
-                        data={spiritual}
-                        keyExtractor={item => String(item.id)}
-                        renderItem={({ item, index }) => {
-                            // console.log('item => ', item)
-                            return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
-                        }}
-                    />
-                </>} */}
-
-                {/* {biblical.length > 0 && <>
-                    <View style={{ paddingHorizontal: 15 }}>
-                        <Seperator />
-                        <SectionHeading title={strings.Biblical} joined={false} />
-                    </View>
-                    <FlatList
-                        horizontal
-                        snapToInterval={width / 2}
-                        scrollEnabled
-                        scrollEventThrottle={16}
-                        contentContainerStyle={{ paddingHorizontal: 15 }}
-                        ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
-                        showsHorizontalScrollIndicator={false}
-                        // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                        //     { useNativeDriver: false }
-                        // )}
-                        data={biblical}
-                        keyExtractor={item => String(item.id)}
-                        renderItem={({ item, index }) => {
-                            // console.log('item => ', item)
-                            return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
-                        }}
-                    />
-                </>} */}
-
-                {/* {audio.length > 0 && <>
-                    <View style={{ paddingHorizontal: 15 }}>
-                        <Seperator />
-                        <SectionHeading title={strings.Audios} joined={false} />
-                    </View>
-                    <View style={{ paddingHorizontal: 15, marginBottom: -10 }}>
-                        {audio && audio.length > 0 && audio.map((item, index) => {
-                            return (
-                                <SectionItem
-                                    key={index}
-                                    item={item}
-                                    // width={isIPad ? (width / 3) - 20 : (width / 2) - 22}
-                                    width={width - 100}
-                                    navigation={props.navigation}
-                                    audio={true}
-                                    audiodetail={true}
-                                // hideicon={props.route.params.item.id == 10 ? false : true}
-                                />
-                            );
-                        })}
-                    </View>
-                    </>} */}
-
-
-                {/* <FlatList
-                        // horizontal
-                        // snapToInterval={width / 2}
-                        scrollEnabled
-                        scrollEventThrottle={16}
-                        contentContainerStyle={{ paddingHorizontal: 15 }}
-                        ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
-                        showsHorizontalScrollIndicator={false}
-                        // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                        //     { useNativeDriver: false }
-                        // )}
-                        data={audio}
-                        keyExtractor={item => String(item.id)}
-                        renderItem={({ item, index }) => {
-                            // console.log('item => ', item)
-                            // return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
-                            return (<SectionItem
-                                key={index}
-                                item={item}
-                                // width={isIPad ? (width / 3) - 20 : (width / 2) - 22}
-                                width={width - 100}
-                                navigation={props.navigation}
-                                audio={true}
-                                // hideicon={props.route.params.item.id == 10 ? false : true}
-                            />)
-                        }}
-                    /> */}
-
-
-                {/* categories section in notes */}
-
-                {/* {news.length > 0 && <>
-                    <View style={{ paddingHorizontal: 15 }}>
-                        <Seperator />
-                        <SectionHeading title={isRTL ? 'الأخبار' : 'News'} joined={false} />
-                    </View>
-                    <FlatList
-                        horizontal
-                        snapToInterval={width / 2}
-                        scrollEnabled
-                        scrollEventThrottle={16}
-                        contentContainerStyle={{ paddingHorizontal: 15 }}
-                        ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
-                        showsHorizontalScrollIndicator={false}
-                        // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                        //     { useNativeDriver: false }
-                        // )}
-                        data={news}
-                        keyExtractor={item => String(item.id)}
-                        renderItem={({ item, index }) => {
-                            // console.log('item => ', item)
-                            return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
-                        }}
-                    />
-                </>} */}
-
-
-                {/* <View style={{ paddingHorizontal: 15 }}>
-                    <Seperator />
-                    <SectionHeading title={'Join the conscration'} joined={true} />
-                    <MainTopBox dayspending={12} />
-                    <Seperator />
-                </View> */}
-
-                {/* <SectionHeading title={isRTL ? 'دراسة الكتاب المقدس' : 'Bible Study'} joined={false} />
-                <FlatList
-                    horizontal
-                    snapToInterval={width / 2}
-                    scrollEnabled
-                    scrollEventThrottle={16}
-                    ItemSeparatorComponent={() => <View style={14} />}
-                    showsHorizontalScrollIndicator={false}
-                    // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                    //     { useNativeDriver: false }
-                    // )}
-                    data={nightroutine}
-                    keyExtractor={item => String(item.id)}
-                    renderItem={({ item, index }) => {
-                        return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
-                    }}
-                />
-                <Seperator /> */}
-
-
-                {/* <TryPlus navigation={props.navigation} /> */}
-                {/* <Seperator /> */}
-
-                {/* <SectionHeading title={'Evening Horizontal'} joined={false} />
-                <FlatList
-                    horizontal
-                    snapToInterval={width - 50}
-                    scrollEnabled
-                    scrollEventThrottle={16}
-                    ItemSeparatorComponent={() => <View style={14} />}
-                    showsHorizontalScrollIndicator={false}
-                    // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                    //     { useNativeDriver: false }
-                    // )}
-                    data={nightroutine}
-                    keyExtractor={item => String(item.id)}
-                    renderItem={({ item, index }) => {
-                        return (<RoutineBoxHorizontal key={index} item={item} navigation={props.navigation} />)
-                    }}
-                />
-                <Seperator /> */}
-
-                {/* <SectionHeading title={'Evening Routines'} joined={true} />
-                <FlatList
-                    horizontal
-                    snapToInterval={width / 2}
-                    scrollEnabled
-                    scrollEventThrottle={16}
-                    ItemSeparatorComponent={() => <View style={14} />}
-                    showsHorizontalScrollIndicator={false}
-                    // onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                    //     { useNativeDriver: false }
-                    // )}
-                    data={nightroutine}
-                    keyExtractor={item => String(item.id)}
-                    renderItem={({ item, index }) => {
-                        return (<RoutineBox key={index} item={item} navigation={props.navigation} />)
-                    }}
-                />
-                <View style={{ paddingBottom: 30 }} /> */}
-
+            
             </ScrollView>
-            {/* <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: colors.deepblue, padding: 20}}>
-                <TouchableOpacity style={{alignItems: 'center'}}>
-                    <Icon size={30} name="home" color={colors.white} />
-                    <Text style={{fontFamily: fonts.primarySemiBold, fontSize: 18, color: colors.white}}>Home</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{alignItems: 'center'}}>
-                    <Icon size={30} name="activity" color={colors.white} />
-                    <Text style={{fontFamily: fonts.primarySemiBold, fontSize: 18, color: colors.white}}>Meditate</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{alignItems: 'center'}}>
-                    <Icon size={30} name="music" color={colors.white} />
-                    <Text style={{fontFamily: fonts.primarySemiBold, fontSize: 18, color: colors.white}}>Music</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{alignItems: 'center'}}>
-                    <Icon size={30} name="user" color={colors.white} />
-                    <Text style={{fontFamily: fonts.primarySemiBold, fontSize: 18, color: colors.white}}>User</Text>
-                </TouchableOpacity>
-            </View> */}
+           
             <View style={{ paddingBottom: 30 }} />
-        </ImageBackground>
+
         <View style={{ paddingBottom: IOS ? 150 : 30 }} />
     </SafeAreaView >
 }

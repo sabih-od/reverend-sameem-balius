@@ -51,8 +51,8 @@ const ForgetPassword = (props) => {
     return <SafeAreaView style={globalstyle.fullview}>
         <Loader isLoading={loading} />
         {/* <ScrollView style={globalstyle.authContainer}> */}
-        <ImageBackground source={require('./../../../assets/images/bgAuth.png')}
-            style={[globalstyle?.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}>
+        {/* <ImageBackground source={require('./../../../assets/images/bgAuth.png')}
+            style={[globalstyle?.authContainer, { justifyContent: 'center', paddingHorizontal: 15 }]}> */}
             {/* <ScrollView> */}
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -65,7 +65,7 @@ const ForgetPassword = (props) => {
                         <View>
 
                             <View style={globalstyle.inputbox}>
-                                <Icon color={colors.drawerbg} name={'mail'} size={18} />
+                                <Icon color={colors.orange} name={'mail'} size={18} />
                                 <TextInput
                                     style={globalstyle.inputfield}
                                     placeholder={strings.email}
@@ -99,7 +99,7 @@ const ForgetPassword = (props) => {
                     </View>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
-        </ImageBackground>
+        {/* </ImageBackground> */}
         {/* </ScrollView> */}
     </SafeAreaView>
 }
