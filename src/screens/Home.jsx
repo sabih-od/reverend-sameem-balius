@@ -5,45 +5,43 @@ import {
   View,
   Text,
   FlatList,
-  ImageBackground,
+  // ImageBackground,
   StyleSheet,
-  Platform,
-  Button,
+  // Platform,
+  // Button,
   Image,
-  useColorScheme,
-  RefreshControl,
-  Linking,
+  // useColorScheme,
+  // RefreshControl,
+  // Linking,
   ActivityIndicator,
-  Dimensions,
+  // Dimensions,
 } from 'react-native';
 import {
   IOS,
-  backgroungImage,
-  colorScheme,
+  // backgroungImage,
+  // colorScheme,
   colors,
   fonts,
   height,
   isDarkMode,
-  isIPad,
+  // isIPad,
   isRTL,
-  width,
+  // width,
 } from '../theme';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
-import Icon from 'react-native-vector-icons/Feather';
-import nightroutine from '../data/nightly-routines';
-import RoutineBox from '../components/RoutineBox';
-import MainBox from '../components/MainBox';
-import Seperator from '../components/Seperator';
-import SectionHeading from '../components/SectionHeading';
-import MainTopBox from '../components/MainTopBox';
-import RoutineBoxHorizontal from '../components/RoutineBoxHorizontal';
-import SectionItem from '../components/SectionItem';
+// import Icon from 'react-native-vector-icons/Feather';
+// import nightroutine from '../data/nightly-routines';
+// import RoutineBox from '../components/RoutineBox';
+// import MainBox from '../components/MainBox';
+// import Seperator from '../components/Seperator';
+// import SectionHeading from '../components/SectionHeading';
+// import MainTopBox from '../components/MainTopBox';
+// import RoutineBoxHorizontal from '../components/RoutineBoxHorizontal';
+// import SectionItem from '../components/SectionItem';
 import globalstyle from '../theme/style';
-import draweritems from '../navigation/draweritems';
-
-import RNFS from 'react-native-fs';
-import ReactNativeBlobUtil from 'react-native-blob-util';
+// import draweritems from '../navigation/draweritems';
+// import RNFS from 'react-native-fs';
+// import ReactNativeBlobUtil from 'react-native-blob-util';
 import {connect} from 'react-redux';
 import {
   GetDailiesList,
@@ -56,28 +54,27 @@ import {
 } from '../redux/reducers/ListingApiStateReducer';
 import {bindActionCreators} from 'redux';
 import strings from '../localization/translation';
-import LinearGradient from 'react-native-linear-gradient';
-import TryPlus from '../components/TryPlus';
-import axios from 'axios';
+// import LinearGradient from 'react-native-linear-gradient';
+// import TryPlus from '../components/TryPlus';
+// import axios from 'axios';
 import {addListener, getSocket} from '../helpers/socket-manager';
 import {showToast} from '../helpers/toastConfig';
-import {useNavigation} from '@react-navigation/native';
-import DrawerItem from '../components/drawer/DrawerItem';
+// import {useNavigation} from '@react-navigation/native';
+// import DrawerItem from '../components/drawer/DrawerItem';
 
 const Home = props => {
-  const navigation = useNavigation();
-
-  const [imagePath, setImagePath] = useState(null);
-  const [isTab, setIsTab] = useState('');
+  // const navigation = useNavigation();
+  // const [imagePath, setImagePath] = useState(null);
+  // const [isTab, setIsTab] = useState('');
   const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
+  // const [refreshing, setRefreshing] = useState(false);
   // const colorScheme = useColorScheme();
 
   // const filename = Math.round(Math.random() * 10000000)
   // const path = `${RNFS.DocumentDirectoryPath}/${filename}`;
   // const url = 'https://www.w3schools.com/html/horse.mp3';
-  const url =
-    'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60';
+  // const url =
+  //   'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60';
 
   const socket = getSocket();
   useEffect(() => {
@@ -94,12 +91,12 @@ const Home = props => {
     };
   }, [socket]);
 
-  function sendmes() {
-    socket?.emit('testmsg', {
-      id: props.userInfo.id == 3 ? 9 : 3,
-      message: 'Hello Dear',
-    });
-  }
+  // function sendmes() {
+  //   socket?.emit('testmsg', {
+  //     id: props.userInfo.id == 3 ? 9 : 3,
+  //     message: 'Hello Dear',
+  //   });
+  // }
 
   useEffect(() => {
     // if (!IOS) {
@@ -247,40 +244,40 @@ const Home = props => {
       item?.name !== 'Daily Bible',
   );
 
-  const rosaryItem = categories.filter(item => item?.name === 'Daily Rosary');
-  const rosayName = rosaryItem.map(item => item?.name);
+  // const rosaryItem = categories.filter(item => item?.name === 'Daily Rosary');
+  // const rosayName = rosaryItem.map(item => item?.name);
 
   const dailyBible = categories.filter(item => item?.name === 'Daily Bible');
-  const dailyBibleName = dailyBible.map(item => item?.name);
+  // const dailyBibleName = dailyBible.map(item => item?.name);
 
   const nightPrayers = categories.filter(
     item => item?.name === 'Night Prayers',
   );
-  const nightPrayersName = nightPrayers.map(item => item?.name);
+  // const nightPrayersName = nightPrayers.map(item => item?.name);
 
   const bibleExplain = categories.filter(
     item => item?.name === 'Bible Explain',
   );
-  const bibleExplainName = bibleExplain.map(item => item?.name);
+  // const bibleExplainName = bibleExplain.map(item => item?.name);
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
+  // const onRefresh = useCallback(() => {
+  //   setRefreshing(true);
 
-    initialHit();
+  //   initialHit();
 
-    // props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
-    // // props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
-    // props.GetPostsList({ pageno: 1, limit: PAGINATION_LIMIT });
-    // props.GetSermonsList({ pageno: 1, limit: PAGINATION_LIMIT });
-    // props.GetOurSpeakerList({ pageno: 1, limit: PAGINATION_LIMIT });
-    // props.GetOurStaffList({ pageno: 1, limit: PAGINATION_LIMIT });
-    // props.GetHomeBanner();
+  //   // props.GetEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
+  //   // // props.GetUpcomingEventsList({ pageno: 1, limit: PAGINATION_LIMIT });
+  //   // props.GetPostsList({ pageno: 1, limit: PAGINATION_LIMIT });
+  //   // props.GetSermonsList({ pageno: 1, limit: PAGINATION_LIMIT });
+  //   // props.GetOurSpeakerList({ pageno: 1, limit: PAGINATION_LIMIT });
+  //   // props.GetOurStaffList({ pageno: 1, limit: PAGINATION_LIMIT });
+  //   // props.GetHomeBanner();
 
-    // props.GetSermonsDetailApiCall(item.id)
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, []);
+  //   // props.GetSermonsDetailApiCall(item.id)
+  //   setTimeout(() => {
+  //     setRefreshing(false);
+  //   }, 2000);
+  // }, []);
 
   return (
     <SafeAreaView
@@ -333,10 +330,10 @@ const Home = props => {
           <Text style={globalstyle.noproductfound}>{strings.Loading}</Text>
         </View>
       )}
-      <ScrollView
-        contentContainerStyle={{paddingBottom: 25}}
+      <View
+        // contentContainerStyle={{paddingBottom: 25}}
         style={styles.homescollview}
-        showsVerticalScrollIndicator={false}
+        // showsVerticalScrollIndicator={false}
         // refreshControl={
         //     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         // }
@@ -349,7 +346,7 @@ const Home = props => {
           contentContainerStyle={{paddingHorizontal: 15}}
           ItemSeparatorComponent={() => <View style={{width: 12}} />}
           keyExtractor={item => String(item?.id)}
-          renderItem={({item, index}) => {
+          renderItem={({item}) => {
             return (
               <TouchableOpacity
                 style={{
@@ -559,8 +556,8 @@ const Home = props => {
           </TouchableOpacity>
 
           {/* <TouchableOpacity onPress={() => props.navigation.navigate('Posts', { item: rosaryItem[0] })} activeOpacity={0.8} style={{ height: 50, width: (width - 90) / 2, borderRadius: 25, borderWidth: 1, alignItems: 'center', justifyContent: 'center', borderColor: colors.orange }}>
-                        <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyRosary}</Text>
-                    </TouchableOpacity> */}
+                <Text style={{ fontFamily: isRTL ? fonts.arabicMedium : fonts.primaryMedium, color: colors.orange, fontSize: 12, fontWeight: '700', textAlign: 'center' }}>{strings.DailyRosary}</Text>
+              </TouchableOpacity> */}
           {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 20, }}> */}
           <TouchableOpacity
             onPress={() =>
@@ -617,10 +614,8 @@ const Home = props => {
             </Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-
+      </View>
       <View style={{paddingBottom: 30}} />
-
       <View style={{paddingBottom: IOS ? 150 : 30}} />
     </SafeAreaView>
   );

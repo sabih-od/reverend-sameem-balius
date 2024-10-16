@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
 socket = null
 
 export function connectSocket(userid) {
-    console.log('SOCKET_URL => ', process.env.SOCKET_URL);
+    // console.log('SOCKET_URL => ', process.env.SOCKET_URL);
 
     socket = io('http://172.17.2.194:8024', { query: { 'userid': userid } });
 
@@ -46,7 +46,7 @@ export function emit(eventName, data) {
 }
 
 export function addListener(eventName, callback) {
-    console.log('eventName => ', eventName)
+    // console.log('eventName => ', eventName)
     if (socket) {
         socket.on(eventName, callback);
     }
